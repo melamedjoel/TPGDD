@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data.SqlClient;
+using System.Data;
+
+namespace Clases
+{
+    class Rubro : Base 
+    {
+        List<SqlParameter> parameterList = new List<SqlParameter>();
+
+        #region atributos
+        private int _id_Rubro;
+        private string _Descripcion;
+        private bool _Activo;
+
+        #endregion
+
+        #region properties
+        public int id_Rubro
+        {
+            get { return _id_Rubro; }
+            set { _id_Rubro = value; }
+        }
+        public string Descripcion
+        {
+            get { return _Descripcion; }
+            set { _Descripcion = value; }
+        }
+        public bool Activo
+        {
+            get { return _Activo; }
+            set { _Activo = value; }
+        }
+
+        #endregion
+
+        #region metodos publicos
+        public override string NombreTabla()
+        {
+            return "Rubros";
+        }
+
+        public override string NombreEntidad()
+        {
+            return "Rubro";
+        }
+
+        public override void DataRowToObject(DataRow dr)
+        {
+            // Esto es tal cual lo devuelve el stored de la DB
+            this.id_Rubro = Convert.ToInt32(dr["id_Rubro"]);
+            this.Descripcion = dr["Descripcion"].ToString();
+            this.Activo = Convert.ToBoolean(dr["Activo"]);
+        }
+
+
+        #endregion
+
+        #region metodos privados
+
+        #endregion
+    }
+}
