@@ -7,7 +7,7 @@ using System.Data;
 
 namespace Clases
 {
-    class Calificacion : Base
+    public class Calificacion : Base
     {
         List<SqlParameter> parameterList = new List<SqlParameter>();
 

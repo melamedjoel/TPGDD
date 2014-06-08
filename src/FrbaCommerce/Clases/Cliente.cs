@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Clases
 {
-    class Cliente : Base
+    public class Cliente : Base
     {
         List<SqlParameter> parameterList = new List<SqlParameter>();
     

@@ -1,0 +1,12 @@
+DROP PROCEDURE ATJ.updateCliente;
+DROP PROCEDURE ATJ.traerClientePorFiltro;
+DROP PROCEDURE ATJ.traerEmpresaPorFiltro;
+DROP PROCEDURE ATJ.updateEmpresa;
+DROP PROCEDURE ATJ.updateVisibilidad;
+DROP PROCEDURE ATJ.traerPublicacionesPorFiltro;
+DROP PROCEDURE ATJ.traerPreguntasNoRespondidasPorUsuario;
+DROP PROCEDURE ATJ.updatePregunta;
+DROP PROCEDURE ATJ.traerPreguntasRespondidasPorUsuario;
+DROP PROCEDURE ATJ.traerPublicacionPorCodigo;
+DROP PROCEDURE ATJ.traerVendedorPorId_Usuario;
+drop procedure atj.updatepublicacion

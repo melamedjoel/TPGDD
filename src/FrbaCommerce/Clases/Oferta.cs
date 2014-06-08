@@ -7,7 +7,7 @@ using System.Data;
 
 namespace Clases
 {
-    class Oferta : Base
+    public class Oferta : Base
     {
         List<SqlParameter> parameterList = new List<SqlParameter>();
 

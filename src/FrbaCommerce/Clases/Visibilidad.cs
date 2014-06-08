@@ -7,7 +7,7 @@ using System.Data;
 
 namespace Clases
 {
-    class Visibilidad : Base
+    public class Visibilidad : Base
     {
         List<SqlParameter> parameterList = new List<SqlParameter>();
 

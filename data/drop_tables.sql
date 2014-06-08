@@ -1,29 +1,3 @@
--------drop procedures first thing to do
-
-DROP PROCEDURE [ATJ].[traerListadoRoles] 
-DROP PROCEDURE ATJ.traerUsuarioPorUsernameYClave;
-DROP PROCEDURE ATJ.traerUsuarioPorUsername;
-DROP PROCEDURE [ATJ].[traerListadoRolesPorId_Usuario];
-DROP PROCEDURE [ATJ].[deshabilitarUsuario];
-DROP PROCEDURE [ATJ].[updateUsuario];
-
-DROP PROCEDURE ATJ.updateCliente;
-DROP PROCEDURE ATJ.traerClientePorFiltro;
-DROP PROCEDURE ATJ.traerEmpresaPorFiltro;
-DROP PROCEDURE ATJ.updateEmpresa;
-DROP PROCEDURE ATJ.updateVisibilidad;
-DROP PROCEDURE ATJ.traerPublicacionesPorFiltro;
-DROP PROCEDURE ATJ.traerPreguntasNoRespondidasPorUsuario;
-DROP PROCEDURE ATJ.updatePregunta;
-DROP PROCEDURE ATJ.traerPreguntasRespondidasPorUsuario;
-DROP PROCEDURE ATJ.traerPublicacionPorCodigo;
-DROP PROCEDURE ATJ.traerVendedorPorId_Usuario;
-
-
-
------- drop tables last thing to do
-
-
 drop table ATJ.Calificaciones
 drop table ATJ.Clientes
 drop table ATJ.Compras 
