@@ -79,17 +79,17 @@
     <Compile Include="Abm Empresa\ListadoEmpresas.Designer.cs">
       <DependentUpon>ListadoEmpresas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rol\frmRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\frmRol.Designer.cs">
+      <DependentUpon>frmRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rol\ListadoRoles.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Rol\ListadoRoles.Designer.cs">
+    <Compile Include="Abm Rol\ListadoRoles.designer.cs">
       <DependentUpon>ListadoRoles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Rol\Rol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\Rol.Designer.cs">
-      <DependentUpon>Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rubro\ListadoRubros.cs">
       <SubType>Form</SubType>
@@ -189,11 +189,11 @@
     <EmbeddedResource Include="Abm Empresa\ListadoEmpresas.resx">
       <DependentUpon>ListadoEmpresas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\frmRol.resx">
+      <DependentUpon>frmRol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\ListadoRoles.resx">
       <DependentUpon>ListadoRoles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rol\Rol.resx">
-      <DependentUpon>Rol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rubro\ListadoRubros.resx">
       <DependentUpon>ListadoRubros.cs</DependentUpon>

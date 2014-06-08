@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
-
 namespace Clases
 {
     public class Funcionalidad : Base
     {
+        List<SqlParameter> parameterList = new List<SqlParameter>();
+
         #region atributos
         private int _id_Funcionalidad;
         private string _nombre;
@@ -45,8 +46,23 @@ namespace Clases
             this.Nombre = dr["Nombre"].ToString();
         }
 
+        public static DataSet ObtenerFuncionalidadesPorRol(int id_Rol)
+        {
+            Funcionalidad miFunc = new Funcionalidad();
+            miFunc.setearListaDeParametrosConIdRol(id_Rol);
+            DataSet ds = miFunc.TraerListado(miFunc.parameterList, "PorId_Rol");
+            miFunc.parameterList.Clear();
+            return ds;
+        }
 
         #endregion
+
+        #region metodos privados
+        public void setearListaDeParametrosConIdRol(int id_Rol)
+        {
+            parameterList.Add(new SqlParameter("@id_Rol", id_Rol));
+        }
+        #endregion 
 
     }
 }

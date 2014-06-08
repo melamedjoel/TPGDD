@@ -134,7 +134,6 @@
             this.Controls.Add(this.lblNombre);
             this.Name = "frmRol";
             this.Text = "Rol";
-            this.Load += new System.EventHandler(this.Rol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

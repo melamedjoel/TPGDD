@@ -59,4 +59,3 @@ _ReSharper.*
 # My specific Visual Studio
 *.vsp
 *.psess
-*/App.config

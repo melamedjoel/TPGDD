@@ -68,8 +68,12 @@ namespace Clases
         {
             Rol unRol = new Rol();
             unRol.setearListaDeParametrosConIdUsuario(id_Usuario);
-            return unRol.TraerListado(unRol.parameterList, "PorId_Usuario");
+            DataSet ds = unRol.TraerListado(unRol.parameterList, "PorId_Usuario");
+            unRol.parameterList.Clear();
+
+            return ds;
         }
+
 
         public static DataSet obtenerTodosLosRoles()
         {

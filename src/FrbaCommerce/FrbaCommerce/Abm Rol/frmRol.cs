@@ -25,12 +25,18 @@ namespace FrbaCommerce.Abm_Rol
             rolDelForm = unRol;
             this.Show();
             txtNombre.Text = unRol.Nombre;
-            lstFuncDelRol.DataSource = unRol.Funcionalidades;
             lstFuncDelSist.Visible = false;
             btnAgregar.Visible = false;
             btnSacar.Visible = false;
             btnGuardar.Visible = false;
-            
+            txtNombre.ReadOnly = true;
+
+            cargarListadoDeFuncionalidadesDelRol();
+        }
+
+        private void cargarListadoDeFuncionalidadesDelRol()
+        {
+            lstFuncDelRol.DataSource = rolDelForm.Funcionalidades;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnVer = new System.Windows.Forms.Button();
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -52,8 +52,8 @@
             // dtgListado
             // 
             this.dtgListado.AllowUserToAddRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -87,9 +87,9 @@
             // btnEliminar
             // 
             this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.Location = new System.Drawing.Point(460, 63);
+            this.btnEliminar.Location = new System.Drawing.Point(449, 63);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(52, 23);
+            this.btnEliminar.Size = new System.Drawing.Size(63, 23);
             this.btnEliminar.TabIndex = 24;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
@@ -107,11 +107,11 @@
             // btnAlta
             // 
             this.btnAlta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlta.Location = new System.Drawing.Point(421, 63);
+            this.btnAlta.Location = new System.Drawing.Point(382, 63);
             this.btnAlta.Name = "btnAlta";
-            this.btnAlta.Size = new System.Drawing.Size(33, 23);
+            this.btnAlta.Size = new System.Drawing.Size(61, 23);
             this.btnAlta.TabIndex = 22;
-            this.btnAlta.Text = "Alta";
+            this.btnAlta.Text = "Agregar";
             this.btnAlta.UseVisualStyleBackColor = true;
             // 
             // listadoRoles
