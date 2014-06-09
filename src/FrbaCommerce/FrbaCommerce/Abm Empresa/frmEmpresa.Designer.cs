@@ -1,6 +1,6 @@
 ﻿namespace FrbaCommerce.Abm_Empresa
 {
-    partial class Empresa
+    partial class frmEmpresa
     {
         /// <summary>
         /// Required designer variable.

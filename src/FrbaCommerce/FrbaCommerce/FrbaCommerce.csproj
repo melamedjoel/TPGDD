@@ -67,11 +67,11 @@
     <Compile Include="Abm Cliente\ListadoCliente.Designer.cs">
       <DependentUpon>ListadoCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Empresa\Empresa.cs">
+    <Compile Include="Abm Empresa\frmEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Empresa\Empresa.Designer.cs">
-      <DependentUpon>Empresa.cs</DependentUpon>
+    <Compile Include="Abm Empresa\frmEmpresa.Designer.cs">
+      <DependentUpon>frmEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Empresa\ListadoEmpresas.cs">
       <SubType>Form</SubType>
@@ -183,8 +183,8 @@
     <EmbeddedResource Include="Abm Cliente\ListadoCliente.resx">
       <DependentUpon>ListadoCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Empresa\Empresa.resx">
-      <DependentUpon>Empresa.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Empresa\frmEmpresa.resx">
+      <DependentUpon>frmEmpresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa\ListadoEmpresas.resx">
       <DependentUpon>ListadoEmpresas.cs</DependentUpon>

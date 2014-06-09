@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace FrbaCommerce.Abm_Empresa
 {
-    public partial class Empresa : Form
+    public partial class frmEmpresa : Form
     {
-        public Empresa()
+        public frmEmpresa()
         {
             InitializeComponent();
         }
