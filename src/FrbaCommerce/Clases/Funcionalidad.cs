@@ -70,7 +70,5 @@ namespace Clases
             parameterList.Add(new SqlParameter("@id_Rol", id_Rol));
         }
         #endregion 
-
-    
     }
 }

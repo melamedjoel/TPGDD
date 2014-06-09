@@ -18,6 +18,7 @@ namespace Clases
         protected string _strEliminar = "delete";
         protected string _strDeshabilitar = "deshabilitar";
         protected string _strTraerListado = "traerListado";
+        protected string _strRetornoID = "_RetornarID";
 
         public virtual void DataRowToObject(DataRow dr)
         {
@@ -32,13 +33,22 @@ namespace Clases
 
         public void Guardar(List<SqlParameter> parameterList)
         {
-            DataSet ds = SQLHelper.ExecuteDataSet(_strInsertar + NombreTabla(), CommandType.StoredProcedure, NombreTabla(), parameterList);
+            SQLHelper.ExecuteDataSet(_strInsertar + NombreEntidad(), CommandType.StoredProcedure, NombreTabla(), parameterList);
         }
 
-        public void Modificar(List<SqlParameter> parameterList)
+        public DataSet GuardarYObtenerID(List<SqlParameter> parameterList)
         {
-            SQLHelper.ExecuteNonQuery(_strModificar + NombreEntidad(), CommandType.StoredProcedure, parameterList);
-            
+            DataSet ds = SQLHelper.ExecuteDataSet(_strInsertar + NombreEntidad() + _strRetornoID, CommandType.StoredProcedure, NombreTabla(), parameterList);
+            return ds;
+        }
+
+        public bool Modificar(List<SqlParameter> parameterList)
+        {
+            int result = SQLHelper.ExecuteNonQuery(_strModificar + NombreEntidad(), CommandType.StoredProcedure, parameterList);
+            if (result > 0)
+                return true;
+
+            return false;
         }
 
         public void Eliminar(List<SqlParameter> parameterList)

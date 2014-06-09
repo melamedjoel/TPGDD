@@ -125,13 +125,17 @@ namespace Clases
             parameterList.Clear();
         }
 
-        public void CambiarClave(string claveNueva)
+        public bool CambiarClave(string claveNueva)
         {
             this.Clave = claveNueva;
             this.ClaveAutoGenerada = false;
             setearListaDeParametrosCompleta();
-            this.Modificar(parameterList);
-            parameterList.Clear();
+            if (this.Modificar(parameterList))
+            {
+                parameterList.Clear();
+                return true;
+            }
+            return false;
         }
         
         #endregion

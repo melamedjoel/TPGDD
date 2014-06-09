@@ -165,6 +165,7 @@ namespace FrbaCommerce.Login
         {
             //Verifico que la clave no sea la autogenerada. De ser asi, le pido que la cambie. Sino, via libre para 
             //acceder al sistema
+            bool puedeAcceder = true;
             if (user.ClaveAutoGenerada)
             {
 
@@ -183,13 +184,15 @@ namespace FrbaCommerce.Login
                 }
                 
                 string claveNueva =  Encryptor.GetSHA256(dialogResult);
-                user.CambiarClave(claveNueva);   
+                puedeAcceder = user.CambiarClave(claveNueva);   
 
             }
-
-            Principal princ = new Principal();
-            this.Hide();
-            princ.Show();
+            if (puedeAcceder)
+            {
+                Principal princ = new Principal();
+                this.Hide();
+                princ.Show();
+            }
         }
 
         private void txtClave_KeyPress(object sender, KeyPressEventArgs e)

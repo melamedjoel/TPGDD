@@ -24,41 +24,63 @@ namespace FrbaCommerce.ABM_Rol
         private void listadoRoles_Load(object sender, EventArgs e)
         {
             CargarListadoDeRoles();
-
-            
         }
 
-        private void CargarListadoDeRoles()
+        private void configurarGrilla(DataSet ds)
         {
+
             dtgListado.Columns.Clear();
+            dtgListado.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
+            clmID.Width = 30;
+            clmID.ReadOnly = true;
+            clmID.DataPropertyName = "id_Rol";
+            clmID.HeaderText = "ID";
+            dtgListado.Columns.Add(clmID);
+
+            DataGridViewTextBoxColumn clmNombre = new DataGridViewTextBoxColumn();
+            clmNombre.ReadOnly = true;
+            clmNombre.DataPropertyName = "Nombre";
+            clmNombre.HeaderText = "Nombre";
+            dtgListado.Columns.Add(clmNombre);
+
+            DataGridViewCheckBoxColumn clmHabilitado = new DataGridViewCheckBoxColumn();
+            clmHabilitado.Width = 60;
+            clmHabilitado.ReadOnly = true;
+            clmHabilitado.DataPropertyName = "Habilitado";
+            clmHabilitado.HeaderText = "Habilitado";
+            dtgListado.Columns.Add(clmHabilitado);
+
+            dtgListado.DataSource = ds.Tables[0];
+        }
+
+        public void CargarListadoDeRoles()
+        {
 
             try
             {
                 DataSet ds = Rol.obtenerTodosLosRoles();
+                configurarGrilla(ds);
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-                dtgListado.AutoGenerateColumns = false;
+        }
 
-                DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
-                clmID.Width = 30;
-                clmID.ReadOnly = true;
-                clmID.DataPropertyName = "id_Rol";
-                clmID.HeaderText = "ID";
-                dtgListado.Columns.Add(clmID);
+        public void CargarListadoDeRolesConFiltros()
+        {
 
-                DataGridViewTextBoxColumn clmNombre = new DataGridViewTextBoxColumn();
-                clmNombre.ReadOnly = true;
-                clmNombre.DataPropertyName = "Nombre";
-                clmNombre.HeaderText = "Nombre";
-                dtgListado.Columns.Add(clmNombre);
-
-                DataGridViewCheckBoxColumn clmHabilitado = new DataGridViewCheckBoxColumn();
-                clmHabilitado.Width = 60;
-                clmHabilitado.ReadOnly = true;
-                clmHabilitado.DataPropertyName = "Habilitado";
-                clmHabilitado.HeaderText = "Habilitado";
-                dtgListado.Columns.Add(clmHabilitado);
-
-                dtgListado.DataSource = ds.Tables[0];
+            try
+            {
+                DataSet ds = Rol.obtenerTodosLosRolesConFiltros(txtNombre.Text, chkHabilitado.Checked);
+                configurarGrilla(ds);
             }
             catch (ErrorConsultaException ex)
             {
@@ -91,5 +113,43 @@ namespace FrbaCommerce.ABM_Rol
         {
             return Convert.ToBoolean(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["Habilitado"]);
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmRol _frmRol = new frmRol();            
+            _frmRol.AbrirParaAgregar(this);
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            frmRol _frmRol = new frmRol();
+            Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
+            _frmRol.AbrirParaModificar(unRol, this);
+        }
+
+        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("¿Está seguro que desea deshabilitar el rol?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+            {
+                Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
+                unRol.Deshabilitar();
+                MessageBox.Show("El rol ha quedado deshabilitado", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarListadoDeRoles();
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            CargarListadoDeRolesConFiltros();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtNombre.Text = "";
+            chkHabilitado.Checked = false;
+            CargarListadoDeRoles();
+        }
+
     }
 }

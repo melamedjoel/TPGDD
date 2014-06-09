@@ -5,4 +5,10 @@ DROP PROCEDURE [ATJ].[traerListadoRolesPorId_Usuario];
 DROP PROCEDURE [ATJ].[deshabilitarUsuario];
 DROP PROCEDURE [ATJ].[updateUsuario];
 DROP PROCEDURE ATJ.traerListadoFuncionalidadesPorId_Rol;
-DROP PROCEDURE ATJ.traerListadoFuncionalidades
+DROP PROCEDURE ATJ.traerListadoFuncionalidades;
+DROP PROCEDURE ATJ.insertRol_Funcionalidad;
+DROP PROCEDURE ATJ.insertRol_RetornarID;
+DROP PROCEDURE ATJ.deleteRol_Funcionalidad_PorIdRol;
+DROP PROCEDURE ATJ.updateRol;
+DROP PROCEDURE ATJ.deshabilitarRol;
+DROP PROCEDURE [ATJ].[traerListadoRolesConFiltros];

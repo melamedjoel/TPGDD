@@ -18,7 +18,7 @@ namespace Clases
         private int _id_Rol;
         private string _nombre;
         private bool _habilitado;
-        List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+        List<Funcionalidad> _funcionalidades = new List<Funcionalidad>();
         #endregion
 
         #region properties
@@ -40,8 +40,8 @@ namespace Clases
         }
         public List<Funcionalidad> Funcionalidades
         {
-            get { return funcionalidades; }
-            set { funcionalidades = value; }
+            get { return _funcionalidades; }
+            set { _funcionalidades = value; }
         }
         #endregion
 
@@ -51,7 +51,6 @@ namespace Clases
             this.Id_Rol = 0;
             this.Nombre = "";
             this.Habilitado = false;
-            this.Funcionalidades = null;
 
         }
         public Rol(int unIdRol, string unNombre, bool unValorDeHabilitado){
@@ -60,6 +59,13 @@ namespace Clases
             this.Habilitado = unValorDeHabilitado;
             this.setearFuncionalidadesAlRol();
 
+        }
+
+        public Rol(string unNombre, bool unValorDeHabilitado)
+        {
+            this.Id_Rol = -1;
+            this.Nombre = unNombre;
+            this.Habilitado = unValorDeHabilitado;
         }
         #endregion
 
@@ -95,7 +101,6 @@ namespace Clases
         public void setearFuncionalidadesAlRol()
         {
             DataSet dsFuncionalidades = Funcionalidad.ObtenerFuncionalidadesPorRol(this.Id_Rol);
-            //DataRowToObject(ds.Tables[0].Rows[0])
             foreach (DataRow dr in dsFuncionalidades.Tables[0].Rows)
             {
                 Funcionalidad unaFunc = new Funcionalidad();
@@ -111,14 +116,105 @@ namespace Clases
             Rol unRol = new Rol();
             return unRol.TraerListado(unRol.parameterList, "");
         }
+
+        public static DataSet obtenerTodosLosRolesConFiltros(string unNombre, bool unValorDeHabilitado)
+        {
+            Rol unRol = new Rol(unNombre, unValorDeHabilitado);
+            unRol.setearListaDeParametrosConNombreYHabilitado(unRol.Nombre, unRol.Habilitado);
+            DataSet ds = unRol.TraerListado(unRol.parameterList, "ConFiltros");
+            unRol.parameterList.Clear();
+            return ds;
+        }
+
+
+        public void guardarDatosDeRolNuevo()
+        {
+            setearListaDeParametrosConNombreYHabilitado(this.Nombre, this.Habilitado);
+            DataSet dsNuevoRol = this.GuardarYObtenerID(parameterList);
+            parameterList.Clear();
+            
+            if (dsNuevoRol.Tables[0].Rows.Count > 0)
+            {
+                this.Id_Rol = Convert.ToInt32(dsNuevoRol.Tables[0].Rows[0]["id_Rol"]);
+                guardarFuncionalidades();
+            }
+            else
+            {
+                throw new BadInsertException();
+            }
+        }
+
+        public void ModificarDatos()
+        {
+            setearListaDeParametrosConIdRolNombreYHabilitado(this.Nombre, this.Habilitado);
+
+            if (this.Modificar(parameterList))
+            {
+                parameterList.Clear();
+                modificarFuncionalidades();
+            }
+           
+        }
+
+        public void guardarFuncionalidades()
+        {
+            foreach (Funcionalidad unaFunc in this.Funcionalidades)
+            {
+                setearListaDeParametrosConIdFuncionalidadEIdRol(unaFunc.id_Funcionalidad);
+                SQLHelper.ExecuteDataSet(_strInsertar + "Rol_Funcionalidad", CommandType.StoredProcedure, "Rol_Funcionalidad", parameterList);
+                parameterList.Clear();
+
+            }
+        }
+
+        public void modificarFuncionalidades()
+        {
+            setearListaDeParametrosConIdRol();
+            SQLHelper.ExecuteDataSet(_strEliminar + "Rol_Funcionalidad" + "_PorIdRol", CommandType.StoredProcedure, "Rol_Funcionalidad", parameterList);
+            parameterList.Clear();
+            guardarFuncionalidades();
+        }
+
+        public void Deshabilitar()
+        {
+            setearListaDeParametrosConIdRol();
+            this.Deshabilitar(parameterList);
+            parameterList.Clear();
+        }
+
         #endregion
 
         #region metodos privados
-        public void setearListaDeParametrosConIdUsuario(int id_Usuario)
+        private void setearListaDeParametrosConIdUsuario(int id_Usuario)
         {
             parameterList.Add(new SqlParameter("@id_Usuario", id_Usuario));
         }
 
+        private void setearListaDeParametrosConIdRol()
+        {
+            parameterList.Add(new SqlParameter("@id_Rol", this.Id_Rol));
+        }
+
+        private void setearListaDeParametrosConIdFuncionalidadEIdRol(int id_func)
+        {
+            parameterList.Add(new SqlParameter("@id_Rol", this.Id_Rol));
+            parameterList.Add(new SqlParameter("@id_Funcionalidad", id_func));
+        }
+
+        private void setearListaDeParametrosConNombreYHabilitado(string unNombre, bool unValorDeHabilitado)
+        {
+            parameterList.Add(new SqlParameter("@Nombre", unNombre));
+            parameterList.Add(new SqlParameter("@Habilitado", unValorDeHabilitado));
+        }
+
+        private void setearListaDeParametrosConIdRolNombreYHabilitado(string unNombre, bool unValorDeHabilitado)
+        {
+            parameterList.Add(new SqlParameter("@id_Rol", this.Id_Rol));
+            parameterList.Add(new SqlParameter("@Nombre", unNombre));
+            parameterList.Add(new SqlParameter("@Habilitado", unValorDeHabilitado));
+        }
+
         #endregion
+
     }
 }

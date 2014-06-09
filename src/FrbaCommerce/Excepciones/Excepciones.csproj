@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BadInsertException.cs" />
     <Compile Include="ErrorConsultaException.cs" />
     <Compile Include="NoDataException.cs" />
     <Compile Include="NoEntidadException.cs" />

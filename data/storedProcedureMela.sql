@@ -63,12 +63,79 @@ CREATE PROCEDURE ATJ.traerListadoFuncionalidadesPorId_Rol
 AS	
 	SELECT F.* FROM ATJ.Rol_Funcionalidad RF 
 	INNER JOIN ATJ.Funcionalidades F ON F.id_Funcionalidad = RF.id_Funcionalidad
-	WHERE RF.id_Rol = id_Rol
+	WHERE RF.id_Rol = @id_Rol
 GO
 
 --Procedure traerListadoFuncionalidades
 CREATE PROCEDURE ATJ.traerListadoFuncionalidades
-	@id_Rol numeric(18,0)
 AS	
 	SELECT * FROM ATJ.Funcionalidades
 GO
+
+
+--Procedure insertRol_RetornarID
+CREATE PROCEDURE ATJ.insertRol_RetornarID
+	@Nombre nvarchar(255),
+	@Habilitado bit
+AS
+	INSERT INTO ATJ.Roles
+	(Nombre, Habilitado)
+	VALUES 
+	(@Nombre, @Habilitado)
+	
+	SELECT @@IDENTITY AS id_Rol;
+GO
+
+--Procedure insertRol_Funcionalidad
+CREATE PROCEDURE [ATJ].[insertRol_Funcionalidad]
+	@id_Rol int,
+	@id_Funcionalidad int
+AS
+	INSERT INTO ATJ.Rol_Funcionalidad
+	(id_Rol, id_Funcionalidad)
+	VALUES 
+	(@id_Rol, @id_Funcionalidad)
+	
+--Procedure deleteRol_FuncionalidadPorIdRol
+CREATE PROCEDURE ATJ.deleteRol_Funcionalidad_PorIdRol
+	@id_Rol int
+AS
+	DELETE FROM ATJ.Rol_Funcionalidad WHERE id_Rol = @id_Rol
+GO
+
+--Procedure updateRol
+CREATE PROCEDURE ATJ.updateRol
+	@id_Rol int,
+	@Nombre nvarchar(255),
+	@Habilitado bit
+AS
+	UPDATE ATJ.Roles SET Nombre=@Nombre, Habilitado=@Habilitado
+	WHERE id_Rol = @id_Rol
+GO
+
+--Procedure deshabilitarRol
+CREATE PROCEDURE ATJ.deshabilitarRol
+	@id_Rol int
+AS
+	UPDATE ATJ.Roles SET Habilitado=0
+	WHERE id_Rol = @id_Rol
+GO
+
+
+
+--Procedure traerListadoRolesConFiltros
+CREATE PROCEDURE [ATJ].[traerListadoRolesConFiltros] 
+    @Nombre nvarchar(255),
+	@Habilitado bit
+AS 
+	IF(@Nombre = '' Or @Nombre IS NULL)
+		BEGIN
+			SELECT * FROM ATJ.Roles where Habilitado = @Habilitado
+		END	
+	ELSE
+		SELECT * FROM ATJ.Roles 
+			WHERE Nombre = @Nombre AND Habilitado = @Habilitado
+
+GO
+
+

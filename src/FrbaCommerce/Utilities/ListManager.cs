@@ -13,8 +13,6 @@ namespace Utilities
             {
 
                 DataRow dr = ((DataTable)dataSource).NewRow();
-                dr[valueMember] = 0;
-                dr[displayMember] = 0;
                 ((DataTable)dataSource).Rows.InsertAt(dr, 0);
 
 
