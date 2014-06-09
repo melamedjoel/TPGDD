@@ -20,7 +20,7 @@ namespace FrbaCommerce
         private void lblIniciarSesion_Click(object sender, EventArgs e)
         {
             Login.LogIn loginForm = new Login.LogIn();
-            this.Hide();
+            this.Close();
             loginForm.Show(); 
         }
 

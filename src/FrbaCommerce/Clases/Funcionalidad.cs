@@ -55,14 +55,22 @@ namespace Clases
             return ds;
         }
 
+        public static DataSet obtenerTodas()
+        {
+            Funcionalidad miFunc = new Funcionalidad();
+            DataSet ds = miFunc.TraerListado(miFunc.parameterList, "");
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados
-        public void setearListaDeParametrosConIdRol(int id_Rol)
+        private void setearListaDeParametrosConIdRol(int id_Rol)
         {
             parameterList.Add(new SqlParameter("@id_Rol", id_Rol));
         }
         #endregion 
 
+    
     }
 }

@@ -28,8 +28,8 @@ namespace FrbaCommerce
 
         private void ABMRolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listadoRoles frmRol = new listadoRoles();
-            frmRol.Show(this);
+            listadoRoles frmListadoRoles = new listadoRoles();
+            frmListadoRoles.Show(this);
         }
 
     }

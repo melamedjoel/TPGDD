@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clases;
+using Utilities;
 
 namespace FrbaCommerce.Abm_Rol
 {
@@ -19,7 +20,7 @@ namespace FrbaCommerce.Abm_Rol
             InitializeComponent();
         }
 
-        private void AbrirParaVer(Rol unRol, Form frmEnviador) 
+        public void AbrirParaVer(Rol unRol, Form frmEnviador) 
         {
             frmPadre = frmEnviador;
             rolDelForm = unRol;
@@ -32,11 +33,20 @@ namespace FrbaCommerce.Abm_Rol
             txtNombre.ReadOnly = true;
 
             cargarListadoDeFuncionalidadesDelRol();
+
         }
 
         private void cargarListadoDeFuncionalidadesDelRol()
         {
             lstFuncDelRol.DataSource = rolDelForm.Funcionalidades;
+            lstFuncDelRol.DisplayMember = "Nombre";
+            
+        }
+
+        private void cargarListadoDeFuncionalidadesDelSistema()
+        {
+            DataSet ds = Funcionalidad.obtenerTodas();
+            ListManager.CargarLista(lstFuncDelSist, ds, "id_Rol", "Nombre");
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

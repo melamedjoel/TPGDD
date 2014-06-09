@@ -45,6 +45,24 @@ namespace Clases
         }
         #endregion
 
+        #region constructor
+        public Rol()
+        {
+            this.Id_Rol = 0;
+            this.Nombre = "";
+            this.Habilitado = false;
+            this.Funcionalidades = null;
+
+        }
+        public Rol(int unIdRol, string unNombre, bool unValorDeHabilitado){
+            this.Id_Rol = unIdRol;
+            this.Nombre = unNombre;
+            this.Habilitado = unValorDeHabilitado;
+            this.setearFuncionalidadesAlRol();
+
+        }
+        #endregion
+
         #region metodos publicos
         public override string NombreTabla()
         {
@@ -74,6 +92,19 @@ namespace Clases
             return ds;
         }
 
+        public void setearFuncionalidadesAlRol()
+        {
+            DataSet dsFuncionalidades = Funcionalidad.ObtenerFuncionalidadesPorRol(this.Id_Rol);
+            //DataRowToObject(ds.Tables[0].Rows[0])
+            foreach (DataRow dr in dsFuncionalidades.Tables[0].Rows)
+            {
+                Funcionalidad unaFunc = new Funcionalidad();
+                unaFunc.DataRowToObject(dr);
+                this.Funcionalidades.Add(unaFunc);
+            }
+            
+            
+        }
 
         public static DataSet obtenerTodosLosRoles()
         {

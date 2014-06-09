@@ -76,22 +76,22 @@
             // lstFuncDelSist
             // 
             this.lstFuncDelSist.FormattingEnabled = true;
-            this.lstFuncDelSist.Location = new System.Drawing.Point(315, 94);
+            this.lstFuncDelSist.Location = new System.Drawing.Point(339, 94);
             this.lstFuncDelSist.Name = "lstFuncDelSist";
-            this.lstFuncDelSist.Size = new System.Drawing.Size(120, 134);
+            this.lstFuncDelSist.Size = new System.Drawing.Size(139, 134);
             this.lstFuncDelSist.TabIndex = 5;
             // 
             // lstFuncDelRol
             // 
             this.lstFuncDelRol.FormattingEnabled = true;
-            this.lstFuncDelRol.Location = new System.Drawing.Point(86, 94);
+            this.lstFuncDelRol.Location = new System.Drawing.Point(107, 94);
             this.lstFuncDelRol.Name = "lstFuncDelRol";
-            this.lstFuncDelRol.Size = new System.Drawing.Size(120, 134);
+            this.lstFuncDelRol.Size = new System.Drawing.Size(145, 134);
             this.lstFuncDelRol.TabIndex = 6;
             // 
             // btnSacar
             // 
-            this.btnSacar.Location = new System.Drawing.Point(222, 160);
+            this.btnSacar.Location = new System.Drawing.Point(258, 160);
             this.btnSacar.Name = "btnSacar";
             this.btnSacar.Size = new System.Drawing.Size(75, 23);
             this.btnSacar.TabIndex = 7;
@@ -100,7 +100,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(222, 131);
+            this.btnAgregar.Location = new System.Drawing.Point(258, 131);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 8;

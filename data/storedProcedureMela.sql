@@ -65,3 +65,10 @@ AS
 	INNER JOIN ATJ.Funcionalidades F ON F.id_Funcionalidad = RF.id_Funcionalidad
 	WHERE RF.id_Rol = id_Rol
 GO
+
+--Procedure traerListadoFuncionalidades
+CREATE PROCEDURE ATJ.traerListadoFuncionalidades
+	@id_Rol numeric(18,0)
+AS	
+	SELECT * FROM ATJ.Funcionalidades
+GO
