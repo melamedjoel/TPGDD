@@ -1,6 +1,6 @@
 ﻿namespace FrbaCommerce.Abm_Cliente
 {
-    partial class Cliente
+    partial class frmCliente
     {
         /// <summary>
         /// Required designer variable.
