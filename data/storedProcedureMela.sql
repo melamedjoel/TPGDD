@@ -95,6 +95,7 @@ AS
 	(id_Rol, id_Funcionalidad)
 	VALUES 
 	(@id_Rol, @id_Funcionalidad)
+GO
 	
 --Procedure deleteRol_FuncionalidadPorIdRol
 CREATE PROCEDURE ATJ.deleteRol_Funcionalidad_PorIdRol
