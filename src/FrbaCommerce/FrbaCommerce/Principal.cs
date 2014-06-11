@@ -10,6 +10,7 @@ using Conexion;
 using Clases;
 using Utilities;
 using FrbaCommerce.ABM_Rol;
+using FrbaCommerce.Abm_Empresa;
 
 
 namespace FrbaCommerce
@@ -30,6 +31,13 @@ namespace FrbaCommerce
         {
             listadoRoles frmListadoRoles = new listadoRoles();
             frmListadoRoles.Show(this);
+        }
+
+        private void aBMEmpresasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listadoEmpresa frmListadoEmpresas = new listadoEmpresa();
+            frmListadoEmpresas.Show(this);
+
         }
 
     }

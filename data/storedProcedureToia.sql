@@ -1,8 +1,8 @@
 USE GD1C2014;
 GO
 
---Procedure traerClientePorFiltro
-CREATE PROCEDURE ATJ.traerClientePorFiltro 
+--Procedure traerListadoClientesConFiltros
+CREATE PROCEDURE ATJ.traerListadoClientesConFiltros 
     @Nombre nvarchar(255), 
     @Apellido nvarchar(255),
     @Tipo_Dni nvarchar(50),
@@ -53,18 +53,23 @@ AS
 GO
 
 
---Procedure traerEmpresaPorFiltro 
-CREATE PROCEDURE ATJ.traerEmpresaPorFiltro
-    @Razon_social nvarchar(255), 
-    @Cuit nvarchar(50),
-    @Mail nvarchar(50)
+--Procedure traerListadoEmpresasConFiltros 
+CREATE PROCEDURE ATJ.traerListadoEmpresas
     
+AS 
+    SELECT *, (Dom_calle+' '+Convert(nvarchar(50),Dom_nro_calle)+' '+Convert(nvarchar(50),Dom_piso)+'° '+Dom_depto) AS Direccion
+    FROM ATJ.Empresas
+    
+			
+GO
+
+--Procedure traerEmpresaConId 
+CREATE PROCEDURE ATJ.traerEmpresaConId
+    @id_Empresa int
 AS 
     SELECT *
     FROM ATJ.Empresas
-    WHERE	Razon_social = @Razon_social AND 
-			Cuit = @Cuit AND
-			Mail = @Mail
+    WHERE	id_Empresa = @id_Empresa  
 			
 GO
 
@@ -100,7 +105,30 @@ AS
 							Activo = @Activo
 							where id_Empresa = @id_empresa
 GO
+--Procedure insertEmpresa
+CREATE PROCEDURE ATJ.insertEmpresa
+	@Razon_social nvarchar(255),
+	@Cuit nvarchar(50),
+	@Mail nvarchar(50),
+	@Fecha_creacion datetime,
+	@Telefono nvarchar(255),
+	@Dom_calle nvarchar(100),
+	@Dom_nro_calle numeric(18,0),
+	@Dom_piso numeric(18,0),
+	@Dom_depto nvarchar(50),
+	@Dom_cod_postal nvarchar(50),
+	@Dom_ciudad nvarchar(255),
+	@Nombre_contacto nvarchar(255),
+	@Activo bit
+AS
+	INSERT INTO ATJ.Empresas 
+	(Razon_social, Cuit, Fecha_creacion, Mail, Telefono, Dom_calle, Dom_nro_calle,
+	Dom_piso, Dom_depto, Dom_cod_postal, Dom_ciudad, Nombre_contacto, Activo)
+	VALUES
+	(@Razon_social, @Cuit, @Fecha_creacion, @Mail, @Telefono, @Dom_calle, @Dom_nro_calle,
+	@Dom_piso, @Dom_depto, @Dom_cod_postal, @Dom_ciudad, @Nombre_contacto,@Activo)
 
+GO
 --Procedure updateVisibilidad
 CREATE PROCEDURE ATJ.updateVisibilidad
 	@cod_Visibilidad numeric(18,0),
@@ -145,16 +173,17 @@ AS
 	
 GO
 
---Procedure traerPublicacionesPorFiltro
-CREATE PROCEDURE ATJ.traerPublicacionesPorFiltro 
+--Procedure traerListadoPublicacionesConFiltros
+CREATE PROCEDURE ATJ.traerListadoPublicacionesConFiltros 
     @id_Rubro int, 
-    @Descripcion nvarchar(255)
+    @Descripcion nvarchar(255),
+    @FechaDeHoy datetime
 
 AS 
     SELECT *
     FROM ATJ.Publicaciones 
     WHERE	id_Estado = 1 
-    AND		Fecha_vencimiento > GETDATE() 
+    AND		Fecha_vencimiento > @FechaDeHoy 
     AND		id_Rubro = @id_Rubro 
     AND		Descripcion = @Descripcion 
     AND ( id_Tipo = 1 AND Stock >= 1 OR id_tipo <> 1)	
@@ -204,8 +233,8 @@ AS
 GO
 
 
---Procedure traerPublicacionPorCodigo
-CREATE PROCEDURE ATJ.traerPublicacionPorCodigo
+--Procedure traerListadoPublicacionesConCodigo
+CREATE PROCEDURE ATJ.traerListadoPublicacionesConCodigo
     @id_Publicacion int
 
 AS 
@@ -234,3 +263,29 @@ SELECT E.*
 
 GO
 
+--Procedure deshabilitarEmpresa
+CREATE PROCEDURE ATJ.deshabilitarEmpresa
+	@id_Empresa int
+AS
+	UPDATE ATJ.Empresas SET Activo = 0 where id_Empresa = @id_Empresa	
+GO
+
+--Procedure deshabilitarCliente
+CREATE PROCEDURE ATJ.deshabilitarCliente
+	@id_Cliente int
+AS
+	UPDATE ATJ.Clientes SET Activo = 0 where id_Cliente = @id_Cliente	
+GO
+--Procedure insertUsuario
+CREATE PROCEDURE ATJ.insertUsuario
+	@Username int,
+	@Clave nvarchar(255),
+	@ClaveAutoGenerada bit,
+	@Activo bit
+AS
+	INSERT INTO ATJ.Usuarios
+	(Username, Clave, ClaveAutoGenerada, Activo)
+	VALUES
+	(@Username, @Clave, @ClaveAutoGenerada, @Activo)
+
+GO

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using Excepciones;
+using Conexion;
 
 namespace Clases
 {
-    public class Empresa:Base 
+    public class Empresa : Base 
     {
         List<SqlParameter> parameterList = new List<SqlParameter>();
 
@@ -114,6 +116,24 @@ namespace Clases
         }
         #endregion
 
+        #region constructor
+        public Empresa()
+        {
+        }
+        public Empresa(int unIdEmpresa){
+            this.id_Empresa = unIdEmpresa;
+            
+
+        }
+        public Empresa(string unaRazonSocial, string unCuit, string unEmail){
+            this.Razon_social = unaRazonSocial;
+            this.Cuit = unCuit;
+            this.Mail = unEmail;
+
+        }
+
+        #endregion
+
         #region metodos publicos
         public override string NombreTabla()
         {
@@ -142,17 +162,117 @@ namespace Clases
             this.Dom_ciudad = dr["Dom_ciudad"].ToString();
             this.Nombre_contacto = dr["Nombre_contacto"].ToString();
             this.Activo = Convert.ToBoolean(dr["Activo"]);
-            this.usuario = new Usuario();
-            //this.usuario.Id_Usuario = Convert.ToInt32(dr["id_Usuario"]);
-            this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
-
+            this.usuario = new Usuario(Convert.ToInt32(dr["id_Usuario"]));
+            //this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
         }
 
+        public void CargarObjetoEmpresaConId()
+        {
+            setearListaDeParametrosConIdEmpresa();
+            DataSet ds = SQLHelper.ExecuteDataSet("traerEmpresaConId", CommandType.StoredProcedure, parameterList);
+            parameterList.Clear();
+            if (ds.Tables[0].Rows.Count == 1)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
+        }
+
+        public static DataSet obtenerTodosLasEmpresas()
+        {
+            Empresa unaEmpresa = new Empresa();
+            return unaEmpresa.TraerListado(unaEmpresa.parameterList, "");
+        }
+
+        public static DataSet obtenerTodasLasEmpresasConFiltros(string unaRazonSocial, string unCuit, string unEmail)
+        {
+            Empresa unaEmpresa = new Empresa(unaRazonSocial, unCuit, unEmail);
+            unaEmpresa.setearListaDeParametrosConFiltros(unaEmpresa.Razon_social, unaEmpresa.Cuit, unaEmpresa.Mail);
+            DataSet ds = unaEmpresa.TraerListado(unaEmpresa.parameterList, "ConFiltros");
+            unaEmpresa.parameterList.Clear();
+            return ds;
+        }
+       
+        public void guardarDatosDeEmpresaNueva()
+        {
+            setearListaDeParametros();
+            this.Guardar(parameterList);
+            this.usuario.Guardar();
+            parameterList.Clear();
+            
+            //if (dsNuevaEmpresa.Tables[0].Rows.Count > 0)
+            //{
+            //    this.id_Empresa = Convert.ToInt32(dsNuevaEmpresa.Tables[0].Rows[0]["id_Empresa"]);
+            //} CREO QUE NO LO NECESITO
+            //{
+            //    throw new BadInsertException();
+            //}
+        }
+        
+        public void ModificarDatos()
+        {
+            setearListaDeParametros();
+            if (this.Modificar(parameterList))
+            {
+                parameterList.Clear();
+            }
+           
+        }
+
+        public void Desactivar()
+        {
+            setearListaDeParametrosConIdEmpresa();
+            this.Deshabilitar(parameterList);
+            parameterList.Clear();
+            
+        }
 
         #endregion
 
         #region metodos privados
+        private void setearListaDeParametrosConFiltros(string RazonSocial,string Cuit,string Email)
+        {
+            parameterList.Add(new SqlParameter("@Razon_social", RazonSocial));
+            parameterList.Add(new SqlParameter("@Cuit", Cuit));
+            parameterList.Add(new SqlParameter("@Mail", Email));
+        }
+        private void setearListaDeParametrosConIdUsuario(int id_Usuario)
+        {
+            parameterList.Add(new SqlParameter("@id_Usuario", id_Usuario));
+        }
 
+        private void setearListaDeParametrosConIdEmpresa()
+        {
+            parameterList.Add(new SqlParameter("@id_Empresa", this.id_Empresa));
+        }
+        private void setearListaDeParametrosConIdYFiltros(string RazonSocial, string Cuit, string Email)
+        {
+            parameterList.Add(new SqlParameter("@id_Empresa", this.id_Empresa));
+            parameterList.Add(new SqlParameter("@Razon_social", RazonSocial));
+            parameterList.Add(new SqlParameter("@Cuit", Cuit));
+            parameterList.Add(new SqlParameter("@Mail", Email));
+        }
+        private void setearListaDeParametros()
+        {
+            parameterList.Add(new SqlParameter("@id_Empresa", this.id_Empresa));
+            parameterList.Add(new SqlParameter("@Razon_social", this.Razon_social));
+            parameterList.Add(new SqlParameter("@Cuit", this.Cuit));
+            parameterList.Add(new SqlParameter("@Mail", this.Mail));
+            parameterList.Add(new SqlParameter("@Fecha_creacion", this.Fecha_creacion));
+            parameterList.Add(new SqlParameter("@Telefono", this.Telefono));
+            parameterList.Add(new SqlParameter("@Dom_calle", this.Dom_calle));
+            parameterList.Add(new SqlParameter("@Dom_nro_calle", this.Dom_nro_calle));
+            parameterList.Add(new SqlParameter("@Dom_piso", this.Dom_piso));
+            parameterList.Add(new SqlParameter("@Dom_depto", this.Dom_depto));
+            parameterList.Add(new SqlParameter("@Dom_cod_postal", this.Dom_cod_postal));
+            parameterList.Add(new SqlParameter("@Dom_ciudad", this.Dom_ciudad));
+            parameterList.Add(new SqlParameter("@Nombre_contacto", this.Nombre_contacto));
+            parameterList.Add(new SqlParameter("@Activo", this.Activo));
+            parameterList.Add(new SqlParameter("@id_Usuario", this.usuario.Id_Usuario));
+        }
+        
+        
         #endregion
+
+       
     }
 }

@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ABMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ABMRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aBMEmpresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +48,8 @@
             // ABMToolStripMenuItem
             // 
             this.ABMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ABMRolesToolStripMenuItem});
+            this.ABMRolesToolStripMenuItem,
+            this.aBMEmpresasToolStripMenuItem});
             this.ABMToolStripMenuItem.Name = "ABMToolStripMenuItem";
             this.ABMToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.ABMToolStripMenuItem.Text = "Administración";
@@ -55,9 +57,16 @@
             // ABMRolesToolStripMenuItem
             // 
             this.ABMRolesToolStripMenuItem.Name = "ABMRolesToolStripMenuItem";
-            this.ABMRolesToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.ABMRolesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.ABMRolesToolStripMenuItem.Text = "ABM Roles";
             this.ABMRolesToolStripMenuItem.Click += new System.EventHandler(this.ABMRolesToolStripMenuItem_Click);
+            // 
+            // aBMEmpresasToolStripMenuItem
+            // 
+            this.aBMEmpresasToolStripMenuItem.Name = "aBMEmpresasToolStripMenuItem";
+            this.aBMEmpresasToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.aBMEmpresasToolStripMenuItem.Text = "ABM Empresas";
+            this.aBMEmpresasToolStripMenuItem.Click += new System.EventHandler(this.aBMEmpresasToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -83,6 +92,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ABMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ABMRolesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aBMEmpresasToolStripMenuItem;
 
     }
 }

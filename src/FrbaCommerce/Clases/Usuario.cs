@@ -28,6 +28,16 @@ namespace Clases
         
         #endregion
 
+        #region constructor
+        public Usuario()
+        {
+            
+        }
+        public Usuario(int unIdUsuario){
+            this.Id_Usuario = unIdUsuario;
+        }
+        #endregion
+
         #region properties
 
         public int Id_Usuario
@@ -137,7 +147,12 @@ namespace Clases
             }
             return false;
         }
-        
+        public void CrearDefault(string unNombreDeUsuario)
+        {
+            this.Username = unNombreDeUsuario;
+            this.Clave = unNombreDeUsuario;
+            this.ClaveAutoGenerada = true;
+        }
         #endregion
 
         #region metodos privados
@@ -166,5 +181,10 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Username", this.Username));
         }
         #endregion
+
+        internal void Guardar()
+        {
+           Guardar(parameterList);
+        }
     }
 }
