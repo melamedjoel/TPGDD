@@ -106,7 +106,7 @@ namespace FrbaCommerce.Abm_Empresa
         {
             try
             {
-                DataSet ds = Empresa.obtenerTodosLasEmpresas();
+                DataSet ds = Empresa.obtenerTodasLasEmpresas();
                 configurarGrilla(ds);
             }
             catch (ErrorConsultaException ex)
@@ -119,7 +119,6 @@ namespace FrbaCommerce.Abm_Empresa
             }
 
         }
-
         public void CargarListadoDeEmpresasConFiltros()
         {
 
@@ -163,7 +162,6 @@ namespace FrbaCommerce.Abm_Empresa
                 CargarListadoDeEmpresas();
             }
         }
-
         private void btnModificar_Click(object sender, EventArgs e)
         {
             frmEmpresa _frmEmpresa = new frmEmpresa();
@@ -171,13 +169,11 @@ namespace FrbaCommerce.Abm_Empresa
             unaEmpresa.CargarObjetoEmpresaConId();
             _frmEmpresa.AbrirParaModificar(unaEmpresa, this);
         }
-
         private void btnAlta_Click(object sender, EventArgs e)
         {
             frmEmpresa _frmEmpresa = new frmEmpresa();
             _frmEmpresa.AbrirParaAgregar(this);
         }
-
         private void btnVer_Click(object sender, EventArgs e)
         {
             frmEmpresa _frmEmpresa = new frmEmpresa();
@@ -190,5 +186,6 @@ namespace FrbaCommerce.Abm_Empresa
         {
             return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["id_Empresa"]);
         }
-    }
+
+        }
 }

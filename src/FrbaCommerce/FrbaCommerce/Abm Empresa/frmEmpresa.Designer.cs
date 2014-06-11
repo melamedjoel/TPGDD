@@ -243,6 +243,7 @@
             this.btnAceptarAEmpresa.TabIndex = 48;
             this.btnAceptarAEmpresa.Text = "Aceptar";
             this.btnAceptarAEmpresa.UseVisualStyleBackColor = true;
+            this.btnAceptarAEmpresa.Click += new System.EventHandler(this.btnAceptarAEmpresa_Click);
             // 
             // txtCalle
             // 

@@ -177,7 +177,7 @@ namespace Clases
             }
         }
 
-        public static DataSet obtenerTodosLasEmpresas()
+        public static DataSet obtenerTodasLasEmpresas()
         {
             Empresa unaEmpresa = new Empresa();
             return unaEmpresa.TraerListado(unaEmpresa.parameterList, "");
@@ -232,8 +232,8 @@ namespace Clases
         private void setearListaDeParametrosConFiltros(string RazonSocial,string Cuit,string Email)
         {
             parameterList.Add(new SqlParameter("@Razon_social", RazonSocial));
-            parameterList.Add(new SqlParameter("@Cuit", Cuit));
-            parameterList.Add(new SqlParameter("@Mail", Email));
+            parameterList.Add(new SqlParameter("@Cuit", Cuit)); 
+            parameterList.Add(new SqlParameter("@Mail", Email)); 
         }
         private void setearListaDeParametrosConIdUsuario(int id_Usuario)
         {

@@ -53,7 +53,7 @@ AS
 GO
 
 
---Procedure traerListadoEmpresasConFiltros 
+--Procedure traerListadoEmpresas 
 CREATE PROCEDURE ATJ.traerListadoEmpresas
     
 AS 
@@ -288,4 +288,18 @@ AS
 	VALUES
 	(@Username, @Clave, @ClaveAutoGenerada, @Activo)
 
+GO
+
+--Procedure traerListadoEmpresasConFiltros 
+ALTER PROCEDURE [ATJ].[traerListadoEmpresasConFiltros]
+    @Razon_social nvarchar(255), 
+    @Cuit nvarchar(50),
+    @Mail nvarchar(50)
+    
+AS 
+    SELECT *, (Dom_calle+' '+Convert(nvarchar(50),Dom_nro_calle)+' '+Convert(nvarchar(50),Dom_piso)+'° '+Dom_depto) AS Direccion
+    FROM ATJ.Empresas
+    WHERE	Razon_social = (CASE WHEN @Razon_social <> '' THEN @Razon_social ELSE Razon_social END) AND 
+			Cuit = (CASE WHEN @Cuit <> '' THEN @Cuit ELSE Cuit END) AND 
+			Mail = (CASE WHEN @Mail <> '' THEN @Mail ELSE Mail END)
 GO

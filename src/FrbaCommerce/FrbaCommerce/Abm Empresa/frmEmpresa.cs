@@ -53,11 +53,11 @@ namespace FrbaCommerce.Abm_Empresa
             txtCodPostal.Enabled = false;
             txtLocalidad.Enabled = false;
             txtFechaCreacion.Enabled = false;
+            chkActivo.Enabled = false;
 
             btnAceptarAEmpresa.Visible = false;
             btnAceptarMEmpresa.Visible = false;
         }
-
         public void AbrirParaModificar(Empresa unaEmpresa, listadoEmpresa frmEnviador)
         {
             frmPadre = frmEnviador;
@@ -96,7 +96,6 @@ namespace FrbaCommerce.Abm_Empresa
             btnAceptarAEmpresa.Visible = false;
             
         }
-
         public void AbrirParaAgregar(listadoEmpresa frmEnviador)
         {
             frmPadre = frmEnviador;
@@ -113,18 +112,19 @@ namespace FrbaCommerce.Abm_Empresa
             txtDepto.Text = "";
             txtCodPostal.Text = "";
             txtLocalidad.Text = "";
-            txtFechaCreacion.Text = "";
+            txtFechaCreacion.Text = Convert.ToString(DateTime.Today);
             chkActivo.Visible = false;
 
             btnAceptarMEmpresa.Visible = false;
+            btnAceptarAEmpresa.Visible = true;
         }
+
         private void btnVolver_Click(object sender, EventArgs e)
         {
             frmPadre.CargarListadoDeEmpresas();
             frmPadre.BringToFront();
             this.Close();
         }
-
         private void btnAceptarMEmpresa_Click(object sender, EventArgs e)
         {
             try
@@ -169,11 +169,24 @@ namespace FrbaCommerce.Abm_Empresa
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        
+        private void ValidarCampos()
+        {
+            string strErrores = "";
+            strErrores = Validator.ValidarNulo(txtRazonSocial.Text, "razon_Social");
+            strErrores = strErrores + Validator.ValidarNulo(txtCuit.Text, "Cuit");
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            }
+            //FALTA VALIDAR QUE NO EXISTE EMPRESA CON ESTA RAZON SOCIAL Y CUIT
+        }
+
         private void btnAceptarAEmpresa_Click(object sender, EventArgs e)
         {
             try
             {
-                ValidarCampos();            
+                ValidarCampos();
                 Empresa unaEmpresaNueva = new Empresa();
                 unaEmpresaNueva.Razon_social = txtRazonSocial.Text;
                 unaEmpresaNueva.Cuit = txtCuit.Text;
@@ -184,7 +197,7 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Dom_depto = txtDepto.Text;
                 unaEmpresaNueva.Dom_nro_calle = Convert.ToInt32(txtNumeroCalle.Text);
                 unaEmpresaNueva.Dom_piso = Convert.ToInt32(txtNroPiso.Text);
-                unaEmpresaNueva.Fecha_creacion = Convert.ToDateTime(txtFechaCreacion.Text);
+                //unaEmpresaNueva.Fecha_creacion = Convert.ToDateTime(txtFechaCreacion.Text);
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
                 unaEmpresaNueva.Telefono = txtTelefono.Text;
@@ -217,17 +230,7 @@ namespace FrbaCommerce.Abm_Empresa
             }
         }
 
-        private void ValidarCampos()
-        {
-            string strErrores = "";
-            strErrores = Validator.ValidarNulo(txtRazonSocial.Text, "razon_Social");
-            strErrores = strErrores + Validator.ValidarNulo(txtCuit.Text, "Cuit");
-            if (strErrores.Length > 0)
-            {
-                throw new Exception(strErrores);
-            }
-            //FALTA VALIDAR QUE NO EXISTE EMPRESA CON ESTA RAZON SOCIAL Y CUIT
-        }
+        
 
     }
 }
