@@ -34,13 +34,13 @@ namespace FrbaCommerce.Abm_Visibilidad
             chkActivo.Enabled = false;
 
             txtDescripcion.Text = unaVisibilidad.Descripcion;
-            txtDescripcion.ReadOnly = true;
+            txtDescripcion.Enabled = false;
             
             txtPrecioPorPublicar.Text = unaVisibilidad.Precio.ToString();
-            txtPrecioPorPublicar.ReadOnly = true;
+            txtPrecioPorPublicar.Enabled = false;
             
             txtPorcentaje.Text = unaVisibilidad.Porcentaje.ToString();
-            txtPorcentaje.ReadOnly = true;
+            txtPorcentaje.Enabled = false;
             
             btnCrear.Visible = false;
             btnGuardar.Visible = false;
@@ -58,13 +58,13 @@ namespace FrbaCommerce.Abm_Visibilidad
             chkActivo.Enabled = true;
             
             txtDescripcion.Text = unaVisibilidad.Descripcion;
-            txtDescripcion.ReadOnly = false;
+            txtDescripcion.Enabled = true;
 
             txtPrecioPorPublicar.Text = unaVisibilidad.Precio.ToString();
-            txtPrecioPorPublicar.ReadOnly = false;
+            txtPrecioPorPublicar.Enabled = true;
 
             txtPorcentaje.Text = unaVisibilidad.Porcentaje.ToString();
-            txtPorcentaje.ReadOnly = false;
+            txtPorcentaje.Enabled = true;
 
             btnCrear.Visible = false;
             btnGuardar.Visible = true;
@@ -76,13 +76,13 @@ namespace FrbaCommerce.Abm_Visibilidad
             this.Show();
 
             txtDescripcion.Text = "";
-            txtDescripcion.ReadOnly = false;
+            txtDescripcion.Enabled = true;
 
             txtPrecioPorPublicar.Text = "";
-            txtPrecioPorPublicar.ReadOnly = false;
+            txtPrecioPorPublicar.Enabled = true;
 
             txtPorcentaje.Text = "";
-            txtPorcentaje.ReadOnly = false;
+            txtPorcentaje.Enabled = true;
 
             chkActivo.Checked = false;
             chkActivo.Visible = true;
@@ -110,8 +110,8 @@ namespace FrbaCommerce.Abm_Visibilidad
             {
                 ValidarCampos();
                 string descripcion = txtDescripcion.Text;
-                decimal precio = Convert.ToDecimal(txtPrecioPorPublicar.Text);
-                decimal porcentaje = Convert.ToDecimal(txtPorcentaje.Text);
+                var precio = Convert.ToDecimal(txtPrecioPorPublicar.Text.Replace(".", ","));
+                var porcentaje = Convert.ToDecimal(txtPorcentaje.Text.Replace(".", ","));
                 bool activo = chkActivo.Checked;
 
                 visibilidadDelForm.Descripcion= descripcion;
@@ -144,6 +144,8 @@ namespace FrbaCommerce.Abm_Visibilidad
             }
         }
 
+       
+
         private void ValidarCampos()
         {
             string strErrores = "";
@@ -161,9 +163,10 @@ namespace FrbaCommerce.Abm_Visibilidad
             try
             {
                 ValidarCampos();
+
+                var precio = Convert.ToDecimal(txtPrecioPorPublicar.Text.Replace(".", ","));
+                var porcentaje = Convert.ToDecimal(txtPorcentaje.Text.Replace(".", ","));
                 string descripcion = txtDescripcion.Text;
-                decimal precio = Convert.ToDecimal(txtPrecioPorPublicar.Text);
-                decimal porcentaje = Convert.ToDecimal(txtPorcentaje.Text);
                 bool activo = chkActivo.Checked;
 
                 Visibilidad unaVisibNueva = new Visibilidad(descripcion, precio, porcentaje, activo);

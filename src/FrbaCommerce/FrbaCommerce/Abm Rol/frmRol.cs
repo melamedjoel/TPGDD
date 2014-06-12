@@ -34,7 +34,7 @@ namespace FrbaCommerce.Abm_Rol
 
             
             txtNombre.Text = unRol.Nombre;
-            txtNombre.ReadOnly = true;
+            txtNombre.Enabled = false;
 
             lstFuncDelSist.Visible = false;
             
@@ -58,7 +58,7 @@ namespace FrbaCommerce.Abm_Rol
             chkHabilitado.Enabled = true;
             
             txtNombre.Text = unRol.Nombre;
-            txtNombre.ReadOnly = false;
+            txtNombre.Enabled = true;
             
             lstFuncDelSist.Visible = true;
             
@@ -76,7 +76,7 @@ namespace FrbaCommerce.Abm_Rol
             this.Show();
             
             txtNombre.Text = "";
-            txtNombre.ReadOnly = false;
+            txtNombre.Enabled = true;
 
             chkHabilitado.Checked = false;
             chkHabilitado.Visible = true;

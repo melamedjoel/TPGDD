@@ -102,6 +102,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             dtgListado.Columns.Add(clmActivo);
 
             dtgListado.DataSource = ds.Tables[0];
+            dtgListado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void listadoVisibilidad_Load(object sender, EventArgs e)
