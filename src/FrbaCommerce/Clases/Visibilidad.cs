@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using Utilities;
+using System.Globalization;
+using Excepciones;
 
 namespace Clases
 {
@@ -13,13 +16,20 @@ namespace Clases
 
         #region atributos
         private int _cod_Visibilidad;
-        private string _Descripcion;
-        private decimal _Precio;
-        private decimal _Porcentaje;
+        private string _descripcion;
+        private decimal _precio;
+        private decimal _porcentaje;
+        private bool _activo;
 
         #endregion
 
         #region properties
+        public bool Activo
+        {
+            get { return _activo; }
+            set { _activo = value; }
+        }
+
         public int cod_Visibilidad
         {
             get { return _cod_Visibilidad; }
@@ -27,18 +37,47 @@ namespace Clases
         }
         public string Descripcion
         {
-            get { return _Descripcion; }
-            set { _Descripcion = value; }
+            get { return _descripcion; }
+            set { _descripcion = value; }
         }
         public decimal Precio
         {
-            get { return _Precio; }
-            set { _Precio = value; }
+            get { return _precio; }
+            set { _precio = value; }
         }
         public decimal Porcentaje
         {
-            get { return _Porcentaje; }
-            set { _Porcentaje = value; }
+            get { return _porcentaje; }
+            set { _porcentaje = value; }
+        }
+        #endregion
+
+        #region constructor
+        public Visibilidad()
+        {
+            this.cod_Visibilidad= 0;
+            this.Descripcion = "";
+            this.Precio = 0;
+            this.Porcentaje = 0;
+            this.Activo = false;
+
+        }
+        public Visibilidad(int unCodigo, string unaDescripcion, decimal unPrecio, decimal unPorcentaje, bool unValorDeActivo){
+            this.cod_Visibilidad = unCodigo;
+            this.Descripcion = unaDescripcion;
+            this.Precio = unPrecio;
+            this.Porcentaje = unPorcentaje;
+            this.Activo = unValorDeActivo;
+
+        }
+
+        public Visibilidad(string unaDescripcion, decimal unPrecio, decimal unPorcentaje, bool unValorDeActivo)
+        {
+            this.cod_Visibilidad = -1;
+            this.Descripcion = unaDescripcion;
+            this.Precio = unPrecio;
+            this.Porcentaje = unPorcentaje;
+            this.Activo= unValorDeActivo;
         }
         #endregion
 
@@ -60,13 +99,99 @@ namespace Clases
             this.Descripcion = dr["Descripcion"].ToString();
             this.Precio = Convert.ToDecimal(dr["Precio"]);
             this.Porcentaje = Convert.ToDecimal(dr["Porcentaje"]);
+            this.Activo = Convert.ToBoolean(dr["Activo"]);
         }
 
+        public void Deshabilitar()
+        {
+            setearListaDeParametrosConCodVisibilidad();
+            this.Deshabilitar(parameterList);
+            parameterList.Clear();
+        }
+
+        public static DataSet obtenerTodasLasVisibilidades()
+        {
+            Visibilidad unaVisibilidad = new Visibilidad();
+            return unaVisibilidad.TraerListado(unaVisibilidad.parameterList, "");
+        }
+
+        public static DataSet obtenerTodasLasVisibilidadesConFiltros(string unaDescripcion, string unPrecio, string unPorcentaje, bool unValorDeActivo)
+        {
+            Visibilidad unaVisibilidad = new Visibilidad();
+            unaVisibilidad.setearListaDeParametrosConDescripcionPrecioPorcentajeYActivo(unaDescripcion, unPrecio, unPorcentaje, unValorDeActivo);            
+            DataSet ds = unaVisibilidad.TraerListado(unaVisibilidad.parameterList, "ConFiltros");
+            unaVisibilidad.parameterList.Clear();
+            return ds;
+        }
+
+        public void ModificarDatos()
+        {
+            setearListaDeParametrosEntidadEntera();
+
+            if (this.Modificar(parameterList))
+            {
+                parameterList.Clear();
+            }
+
+        }
+
+
+        public void guardarDatosDeVisibilidadNueva()
+        {
+            setearListaDeParametrosEntidadEnteraSinCodigo();
+            DataSet dsNuevaVisib = this.GuardarYObtenerID(parameterList);
+            parameterList.Clear();
+
+            if (dsNuevaVisib.Tables[0].Rows.Count > 0)
+            {
+                this.cod_Visibilidad = Convert.ToInt32(dsNuevaVisib.Tables[0].Rows[0]["cod_Visibilidad"]);
+            }
+            else
+            {
+                throw new BadInsertException();
+            }
+        }
 
         #endregion
 
         #region metodos privados
+        private void setearListaDeParametrosConCodVisibilidad()
+        {
+            parameterList.Add(new SqlParameter("@cod_Visibilidad", this.cod_Visibilidad));
+        }
 
+        private void setearListaDeParametrosConDescripcionPrecioPorcentajeYActivo(string unaDescripcion, string unPrecio, string unPorcentaje, bool unValorDeActivo)
+        {
+            if(!(String.IsNullOrEmpty(unaDescripcion)))
+                parameterList.Add(new SqlParameter("@Descripcion", unaDescripcion));
+            if (!(String.IsNullOrEmpty(unPrecio)))
+                parameterList.Add(new SqlParameter("@Precio", unPrecio));
+            if (!(String.IsNullOrEmpty(unPorcentaje)))
+                parameterList.Add(new SqlParameter("@Porcentaje", unPorcentaje));
+            
+            parameterList.Add(new SqlParameter("@Activo", unValorDeActivo));
+        }
+
+
+        private void setearListaDeParametrosEntidadEntera()
+        {
+            parameterList.Add(new SqlParameter("@cod_Visibilidad", this.cod_Visibilidad));
+            parameterList.Add(new SqlParameter("@Descripcion", this.Descripcion));
+            parameterList.Add(new SqlParameter("@Precio", this.Precio));
+            parameterList.Add(new SqlParameter("@Porcentaje", this.Porcentaje));
+            parameterList.Add(new SqlParameter("@Activo", this.Activo));
+            
+        }
+
+        private void setearListaDeParametrosEntidadEnteraSinCodigo()
+        {
+            parameterList.Add(new SqlParameter("@Descripcion", this.Descripcion));
+            parameterList.Add(new SqlParameter("@Precio", this.Precio));
+            parameterList.Add(new SqlParameter("@Porcentaje", this.Porcentaje));
+            parameterList.Add(new SqlParameter("@Activo", this.Activo));
+
+        }
         #endregion
+
     }
 }

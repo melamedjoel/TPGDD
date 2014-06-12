@@ -12,3 +12,8 @@ DROP PROCEDURE ATJ.deleteRol_Funcionalidad_PorIdRol;
 DROP PROCEDURE ATJ.updateRol;
 DROP PROCEDURE ATJ.deshabilitarRol;
 DROP PROCEDURE [ATJ].[traerListadoRolesConFiltros];
+DROP PROCEDURE ATJ.deshabilitarVisibilidad;
+DROP PROCEDURE [ATJ].[traerListadoVisibilidades];
+DROP PROCEDURE [ATJ].[traerListadoVisibilidadesConFiltros]; 
+DROP PROCEDURE ATJ.updateVisibilidad;
+DROP PROCEDURE ATJ.insertVisibilidad_RetornarID;

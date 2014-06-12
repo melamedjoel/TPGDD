@@ -27,14 +27,20 @@ namespace FrbaCommerce.Abm_Rol
             frmPadre = frmEnviador;
             rolDelForm = unRol;
             this.Show();
+            
             chkHabilitado.Visible = true;
             chkHabilitado.Checked = unRol.Habilitado;
+            chkHabilitado.Enabled = false;
+
+            
             txtNombre.Text = unRol.Nombre;
+            txtNombre.ReadOnly = true;
+
             lstFuncDelSist.Visible = false;
+            
             btnAgregar.Visible = false;
             btnSacar.Visible = false;
             btnCrear.Visible = false;
-            txtNombre.ReadOnly = true;
             btnGuardar.Visible = false;
 
             cargarListadoDeFuncionalidadesDelRol();
@@ -44,15 +50,23 @@ namespace FrbaCommerce.Abm_Rol
         {
             frmPadre = frmEnviador;
             rolDelForm = unRol;
+            
             this.Show();
+            
             chkHabilitado.Visible = true;
             chkHabilitado.Checked = unRol.Habilitado;
+            chkHabilitado.Enabled = true;
+            
             txtNombre.Text = unRol.Nombre;
+            txtNombre.ReadOnly = false;
+            
             lstFuncDelSist.Visible = true;
+            
             btnAgregar.Visible = true;
             btnSacar.Visible = true;
             btnCrear.Visible = false;
             btnGuardar.Visible = true;
+            
             cargarListadoDeFuncionalidadesDelRol();
             cargarListadoDeFuncionalidadesDelSistema();
         }
@@ -60,18 +74,24 @@ namespace FrbaCommerce.Abm_Rol
         public void AbrirParaAgregar(listadoRoles frmEnviador)
         {
             this.Show();
+            
             txtNombre.Text = "";
-            chkHabilitado.Checked = false;
             txtNombre.ReadOnly = false;
+
+            chkHabilitado.Checked = false;
+            chkHabilitado.Visible = true;
+            chkHabilitado.Enabled = true;
+            
             lstFuncDelSist.Visible = true;
             lstFuncDelRol.Visible = true;
+            
             btnSacar.Visible = true;
             btnAgregar.Visible = true;
             btnCrear.Visible = true;
             btnVolver.Visible = true;
-            chkHabilitado.Visible = true;
-            frmPadre = frmEnviador;
             btnGuardar.Visible = false;
+
+            frmPadre = frmEnviador;
 
             lstFuncDelRol.Items.Clear();
             cargarListadoDeFuncionalidadesDelSistema();

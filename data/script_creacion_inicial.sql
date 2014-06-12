@@ -155,10 +155,11 @@ GO
 
 CREATE TABLE ATJ.Visibilidades
 	(
-	cod_Visibilidad numeric(18, 0) NOT NULL,
+	cod_Visibilidad numeric(18, 0) NOT NULL IDENTITY (1, 1),
 	Descripcion nvarchar(255) NULL,
 	Precio numeric(18, 2) NULL DEFAULT 0.00,
-	Porcentaje numeric(18, 2) NULL
+	Porcentaje numeric(18, 2) NULL,
+	Activo bit NULL DEFAULT 1
 	)  ON [PRIMARY]
 GO
 ALTER TABLE ATJ.Visibilidades ADD CONSTRAINT
@@ -664,9 +665,18 @@ SET id_Usuario = (SELECT id_Usuario FROM ATJ.Usuarios AS "U" WHERE U.Username = 
 INSERT INTO ATJ.Rubros (Descripcion, Activo) (SELECT DISTINCT Publicacion_Rubro_Descripcion, 1 as ACTIVO FROM [gd_esquema].[Maestra] where Publicacion_Rubro_Descripcion is not null)
  --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos tabla Visibilidades
+SET IDENTITY_INSERT ATJ.Visibilidades ON
+
 INSERT INTO ATJ.Visibilidades (cod_Visibilidad, Descripcion, Porcentaje, Precio)
 (SELECT DISTINCT Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Porcentaje, Publicacion_Visibilidad_Precio
 FROM [gd_esquema].[Maestra] where Publicacion_Visibilidad_Cod is not null)
+
+
+SET IDENTITY_INSERT ATJ.Visibilidades OFF
+
+SELECT @number = MAX(Publicacion_Visibilidad_Cod) FROM gd_esquema.Maestra
+DBCC CHECKIDENT ('ATJ.Visibilidades', RESEED, @number);
+
  --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos tabla Tipos_Publicacion
 INSERT INTO ATJ.Tipos_Publicacion(Nombre)

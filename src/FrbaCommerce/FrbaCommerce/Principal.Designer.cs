@@ -31,14 +31,17 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ABMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ABMRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aBMEmpresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AbmEmpresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.publicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AbmVisiblidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ABMToolStripMenuItem});
+            this.ABMToolStripMenuItem,
+            this.publicacionToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(948, 24);
@@ -49,7 +52,7 @@
             // 
             this.ABMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ABMRolesToolStripMenuItem,
-            this.aBMEmpresasToolStripMenuItem});
+            this.AbmEmpresasToolStripMenuItem});
             this.ABMToolStripMenuItem.Name = "ABMToolStripMenuItem";
             this.ABMToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.ABMToolStripMenuItem.Text = "Administración";
@@ -61,12 +64,27 @@
             this.ABMRolesToolStripMenuItem.Text = "ABM Roles";
             this.ABMRolesToolStripMenuItem.Click += new System.EventHandler(this.ABMRolesToolStripMenuItem_Click);
             // 
-            // aBMEmpresasToolStripMenuItem
+            // AbmEmpresasToolStripMenuItem
             // 
-            this.aBMEmpresasToolStripMenuItem.Name = "aBMEmpresasToolStripMenuItem";
-            this.aBMEmpresasToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.aBMEmpresasToolStripMenuItem.Text = "ABM Empresas";
-            this.aBMEmpresasToolStripMenuItem.Click += new System.EventHandler(this.aBMEmpresasToolStripMenuItem_Click);
+            this.AbmEmpresasToolStripMenuItem.Name = "AbmEmpresasToolStripMenuItem";
+            this.AbmEmpresasToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.AbmEmpresasToolStripMenuItem.Text = "ABM Empresas";
+            this.AbmEmpresasToolStripMenuItem.Click += new System.EventHandler(this.AbmEmpresasToolStripMenuItem_Click);
+            // 
+            // publicacionToolStripMenuItem
+            // 
+            this.publicacionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AbmVisiblidadToolStripMenuItem});
+            this.publicacionToolStripMenuItem.Name = "publicacionToolStripMenuItem";
+            this.publicacionToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.publicacionToolStripMenuItem.Text = "Publicacion";
+            // 
+            // AbmVisiblidadToolStripMenuItem
+            // 
+            this.AbmVisiblidadToolStripMenuItem.Name = "AbmVisiblidadToolStripMenuItem";
+            this.AbmVisiblidadToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.AbmVisiblidadToolStripMenuItem.Text = "ABM Visiblidad";
+            this.AbmVisiblidadToolStripMenuItem.Click += new System.EventHandler(this.AbmVisiblidadToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -92,7 +110,9 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ABMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ABMRolesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aBMEmpresasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AbmEmpresasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem publicacionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AbmVisiblidadToolStripMenuItem;
 
     }
 }

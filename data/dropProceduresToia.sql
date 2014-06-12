@@ -1,7 +1,6 @@
 DROP PROCEDURE ATJ.updateCliente;
 DROP PROCEDURE ATJ.updatePublicacion;
 DROP PROCEDURE ATJ.updateEmpresa;
-DROP PROCEDURE ATJ.updateVisibilidad;
 DROP PROCEDURE ATJ.updatePregunta;
 DROP PROCEDURE ATJ.traerListadoClientesConFiltros;
 DROP PROCEDURE ATJ.traerListadoEmpresasConFiltros;

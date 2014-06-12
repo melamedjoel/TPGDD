@@ -103,11 +103,17 @@
     <Compile Include="Abm Rubro\Rubro.Designer.cs">
       <DependentUpon>Rubro.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Visibilidad\Visibilidad.cs">
+    <Compile Include="Abm Visibilidad\frmVisibilidad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Visibilidad\Visibilidad.designer.cs">
-      <DependentUpon>Visibilidad.cs</DependentUpon>
+    <Compile Include="Abm Visibilidad\frmVisibilidad.designer.cs">
+      <DependentUpon>frmVisibilidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Visibilidad\ListadoVisibilidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Visibilidad\ListadoVisibilidad.Designer.cs">
+      <DependentUpon>ListadoVisibilidad.cs</DependentUpon>
     </Compile>
     <Compile Include="Calificar Vendedor\Form1.cs">
       <SubType>Form</SubType>
@@ -201,8 +207,11 @@
     <EmbeddedResource Include="Abm Rubro\Rubro.resx">
       <DependentUpon>Rubro.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Visibilidad\Visibilidad.resx">
-      <DependentUpon>Visibilidad.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Visibilidad\frmVisibilidad.resx">
+      <DependentUpon>frmVisibilidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Visibilidad\ListadoVisibilidad.resx">
+      <DependentUpon>ListadoVisibilidad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\GenerarPublicacion.resx">
       <DependentUpon>GenerarPublicacion.cs</DependentUpon>

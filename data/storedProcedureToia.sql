@@ -131,20 +131,6 @@ AS
 	@Dom_piso, @Dom_depto, @Dom_cod_postal, @Dom_ciudad, @Nombre_contacto,@Activo, @id_Usuario)
 
 GO
---Procedure updateVisibilidad
-CREATE PROCEDURE ATJ.updateVisibilidad
-	@cod_Visibilidad numeric(18,0),
-	@Descripcion nvarchar(255),
-	@Precio numeric(18,2),
-	@Porcentaje numeric(18,2)
-AS
-	UPDATE ATJ.Visibilidades SET --cod_Visibilidad = @cod_Visibilidad, --modificable?
-							Descripcion = @Descripcion,
-							Precio = @Precio,
-							Porcentaje = @Porcentaje
-							where cod_Visibilidad = @cod_Visibilidad
-	
-GO
 
 --Procedure updatePublicacion
 CREATE PROCEDURE ATJ.updatePublicacion

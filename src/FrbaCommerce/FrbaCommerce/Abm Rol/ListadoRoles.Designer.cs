@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnVer = new System.Windows.Forms.Button();
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -58,8 +58,8 @@
             // dtgListado
             // 
             this.dtgListado.AllowUserToAddRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -171,7 +171,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 393);
-            this.ControlBox = false;
             this.Controls.Add(this.grpFiltros);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.dtgListado);

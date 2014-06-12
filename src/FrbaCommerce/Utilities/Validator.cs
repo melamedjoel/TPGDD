@@ -18,11 +18,35 @@ namespace Utilities
             return strError;
         }
 
+        public static string SoloNumerosODecimales(string textoAValidar, string nombreCampo)
+        {
+            string strError = "";
+
+            if (strError.Length == 0 && !EsDecimal(textoAValidar))
+            {
+                strError += "El campo " + nombreCampo + " tiene caracteres invalidos\n";
+            }
+            return strError;
+        }
+
         public static bool EsNumero(object obj)
         {
             try
             {
                 int.Parse(obj.ToString());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool EsDecimal(object obj)
+        {
+            try
+            {
+                decimal.Parse(obj.ToString());
                 return true;
             }
             catch

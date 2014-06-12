@@ -11,6 +11,7 @@ using Clases;
 using Utilities;
 using FrbaCommerce.ABM_Rol;
 using FrbaCommerce.Abm_Empresa;
+using FrbaCommerce.Abm_Visibilidad;
 
 
 namespace FrbaCommerce
@@ -33,11 +34,17 @@ namespace FrbaCommerce
             frmListadoRoles.Show(this);
         }
 
-        private void aBMEmpresasToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void AbmEmpresasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             listadoEmpresa frmListadoEmpresas = new listadoEmpresa();
             frmListadoEmpresas.Show(this);
+        }
 
+        private void AbmVisiblidadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listadoVisibilidad frmListadoVisibilidad = new listadoVisibilidad();
+            frmListadoVisibilidad.Show(this);
         }
 
     }

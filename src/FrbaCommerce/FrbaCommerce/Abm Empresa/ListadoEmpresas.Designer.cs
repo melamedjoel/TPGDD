@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dtgListado = new System.Windows.Forms.DataGridView();
-            this.btnVer = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnModificar = new System.Windows.Forms.Button();
-            this.btnAlta = new System.Windows.Forms.Button();
             this.grpFiltros = new System.Windows.Forms.GroupBox();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -43,70 +38,14 @@
             this.lblRazonSocial = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).BeginInit();
+            this.dtgListado = new System.Windows.Forms.DataGridView();
+            this.btnVer = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnAlta = new System.Windows.Forms.Button();
             this.grpFiltros.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dtgListado
-            // 
-            this.dtgListado.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtgListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgListado.Location = new System.Drawing.Point(150, 138);
-            this.dtgListado.MultiSelect = false;
-            this.dtgListado.Name = "dtgListado";
-            this.dtgListado.ReadOnly = true;
-            this.dtgListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgListado.Size = new System.Drawing.Size(393, 171);
-            this.dtgListado.TabIndex = 40;
-            // 
-            // btnVer
-            // 
-            this.btnVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVer.Location = new System.Drawing.Point(511, 108);
-            this.btnVer.Name = "btnVer";
-            this.btnVer.Size = new System.Drawing.Size(32, 24);
-            this.btnVer.TabIndex = 39;
-            this.btnVer.Text = "Ver";
-            this.btnVer.UseVisualStyleBackColor = true;
-            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.Location = new System.Drawing.Point(388, 108);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(53, 24);
-            this.btnEliminar.TabIndex = 38;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // btnModificar
-            // 
-            this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnModificar.Location = new System.Drawing.Point(446, 108);
-            this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(60, 24);
-            this.btnModificar.TabIndex = 37;
-            this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
-            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
-            // 
-            // btnAlta
-            // 
-            this.btnAlta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlta.Location = new System.Drawing.Point(349, 108);
-            this.btnAlta.Name = "btnAlta";
-            this.btnAlta.Size = new System.Drawing.Size(34, 24);
-            this.btnAlta.TabIndex = 36;
-            this.btnAlta.Text = "Alta";
-            this.btnAlta.UseVisualStyleBackColor = true;
-            this.btnAlta.Click += new System.EventHandler(this.btnAlta_Click);
             // 
             // grpFiltros
             // 
@@ -118,7 +57,7 @@
             this.grpFiltros.Controls.Add(this.lblRazonSocial);
             this.grpFiltros.Controls.Add(this.btnLimpiar);
             this.grpFiltros.Controls.Add(this.btnBuscar);
-            this.grpFiltros.Location = new System.Drawing.Point(150, -1);
+            this.grpFiltros.Location = new System.Drawing.Point(143, 12);
             this.grpFiltros.Name = "grpFiltros";
             this.grpFiltros.Size = new System.Drawing.Size(397, 103);
             this.grpFiltros.TabIndex = 41;
@@ -196,34 +135,86 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
+            // dtgListado
+            // 
+            this.dtgListado.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtgListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgListado.Location = new System.Drawing.Point(147, 156);
+            this.dtgListado.MultiSelect = false;
+            this.dtgListado.Name = "dtgListado";
+            this.dtgListado.ReadOnly = true;
+            this.dtgListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgListado.Size = new System.Drawing.Size(393, 171);
+            this.dtgListado.TabIndex = 46;
+            // 
+            // btnVer
+            // 
+            this.btnVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVer.Location = new System.Drawing.Point(508, 126);
+            this.btnVer.Name = "btnVer";
+            this.btnVer.Size = new System.Drawing.Size(32, 24);
+            this.btnVer.TabIndex = 45;
+            this.btnVer.Text = "Ver";
+            this.btnVer.UseVisualStyleBackColor = true;
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Location = new System.Drawing.Point(385, 126);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(53, 24);
+            this.btnEliminar.TabIndex = 44;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnModificar.Location = new System.Drawing.Point(443, 126);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(60, 24);
+            this.btnModificar.TabIndex = 43;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            // 
+            // btnAlta
+            // 
+            this.btnAlta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAlta.Location = new System.Drawing.Point(346, 126);
+            this.btnAlta.Name = "btnAlta";
+            this.btnAlta.Size = new System.Drawing.Size(34, 24);
+            this.btnAlta.TabIndex = 42;
+            this.btnAlta.Text = "Alta";
+            this.btnAlta.UseVisualStyleBackColor = true;
+            // 
             // listadoEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 312);
-            this.Controls.Add(this.grpFiltros);
+            this.ClientSize = new System.Drawing.Size(749, 352);
             this.Controls.Add(this.dtgListado);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAlta);
+            this.Controls.Add(this.grpFiltros);
             this.Name = "listadoEmpresa";
             this.Text = "Listado de Empresas";
             this.Load += new System.EventHandler(this.listadoEmpresa_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).EndInit();
             this.grpFiltros.ResumeLayout(false);
             this.grpFiltros.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public System.Windows.Forms.DataGridView dtgListado;
-        public System.Windows.Forms.Button btnVer;
-        public System.Windows.Forms.Button btnEliminar;
-        public System.Windows.Forms.Button btnModificar;
-        public System.Windows.Forms.Button btnAlta;
         private System.Windows.Forms.GroupBox grpFiltros;
         private System.Windows.Forms.TextBox txtRazonSocial;
         private System.Windows.Forms.Label lblRazonSocial;
@@ -233,5 +224,10 @@
         private System.Windows.Forms.Label lblCuit;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Label lblEmail;
+        public System.Windows.Forms.DataGridView dtgListado;
+        public System.Windows.Forms.Button btnVer;
+        public System.Windows.Forms.Button btnEliminar;
+        public System.Windows.Forms.Button btnModificar;
+        public System.Windows.Forms.Button btnAlta;
     }
 }

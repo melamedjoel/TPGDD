@@ -140,3 +140,98 @@ AS
 GO
 
 
+--Procedure deshabilitarVisibilidad
+CREATE PROCEDURE ATJ.deshabilitarVisibilidad
+	@cod_Visibilidad int
+AS
+	UPDATE ATJ.Visibilidades SET Activo=0
+	WHERE cod_Visibilidad = @cod_Visibilidad
+GO
+
+--Procedure traerListadoVisibilidades
+CREATE PROCEDURE [ATJ].[traerListadoVisibilidades] 
+AS 
+    SELECT * FROM ATJ.Visibilidades
+GO
+
+--Procedure traerListadoVisibilidadesConFiltros
+CREATE PROCEDURE [ATJ].[traerListadoVisibilidadesConFiltros] 
+    @Descripcion nvarchar(255) = null,
+	@Precio nvarchar(20)= null,
+	@Porcentaje nvarchar(20) =null,
+	@Activo bit
+AS 
+
+	--El activo no lo valido porque siempre va a venir 1 o 0, asi que lo filtro por eso tambien. 
+	--No existe que el valor de activo no se filtre
+	IF((@Precio = '' Or @Precio IS NULL) AND (@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
+		BEGIN
+			--Significa que estoy filtrando por descripcion y activo
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion = @Descripcion AND Activo = @Activo 
+		END 
+	IF((@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Precio <> '' Or @Precio IS NOT NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
+		BEGIN
+		--Significa que estoy filtrando por descripcion, precio y activo
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion = @Descripcion AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2))
+		END
+	IF((@Precio = '' Or @Precio IS NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
+		BEGIN
+		--Significa que estoy filtrando por descripcion, porcentaje y activo
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion = @Descripcion AND Activo = @Activo AND Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2))
+		END
+	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Precio <> '' Or @Precio IS NOT NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL))
+		BEGIN
+		--Significa que estoy filtrando por porcentaje, precio y activo
+		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2))
+		END
+	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Precio = '' Or @Precio IS NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL))
+		BEGIN
+		--Significa que estoy filtrando por porcentaje y activo
+		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo
+		END
+	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Precio <> '' Or @Precio IS NOT NULL))
+		BEGIN
+		--Significa que estoy filtrando por precio y activo
+		SELECT * FROM ATJ.Visibilidades WHERE Precio = CAST(@Precio AS NUMERIC(18,2)) AND Activo = @Activo
+		END
+	IF((@Descripcion <> '' Or @Descripcion IS NOT NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL) AND (@Precio <> '' Or @Precio IS NOT NULL))
+		BEGIN
+		--Si no se cumplio ningun if, es porque el filtro es por todos los datos. Filtro por descripcion, precio, porcentaje y activo
+		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2))
+		END
+	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Precio = '' Or @Precio IS NULL))
+		BEGIN
+		--Sino, solo filtro por activo
+		SELECT * FROM ATJ.Visibilidades WHERE Activo = @Activo
+		END
+	
+GO
+
+
+--Procedure updateVisibilidad
+CREATE PROCEDURE ATJ.updateVisibilidad
+	@cod_Visibilidad int,
+	@Descripcion nvarchar(255),
+	@Precio numeric(18,2),
+	@Porcentaje numeric(18,2),
+	@Activo bit
+AS
+	UPDATE ATJ.Visibilidades SET Descripcion = @Descripcion, Precio = @Precio, Porcentaje = @Porcentaje, Activo = @Activo
+	WHERE cod_Visibilidad = @cod_Visibilidad
+GO
+
+
+--Procedure insertVisibilidad_RetornarID
+CREATE PROCEDURE ATJ.insertVisibilidad_RetornarID
+	@Descripcion nvarchar(255),
+	@Precio numeric(18,2),
+	@Porcentaje numeric(18,2),
+	@Activo bit
+AS
+	INSERT INTO ATJ.Visibilidades
+	(Descripcion, Precio, Porcentaje, Activo)
+	VALUES 
+	(@Descripcion, @Precio, @Porcentaje, @Activo)
+	
+	SELECT @@IDENTITY AS cod_Visibilidad;
+GO
