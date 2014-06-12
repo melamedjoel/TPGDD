@@ -15,3 +15,4 @@ DROP PROCEDURE ATJ.traerEmpresaConId;
 DROP PROCEDURE ATJ.insertEmpresa;
 DROP PROCEDURE ATJ.insertUsuario;
 DROP PROCEDURE ATJ.traerListadoEmpresas;
+DROP PROCEDURE ATJ.insertUsuario_RetornarID;

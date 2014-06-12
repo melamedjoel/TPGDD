@@ -107,8 +107,8 @@ namespace FrbaCommerce.Abm_Empresa
             txtMail.Text = "";
             txtTelefono.Text = "";
             txtCalle.Text = "";
-            txtNumeroCalle.Text = "";
-            txtNroPiso.Text = "";
+            txtNumeroCalle.Text = Convert.ToString(0);
+            txtNroPiso.Text = Convert.ToString(0);
             txtDepto.Text = "";
             txtCodPostal.Text = "";
             txtLocalidad.Text = "";
@@ -138,9 +138,9 @@ namespace FrbaCommerce.Abm_Empresa
                 empresaDelForm.Dom_ciudad = txtLocalidad.Text;
                 empresaDelForm.Dom_cod_postal = txtCodPostal.Text;
                 empresaDelForm.Dom_depto = txtDepto.Text;
-                empresaDelForm.Dom_nro_calle = Convert.ToInt32(txtNumeroCalle.Text);
-                empresaDelForm.Dom_piso = Convert.ToInt32(txtNroPiso.Text);
-                empresaDelForm.Fecha_creacion = Convert.ToDateTime(txtFechaCreacion.Text);
+                empresaDelForm.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
+                empresaDelForm.Dom_piso = Int32.Parse(txtNroPiso.Text);
+                empresaDelForm.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
                 empresaDelForm.Mail = txtMail.Text;
                 empresaDelForm.Nombre_contacto = txtNombreContacto.Text;
                 empresaDelForm.Telefono = txtTelefono.Text;
@@ -179,6 +179,7 @@ namespace FrbaCommerce.Abm_Empresa
             {
                 throw new Exception(strErrores);
             }
+            
             //FALTA VALIDAR QUE NO EXISTE EMPRESA CON ESTA RAZON SOCIAL Y CUIT
         }
 
@@ -195,9 +196,9 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Dom_ciudad = txtLocalidad.Text;
                 unaEmpresaNueva.Dom_cod_postal = txtCodPostal.Text;
                 unaEmpresaNueva.Dom_depto = txtDepto.Text;
-                ////unaEmpresaNueva.Dom_nro_calle = Convert.ToInt32(txtNumeroCalle.Text);
-                ////unaEmpresaNueva.Dom_piso = Convert.ToInt32(txtNroPiso.Text);
-                ////unaEmpresaNueva.Fecha_creacion = Convert.ToDateTime(txtFechaCreacion.Text);
+                unaEmpresaNueva.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
+                unaEmpresaNueva.Dom_piso = Int32.Parse(txtNroPiso.Text);
+                unaEmpresaNueva.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
                 unaEmpresaNueva.Telefono = txtTelefono.Text;
@@ -229,8 +230,7 @@ namespace FrbaCommerce.Abm_Empresa
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        
+     
 
     }
 }

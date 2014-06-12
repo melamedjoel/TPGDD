@@ -277,7 +277,21 @@ AS
 	(@Username, @Clave, @ClaveAutoGenerada, @Activo)
 
 GO
+--Procedure insertUsuario_RetornarID
+CREATE PROCEDURE ATJ.insertUsuario_RetornarID
+	@Username int,
+	@Clave nvarchar(255),
+	@ClaveAutoGenerada bit,
+	@Activo bit
+AS
+	INSERT INTO ATJ.Usuarios
+	(Username, Clave, ClaveAutoGenerada, Activo)
+	VALUES
+	(@Username, @Clave, @ClaveAutoGenerada, @Activo)
+	
+	SELECT @@IDENTITY AS id_Usuario;
 
+GO
 --Procedure traerListadoEmpresasConFiltros 
 CREATE PROCEDURE [ATJ].[traerListadoEmpresasConFiltros]
     @Razon_social nvarchar(255), 

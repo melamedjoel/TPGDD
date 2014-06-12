@@ -166,11 +166,11 @@
             // btnEliminar
             // 
             this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.Location = new System.Drawing.Point(385, 126);
+            this.btnEliminar.Location = new System.Drawing.Point(369, 126);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(53, 24);
+            this.btnEliminar.Size = new System.Drawing.Size(69, 24);
             this.btnEliminar.TabIndex = 44;
-            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Text = "Desactivar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
@@ -188,11 +188,11 @@
             // btnAlta
             // 
             this.btnAlta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlta.Location = new System.Drawing.Point(346, 126);
+            this.btnAlta.Location = new System.Drawing.Point(306, 126);
             this.btnAlta.Name = "btnAlta";
-            this.btnAlta.Size = new System.Drawing.Size(34, 24);
+            this.btnAlta.Size = new System.Drawing.Size(57, 24);
             this.btnAlta.TabIndex = 42;
-            this.btnAlta.Text = "Alta";
+            this.btnAlta.Text = "Agregar";
             this.btnAlta.UseVisualStyleBackColor = true;
             this.btnAlta.Click += new System.EventHandler(this.btnAlta_Click);
             // 

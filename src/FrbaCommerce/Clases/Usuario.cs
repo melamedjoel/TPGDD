@@ -7,6 +7,8 @@ using System.Data;
 using Conexion;
 using System.Configuration;
 using Excepciones;
+using Utilities;
+
 
 namespace Clases
 {
@@ -150,8 +152,9 @@ namespace Clases
         public void CrearDefault(string unNombreDeUsuario)
         {
             this.Username = unNombreDeUsuario;
-            this.Clave = unNombreDeUsuario;
+            this.Clave = Encryptor.GetSHA256(unNombreDeUsuario);
             this.ClaveAutoGenerada = true;
+            this.Activo = true;
         }
         #endregion
 
@@ -164,6 +167,13 @@ namespace Clases
         private void setearListaDeParametrosCompleta()
         {
             parameterList.Add(new SqlParameter("@id_Usuario", this.Id_Usuario));
+            parameterList.Add(new SqlParameter("@Username", this.Username));
+            parameterList.Add(new SqlParameter("@Clave", this.Clave));
+            parameterList.Add(new SqlParameter("@ClaveAutoGenerada", this.ClaveAutoGenerada));
+            parameterList.Add(new SqlParameter("@Activo", this.Activo));
+        }
+        private void setearListaDeParametros()
+        {
             parameterList.Add(new SqlParameter("@Username", this.Username));
             parameterList.Add(new SqlParameter("@Clave", this.Clave));
             parameterList.Add(new SqlParameter("@ClaveAutoGenerada", this.ClaveAutoGenerada));
@@ -186,6 +196,7 @@ namespace Clases
 
         internal int GuardarYObtenerID()
         {
+            setearListaDeParametros();
             DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
             this.Id_Usuario = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
             return this.Id_Usuario;

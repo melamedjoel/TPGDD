@@ -195,7 +195,8 @@ namespace Clases
         public void guardarDatosDeEmpresaNueva()
         {
             this.usuario.Id_Usuario = this.usuario.GuardarYObtenerID();
-            setearListaDeParametros();            
+            setearListaDeParametros();
+            setearListaDeParametrosConIdUsuario(this.usuario.Id_Usuario);
             this.Guardar(parameterList);            
             parameterList.Clear();
             
@@ -210,7 +211,8 @@ namespace Clases
         
         public void ModificarDatos()
         {
-            setearListaDeParametros();
+            setearListaDeParametrosConIdEmpresa();
+            setearListaDeParametros();            
             if (this.Modificar(parameterList))
             {
                 parameterList.Clear();
@@ -266,8 +268,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Dom_cod_postal", this.Dom_cod_postal));
             parameterList.Add(new SqlParameter("@Dom_ciudad", this.Dom_ciudad));
             parameterList.Add(new SqlParameter("@Nombre_contacto", this.Nombre_contacto));
-            parameterList.Add(new SqlParameter("@Activo", this.Activo));
-            parameterList.Add(new SqlParameter("@id_Usuario", this.usuario.Id_Usuario));
+            parameterList.Add(new SqlParameter("@Activo", this.Activo));       
         }
         
         

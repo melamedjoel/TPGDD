@@ -263,12 +263,13 @@
             // 
             // btnAceptarMEmpresa
             // 
-            this.btnAceptarMEmpresa.Location = new System.Drawing.Point(391, 197);
+            this.btnAceptarMEmpresa.Location = new System.Drawing.Point(390, 197);
             this.btnAceptarMEmpresa.Name = "btnAceptarMEmpresa";
             this.btnAceptarMEmpresa.Size = new System.Drawing.Size(75, 23);
             this.btnAceptarMEmpresa.TabIndex = 51;
             this.btnAceptarMEmpresa.Text = "Aceptar";
             this.btnAceptarMEmpresa.UseVisualStyleBackColor = true;
+            this.btnAceptarMEmpresa.Click += new System.EventHandler(this.btnAceptarMEmpresa_Click);
             // 
             // btnVolver
             // 
