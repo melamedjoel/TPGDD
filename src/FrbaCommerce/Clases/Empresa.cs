@@ -194,9 +194,9 @@ namespace Clases
        
         public void guardarDatosDeEmpresaNueva()
         {
-            setearListaDeParametros();
-            this.Guardar(parameterList);
-            this.usuario.Guardar();
+            this.usuario.Id_Usuario = this.usuario.GuardarYObtenerID();
+            setearListaDeParametros();            
+            this.Guardar(parameterList);            
             parameterList.Clear();
             
             //if (dsNuevaEmpresa.Tables[0].Rows.Count > 0)
@@ -253,7 +253,7 @@ namespace Clases
         }
         private void setearListaDeParametros()
         {
-            parameterList.Add(new SqlParameter("@id_Empresa", this.id_Empresa));
+            //parameterList.Add(new SqlParameter("@id_Empresa", this.id_Empresa));
             parameterList.Add(new SqlParameter("@Razon_social", this.Razon_social));
             parameterList.Add(new SqlParameter("@Cuit", this.Cuit));
             parameterList.Add(new SqlParameter("@Mail", this.Mail));

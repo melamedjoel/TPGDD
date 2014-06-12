@@ -182,9 +182,13 @@ namespace Clases
         }
         #endregion
 
-        internal void Guardar()
+
+
+        internal int GuardarYObtenerID()
         {
-           Guardar(parameterList);
+            DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
+            this.Id_Usuario = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
+            return this.Id_Usuario;
         }
     }
 }

@@ -195,14 +195,14 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Dom_ciudad = txtLocalidad.Text;
                 unaEmpresaNueva.Dom_cod_postal = txtCodPostal.Text;
                 unaEmpresaNueva.Dom_depto = txtDepto.Text;
-                unaEmpresaNueva.Dom_nro_calle = Convert.ToInt32(txtNumeroCalle.Text);
-                unaEmpresaNueva.Dom_piso = Convert.ToInt32(txtNroPiso.Text);
-                //unaEmpresaNueva.Fecha_creacion = Convert.ToDateTime(txtFechaCreacion.Text);
+                ////unaEmpresaNueva.Dom_nro_calle = Convert.ToInt32(txtNumeroCalle.Text);
+                ////unaEmpresaNueva.Dom_piso = Convert.ToInt32(txtNroPiso.Text);
+                ////unaEmpresaNueva.Fecha_creacion = Convert.ToDateTime(txtFechaCreacion.Text);
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
                 unaEmpresaNueva.Telefono = txtTelefono.Text;
                 unaEmpresaNueva.usuario = new Usuario();
-                unaEmpresaNueva.usuario.CrearDefault(empresaDelForm.Cuit);
+                unaEmpresaNueva.usuario.CrearDefault(unaEmpresaNueva.Cuit);
                 unaEmpresaNueva.Activo = true;
 
                 unaEmpresaNueva.guardarDatosDeEmpresaNueva();

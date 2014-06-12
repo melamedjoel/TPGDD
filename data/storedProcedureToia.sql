@@ -119,14 +119,16 @@ CREATE PROCEDURE ATJ.insertEmpresa
 	@Dom_cod_postal nvarchar(50),
 	@Dom_ciudad nvarchar(255),
 	@Nombre_contacto nvarchar(255),
-	@Activo bit
+	@Activo bit,
+	@id_Usuario int
+	
 AS
 	INSERT INTO ATJ.Empresas 
 	(Razon_social, Cuit, Fecha_creacion, Mail, Telefono, Dom_calle, Dom_nro_calle,
-	Dom_piso, Dom_depto, Dom_cod_postal, Dom_ciudad, Nombre_contacto, Activo)
+	Dom_piso, Dom_depto, Dom_cod_postal, Dom_ciudad, Nombre_contacto, Activo, id_Usuario)
 	VALUES
 	(@Razon_social, @Cuit, @Fecha_creacion, @Mail, @Telefono, @Dom_calle, @Dom_nro_calle,
-	@Dom_piso, @Dom_depto, @Dom_cod_postal, @Dom_ciudad, @Nombre_contacto,@Activo)
+	@Dom_piso, @Dom_depto, @Dom_cod_postal, @Dom_ciudad, @Nombre_contacto,@Activo, @id_Usuario)
 
 GO
 --Procedure updateVisibilidad
@@ -291,7 +293,7 @@ AS
 GO
 
 --Procedure traerListadoEmpresasConFiltros 
-ALTER PROCEDURE [ATJ].[traerListadoEmpresasConFiltros]
+CREATE PROCEDURE [ATJ].[traerListadoEmpresasConFiltros]
     @Razon_social nvarchar(255), 
     @Cuit nvarchar(50),
     @Mail nvarchar(50)
