@@ -92,7 +92,7 @@ namespace FrbaCommerce.Abm_Empresa
             clmFechaDeCreacion.DataPropertyName = "Fecha_creacion";
             clmFechaDeCreacion.HeaderText = "Fecha de Creacion";
             dtgListado.Columns.Add(clmFechaDeCreacion);
-            
+
             DataGridViewCheckBoxColumn clmActivo = new DataGridViewCheckBoxColumn();
             clmActivo.Width = 60;
             clmActivo.ReadOnly = true;
@@ -151,6 +151,29 @@ namespace FrbaCommerce.Abm_Empresa
             CargarListadoDeEmpresas();
         }
 
+       
+
+        private int valorIdSeleccionado()
+        {
+            return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["id_Empresa"]);
+        }
+
+        private void btnVer_Click(object sender, EventArgs e)
+        {
+            frmEmpresa _frmEmpresa = new frmEmpresa();
+            Empresa unaEmpresa = new Empresa(valorIdSeleccionado());
+            unaEmpresa.CargarObjetoEmpresaConId();
+            _frmEmpresa.AbrirParaVer(unaEmpresa, this);
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            frmEmpresa _frmEmpresa = new frmEmpresa();
+            Empresa unaEmpresa = new Empresa(valorIdSeleccionado());
+            unaEmpresa.CargarObjetoEmpresaConId();
+            _frmEmpresa.AbrirParaModificar(unaEmpresa, this);
+        }
+
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("¿Está seguro que desea dar de baja la empresa?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -162,30 +185,16 @@ namespace FrbaCommerce.Abm_Empresa
                 CargarListadoDeEmpresas();
             }
         }
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            frmEmpresa _frmEmpresa = new frmEmpresa();
-            Empresa unaEmpresa = new Empresa(valorIdSeleccionado());
-            unaEmpresa.CargarObjetoEmpresaConId();
-            _frmEmpresa.AbrirParaModificar(unaEmpresa, this);
-        }
+
         private void btnAlta_Click(object sender, EventArgs e)
         {
             frmEmpresa _frmEmpresa = new frmEmpresa();
             _frmEmpresa.AbrirParaAgregar(this);
         }
-        private void btnVer_Click(object sender, EventArgs e)
-        {
-            frmEmpresa _frmEmpresa = new frmEmpresa();
-            Empresa unaEmpresa = new Empresa(valorIdSeleccionado());
-            unaEmpresa.CargarObjetoEmpresaConId();
-            _frmEmpresa.AbrirParaVer(unaEmpresa, this);
-            
-        }
-        private int valorIdSeleccionado()
-        {
-            return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["id_Empresa"]);
-        }
 
-        }
+
+        
+
+
+    }
 }

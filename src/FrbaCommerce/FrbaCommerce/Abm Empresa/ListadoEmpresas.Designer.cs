@@ -161,6 +161,7 @@
             this.btnVer.TabIndex = 45;
             this.btnVer.Text = "Ver";
             this.btnVer.UseVisualStyleBackColor = true;
+            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
             // btnEliminar
             // 
@@ -171,6 +172,7 @@
             this.btnEliminar.TabIndex = 44;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnModificar
             // 
@@ -181,6 +183,7 @@
             this.btnModificar.TabIndex = 43;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnAlta
             // 
@@ -191,6 +194,7 @@
             this.btnAlta.TabIndex = 42;
             this.btnAlta.Text = "Alta";
             this.btnAlta.UseVisualStyleBackColor = true;
+            this.btnAlta.Click += new System.EventHandler(this.btnAlta_Click);
             // 
             // listadoEmpresa
             // 
