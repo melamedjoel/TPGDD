@@ -28,26 +28,28 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.AutoGenerateColumns = false;
                        
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
+            clmID.Width = 50;
             clmID.ReadOnly = true;
             clmID.DataPropertyName = "id_Compra";
             clmID.HeaderText = "ID Compra";
             dtgHistorial.Columns.Add(clmID);
 
             DataGridViewTextBoxColumn clmCodPublicacion = new DataGridViewTextBoxColumn();
+            clmCodPublicacion.Width = 65;
             clmCodPublicacion.ReadOnly = true;
             clmCodPublicacion.DataPropertyName = "cod_Publicacion";
             clmCodPublicacion.HeaderText = "Código Publiación";
             dtgHistorial.Columns.Add(clmCodPublicacion);
 
             DataGridViewTextBoxColumn clmVendedor = new DataGridViewTextBoxColumn();
-            clmVendedor.Width = 60;
+            clmVendedor.Width = 120;
             clmVendedor.ReadOnly = true;
             clmVendedor.DataPropertyName = "Vendedor";
             clmVendedor.HeaderText = "Vendedor";
             dtgHistorial.Columns.Add(clmVendedor);
 
             DataGridViewTextBoxColumn clmFecha = new DataGridViewTextBoxColumn();
-            clmFecha.Width = 60;
+            clmFecha.Width = 70;
             clmFecha.ReadOnly = true;
             clmFecha.DataPropertyName = "Fecha";
             clmFecha.HeaderText = "Fecha";
@@ -67,21 +69,24 @@ namespace FrbaCommerce.Historial_Cliente
         {
             dtgHistorial.Columns.Clear();
             dtgHistorial.AutoGenerateColumns = false;
+            
 
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
+            clmID.Width = 50;
             clmID.ReadOnly = true;
             clmID.DataPropertyName = "id_Oferta";
             clmID.HeaderText = "ID Oferta";
             dtgHistorial.Columns.Add(clmID);
 
             DataGridViewTextBoxColumn clmCodPublicacion = new DataGridViewTextBoxColumn();
+            clmCodPublicacion.Width = 65;
             clmCodPublicacion.ReadOnly = true;
             clmCodPublicacion.DataPropertyName = "cod_Publicacion";
             clmCodPublicacion.HeaderText = "Código Publiación";
             dtgHistorial.Columns.Add(clmCodPublicacion);
 
             DataGridViewTextBoxColumn clmVendedor = new DataGridViewTextBoxColumn();
-            clmVendedor.Width = 60;
+            clmVendedor.Width = 120;
             clmVendedor.ReadOnly = true;
             clmVendedor.DataPropertyName = "Vendedor";
             clmVendedor.HeaderText = "Vendedor";
@@ -95,14 +100,14 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.Columns.Add(clmGanoSubasta);
 
             DataGridViewTextBoxColumn clmFecha = new DataGridViewTextBoxColumn();
-            clmFecha.Width = 60;
+            clmFecha.Width = 70;
             clmFecha.ReadOnly = true;
             clmFecha.DataPropertyName = "Fecha";
             clmFecha.HeaderText = "Fecha";
             dtgHistorial.Columns.Add(clmFecha);
 
             DataGridViewTextBoxColumn clmMonto = new DataGridViewTextBoxColumn();
-            clmMonto.Width = 60;
+            clmMonto.Width = 55;
             clmMonto.ReadOnly = true;
             clmMonto.DataPropertyName = "Monto";
             clmMonto.HeaderText = "Monto";
@@ -117,13 +122,14 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn clmCodCalificacion = new DataGridViewTextBoxColumn();
+            clmCodCalificacion.Width = 65;
             clmCodCalificacion.ReadOnly = true;
             clmCodCalificacion.DataPropertyName = "cod_Calificacion";
             clmCodCalificacion.HeaderText = "Código Calificación";
             dtgHistorial.Columns.Add(clmCodCalificacion);
 
             DataGridViewTextBoxColumn clmCalificado = new DataGridViewTextBoxColumn();
-            clmCalificado.Width = 60;
+            clmCalificado.Width = 120;
             clmCalificado.ReadOnly = true;
             clmCalificado.DataPropertyName = "Calificado";
             clmCalificado.HeaderText = "Calificado";
@@ -137,7 +143,7 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.Columns.Add(clmCantEstrellas);
 
             DataGridViewTextBoxColumn clmDescripcion = new DataGridViewTextBoxColumn();
-            clmDescripcion.Width = 60;
+            clmDescripcion.Width = 200;
             clmDescripcion.ReadOnly = true;
             clmDescripcion.DataPropertyName = "Descripcion";
             clmDescripcion.HeaderText = "Descripcion";
@@ -152,13 +158,14 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn clmCodCalificacion = new DataGridViewTextBoxColumn();
+            clmCodCalificacion.Width = 65;
             clmCodCalificacion.ReadOnly = true;
             clmCodCalificacion.DataPropertyName = "cod_Calificacion";
             clmCodCalificacion.HeaderText = "Código Calificación";
             dtgHistorial.Columns.Add(clmCodCalificacion);
 
             DataGridViewTextBoxColumn clmCalificador = new DataGridViewTextBoxColumn();
-            clmCalificador.Width = 60;
+            clmCalificador.Width = 120;
             clmCalificador.ReadOnly = true;
             clmCalificador.DataPropertyName = "Calificador";
             clmCalificador.HeaderText = "Calificador";
@@ -172,7 +179,7 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.Columns.Add(clmCantEstrellas);
 
             DataGridViewTextBoxColumn clmDescripcion = new DataGridViewTextBoxColumn();
-            clmDescripcion.Width = 60;
+            clmDescripcion.Width = 200;
             clmDescripcion.ReadOnly = true;
             clmDescripcion.DataPropertyName = "Descripcion";
             clmDescripcion.HeaderText = "Descripcion";
@@ -186,7 +193,7 @@ namespace FrbaCommerce.Historial_Cliente
             if (cmbHistorial.Text == "Compras") cargarListadoDeCompras();
             if (cmbHistorial.Text == "Ofertas") cargarListadoDeOfertas();
             if (cmbHistorial.Text == "Calificaciones Recibidas") cargarListadoDeCalificacionesRecibidas();
-            if (cmbHistorial.Text == "Califiaciones Otorgadas") cargarListadoDeCalificacionesOtorgadas();
+            if (cmbHistorial.Text == "Calificaciones Otorgadas") cargarListadoDeCalificacionesOtorgadas();
 
 
         }
@@ -262,7 +269,6 @@ namespace FrbaCommerce.Historial_Cliente
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         public void abrirConUsuario(Usuario user)
         {

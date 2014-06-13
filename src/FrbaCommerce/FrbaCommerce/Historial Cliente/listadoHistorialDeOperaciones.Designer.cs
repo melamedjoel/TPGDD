@@ -55,7 +55,7 @@
             this.cmbHistorial.Name = "cmbHistorial";
             this.cmbHistorial.Size = new System.Drawing.Size(149, 21);
             this.cmbHistorial.TabIndex = 2;
-            this.cmbHistorial.Text = "Seleccione el Historial";
+            this.cmbHistorial.Text = "Seleccione la operación";
             // 
             // btnVer
             // 
@@ -77,6 +77,7 @@
             this.Controls.Add(this.cmbHistorial);
             this.Controls.Add(this.dtgHistorial);
             this.Name = "listadoHistorialDeOperaciones";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial de Usuario";
             ((System.ComponentModel.ISupportInitialize)(this.dtgHistorial)).EndInit();
             this.ResumeLayout(false);
