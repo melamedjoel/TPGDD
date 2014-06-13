@@ -189,6 +189,10 @@ namespace FrbaCommerce.Abm_Rol
                 frmPadre.CargarListadoDeRoles();
 
             }
+            catch (EntidadExistenteException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (ErrorConsultaException ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -181,6 +181,10 @@ namespace FrbaCommerce.Abm_Visibilidad
                 frmPadre.CargarListadoDeVisibilidades();
 
             }
+            catch (EntidadExistenteException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (ErrorConsultaException ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
