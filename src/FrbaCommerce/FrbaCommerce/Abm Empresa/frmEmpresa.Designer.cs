@@ -237,7 +237,7 @@
             // 
             // btnAceptarAEmpresa
             // 
-            this.btnAceptarAEmpresa.Location = new System.Drawing.Point(391, 197);
+            this.btnAceptarAEmpresa.Location = new System.Drawing.Point(309, 197);
             this.btnAceptarAEmpresa.Name = "btnAceptarAEmpresa";
             this.btnAceptarAEmpresa.Size = new System.Drawing.Size(75, 23);
             this.btnAceptarAEmpresa.TabIndex = 48;
@@ -263,7 +263,7 @@
             // 
             // btnAceptarMEmpresa
             // 
-            this.btnAceptarMEmpresa.Location = new System.Drawing.Point(390, 197);
+            this.btnAceptarMEmpresa.Location = new System.Drawing.Point(309, 197);
             this.btnAceptarMEmpresa.Name = "btnAceptarMEmpresa";
             this.btnAceptarMEmpresa.Size = new System.Drawing.Size(75, 23);
             this.btnAceptarMEmpresa.TabIndex = 51;
@@ -273,7 +273,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(310, 197);
+            this.btnVolver.Location = new System.Drawing.Point(390, 197);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 52;

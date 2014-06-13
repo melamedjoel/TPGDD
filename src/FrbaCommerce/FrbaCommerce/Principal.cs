@@ -15,7 +15,7 @@ using FrbaCommerce.Abm_Visibilidad;
 using FrbaCommerce.Historial_Cliente;
 using FrbaCommerce.Generar_Publicacion;
 using FrbaCommerce.Listado_Estadistico;
-
+using FrbaCommerce.Abm_Cliente;
 
 namespace FrbaCommerce
 {
@@ -81,6 +81,12 @@ namespace FrbaCommerce
         {
             listadoEstadistico frmListadoEstadistico = new listadoEstadistico();
             frmListadoEstadistico.abrirConUsuario(unUsuario);
+        }
+
+        private void aBMClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listadoCliente frmListadoClientes = new listadoCliente();
+            frmListadoClientes.Show(this);
         }
 
     }

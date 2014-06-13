@@ -40,8 +40,9 @@
             this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aBMClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +64,8 @@
             // 
             this.ABMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ABMRolesToolStripMenuItem,
-            this.AbmEmpresasToolStripMenuItem});
+            this.AbmEmpresasToolStripMenuItem,
+            this.aBMClientesToolStripMenuItem});
             this.ABMToolStripMenuItem.Name = "ABMToolStripMenuItem";
             this.ABMToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.ABMToolStripMenuItem.Text = "Administración";
@@ -142,17 +144,24 @@
             this.historialToolStripMenuItem1.Text = "Historial";
             this.historialToolStripMenuItem1.Click += new System.EventHandler(this.historialToolStripMenuItem1_Click);
             // 
-            // historialToolStripMenuItem
-            // 
-            this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
-            this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
             // listadoEstadísticoToolStripMenuItem
             // 
             this.listadoEstadísticoToolStripMenuItem.Name = "listadoEstadísticoToolStripMenuItem";
             this.listadoEstadísticoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.listadoEstadísticoToolStripMenuItem.Text = "Listado Estadístico";
             this.listadoEstadísticoToolStripMenuItem.Click += new System.EventHandler(this.listadoEstadísticoToolStripMenuItem_Click);
+            // 
+            // historialToolStripMenuItem
+            // 
+            this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
+            this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // aBMClientesToolStripMenuItem
+            // 
+            this.aBMClientesToolStripMenuItem.Name = "aBMClientesToolStripMenuItem";
+            this.aBMClientesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.aBMClientesToolStripMenuItem.Text = "ABM Clientes";
+            this.aBMClientesToolStripMenuItem.Click += new System.EventHandler(this.aBMClientesToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -190,6 +199,7 @@
         private System.Windows.Forms.ToolStripMenuItem subastaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compraInmediataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listadoEstadísticoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aBMClientesToolStripMenuItem;
 
     }
 }

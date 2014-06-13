@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using Excepciones;
+using Conexion;
 
 namespace Clases
 {
@@ -120,6 +122,25 @@ namespace Clases
         }
         #endregion
 
+        #region constructor
+        public Cliente()
+        {
+        }
+        public Cliente(int unIdCliente){
+            this.id_Cliente = unIdCliente;
+            
+
+        }
+        public Cliente(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail){
+            this.Apellido = unApellido;
+            this.Nombre = unNombre;
+            this.Tipo_Dni = unTipoDni;
+            this.Dni = unDni;
+            this.Mail = unMail;
+        }
+
+        #endregion
+
         #region metodos publicos
         public override string NombreTabla()
         {
@@ -153,12 +174,119 @@ namespace Clases
             //this.usuario.Id_Usuario = Convert.ToInt32(dr["id_Usuario"]);
             this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
         }
+ public void CargarObjetoClienteConId()
+        {
+            setearListaDeParametrosConIdCliente();
+            DataSet ds = SQLHelper.ExecuteDataSet("traerClienteConId", CommandType.StoredProcedure, parameterList);
+            parameterList.Clear();
+            if (ds.Tables[0].Rows.Count == 1)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
+        }
 
+        public static DataSet obtenerTodosLosClientes()
+        {
+            Cliente unCliente = new Cliente();
+            return unCliente.TraerListado(unCliente.parameterList, "");
+        }
+
+        public static DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
+        {
+            Cliente unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail);
+            unCliente.setearListaDeParametrosConFiltros(unCliente.Nombre, unCliente.Apellido, unCliente.Tipo_Dni, unCliente.Dni, unCliente.Mail);
+            DataSet ds = unCliente.TraerListado(unCliente.parameterList, "ConFiltros");
+            unCliente.parameterList.Clear();
+            return ds;
+        }
+       
+        public void guardarDatosDeClienteNuevo()
+        {
+            this.usuario.Id_Usuario = this.usuario.GuardarYObtenerID();
+            setearListaDeParametros();
+            setearListaDeParametrosConIdUsuario(this.usuario.Id_Usuario);
+            this.Guardar(parameterList);            
+            parameterList.Clear();
+            
+            //if (dsNuevaEmpresa.Tables[0].Rows.Count > 0)
+            //{
+            //    this.id_Empresa = Convert.ToInt32(dsNuevaEmpresa.Tables[0].Rows[0]["id_Empresa"]);
+            //} CREO QUE NO LO NECESITO
+            //{
+            //    throw new BadInsertException();
+            //}
+        }
         
+        public void ModificarDatos()
+        {
+            setearListaDeParametrosConIdCliente();
+            setearListaDeParametros();            
+            if (this.Modificar(parameterList))
+            {
+                parameterList.Clear();
+            }
+           
+        }
+
+        public void Desactivar()
+        {
+            setearListaDeParametrosConIdCliente();
+            this.Deshabilitar(parameterList);
+            parameterList.Clear();
+            
+        }
+
         #endregion
 
         #region metodos privados
+        private void setearListaDeParametrosConFiltros(string Nombre, string Apellido, string TipoDni, int Dni, string Mail)
+        {
+            parameterList.Add(new SqlParameter("@Nombre", Nombre));
+            parameterList.Add(new SqlParameter("@Apellido", Apellido));
+            parameterList.Add(new SqlParameter("@Tipo_Dni", TipoDni));
+            parameterList.Add(new SqlParameter("@Dni", Dni)); 
+            parameterList.Add(new SqlParameter("@Mail", Mail)); 
+        }
+        private void setearListaDeParametrosConIdUsuario(int id_Usuario)
+        {
+            parameterList.Add(new SqlParameter("@id_Usuario", id_Usuario));
+        }
 
+        private void setearListaDeParametrosConIdCliente()
+        {
+            parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
+        }
+        //private void setearListaDeParametrosConIdYFiltros(string Nombre, string Apellido, string TipoDni, int Dni, string Mail)
+        //{
+        //    parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
+        //    parameterList.Add(new SqlParameter("@Nombre", Nombre));
+        //    parameterList.Add(new SqlParameter("@Apellido", Apellido));
+        //    parameterList.Add(new SqlParameter("@Tipo_Dni", TipoDni));
+        //    parameterList.Add(new SqlParameter("@Dni", Dni));
+        //    parameterList.Add(new SqlParameter("@Mail", Mail)); 
+        //}
+        private void setearListaDeParametros()
+        {
+            //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
+            parameterList.Add(new SqlParameter("@Tipo_Dni", this.Tipo_Dni));
+            parameterList.Add(new SqlParameter("@Dni", this.Dni));
+            parameterList.Add(new SqlParameter("@Cuil", this.Cuil));
+            parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
+            parameterList.Add(new SqlParameter("@Nombre", this.Nombre));
+            parameterList.Add(new SqlParameter("@Mail", this.Mail));
+            parameterList.Add(new SqlParameter("@Fecha_nac", this.Fecha_nac));
+            parameterList.Add(new SqlParameter("@Telefono", this.Telefono));
+            parameterList.Add(new SqlParameter("@Dom_calle", this.Dom_calle));
+            parameterList.Add(new SqlParameter("@Dom_nro_calle", this.Dom_nro_calle));
+            parameterList.Add(new SqlParameter("@Dom_piso", this.Dom_piso));
+            parameterList.Add(new SqlParameter("@Dom_depto", this.Dom_depto));
+            parameterList.Add(new SqlParameter("@Dom_cod_postal", this.Dom_cod_postal));
+            //parameterList.Add(new SqlParameter("@Dom_ciudad", this.Dom_ciudad));
+            parameterList.Add(new SqlParameter("@Activo", this.Activo));       
+        }
+        
+        
         #endregion
+
     }
 }
