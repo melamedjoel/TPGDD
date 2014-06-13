@@ -190,12 +190,10 @@ namespace FrbaCommerce.Historial_Cliente
 
         private void btnVer_Click(object sender, EventArgs e)
         {
-            if (cmbHistorial.Text == "Compras") cargarListadoDeCompras();
-            if (cmbHistorial.Text == "Ofertas") cargarListadoDeOfertas();
-            if (cmbHistorial.Text == "Calificaciones Recibidas") cargarListadoDeCalificacionesRecibidas();
-            if (cmbHistorial.Text == "Calificaciones Otorgadas") cargarListadoDeCalificacionesOtorgadas();
-
-
+            if (cmbHistorial.SelectedIndex == 0) cargarListadoDeCompras();
+            if (cmbHistorial.SelectedIndex == 1) cargarListadoDeOfertas();
+            if (cmbHistorial.SelectedIndex == 2) cargarListadoDeCalificacionesRecibidas();
+            if (cmbHistorial.SelectedIndex == 3) cargarListadoDeCalificacionesOtorgadas();
         }
 
         private void cargarListadoDeCompras()

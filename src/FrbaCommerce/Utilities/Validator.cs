@@ -64,6 +64,16 @@ namespace Utilities
             }
             return string.Empty;
         }
+
+        public static string EsAño(string año, string nombreCampo)
+        {
+            int unAño = Convert.ToInt32(año);
+            if (unAño < 1900 || unAño > 2014)
+                return "Tiene que ingresar un año válido, entre 1900 y 2014, para el campo " + nombreCampo + "\n";
+
+            return string.Empty;
+            
+        }
     }
         
 }
