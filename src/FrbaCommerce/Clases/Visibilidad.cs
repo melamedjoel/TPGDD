@@ -138,6 +138,9 @@ namespace Clases
 
         public void guardarDatosDeVisibilidadNueva()
         {
+            DataSet dsParaComprobarExistencia = Visibilidad.obtenerPorDescripcion(this.Descripcion);
+            if (dsParaComprobarExistencia.Tables[0].Rows.Count != 0)
+                throw new EntidadExistenteException("una visibilidad");
             setearListaDeParametrosEntidadEnteraSinCodigo();
             DataSet dsNuevaVisib = this.GuardarYObtenerID(parameterList);
             parameterList.Clear();
@@ -152,12 +155,27 @@ namespace Clases
             }
         }
 
+        public static DataSet obtenerPorDescripcion(string unaDescripcion)
+        {
+            Visibilidad unaVisibilidad = new Visibilidad();
+            unaVisibilidad.setearListaDeParametrosConDescripcion(unaDescripcion);
+            DataSet ds = unaVisibilidad.TraerListado(unaVisibilidad.parameterList, "PorNombre");
+            unaVisibilidad.parameterList.Clear();
+            return ds;   
+        }
+
+
         #endregion
 
         #region metodos privados
         private void setearListaDeParametrosConCodVisibilidad()
         {
             parameterList.Add(new SqlParameter("@cod_Visibilidad", this.cod_Visibilidad));
+        }
+
+        private void setearListaDeParametrosConDescripcion(string unaDescripcion)
+        {
+            parameterList.Add(new SqlParameter("@Descripcion", this.Descripcion));
         }
 
         private void setearListaDeParametrosConDescripcionPrecioPorcentajeYActivo(string unaDescripcion, string unPrecio, string unPorcentaje, bool unValorDeActivo)

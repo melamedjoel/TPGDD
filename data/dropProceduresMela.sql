@@ -17,3 +17,5 @@ DROP PROCEDURE [ATJ].[traerListadoVisibilidades];
 DROP PROCEDURE [ATJ].[traerListadoVisibilidadesConFiltros]; 
 DROP PROCEDURE ATJ.updateVisibilidad;
 DROP PROCEDURE ATJ.insertVisibilidad_RetornarID;
+DROP PROCEDURE ATJ.traerListadoVisibilidadesPorNombre;
+DROP PROCEDURE ATJ.traerListadoRolesPorNombre;

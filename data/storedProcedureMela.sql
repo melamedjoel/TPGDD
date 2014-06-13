@@ -135,7 +135,7 @@ AS
 		END	
 	ELSE
 		SELECT * FROM ATJ.Roles 
-			WHERE Nombre = @Nombre AND Habilitado = @Habilitado
+			WHERE Nombre LIKE '%' + @Nombre + '%' AND Habilitado = @Habilitado
 
 GO
 
@@ -167,17 +167,17 @@ AS
 	IF((@Precio = '' Or @Precio IS NULL) AND (@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
 		BEGIN
 			--Significa que estoy filtrando por descripcion y activo
-			SELECT * FROM ATJ.Visibilidades WHERE Descripcion = @Descripcion AND Activo = @Activo 
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo 
 		END 
 	IF((@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Precio <> '' Or @Precio IS NOT NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
 		BEGIN
 		--Significa que estoy filtrando por descripcion, precio y activo
-			SELECT * FROM ATJ.Visibilidades WHERE Descripcion = @Descripcion AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2))
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2))
 		END
 	IF((@Precio = '' Or @Precio IS NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
 		BEGIN
 		--Significa que estoy filtrando por descripcion, porcentaje y activo
-			SELECT * FROM ATJ.Visibilidades WHERE Descripcion = @Descripcion AND Activo = @Activo AND Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2))
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo AND Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2))
 		END
 	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Precio <> '' Or @Precio IS NOT NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL))
 		BEGIN
@@ -197,7 +197,7 @@ AS
 	IF((@Descripcion <> '' Or @Descripcion IS NOT NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL) AND (@Precio <> '' Or @Precio IS NOT NULL))
 		BEGIN
 		--Si no se cumplio ningun if, es porque el filtro es por todos los datos. Filtro por descripcion, precio, porcentaje y activo
-		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2))
+		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2)) AND Descripcion LIKE '%' + @Descripcion + '%'
 		END
 	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Precio = '' Or @Precio IS NULL))
 		BEGIN
@@ -234,4 +234,18 @@ AS
 	(@Descripcion, @Precio, @Porcentaje, @Activo)
 	
 	SELECT @@IDENTITY AS cod_Visibilidad;
+GO
+
+--traerListadoFuncionalidadesPorNombre
+CREATE PROCEDURE ATJ.traerListadoVisibilidadesPorNombre
+	@Descripcion nvarchar(255)
+AS
+	SELECT * FROM ATJ.Visibilidades where Descripcion LIKE '%' + @Descripcion + '%'
+GO
+
+--traerListadoRolesPorNombre
+CREATE PROCEDURE ATJ.traerListadoRolesPorNombre
+	@Nombre nvarchar(255)
+AS
+	SELECT * FROM ATJ.Roles where Nombre LIKE '%' + @Nombre + '%'
 GO

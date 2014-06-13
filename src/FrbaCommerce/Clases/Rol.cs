@@ -129,6 +129,10 @@ namespace Clases
 
         public void guardarDatosDeRolNuevo()
         {
+            DataSet dsParaComprobarExistencia = Rol.obtenerRolPorNombre(this.Nombre);
+            if (dsParaComprobarExistencia.Tables[0].Rows.Count != 0)
+                throw new EntidadExistenteException("un rol");
+
             setearListaDeParametrosConNombreYHabilitado(this.Nombre, this.Habilitado);
             DataSet dsNuevoRol = this.GuardarYObtenerID(parameterList);
             parameterList.Clear();
@@ -142,6 +146,15 @@ namespace Clases
             {
                 throw new BadInsertException();
             }
+        }
+
+        public static DataSet obtenerRolPorNombre(string unNombre)
+        {
+            Rol unRol = new Rol(unNombre, true);
+            unRol.setearListaDeParametrosConNombre(unRol.Nombre);
+            DataSet ds = unRol.TraerListado(unRol.parameterList, "PorNombre");
+            unRol.parameterList.Clear();
+            return ds;
         }
 
         public void ModificarDatos()
@@ -212,6 +225,11 @@ namespace Clases
             parameterList.Add(new SqlParameter("@id_Rol", this.Id_Rol));
             parameterList.Add(new SqlParameter("@Nombre", unNombre));
             parameterList.Add(new SqlParameter("@Habilitado", unValorDeHabilitado));
+        }
+
+        private void setearListaDeParametrosConNombre(string unNombre)
+        {
+            parameterList.Add(new SqlParameter("@Nombre", unNombre));
         }
 
         #endregion
