@@ -133,11 +133,17 @@
     <Compile Include="Editar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\GenerarPublicacion.cs">
+    <Compile Include="Generar Publicacion\frmCompraInmediata.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\GenerarPublicacion.Designer.cs">
-      <DependentUpon>GenerarPublicacion.cs</DependentUpon>
+    <Compile Include="Generar Publicacion\frmCompraInmediata.Designer.cs">
+      <DependentUpon>frmCompraInmediata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Publicacion\frmSubasta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\frmSubasta.Designer.cs">
+      <DependentUpon>frmSubasta.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\Registro de Usuario\Facturar Publicaciones\Form1.cs">
       <SubType>Form</SubType>
@@ -213,8 +219,11 @@
     <EmbeddedResource Include="Abm Visibilidad\ListadoVisibilidad.resx">
       <DependentUpon>ListadoVisibilidad.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\GenerarPublicacion.resx">
-      <DependentUpon>GenerarPublicacion.cs</DependentUpon>
+    <EmbeddedResource Include="Generar Publicacion\frmCompraInmediata.resx">
+      <DependentUpon>frmCompraInmediata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\frmSubasta.resx">
+      <DependentUpon>frmSubasta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\listadoHistorialDeOperaciones.resx">
       <DependentUpon>listadoHistorialDeOperaciones.cs</DependentUpon>

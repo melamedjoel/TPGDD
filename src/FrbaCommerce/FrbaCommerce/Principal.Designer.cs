@@ -34,6 +34,9 @@
             this.AbmEmpresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.publicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AbmVisiblidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generarPublicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.subastaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compraInmediataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,7 +84,8 @@
             // publicacionToolStripMenuItem
             // 
             this.publicacionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AbmVisiblidadToolStripMenuItem});
+            this.AbmVisiblidadToolStripMenuItem,
+            this.generarPublicacionToolStripMenuItem});
             this.publicacionToolStripMenuItem.Name = "publicacionToolStripMenuItem";
             this.publicacionToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.publicacionToolStripMenuItem.Text = "Publicacion";
@@ -89,9 +93,32 @@
             // AbmVisiblidadToolStripMenuItem
             // 
             this.AbmVisiblidadToolStripMenuItem.Name = "AbmVisiblidadToolStripMenuItem";
-            this.AbmVisiblidadToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.AbmVisiblidadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.AbmVisiblidadToolStripMenuItem.Text = "ABM Visiblidad";
             this.AbmVisiblidadToolStripMenuItem.Click += new System.EventHandler(this.AbmVisiblidadToolStripMenuItem_Click);
+            // 
+            // generarPublicacionToolStripMenuItem
+            // 
+            this.generarPublicacionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.subastaToolStripMenuItem,
+            this.compraInmediataToolStripMenuItem});
+            this.generarPublicacionToolStripMenuItem.Name = "generarPublicacionToolStripMenuItem";
+            this.generarPublicacionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.generarPublicacionToolStripMenuItem.Text = "Generar Publicacion";
+            // 
+            // subastaToolStripMenuItem
+            // 
+            this.subastaToolStripMenuItem.Name = "subastaToolStripMenuItem";
+            this.subastaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.subastaToolStripMenuItem.Text = "Subasta";
+            this.subastaToolStripMenuItem.Click += new System.EventHandler(this.subastaToolStripMenuItem_Click);
+            // 
+            // compraInmediataToolStripMenuItem
+            // 
+            this.compraInmediataToolStripMenuItem.Name = "compraInmediataToolStripMenuItem";
+            this.compraInmediataToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.compraInmediataToolStripMenuItem.Text = "Compra Inmediata";
+            this.compraInmediataToolStripMenuItem.Click += new System.EventHandler(this.compraInmediataToolStripMenuItem_Click);
             // 
             // clienteToolStripMenuItem
             // 
@@ -150,6 +177,9 @@
         private System.Windows.Forms.ToolStripMenuItem historialToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historialToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem generarPublicacionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem subastaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compraInmediataToolStripMenuItem;
 
     }
 }

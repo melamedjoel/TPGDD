@@ -13,6 +13,7 @@ using FrbaCommerce.ABM_Rol;
 using FrbaCommerce.Abm_Empresa;
 using FrbaCommerce.Abm_Visibilidad;
 using FrbaCommerce.Historial_Cliente;
+using FrbaCommerce.Generar_Publicacion;
 
 
 namespace FrbaCommerce
@@ -62,5 +63,18 @@ namespace FrbaCommerce
             unUsuario = user;
             this.Show();
         }
+
+        private void subastaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmSubasta _frmSubasta = new frmSubasta();
+            _frmSubasta.abrirConUsuario(unUsuario);
+        }
+
+        private void compraInmediataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCompraInmediata _frmCompra = new frmCompraInmediata();
+            _frmCompra.abrirConUsuario(unUsuario);
+        }
+
     }
 }
