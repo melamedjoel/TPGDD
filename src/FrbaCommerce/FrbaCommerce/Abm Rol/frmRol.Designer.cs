@@ -92,6 +92,7 @@
             this.lstFuncDelRol.Name = "lstFuncDelRol";
             this.lstFuncDelRol.Size = new System.Drawing.Size(145, 134);
             this.lstFuncDelRol.TabIndex = 6;
+            this.lstFuncDelRol.SelectedIndexChanged += new System.EventHandler(this.lstFuncDelRol_SelectedIndexChanged);
             // 
             // btnSacar
             // 
@@ -162,6 +163,7 @@
             this.Controls.Add(this.lblNombre);
             this.Name = "frmRol";
             this.Text = "Rol";
+            this.Load += new System.EventHandler(this.frmRol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

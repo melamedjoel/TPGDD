@@ -151,5 +151,10 @@ namespace FrbaCommerce.ABM_Rol
             CargarListadoDeRoles();
         }
 
+        private void dtgListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
     }
 }

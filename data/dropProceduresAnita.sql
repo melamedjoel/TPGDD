@@ -1,0 +1,4 @@
+DROP PROCEDURE ATJ.traerListadoUsuariosCompras;
+DROP PROCEDURE ATJ.traerListadoUsuariosOfertas;
+DROP PROCEDURE ATJ.traerListadoUsuariosCalificacionesRecibidas;
+DROP PROCEDURE ATJ.traerListadoUsuariosCalificacionesOtorgadas;

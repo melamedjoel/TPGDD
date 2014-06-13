@@ -254,5 +254,15 @@ namespace FrbaCommerce.Abm_Rol
 
         }
 
+        private void lstFuncDelRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmRol_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

@@ -12,12 +12,15 @@ using Utilities;
 using FrbaCommerce.ABM_Rol;
 using FrbaCommerce.Abm_Empresa;
 using FrbaCommerce.Abm_Visibilidad;
+using FrbaCommerce.Historial_Cliente;
 
 
 namespace FrbaCommerce
 {
     public partial class Principal : Form
     {
+        public Usuario unUsuario = new Usuario();
+
         public Principal()
         {
             InitializeComponent();
@@ -47,5 +50,17 @@ namespace FrbaCommerce
             frmListadoVisibilidad.Show(this);
         }
 
+        private void historialToolStripMenuItem1_Click(object sender, EventArgs e)
+       {
+           listadoHistorialDeOperaciones frmListadoHistorial = new listadoHistorialDeOperaciones();
+           frmListadoHistorial.abrirConUsuario(unUsuario);           
+       }
+
+
+        public void abrirConUsuario(Usuario user)
+        {
+            unUsuario = user;
+            this.Show();
+        }
     }
 }

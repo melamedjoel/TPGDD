@@ -89,6 +89,7 @@ namespace Clases
         {
             return "Usuario";
         }
+
         public override void DataRowToObject(DataRow dr)
         {
             // Esto es tal cual lo devuelve el stored de la DB
@@ -156,6 +157,43 @@ namespace Clases
             this.ClaveAutoGenerada = true;
             this.Activo = true;
         }
+
+        public DataSet obtenerTodasLasCompras()
+        {
+            this.setearListaDeParametrosSoloConIdUsuario();
+            DataSet ds = this.TraerListado(this.parameterList, "Compras");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
+        public DataSet obtenerTodasLasOfertas()
+        {
+            this.setearListaDeParametrosSoloConIdUsuario();
+            DataSet ds = this.TraerListado(this.parameterList, "Ofertas");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
+        public DataSet obtenerTodasLasCalificacionesRecibidas()
+        {
+            this.setearListaDeParametrosSoloConIdUsuario();
+            DataSet ds = this.TraerListado(this.parameterList, "CalificacionesRecibidas");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
+        public DataSet obtenerTodasLasCalificacionesOtorgadas()
+        {
+            this.setearListaDeParametrosSoloConIdUsuario();
+            DataSet ds = this.TraerListado(this.parameterList, "CalificacionesOtorgadas");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados

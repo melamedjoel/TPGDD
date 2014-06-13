@@ -191,7 +191,7 @@ namespace FrbaCommerce.Login
             {
                 Principal princ = new Principal();
                 this.Hide();
-                princ.Show();
+                princ.abrirConUsuario(user);
             }
         }
 

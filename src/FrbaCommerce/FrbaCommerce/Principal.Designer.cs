@@ -34,14 +34,21 @@
             this.AbmEmpresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.publicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AbmVisiblidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ABMToolStripMenuItem,
-            this.publicacionToolStripMenuItem});
+            this.publicacionToolStripMenuItem,
+            this.clienteToolStripMenuItem,
+            this.usuarioToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(948, 24);
@@ -86,10 +93,36 @@
             this.AbmVisiblidadToolStripMenuItem.Text = "ABM Visiblidad";
             this.AbmVisiblidadToolStripMenuItem.Click += new System.EventHandler(this.AbmVisiblidadToolStripMenuItem_Click);
             // 
+            // clienteToolStripMenuItem
+            // 
+            this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
+            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
+            // 
+            // usuarioToolStripMenuItem
+            // 
+            this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.historialToolStripMenuItem1});
+            this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.usuarioToolStripMenuItem.Text = "Usuario";
+            // 
+            // historialToolStripMenuItem1
+            // 
+            this.historialToolStripMenuItem1.Name = "historialToolStripMenuItem1";
+            this.historialToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
+            this.historialToolStripMenuItem1.Text = "Historial";
+            this.historialToolStripMenuItem1.Click += new System.EventHandler(this.historialToolStripMenuItem1_Click);
+            // 
+            // historialToolStripMenuItem
+            // 
+            this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
+            this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(948, 377);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
@@ -113,6 +146,10 @@
         private System.Windows.Forms.ToolStripMenuItem AbmEmpresasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem publicacionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AbmVisiblidadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialToolStripMenuItem1;
 
     }
 }

@@ -71,6 +71,7 @@
             this.dtgListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgListado.Size = new System.Drawing.Size(421, 163);
             this.dtgListado.TabIndex = 27;
+            this.dtgListado.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgListado_CellContentClick);
             // 
             // btnLimpiar
             // 
