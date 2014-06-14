@@ -53,7 +53,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVender]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar
+	@Año nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END), 
@@ -73,10 +73,8 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorFacturacion]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar
-	
+	@Año nvarchar(4)
 AS
-
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
 SUM(P.Precio) AS Facturacion
@@ -90,12 +88,11 @@ GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY Facturacion DESC
 GO
 
-
 -- Procedure traerListadoUsuariosConMayorCalificacion
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCalificacion]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar
+	@Año nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
@@ -103,6 +100,9 @@ CAST(AVG(C.Cant_Estrellas) AS numeric(18,2)) AS PromedioCalificaciones
 FROM ATJ.Calificaciones C
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = C.id_Usuario_Calificado
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = C.id_Usuario_Calificado
+INNER JOIN ATJ.Publicaciones P ON P.Codigo = C.cod_Publicacion
+WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
+AND YEAR(P.Fecha_creacion) = @Año
 GROUP BY C.id_Usuario_Calificado, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY PromedioCalificaciones DESC
 GO
@@ -111,7 +111,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantDePublicacionesSinClasificar]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar
+	@Año nvarchar(4)
 
 AS
 
@@ -134,8 +134,8 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVenderConFiltros]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar,
-	@Mes nvarchar,
+	@Año nvarchar(4),
+	@Mes nvarchar(2),
 	@GradoVisibilidad nvarchar
 	
 AS

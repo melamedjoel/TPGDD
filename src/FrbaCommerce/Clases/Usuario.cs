@@ -222,7 +222,7 @@ namespace Clases
         public DataSet obtenerVendedoresConMayorCantProdNoVendidosConFiltros(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año, string Mes, string GradoVisibilidad)
         {
             this.setearListaDeParametrosConTrimestreAñoMesVisibilidad(Fecha_Hasta, Fecha_Desde, Año,Mes,GradoVisibilidad);
-            DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantidadDeProductosSinVender");
+            DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantidadDeProductosSinVenderConFiltros");
             this.parameterList.Clear();
 
             return ds;

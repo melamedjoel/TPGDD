@@ -121,7 +121,6 @@ namespace FrbaCommerce.Abm_Empresa
         }
         public void CargarListadoDeEmpresasConFiltros()
         {
-
             try
             {
                 DataSet ds = Empresa.obtenerTodasLasEmpresasConFiltros(txtRazonSocial.Text, txtCuit.Text, txtMail.Text);

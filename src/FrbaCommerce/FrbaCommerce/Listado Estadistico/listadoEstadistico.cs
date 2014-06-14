@@ -97,9 +97,9 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             txtVisibilidad.Text = "";
             txtMes.Text = "";
-            // CargarListadoDeVendedores();
+            cargarListadoDeVendedoresConMayorCantProdNoVendidos();
         }
-
+        
         private void cargarListadoDeVendedoresConMayorCantProdNoVendidos()
         {
             try
@@ -302,26 +302,26 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void cargarParametrosCuartoTrimestre()
         {
-            Fecha_Desde = Convert.ToDateTime(Año + "-10-01");
-            Fecha_Hasta = Convert.ToDateTime(Año + "-12-31");
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 10, 1);
+            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 12, 31); 
         }
 
         private void cargarParametrosSegundoTrimestre()
         {
-            Fecha_Desde = Convert.ToDateTime(Año + "-04-01");
-            Fecha_Hasta = Convert.ToDateTime(Año + "-06-30");
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 4, 1);
+            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 6, 30); 
         }
 
         private void cargarParametrosTercerTrimestre()
         {
-            Fecha_Desde = Convert.ToDateTime(Año + "-07-01");
-            Fecha_Hasta = Convert.ToDateTime(Año + "-09-30");
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 7, 1);
+            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 9, 30); 
         }
 
         private void cargarParametrosPrimerTrimestre()
         {
-            Fecha_Desde = Convert.ToDateTime(Año + "-01-01");
-            Fecha_Hasta = Convert.ToDateTime(Año + "-03-31");
+            Fecha_Desde = new DateTime(Convert.ToInt32(Año), 1, 1);
+            Fecha_Hasta = new DateTime(Convert.ToInt32(Año), 3, 31); 
         }
 
         private void btnVer_Click_1(object sender, EventArgs e)
@@ -348,7 +348,6 @@ namespace FrbaCommerce.Listado_Estadistico
             }
             configuracionListadoVisible();
         }
-
               
     }
 }

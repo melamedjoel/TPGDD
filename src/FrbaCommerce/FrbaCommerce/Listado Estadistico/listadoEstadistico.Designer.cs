@@ -110,9 +110,9 @@
             this.grpFiltros.Controls.Add(this.lblGradoDeVisibilidad);
             this.grpFiltros.Controls.Add(this.btnLimpiar);
             this.grpFiltros.Controls.Add(this.btnBuscar);
-            this.grpFiltros.Location = new System.Drawing.Point(432, 15);
+            this.grpFiltros.Location = new System.Drawing.Point(450, 15);
             this.grpFiltros.Name = "grpFiltros";
-            this.grpFiltros.Size = new System.Drawing.Size(366, 83);
+            this.grpFiltros.Size = new System.Drawing.Size(350, 83);
             this.grpFiltros.TabIndex = 42;
             this.grpFiltros.TabStop = false;
             this.grpFiltros.Text = "Filtros";
@@ -126,7 +126,7 @@
             // 
             // txtMes
             // 
-            this.txtMes.Location = new System.Drawing.Point(318, 20);
+            this.txtMes.Location = new System.Drawing.Point(302, 15);
             this.txtMes.Mask = "99";
             this.txtMes.Name = "txtMes";
             this.txtMes.Size = new System.Drawing.Size(28, 20);
@@ -135,7 +135,7 @@
             // lblMesAño
             // 
             this.lblMesAño.AutoSize = true;
-            this.lblMesAño.Location = new System.Drawing.Point(285, 23);
+            this.lblMesAño.Location = new System.Drawing.Point(269, 19);
             this.lblMesAño.Name = "lblMesAño";
             this.lblMesAño.Size = new System.Drawing.Size(27, 13);
             this.lblMesAño.TabIndex = 33;
@@ -158,6 +158,7 @@
             this.btnLimpiar.TabIndex = 26;
             this.btnLimpiar.Text = "Limpiar Filtros";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnBuscar
             // 
@@ -167,6 +168,7 @@
             this.btnBuscar.TabIndex = 25;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // dtgTop5
             // 
