@@ -156,5 +156,24 @@ namespace FrbaCommerce.ABM_Rol
 
         }
 
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("¿Está seguro que desea eliminar el rol?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+            {
+                try
+                {
+                    Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
+                    unRol.Eliminar();
+                    MessageBox.Show("El rol ha quedado eliminado", "Deshabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarListadoDeRoles();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
     }
 }

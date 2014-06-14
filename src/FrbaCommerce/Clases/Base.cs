@@ -53,7 +53,7 @@ namespace Clases
 
         public void Eliminar(List<SqlParameter> parameterList)
         {
-            SQLHelper.ExecuteNonQuery(_strEliminar + NombreTabla(), CommandType.StoredProcedure, parameterList);
+            SQLHelper.ExecuteNonQuery(_strEliminar + NombreEntidad(), CommandType.StoredProcedure, parameterList);
         }
 
         public void Deshabilitar(List<SqlParameter> parameterList)

@@ -27,7 +27,7 @@ AS
     SELECT R.id_Rol AS id_Rol, R.Nombre AS Nombre, R.Habilitado as Habilitado from ATJ.Roles R 
 	INNER JOIN ATJ.Rol_Usuario RU ON RU.id_Rol = R.id_Rol
 	INNER JOIN ATJ.Usuarios U ON U.id_Usuario = RU.id_Usuario
-	WHERE U.id_Usuario = @id_Usuario AND R.Habilitado = 1
+	WHERE U.id_Usuario = @id_Usuario AND R.Habilitado = 1 AND R.Eliminado = 0
 GO
 
 --Procedure deshabilitarUsuario
@@ -53,7 +53,7 @@ GO
 --Procedure traerListadoRoles
 CREATE PROCEDURE [ATJ].[traerListadoRoles] 
 AS 
-    SELECT * FROM ATJ.ROLES
+    SELECT * FROM ATJ.ROLES WHERE Eliminado = 0;
 GO
 
 
@@ -122,6 +122,38 @@ AS
 	WHERE id_Rol = @id_Rol
 GO
 
+--Procedure deleteRol
+CREATE PROCEDURE ATJ.deleteRol
+	@id_Rol int
+AS
+	UPDATE ATJ.Roles SET Eliminado=1
+	WHERE id_Rol = @id_Rol
+GO
+
+--Procedure validarVisibilidadEnPublicacion
+CREATE PROCEDURE ATJ.validarVisibilidadEnPublicacion
+	@cod_Visibilidad int
+AS
+	SELECT * FROM ATJ.Publicaciones WHERE cod_Visibilidad = @cod_Visibilidad
+GO
+
+--Procedure validarRolEnUsuarios
+CREATE PROCEDURE ATJ.validarRolEnUsuarios
+	@id_Rol int
+AS
+	SELECT * FROM ATJ.Rol_Usuario WHERE id_Rol = @id_Rol
+GO
+
+
+
+--Procedure deleteVisibilidad
+CREATE PROCEDURE ATJ.deleteVisibilidad
+	@cod_Visibilidad int
+AS
+	UPDATE ATJ.Visibilidades SET Eliminado=1
+	WHERE cod_Visibilidad = @cod_Visibilidad
+GO
+
 
 
 --Procedure traerListadoRolesConFiltros
@@ -131,11 +163,11 @@ CREATE PROCEDURE [ATJ].[traerListadoRolesConFiltros]
 AS 
 	IF(@Nombre = '' Or @Nombre IS NULL)
 		BEGIN
-			SELECT * FROM ATJ.Roles where Habilitado = @Habilitado
+			SELECT * FROM ATJ.Roles where Habilitado = @Habilitado AND Eliminado = 0;
 		END	
 	ELSE
 		SELECT * FROM ATJ.Roles 
-			WHERE Nombre LIKE '%' + @Nombre + '%' AND Habilitado = @Habilitado
+			WHERE Nombre LIKE '%' + @Nombre + '%' AND Habilitado = @Habilitado AND Eliminado = 0;
 
 GO
 
@@ -151,7 +183,7 @@ GO
 --Procedure traerListadoVisibilidades
 CREATE PROCEDURE [ATJ].[traerListadoVisibilidades] 
 AS 
-    SELECT * FROM ATJ.Visibilidades
+    SELECT * FROM ATJ.Visibilidades WHERE Eliminado = 0;
 GO
 
 --Procedure traerListadoVisibilidadesConFiltros
@@ -167,42 +199,42 @@ AS
 	IF((@Precio = '' Or @Precio IS NULL) AND (@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
 		BEGIN
 			--Significa que estoy filtrando por descripcion y activo
-			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo 
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo AND Eliminado = 0
 		END 
 	IF((@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Precio <> '' Or @Precio IS NOT NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
 		BEGIN
 		--Significa que estoy filtrando por descripcion, precio y activo
-			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2))
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2)) AND Eliminado = 0
 		END
 	IF((@Precio = '' Or @Precio IS NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL) AND (@Descripcion <> '' Or @Descripcion IS NOT NULL))
 		BEGIN
 		--Significa que estoy filtrando por descripcion, porcentaje y activo
-			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo AND Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2))
+			SELECT * FROM ATJ.Visibilidades WHERE Descripcion LIKE '%' + @Descripcion + '%' AND Activo = @Activo AND Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Eliminado = 0
 		END
 	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Precio <> '' Or @Precio IS NOT NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL))
 		BEGIN
 		--Significa que estoy filtrando por porcentaje, precio y activo
-		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2))
+		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2)) AND Eliminado = 0
 		END
 	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Precio = '' Or @Precio IS NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL))
 		BEGIN
 		--Significa que estoy filtrando por porcentaje y activo
-		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo
+		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Eliminado = 0
 		END
 	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Precio <> '' Or @Precio IS NOT NULL))
 		BEGIN
 		--Significa que estoy filtrando por precio y activo
-		SELECT * FROM ATJ.Visibilidades WHERE Precio = CAST(@Precio AS NUMERIC(18,2)) AND Activo = @Activo
+		SELECT * FROM ATJ.Visibilidades WHERE Precio = CAST(@Precio AS NUMERIC(18,2)) AND Activo = @Activo AND Eliminado = 0
 		END
 	IF((@Descripcion <> '' Or @Descripcion IS NOT NULL) AND (@Porcentaje <> '' Or @Porcentaje IS NOT NULL) AND (@Precio <> '' Or @Precio IS NOT NULL))
 		BEGIN
 		--Si no se cumplio ningun if, es porque el filtro es por todos los datos. Filtro por descripcion, precio, porcentaje y activo
-		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2)) AND Descripcion LIKE '%' + @Descripcion + '%'
+		SELECT * FROM ATJ.Visibilidades WHERE Porcentaje = CAST(@Porcentaje AS NUMERIC(18,2)) AND Activo = @Activo AND Precio = CAST(@Precio AS NUMERIC(18,2)) AND Descripcion LIKE '%' + @Descripcion + '%' AND Eliminado = 0
 		END
 	IF((@Descripcion = '' Or @Descripcion IS NULL) AND (@Porcentaje = '' Or @Porcentaje IS NULL) AND (@Precio = '' Or @Precio IS NULL))
 		BEGIN
 		--Sino, solo filtro por activo
-		SELECT * FROM ATJ.Visibilidades WHERE Activo = @Activo
+		SELECT * FROM ATJ.Visibilidades WHERE Activo = @Activo AND Eliminado = 0
 		END
 	
 GO
@@ -237,17 +269,17 @@ AS
 GO
 
 --traerListadoFuncionalidadesPorNombre
-CREATE PROCEDURE ATJ.traerListadoVisibilidadesPorNombre
+CREATE PROCEDURE ATJ.traerListadoVisibilidadesPorDescripcion
 	@Descripcion nvarchar(255)
 AS
-	SELECT * FROM ATJ.Visibilidades where Descripcion LIKE '%' + @Descripcion + '%'
+	SELECT * FROM ATJ.Visibilidades where Descripcion = @Descripcion AND Eliminado = 0
 GO
 
 --traerListadoRolesPorNombre
 CREATE PROCEDURE ATJ.traerListadoRolesPorNombre
 	@Nombre nvarchar(255)
 AS
-	SELECT * FROM ATJ.Roles where Nombre LIKE '%' + @Nombre + '%'
+	SELECT * FROM ATJ.Roles where Nombre LIKE '%' + @Nombre + '%' AND Eliminado = 0
 GO
 
 
@@ -264,7 +296,7 @@ CREATE PROCEDURE [ATJ].[traerListadoVisibilidadesPorCod_Visibilidad]
     @cod_Visibilidad numeric(18,0) 
 AS 
     SELECT * FROM ATJ.Visibilidades
-	WHERE cod_Visibilidad = @cod_Visibilidad
+	WHERE cod_Visibilidad = @cod_Visibilidad AND Eliminado = 0
 GO
 
 --Procedure traerListadoEstados_PublicacionPorId_Estado

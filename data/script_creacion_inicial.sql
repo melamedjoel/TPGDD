@@ -33,7 +33,8 @@ CREATE TABLE [ATJ].[Clientes]
 	Dom_cod_postal nvarchar(50) NULL,
 	Activo bit NULL DEFAULT 1,
 	id_Usuario int NULL,
-	Reputacion numeric(18, 2) NULL
+	Reputacion numeric(18, 2) NULL,
+	Eliminado bit NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
 ALTER TABLE [ATJ].[Clientes] ADD CONSTRAINT
@@ -65,7 +66,8 @@ CREATE TABLE [ATJ].[Empresas]
 	Nombre_contacto nvarchar(255) NULL,
 	Activo bit NULL DEFAULT 1,
 	id_Usuario int NULL,
-	Reputacion numeric(18, 2) NULL
+	Reputacion numeric(18, 2) NULL,
+	Eliminado bit NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
 ALTER TABLE [ATJ].[Empresas] ADD CONSTRAINT
@@ -159,7 +161,8 @@ CREATE TABLE ATJ.Visibilidades
 	Descripcion nvarchar(255) NULL,
 	Precio numeric(18, 2) NULL DEFAULT 0.00,
 	Porcentaje numeric(18, 2) NULL,
-	Activo bit NULL DEFAULT 1
+	Activo bit NULL DEFAULT 1,
+	Eliminado bit NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
 ALTER TABLE ATJ.Visibilidades ADD CONSTRAINT
@@ -252,7 +255,8 @@ CREATE TABLE ATJ.Roles
 	(
 	id_Rol int NOT NULL IDENTITY (1, 1),
 	Nombre nvarchar(255) NULL,
-	Habilitado bit NULL DEFAULT 1
+	Habilitado bit NULL DEFAULT 1,
+	Eliminado bit NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
 ALTER TABLE ATJ.Roles ADD CONSTRAINT

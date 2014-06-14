@@ -191,7 +191,18 @@ namespace Clases
         public void Deshabilitar()
         {
             setearListaDeParametrosConIdRol();
-            this.Deshabilitar(parameterList);
+            Deshabilitar(parameterList);
+            parameterList.Clear();
+        }
+
+        public void Eliminar()
+        {
+            setearListaDeParametrosConIdRol();
+            DataSet ds = SQLHelper.ExecuteDataSet("validarRolEnUsuarios", CommandType.StoredProcedure, parameterList);
+            if (ds.Tables[0].Rows.Count == 0)
+                Eliminar(parameterList);
+            else
+                throw new Exception("No se puede eliminar porque hay usuarios que utilizan este rol");
             parameterList.Clear();
         }
 

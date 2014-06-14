@@ -44,6 +44,7 @@
             this.btnDesactivar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
             this.grpFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).BeginInit();
             this.SuspendLayout();
@@ -200,7 +201,7 @@
             // btnAgregar
             // 
             this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAgregar.Location = new System.Drawing.Point(463, 166);
+            this.btnAgregar.Location = new System.Drawing.Point(387, 166);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(61, 23);
             this.btnAgregar.TabIndex = 44;
@@ -208,12 +209,24 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Location = new System.Drawing.Point(454, 166);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(70, 23);
+            this.btnEliminar.TabIndex = 49;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // listadoVisibilidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(785, 393);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.dtgListado);
             this.Controls.Add(this.btnDesactivar);
@@ -247,5 +260,6 @@
         public System.Windows.Forms.Button btnDesactivar;
         public System.Windows.Forms.Button btnModificar;
         public System.Windows.Forms.Button btnAgregar;
+        public System.Windows.Forms.Button btnEliminar;
     }
 }

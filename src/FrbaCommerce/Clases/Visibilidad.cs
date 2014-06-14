@@ -7,6 +7,7 @@ using System.Data;
 using Utilities;
 using System.Globalization;
 using Excepciones;
+using Conexion;
 
 namespace Clases
 {
@@ -131,6 +132,17 @@ namespace Clases
             parameterList.Clear();
         }
 
+        public void Eliminar()
+        {
+            setearListaDeParametrosConCodVisibilidad();
+            DataSet ds = SQLHelper.ExecuteDataSet("validarVisibilidadEnPublicacion", CommandType.StoredProcedure, parameterList);
+            if (ds.Tables[0].Rows.Count == 0)
+                Eliminar(parameterList);
+            else
+                throw new Exception("No se puede eliminar poque hay publicaciones que utilizan esta visibilidad");
+            parameterList.Clear();
+        }
+
         public static DataSet obtenerTodasLasVisibilidades()
         {
             Visibilidad unaVisibilidad = new Visibilidad();
@@ -181,7 +193,7 @@ namespace Clases
         {
             Visibilidad unaVisibilidad = new Visibilidad();
             unaVisibilidad.setearListaDeParametrosConDescripcion(unaDescripcion);
-            DataSet ds = unaVisibilidad.TraerListado(unaVisibilidad.parameterList, "PorNombre");
+            DataSet ds = unaVisibilidad.TraerListado(unaVisibilidad.parameterList, "PorDescripcion");
             unaVisibilidad.parameterList.Clear();
             return ds;   
         }
@@ -197,7 +209,7 @@ namespace Clases
 
         private void setearListaDeParametrosConDescripcion(string unaDescripcion)
         {
-            parameterList.Add(new SqlParameter("@Descripcion", this.Descripcion));
+            parameterList.Add(new SqlParameter("@Descripcion", unaDescripcion));
         }
 
         private void setearListaDeParametrosConDescripcionPrecioPorcentajeYActivo(string unaDescripcion, string unPrecio, string unPorcentaje, bool unValorDeActivo)

@@ -40,6 +40,7 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.grpFiltros = new System.Windows.Forms.GroupBox();
+            this.btnEliminar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).BeginInit();
             this.grpFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -118,7 +119,7 @@
             // btnAgregar
             // 
             this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAgregar.Location = new System.Drawing.Point(375, 144);
+            this.btnAgregar.Location = new System.Drawing.Point(298, 144);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(61, 23);
             this.btnAgregar.TabIndex = 22;
@@ -167,12 +168,24 @@
             this.grpFiltros.TabStop = false;
             this.grpFiltros.Text = "Filtros";
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Location = new System.Drawing.Point(365, 144);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(70, 23);
+            this.btnEliminar.TabIndex = 33;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // listadoRoles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(804, 393);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.grpFiltros);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.dtgListado);
@@ -205,6 +218,7 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.GroupBox grpFiltros;
+        public System.Windows.Forms.Button btnEliminar;
 
 
     }

@@ -172,5 +172,24 @@ namespace FrbaCommerce.Abm_Visibilidad
             frmVisibilidad _frmVisib = new frmVisibilidad();
             _frmVisib.AbrirParaAgregar(this);
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("¿Está seguro que desea eliminar la visibilidad?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+            {
+                try
+                {
+                    Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorActivoSeleccionado());
+                    unaVisibilidad.Eliminar();
+                    MessageBox.Show("La visibilidad ha quedado eliminada", "Desactivada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarListadoDeVisibilidades();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
