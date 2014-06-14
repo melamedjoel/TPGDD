@@ -32,6 +32,7 @@
             this.ABMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ABMRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AbmEmpresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aBMClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.publicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AbmVisiblidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarPublicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +43,7 @@
             this.historialToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aBMClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.misPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +84,13 @@
             this.AbmEmpresasToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.AbmEmpresasToolStripMenuItem.Text = "ABM Empresas";
             this.AbmEmpresasToolStripMenuItem.Click += new System.EventHandler(this.AbmEmpresasToolStripMenuItem_Click);
+            // 
+            // aBMClientesToolStripMenuItem
+            // 
+            this.aBMClientesToolStripMenuItem.Name = "aBMClientesToolStripMenuItem";
+            this.aBMClientesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.aBMClientesToolStripMenuItem.Text = "ABM Clientes";
+            this.aBMClientesToolStripMenuItem.Click += new System.EventHandler(this.aBMClientesToolStripMenuItem_Click);
             // 
             // publicacionToolStripMenuItem
             // 
@@ -132,7 +140,8 @@
             // 
             this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.historialToolStripMenuItem1,
-            this.listadoEstadísticoToolStripMenuItem});
+            this.listadoEstadísticoToolStripMenuItem,
+            this.misPublicacionesToolStripMenuItem});
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
             this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.usuarioToolStripMenuItem.Text = "Usuario";
@@ -156,12 +165,12 @@
             this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
             this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // aBMClientesToolStripMenuItem
+            // misPublicacionesToolStripMenuItem
             // 
-            this.aBMClientesToolStripMenuItem.Name = "aBMClientesToolStripMenuItem";
-            this.aBMClientesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.aBMClientesToolStripMenuItem.Text = "ABM Clientes";
-            this.aBMClientesToolStripMenuItem.Click += new System.EventHandler(this.aBMClientesToolStripMenuItem_Click);
+            this.misPublicacionesToolStripMenuItem.Name = "misPublicacionesToolStripMenuItem";
+            this.misPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.misPublicacionesToolStripMenuItem.Text = "Mis Publicaciones";
+            this.misPublicacionesToolStripMenuItem.Click += new System.EventHandler(this.misPublicacionesToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -200,6 +209,7 @@
         private System.Windows.Forms.ToolStripMenuItem compraInmediataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listadoEstadísticoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aBMClientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem misPublicacionesToolStripMenuItem;
 
     }
 }

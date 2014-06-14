@@ -16,6 +16,7 @@ using FrbaCommerce.Historial_Cliente;
 using FrbaCommerce.Generar_Publicacion;
 using FrbaCommerce.Listado_Estadistico;
 using FrbaCommerce.Abm_Cliente;
+using FrbaCommerce.Mis_Publicaciones;
 
 namespace FrbaCommerce
 {
@@ -87,6 +88,12 @@ namespace FrbaCommerce
         {
             listadoCliente frmListadoClientes = new listadoCliente();
             frmListadoClientes.Show(this);
+        }
+
+        private void misPublicacionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMisPublicaciones misPublic = new frmMisPublicaciones();
+            misPublic.abrirConUsuario(unUsuario);
         }
 
     }
