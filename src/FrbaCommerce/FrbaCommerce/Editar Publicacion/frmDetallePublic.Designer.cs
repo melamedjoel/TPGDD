@@ -1,4 +1,4 @@
-﻿namespace FrbaCommerce.Mis_Publicaciones
+﻿namespace FrbaCommerce.Editar_Publicacion
 {
     partial class frmDetallePublic
     {

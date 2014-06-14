@@ -12,13 +12,13 @@ using Excepciones;
 
 
 
-namespace FrbaCommerce.Mis_Publicaciones
+namespace FrbaCommerce.Comprar_Ofertar
 {
-    public partial class frmMisPublicaciones : Form
+    public partial class frmVerPublicaciones : Form
     {
         Usuario unUsuario = new Usuario();
 
-        public frmMisPublicaciones()
+        public frmVerPublicaciones()
         {
             InitializeComponent();
         }
@@ -29,16 +29,11 @@ namespace FrbaCommerce.Mis_Publicaciones
             this.Show();
         }
 
-        private void frmMisPublicaciones_Load(object sender, EventArgs e)
-        {
-            CargarListadoDePublicaciones();
-        }
-
         public void CargarListadoDePublicaciones()
         {
             try
             {
-                DataSet ds = Publicacion.obtenerTodas(unUsuario);
+                DataSet ds = Publicacion.obtenerTodas();
                 configurarGrilla(ds);
             }
             catch (ErrorConsultaException ex)
@@ -144,41 +139,11 @@ namespace FrbaCommerce.Mis_Publicaciones
             dtgListado.DataSource = ds.Tables[0];
         }
 
-        private void btnVer_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                frmDetallePublic _frmDetalle = new frmDetallePublic();
-                Publicacion unaPublic = new Publicacion(valorIdSeleccionado());
-                _frmDetalle.AbrirParaVer(unaPublic, this);
-            }
-            catch (ErrorConsultaException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            
-        }
-
         private int valorIdSeleccionado()
         {
             return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["Codigo"]);
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            txtDescripcion.Text = "";
-            CargarListadoDePublicaciones();
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            CargarListadoDePublicacionesConFiltros();
-        }
 
         public void CargarListadoDePublicacionesConFiltros()
         {
@@ -195,6 +160,42 @@ namespace FrbaCommerce.Mis_Publicaciones
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void frmVerPublicaciones_Load(object sender, EventArgs e)
+        {
+            CargarListadoDePublicaciones();
+
+        }
+
+        private void btnVer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                frmDetallePublicGeneral _frmDetalle = new frmDetallePublicGeneral();
+                Publicacion unaPublic = new Publicacion(valorIdSeleccionado());
+                _frmDetalle.AbrirParaVer(unaPublic, this);
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            CargarListadoDePublicacionesConFiltros();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtDescripcion.Text = "";
+            CargarListadoDePublicaciones();
         }
     }
 }

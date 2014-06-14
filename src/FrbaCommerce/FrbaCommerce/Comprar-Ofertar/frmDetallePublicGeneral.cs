@@ -9,25 +9,18 @@ using System.Windows.Forms;
 using Clases;
 using Excepciones;
 using Utilities;
-namespace FrbaCommerce.Mis_Publicaciones
+namespace FrbaCommerce.Comprar_Ofertar
 {
-    public partial class frmDetallePublic : Form
+    public partial class frmDetallePublicGeneral : Form
     {
-        frmMisPublicaciones frmPadre = new frmMisPublicaciones();
+        frmVerPublicaciones frmPadre = new frmVerPublicaciones();
         Publicacion publicDelForm = new Publicacion();
-        public frmDetallePublic()
+        public frmDetallePublicGeneral()
         {
             InitializeComponent();
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            frmPadre.CargarListadoDePublicaciones();
-            frmPadre.BringToFront();
-            this.Close();
-        }
-
-        public void AbrirParaVer(Publicacion unaPublic, frmMisPublicaciones frmEnviador)
+        public void AbrirParaVer(Publicacion unaPublic, frmVerPublicaciones frmEnviador)
         {
             frmPadre = frmEnviador;
             publicDelForm = unaPublic;
@@ -45,6 +38,11 @@ namespace FrbaCommerce.Mis_Publicaciones
             txtTipo.Text = unaPublic.Tipo_Publicacion.Nombre;
             txtPrecio.Text = unaPublic.Precio.ToString();
             chkPregs.Checked = unaPublic.Permiso_Preguntas;
+
+        }
+
+        private void frmDetallePublicGeneral_Load(object sender, EventArgs e)
+        {
 
         }
     }

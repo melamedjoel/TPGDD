@@ -192,5 +192,10 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Descripcion", unaDesc));
         }
         #endregion
+
+        public static DataSet obtenerTodas()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

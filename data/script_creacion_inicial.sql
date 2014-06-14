@@ -31,6 +31,7 @@ CREATE TABLE [ATJ].[Clientes]
 	Dom_piso numeric(18, 0) NULL,
 	Dom_depto nvarchar(50) NULL,
 	Dom_cod_postal nvarchar(50) NULL,
+	Dom_ciudad nvarchar(255) NULL,
 	Activo bit NULL DEFAULT 1,
 	id_Usuario int NULL,
 	Reputacion numeric(18, 2) NULL,
@@ -424,6 +425,7 @@ CREATE TABLE ATJ.Calificaciones
 	cod_Calificacion numeric(18, 0) NOT NULL IDENTITY (1, 1),
 	id_Usuario_Calificador int NOT NULL,
 	id_Usuario_Calificado int NOT NULL,
+	cod_Publicacion int NOT NULL,
 	Cant_Estrellas numeric(18, 0) NULL,
 	Descripcion nvarchar(255) NULL
 	)  ON [PRIMARY]
@@ -745,13 +747,14 @@ VALUES
 
 SET IDENTITY_INSERT ATJ.Calificaciones ON
 
-INSERT INTO ATJ.Calificaciones (cod_Calificacion, id_Usuario_Calificado, id_Usuario_Calificador, Cant_Estrellas, Descripcion)
+INSERT INTO ATJ.Calificaciones (cod_Calificacion, id_Usuario_Calificado, id_Usuario_Calificador, cod_Publicacion, Cant_Estrellas, Descripcion)
 
 SELECT 
 M.Calificacion_Codigo,
 EntidadCalificada = (CASE WHEN M.Publ_Cli_Dni IS null THEN UempresasCalificado.id_Usuario ELSE UclientesCalificado.id_Usuario END),
 EntidadCalificadora = UclientesCalificador.id_Usuario,
 M.Calificacion_Cant_Estrellas,
+M.Publicacion_Cod,
 M.Calificacion_Descripcion
 from gd_esquema.Maestra as M
 LEFT JOIN ATJ.Usuarios as UempresasCalificado on UempresasCalificado.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))

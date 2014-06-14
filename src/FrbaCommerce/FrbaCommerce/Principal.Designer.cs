@@ -43,6 +43,7 @@
             this.listadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.misPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,7 +95,8 @@
             // 
             this.publicacionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AbmVisiblidadToolStripMenuItem,
-            this.generarPublicacionToolStripMenuItem});
+            this.generarPublicacionToolStripMenuItem,
+            this.verPublicacionesToolStripMenuItem});
             this.publicacionToolStripMenuItem.Name = "publicacionToolStripMenuItem";
             this.publicacionToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.publicacionToolStripMenuItem.Text = "Publicacion";
@@ -165,6 +167,12 @@
             this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
             this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
+            // verPublicacionesToolStripMenuItem
+            // 
+            this.verPublicacionesToolStripMenuItem.Name = "verPublicacionesToolStripMenuItem";
+            this.verPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verPublicacionesToolStripMenuItem.Text = "Ver publicaciones";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,6 +210,7 @@
         private System.Windows.Forms.ToolStripMenuItem listadoEstadísticoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aBMClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem misPublicacionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verPublicacionesToolStripMenuItem;
 
     }
 }

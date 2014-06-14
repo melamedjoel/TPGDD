@@ -16,7 +16,7 @@ using FrbaCommerce.Historial_Cliente;
 using FrbaCommerce.Generar_Publicacion;
 using FrbaCommerce.Listado_Estadistico;
 using FrbaCommerce.Abm_Cliente;
-using FrbaCommerce.Mis_Publicaciones;
+using FrbaCommerce.Editar_Publicacion;
 
 namespace FrbaCommerce
 {

@@ -121,17 +121,17 @@
     <Compile Include="Calificar Vendedor\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar-Ofertar\Form1.cs">
+    <Compile Include="Comprar-Ofertar\frmDetallePublicGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar-Ofertar\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Comprar-Ofertar\frmDetallePublicGeneral.Designer.cs">
+      <DependentUpon>frmDetallePublicGeneral.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\Form1.cs">
+    <Compile Include="Comprar-Ofertar\frmVerPublicaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Comprar-Ofertar\frmVerPublicaciones.Designer.cs">
+      <DependentUpon>frmVerPublicaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicacion\frmCompraInmediata.cs">
       <SubType>Form</SubType>
@@ -181,16 +181,16 @@
     <Compile Include="Login\LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mis Publicaciones\frmDetallePublic.cs">
+    <Compile Include="Editar Publicacion\frmDetallePublic.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Mis Publicaciones\frmDetallePublic.Designer.cs">
+    <Compile Include="Editar Publicacion\frmDetallePublic.Designer.cs">
       <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mis Publicaciones\frmMisPublicaciones.cs">
+    <Compile Include="Editar Publicacion\frmMisPublicaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Mis Publicaciones\frmMisPublicaciones.Designer.cs">
+    <Compile Include="Editar Publicacion\frmMisPublicaciones.Designer.cs">
       <DependentUpon>frmMisPublicaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Principal.cs">
@@ -231,6 +231,12 @@
     <EmbeddedResource Include="Abm Visibilidad\ListadoVisibilidad.resx">
       <DependentUpon>ListadoVisibilidad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Comprar-Ofertar\frmDetallePublicGeneral.resx">
+      <DependentUpon>frmDetallePublicGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar-Ofertar\frmVerPublicaciones.resx">
+      <DependentUpon>frmVerPublicaciones.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\frmCompraInmediata.resx">
       <DependentUpon>frmCompraInmediata.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,10 +258,10 @@
     <EmbeddedResource Include="Login\LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mis Publicaciones\frmDetallePublic.resx">
+    <EmbeddedResource Include="Editar Publicacion\frmDetallePublic.resx">
       <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mis Publicaciones\frmMisPublicaciones.resx">
+    <EmbeddedResource Include="Editar Publicacion\frmMisPublicaciones.resx">
       <DependentUpon>frmMisPublicaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
