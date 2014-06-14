@@ -173,12 +173,26 @@ namespace Clases
             return ds;
         }
 
+        public static DataSet obtenerTodas(DateTime unaFecha)
+        {
+            Publicacion unaPublic = new Publicacion();
+            unaPublic.setearListaDeParametrosConFecha(unaFecha);
+            DataSet ds = unaPublic.TraerListado(unaPublic.parameterList, "NoVendidasOrdenadoPorVisibilidad");
+            unaPublic.parameterList.Clear();
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados
         private void setearListaDeParametrosConIdUsuario(int unIdUsuario)
         {
             parameterList.Add(new SqlParameter("@id_Usuario", unIdUsuario));
+        }
+
+        private void setearListaDeParametrosConFecha(DateTime unaFecha)
+        {
+            parameterList.Add(new SqlParameter("@Fecha_Vencimiento", unaFecha));
         }
 
         private void setearListaDeParametrosConCodigoPublic(int unCodigo)
@@ -192,10 +206,5 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Descripcion", unaDesc));
         }
         #endregion
-
-        public static DataSet obtenerTodas()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

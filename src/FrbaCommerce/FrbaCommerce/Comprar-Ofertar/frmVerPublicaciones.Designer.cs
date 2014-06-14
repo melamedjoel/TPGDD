@@ -36,14 +36,16 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.btnVer = new System.Windows.Forms.Button();
-            this.lst = new System.Windows.Forms.CheckedListBox();
+            this.lstRubros = new System.Windows.Forms.CheckedListBox();
+            this.lblRubro = new System.Windows.Forms.Label();
             this.grpFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).BeginInit();
             this.SuspendLayout();
             // 
             // grpFiltros
             // 
-            this.grpFiltros.Controls.Add(this.lst);
+            this.grpFiltros.Controls.Add(this.lblRubro);
+            this.grpFiltros.Controls.Add(this.lstRubros);
             this.grpFiltros.Controls.Add(this.txtDescripcion);
             this.grpFiltros.Controls.Add(this.lblDescripcion);
             this.grpFiltros.Controls.Add(this.btnLimpiar);
@@ -120,13 +122,22 @@
             this.btnVer.UseVisualStyleBackColor = true;
             this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
-            // lst
+            // lstRubros
             // 
-            this.lst.FormattingEnabled = true;
-            this.lst.Location = new System.Drawing.Point(19, 69);
-            this.lst.Name = "lst";
-            this.lst.Size = new System.Drawing.Size(178, 109);
-            this.lst.TabIndex = 31;
+            this.lstRubros.FormattingEnabled = true;
+            this.lstRubros.Location = new System.Drawing.Point(19, 82);
+            this.lstRubros.Name = "lstRubros";
+            this.lstRubros.Size = new System.Drawing.Size(178, 109);
+            this.lstRubros.TabIndex = 31;
+            // 
+            // lblRubro
+            // 
+            this.lblRubro.AutoSize = true;
+            this.lblRubro.Location = new System.Drawing.Point(20, 64);
+            this.lblRubro.Name = "lblRubro";
+            this.lblRubro.Size = new System.Drawing.Size(41, 13);
+            this.lblRubro.TabIndex = 32;
+            this.lblRubro.Text = "Rubros";
             // 
             // frmVerPublicaciones
             // 
@@ -156,6 +167,7 @@
         private System.Windows.Forms.TextBox txtDescripcion;
         public System.Windows.Forms.DataGridView dtgListado;
         public System.Windows.Forms.Button btnVer;
-        private System.Windows.Forms.CheckedListBox lst;
+        private System.Windows.Forms.CheckedListBox lstRubros;
+        private System.Windows.Forms.Label lblRubro;
     }
 }

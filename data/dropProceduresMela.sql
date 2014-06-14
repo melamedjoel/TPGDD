@@ -31,3 +31,8 @@ DROP PROCEDURE ATJ.deleteRol;
 DROP PROCEDURE ATJ.deleteVisibilidad;
 DROP PROCEDURE ATJ.validarRolEnUsuarios;
 DROP PROCEDURE ATJ.validarVisibilidadEnPublicacion;
+DROP PROCEDURE ATJ.traerListadoRubros;
+DROP PROCEDURE [ATJ].[traerListadoPublicacionesNoVendidasOrdenadoPorVisibilidad];
+
+
+

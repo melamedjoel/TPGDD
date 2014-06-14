@@ -50,16 +50,19 @@
             this.chkPregs = new System.Windows.Forms.CheckBox();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.lblPrecio = new System.Windows.Forms.Label();
+            this.btnComprar = new System.Windows.Forms.Button();
+            this.btnOfertar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(322, 286);
+            this.btnVolver.Location = new System.Drawing.Point(328, 345);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 62;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // txtStock
             // 
@@ -242,12 +245,32 @@
             this.lblPrecio.TabIndex = 76;
             this.lblPrecio.Text = "Precio";
             // 
+            // btnComprar
+            // 
+            this.btnComprar.Location = new System.Drawing.Point(328, 316);
+            this.btnComprar.Name = "btnComprar";
+            this.btnComprar.Size = new System.Drawing.Size(75, 23);
+            this.btnComprar.TabIndex = 78;
+            this.btnComprar.Text = "Comprar";
+            this.btnComprar.UseVisualStyleBackColor = true;
+            // 
+            // btnOfertar
+            // 
+            this.btnOfertar.Location = new System.Drawing.Point(410, 315);
+            this.btnOfertar.Name = "btnOfertar";
+            this.btnOfertar.Size = new System.Drawing.Size(75, 23);
+            this.btnOfertar.TabIndex = 79;
+            this.btnOfertar.Text = "Ofertar";
+            this.btnOfertar.UseVisualStyleBackColor = true;
+            // 
             // frmDetallePublicGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(597, 410);
+            this.Controls.Add(this.btnOfertar);
+            this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.chkPregs);
@@ -302,5 +325,7 @@
         private System.Windows.Forms.CheckBox chkPregs;
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.Label lblPrecio;
+        private System.Windows.Forms.Button btnComprar;
+        private System.Windows.Forms.Button btnOfertar;
     }
 }

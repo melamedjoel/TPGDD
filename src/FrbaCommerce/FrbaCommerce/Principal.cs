@@ -17,6 +17,7 @@ using FrbaCommerce.Generar_Publicacion;
 using FrbaCommerce.Listado_Estadistico;
 using FrbaCommerce.Abm_Cliente;
 using FrbaCommerce.Editar_Publicacion;
+using FrbaCommerce.Comprar_Ofertar;
 
 namespace FrbaCommerce
 {
@@ -94,6 +95,12 @@ namespace FrbaCommerce
         {
             frmMisPublicaciones misPublic = new frmMisPublicaciones();
             misPublic.abrirConUsuario(unUsuario);
+        }
+
+        private void verPublicacionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmVerPublicaciones lasPublic = new frmVerPublicaciones();
+            lasPublic.abrirConUsuario(unUsuario);
         }
 
     }

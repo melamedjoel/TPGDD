@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Clases;
 using Utilities;
 using Excepciones;
+using System.Configuration;
 
 
 
@@ -33,7 +34,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         {
             try
             {
-                DataSet ds = Publicacion.obtenerTodas();
+                DataSet ds = Publicacion.obtenerTodas(Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]));
                 configurarGrilla(ds);
             }
             catch (ErrorConsultaException ex)
@@ -165,7 +166,21 @@ namespace FrbaCommerce.Comprar_Ofertar
         private void frmVerPublicaciones_Load(object sender, EventArgs e)
         {
             CargarListadoDePublicaciones();
+            CargarListadoDeRubros();
 
+        }
+
+        public void CargarListadoDeRubros()
+        {
+            lstRubros.Items.Clear();
+            DataSet ds = Rubro.obtenerTodas();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                Rubro unRubro = new Rubro();
+                unRubro.DataRowToObject(dr);
+                lstRubros.Items.Add(unRubro);
+            }
+            lstRubros.DisplayMember = "Descripcion";
         }
 
         private void btnVer_Click(object sender, EventArgs e)

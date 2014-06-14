@@ -88,6 +88,12 @@ namespace Clases
             return "Rubro";
         }
 
+        public static DataSet obtenerTodas()
+        {
+            Rubro miRubro = new Rubro();
+            DataSet ds = miRubro.TraerListado(miRubro.parameterList, "");
+            return ds;
+        }
 
         #endregion
 
@@ -97,5 +103,6 @@ namespace Clases
             parameterList.Add(new SqlParameter("@id_Rubro", id_Rubro));
         }
         #endregion
+
     }
 }

@@ -72,6 +72,12 @@ AS
 	SELECT * FROM ATJ.Funcionalidades
 GO
 
+--Procedure traerListadoRubros
+CREATE PROCEDURE ATJ.traerListadoRubros
+AS	
+	SELECT * FROM ATJ.Rubros
+GO
+
 
 --Procedure insertRol_RetornarID
 CREATE PROCEDURE ATJ.insertRol_RetornarID
@@ -346,6 +352,25 @@ AS
     INNER JOIN ATJ.Estados_Publicacion E on E.id_Estado = P.id_Estado
     INNER JOIN ATJ.Rubros R on R.id_Rubro = P.id_Rubro
 	WHERE P.id_Usuario = @id_Usuario
+GO
+
+
+--Procedure traerListadoPublicaciones
+CREATE PROCEDURE [ATJ].[traerListadoPublicacionesNoVendidasOrdenadoPorVisibilidad] 
+	@Fecha_Vencimiento datetime
+AS 
+    SELECT P.Codigo as Codigo, P.Descripcion as Descripcion, U.Username as Username, P.Stock as Stock, P.Precio Precio,
+    P.Fecha_creacion Fecha_creacion, P.Fecha_Vencimiento Fecha_vencimiento, 
+    TP.Nombre NombreTipo, V.Descripcion DescVisibilidad, E.Nombre NombreEstado,
+    R.Descripcion NombreRubro, P.permiso_Preguntas permiso_Preguntas
+    FROM ATJ.Publicaciones P
+    INNER JOIN ATJ.Usuarios U ON U.id_Usuario = P.id_Usuario
+    INNER JOIN ATJ.Tipos_Publicacion TP on TP.id_Tipo = P.id_Tipo
+    INNER JOIN ATJ.Visibilidades V on V.cod_Visibilidad = P.cod_Visibilidad
+    INNER JOIN ATJ.Estados_Publicacion E on E.id_Estado = P.id_Estado
+    INNER JOIN ATJ.Rubros R on R.id_Rubro = P.id_Rubro
+	WHERE P.Fecha_Vencimiento > @Fecha_Vencimiento AND P.Stock > 0 AND E.Nombre IN ('Publicada', 'Pausada')
+	ORDER BY V.Precio DESC
 GO
 
 --Procedure traerListadoPublicacionesPorId_UsuarioYFiltros

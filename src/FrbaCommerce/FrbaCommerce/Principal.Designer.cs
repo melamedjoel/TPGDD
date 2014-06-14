@@ -38,12 +38,12 @@
             this.generarPublicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subastaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compraInmediataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.misPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,6 +131,13 @@
             this.compraInmediataToolStripMenuItem.Text = "Compra Inmediata";
             this.compraInmediataToolStripMenuItem.Click += new System.EventHandler(this.compraInmediataToolStripMenuItem_Click);
             // 
+            // verPublicacionesToolStripMenuItem
+            // 
+            this.verPublicacionesToolStripMenuItem.Name = "verPublicacionesToolStripMenuItem";
+            this.verPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verPublicacionesToolStripMenuItem.Text = "Ver publicaciones";
+            this.verPublicacionesToolStripMenuItem.Click += new System.EventHandler(this.verPublicacionesToolStripMenuItem_Click);
+            // 
             // usuarioToolStripMenuItem
             // 
             this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -166,12 +173,6 @@
             // 
             this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
             this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // verPublicacionesToolStripMenuItem
-            // 
-            this.verPublicacionesToolStripMenuItem.Name = "verPublicacionesToolStripMenuItem";
-            this.verPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.verPublicacionesToolStripMenuItem.Text = "Ver publicaciones";
             // 
             // Principal
             // 
