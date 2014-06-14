@@ -210,9 +210,41 @@ namespace Clases
             return ds;
         }
 
+        public DataSet obtenerVendedoresConMayorCantProdNoVendidos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataSet obtenerVendedoresConMayorFacturacion(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
+        {
+            this.setearListaDeParametrosConUsuarioTrimestreAño(Fecha_Hasta,Fecha_Desde,Año);
+            DataSet ds = this.TraerListado(this.parameterList, "ConMayorFacturacion");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
+        public DataSet obtenerVendedoresMayorCalificacion()
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataSet obtenerClientesMayorCantPubliSinClasificar()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region metodos privados
+        private void setearListaDeParametrosConUsuarioTrimestreAño(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
+        {
+            parameterList.Add(new SqlParameter("@id_Usuario", this.Id_Usuario));
+            parameterList.Add(new SqlParameter("@Fecha_Hasta", Fecha_Hasta));
+            parameterList.Add(new SqlParameter("@Fecha_Desde", Fecha_Desde));
+            parameterList.Add(new SqlParameter("@Año", Año));
+        }
+
         private void setearListaDeParametrosSoloConIdUsuario()
         {
             parameterList.Add(new SqlParameter("@id_Usuario", this.Id_Usuario));
@@ -255,5 +287,6 @@ namespace Clases
             this.Id_Usuario = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
             return this.Id_Usuario;
         }
+
     }
 }

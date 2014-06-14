@@ -16,6 +16,9 @@ namespace FrbaCommerce.Listado_Estadistico
     public partial class listadoEstadistico : Form
     {
         Usuario unUsuario = new Usuario();
+        private DateTime Fecha_Hasta;
+        private DateTime Fecha_Desde;
+        private string Año;
        
         private void listadoEstadistico_Load(object sender, EventArgs e)
         {
@@ -96,7 +99,7 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             try
             {
-                DataSet ds = unUsuario.obtenerTodasLasCompras();
+                DataSet ds = unUsuario.obtenerVendedoresConMayorCantProdNoVendidos();
                 configurarGrillaVendedoresMayorCantPubliNoVendidas(ds);
             }
 
@@ -115,7 +118,7 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             try
             {
-                DataSet ds = unUsuario.obtenerTodasLasCompras();
+                DataSet ds = unUsuario.obtenerVendedoresConMayorFacturacion(Fecha_Hasta, Fecha_Desde, Año);
                 configurarGrillaVendedoresMayorFacturacion(ds);
             }
 
@@ -133,7 +136,7 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             try
             {
-                DataSet ds = unUsuario.obtenerTodasLasCompras();
+                DataSet ds = unUsuario.obtenerVendedoresMayorCalificacion();
                 configurarGrillaVendedoresMayorCalificacion(ds);
             }
 
@@ -151,7 +154,7 @@ namespace FrbaCommerce.Listado_Estadistico
          {
              try
              {
-                 DataSet ds = unUsuario.obtenerTodasLasCompras();
+                 DataSet ds = unUsuario.obtenerClientesMayorCantPubliSinClasificar();
                  configurarGrillaVendedoresMayorPubliSinClasificar(ds);
              }
 
@@ -224,8 +227,8 @@ namespace FrbaCommerce.Listado_Estadistico
             DataGridViewTextBoxColumn clmFacturacion = new DataGridViewTextBoxColumn();
             clmFacturacion.Width = 200;
             clmFacturacion.ReadOnly = true;
-            clmFacturacion.DataPropertyName = "SumaCalificaciones";
-            clmFacturacion.HeaderText = "Suma de Califiaciones";
+            clmFacturacion.DataPropertyName = "PromedioCalificaciones";
+            clmFacturacion.HeaderText = "Promedio de Califiaciones";
             dtgTop5.Columns.Add(clmFacturacion);
 
             dtgTop5.DataSource = ds.Tables[0];

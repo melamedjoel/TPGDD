@@ -2,3 +2,10 @@ DROP PROCEDURE ATJ.traerListadoUsuariosCompras;
 DROP PROCEDURE ATJ.traerListadoUsuariosOfertas;
 DROP PROCEDURE ATJ.traerListadoUsuariosCalificacionesRecibidas;
 DROP PROCEDURE ATJ.traerListadoUsuariosCalificacionesOtorgadas;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantidadDeProductosSinVender;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorFacturacion;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCalificacion;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantDePublicacionesSinClasificar;
+DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantidadDeProductosSinVenderConFiltros;
+
+

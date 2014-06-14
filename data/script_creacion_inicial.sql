@@ -753,8 +753,8 @@ SELECT
 M.Calificacion_Codigo,
 EntidadCalificada = (CASE WHEN M.Publ_Cli_Dni IS null THEN UempresasCalificado.id_Usuario ELSE UclientesCalificado.id_Usuario END),
 EntidadCalificadora = UclientesCalificador.id_Usuario,
-M.Calificacion_Cant_Estrellas,
 M.Publicacion_Cod,
+M.Calificacion_Cant_Estrellas,
 M.Calificacion_Descripcion
 from gd_esquema.Maestra as M
 LEFT JOIN ATJ.Usuarios as UempresasCalificado on UempresasCalificado.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))
