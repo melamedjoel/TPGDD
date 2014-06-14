@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Conexion;
+using FrbaCommerce.Registro_de_Usuario;
 
 namespace FrbaCommerce
 {
@@ -35,5 +36,14 @@ namespace FrbaCommerce
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void lblRegistrarUsuario_Click(object sender, EventArgs e)
+        {
+            registroUsuario frmRegistroUsuario = new registroUsuario();
+            this.Hide();
+            frmRegistroUsuario.Show();
+        }
+
+  
     }
 }

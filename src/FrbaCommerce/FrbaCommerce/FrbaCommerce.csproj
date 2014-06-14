@@ -151,10 +151,10 @@
     <Compile Include="Gestion de Preguntas\listadoPreguntas.Designer.cs">
       <DependentUpon>listadoPreguntas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login\Registro de Usuario\Facturar Publicaciones\Form1.cs">
+    <Compile Include="Login\Facturar Publicaciones\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login\Registro de Usuario\Facturar Publicaciones\Form1.Designer.cs">
+    <Compile Include="Login\Facturar Publicaciones\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Historial Cliente\listadoHistorialDeOperaciones.cs">
@@ -264,6 +264,9 @@
     <EmbeddedResource Include="Editar Publicacion\frmMisPublicaciones.resx">
       <DependentUpon>frmMisPublicaciones.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Login\Registro de Usuario\RegistroUsuario.resx">
+      <DependentUpon>RegistroUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
@@ -286,11 +289,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Login\Registro de Usuario\Form1.cs">
+    <Compile Include="Login\Registro de Usuario\RegistroUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login\Registro de Usuario\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Login\Registro de Usuario\RegistroUsuario.Designer.cs">
+      <DependentUpon>RegistroUsuario.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
