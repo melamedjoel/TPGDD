@@ -274,6 +274,27 @@ AS
 	SELECT @@IDENTITY AS cod_Visibilidad;
 GO
 
+--Procedure insertPregunta_RetornarID
+CREATE PROCEDURE ATJ.insertPregunta_RetornarID
+	@txtPregunta nvarchar(255),
+	@cod_Publicacion numeric(18,0)
+AS
+	INSERT INTO ATJ.Preguntas
+	(Pregunta)
+	VALUES 
+	(@txtPregunta)
+	
+	DECLARE @idNuevo int;
+	SELECT @idNuevo = @@IDENTITY;
+	
+	INSERT INTO ATJ.Pregunta_Publicacion
+	(id_Pregunta, cod_Publicacion) VALUES
+	(@idNuevo, @cod_Publicacion)
+	
+	select @idNuevo as id_Pregunta;
+GO
+
+
 --traerListadoFuncionalidadesPorNombre
 CREATE PROCEDURE ATJ.traerListadoVisibilidadesPorDescripcion
 	@Descripcion nvarchar(255)

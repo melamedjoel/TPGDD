@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Clases;
 using Excepciones;
 using Utilities;
+using System.Configuration;
 namespace FrbaCommerce.Comprar_Ofertar
 {
     public partial class frmDetallePublicGeneral : Form
@@ -37,7 +38,18 @@ namespace FrbaCommerce.Comprar_Ofertar
             txtVisibilidad.Text = unaPublic.Visibilidad.Descripcion;
             txtTipo.Text = unaPublic.Tipo_Publicacion.Nombre;
             txtPrecio.Text = unaPublic.Precio.ToString();
-            chkPregs.Checked = unaPublic.Permiso_Preguntas;
+            grpPreguntas.Visible = unaPublic.Permiso_Preguntas;
+
+            if (publicDelForm.Tipo_Publicacion.Nombre == "Subasta")
+            {
+                btnComprar.Visible = false;
+                btnOfertar.Visible = true;
+            }
+            else
+            {
+                btnComprar.Visible = true;
+                btnOfertar.Visible = false;
+            }
 
         }
 
@@ -52,6 +64,63 @@ namespace FrbaCommerce.Comprar_Ofertar
             frmPadre.CargarListadoDeRubros();
             frmPadre.Show();
             this.Close();
+        }
+
+        private void btnOfertar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnComprar_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnRegistrarPregunta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidarCampos();
+                string pregunta = txtPreguntas.Text;
+
+                Pregunta unaPregunta = new Pregunta(pregunta, publicDelForm);
+
+                unaPregunta.GuardarPregunta();
+                DialogResult dr = MessageBox.Show("La pregunta ha sido realizada", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dr == DialogResult.OK)
+                {
+                    txtPreguntas.Text = "";   
+                }
+                
+
+            }
+            catch (EntidadExistenteException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (BadInsertException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void ValidarCampos()
+        {
+            string strErrores = "";
+            strErrores += Validator.ValidarNulo(txtPreguntas.Text, "Pregunta");
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            }
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using Excepciones;
+using Utilities;
 
 namespace Clases
 {
@@ -14,12 +16,20 @@ namespace Clases
         #region atributos
         private int _id_Pregunta;
         private string _texto_Pregunta;
-        private string _Respuesta;
-        private DateTime _Fecha_respuesta;
+        private string _respuesta;
+        private DateTime _fecha_respuesta;
+        private Publicacion _publicacion = new Publicacion();
 
         #endregion
 
         #region properties
+
+        public Publicacion Publicacion
+        {
+            get { return _publicacion; }
+            set { _publicacion = value; }
+        }
+
         public int id_Pregunta
         {
             get { return _id_Pregunta; }
@@ -32,15 +42,33 @@ namespace Clases
         }
         public string Respuesta
         {
-            get { return _Respuesta; }
-            set { _Respuesta = value; }
+            get { return _respuesta; }
+            set { _respuesta = value; }
         }
         public DateTime Fecha_respuesta
         {
-            get { return _Fecha_respuesta; }
-            set { _Fecha_respuesta = value; }
+            get { return _fecha_respuesta; }
+            set { _fecha_respuesta = value; }
         }
 
+        #endregion
+
+        #region constructor
+        public Pregunta()
+        {
+            id_Pregunta = -1;
+            texto_Pregunta = "";
+            Respuesta = "";
+
+        }
+
+        public Pregunta(string unaPreg,Publicacion unaPublic)
+        {
+            id_Pregunta = -1;
+            texto_Pregunta = unaPreg;
+            Respuesta = "";
+            Publicacion = unaPublic;
+        }
         #endregion
 
         #region metodos publicos
@@ -61,13 +89,35 @@ namespace Clases
             this.texto_Pregunta = dr["Pregunta"].ToString();
             this.Respuesta = dr["Respuesta"].ToString();
             this.Fecha_respuesta = Convert.ToDateTime(dr["Fecha_respuesta"]);
+            this.Publicacion = new Publicacion(Convert.ToInt32(dr["cod_Publicacion"]));
         }
 
+        public void GuardarPregunta()
+        {
+            setearListaDeParametrosConPreguntaYPublicacion();
+            DataSet dsNuevaPreg = this.GuardarYObtenerID(parameterList);
+            parameterList.Clear();
+
+            if (dsNuevaPreg.Tables[0].Rows.Count > 0)
+            {
+                id_Pregunta = Convert.ToInt32(dsNuevaPreg.Tables[0].Rows[0]["id_Pregunta"]);
+            }
+            else
+            {
+                throw new BadInsertException();
+            }
+
+        }
 
         #endregion
 
         #region metodos privados
-
+        private void setearListaDeParametrosConPreguntaYPublicacion()
+        {
+            parameterList.Add(new SqlParameter("@txtPregunta", texto_Pregunta));
+            parameterList.Add(new SqlParameter("@cod_Publicacion", Publicacion.Codigo));    
+        }
         #endregion
+
     }
 }
