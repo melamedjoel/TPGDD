@@ -38,12 +38,11 @@
             this.generarPublicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subastaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compraInmediataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.misPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +52,6 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ABMToolStripMenuItem,
             this.publicacionToolStripMenuItem,
-            this.clienteToolStripMenuItem,
             this.usuarioToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -131,11 +129,6 @@
             this.compraInmediataToolStripMenuItem.Text = "Compra Inmediata";
             this.compraInmediataToolStripMenuItem.Click += new System.EventHandler(this.compraInmediataToolStripMenuItem_Click);
             // 
-            // clienteToolStripMenuItem
-            // 
-            this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
-            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
-            // 
             // usuarioToolStripMenuItem
             // 
             this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -160,17 +153,17 @@
             this.listadoEstadísticoToolStripMenuItem.Text = "Listado Estadístico";
             this.listadoEstadísticoToolStripMenuItem.Click += new System.EventHandler(this.listadoEstadísticoToolStripMenuItem_Click);
             // 
-            // historialToolStripMenuItem
-            // 
-            this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
-            this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
             // misPublicacionesToolStripMenuItem
             // 
             this.misPublicacionesToolStripMenuItem.Name = "misPublicacionesToolStripMenuItem";
             this.misPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.misPublicacionesToolStripMenuItem.Text = "Mis Publicaciones";
             this.misPublicacionesToolStripMenuItem.Click += new System.EventHandler(this.misPublicacionesToolStripMenuItem_Click);
+            // 
+            // historialToolStripMenuItem
+            // 
+            this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
+            this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // Principal
             // 
@@ -200,7 +193,6 @@
         private System.Windows.Forms.ToolStripMenuItem AbmEmpresasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem publicacionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AbmVisiblidadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historialToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historialToolStripMenuItem1;

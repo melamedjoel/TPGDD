@@ -10,14 +10,13 @@ using Clases;
 using Conexion;
 using Utilities;
 using Excepciones;
-using System.Globalization;
 
 namespace FrbaCommerce.Listado_Estadistico
 {
     public partial class listadoEstadistico : Form
     {
         Usuario unUsuario = new Usuario();
-
+       
         private void listadoEstadistico_Load(object sender, EventArgs e)
         {
             configuracionInicial();
@@ -27,6 +26,8 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             lblAño.Visible = true;
             txtAño.Visible = true;
+            btnVer.Visible = false;
+            btnSeleccionar.Visible = false;
             lblTrimestre.Visible = false;
             cmbTrimestre.Visible = false;
             cmbListado.Visible = false;
@@ -54,6 +55,7 @@ namespace FrbaCommerce.Listado_Estadistico
                     ValidarCampos();
                     lblTrimestre.Visible = true;
                     cmbTrimestre.Visible = true;
+                    btnSeleccionar.Visible = true;
                 }
 
                 catch (Exception ex)
@@ -85,17 +87,9 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            txtGradoVisibilidad.Text = "";
-            txtMesAño.Text = "";
+            txtVisibilidad.Text = "";
+            txtMes.Text = "";
             // CargarListadoDeVendedores();
-        }
-
-        private void btnVer_Click(object sender, EventArgs e)
-        {
-            if (cmbListado.SelectedIndex == 0) cargarListadoDeVendedoresConMayorCantProdNoVendidos();
-            if (cmbListado.SelectedIndex == 1) cargarListadoDeVendedoresConMayorFacturacion();
-            if (cmbListado.SelectedIndex == 2) cargarListadoDeVendedoresConMayorCalificacion();
-            if (cmbListado.SelectedIndex == 3) cargarListadoDeClientesConMayorCantPubliSinClasificar();
         }
 
         private void cargarListadoDeVendedoresConMayorCantProdNoVendidos()
@@ -103,7 +97,7 @@ namespace FrbaCommerce.Listado_Estadistico
             try
             {
                 DataSet ds = unUsuario.obtenerTodasLasCompras();
-                // configurarGrillaVendedores(ds);
+                configurarGrillaVendedoresMayorCantPubliNoVendidas(ds);
             }
 
             catch (ErrorConsultaException ex)
@@ -122,7 +116,7 @@ namespace FrbaCommerce.Listado_Estadistico
             try
             {
                 DataSet ds = unUsuario.obtenerTodasLasCompras();
-                // configurarGrillaVendedores(ds);
+                configurarGrillaVendedoresMayorFacturacion(ds);
             }
 
             catch (ErrorConsultaException ex)
@@ -140,7 +134,7 @@ namespace FrbaCommerce.Listado_Estadistico
             try
             {
                 DataSet ds = unUsuario.obtenerTodasLasCompras();
-                // configurarGrillaVendedores(ds);
+                configurarGrillaVendedoresMayorCalificacion(ds);
             }
 
             catch (ErrorConsultaException ex)
@@ -158,7 +152,7 @@ namespace FrbaCommerce.Listado_Estadistico
              try
              {
                  DataSet ds = unUsuario.obtenerTodasLasCompras();
-                 // configurarGrillaCliente(ds);
+                 configurarGrillaVendedoresMayorPubliSinClasificar(ds);
              }
 
              catch (ErrorConsultaException ex)
@@ -171,5 +165,139 @@ namespace FrbaCommerce.Listado_Estadistico
              }
          }
 
+        private void configurarGrillaVendedoresMayorCantPubliNoVendidas(DataSet ds)
+        {
+            dtgTop5.Columns.Clear();
+            dtgTop5.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn clmVendedor = new DataGridViewTextBoxColumn();
+            clmVendedor.Width = 120;
+            clmVendedor.ReadOnly = true;
+            clmVendedor.DataPropertyName = "Vendedor";
+            clmVendedor.HeaderText = "Vendedor";
+            dtgTop5.Columns.Add(clmVendedor);
+
+            DataGridViewTextBoxColumn clmCantPubliNoVendidas = new DataGridViewTextBoxColumn();
+            clmCantPubliNoVendidas.Width = 200;
+            clmCantPubliNoVendidas.ReadOnly = true;
+            clmCantPubliNoVendidas.DataPropertyName = "CantPubliNoVendidas";
+            clmCantPubliNoVendidas.HeaderText = "Cantidad de Publicaciones no vendidas";
+            dtgTop5.Columns.Add(clmCantPubliNoVendidas);
+
+            dtgTop5.DataSource = ds.Tables[0];
+        }
+
+        private void configurarGrillaVendedoresMayorFacturacion(DataSet ds)
+        {
+            dtgTop5.Columns.Clear();
+            dtgTop5.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn clmVendedor = new DataGridViewTextBoxColumn();
+            clmVendedor.Width = 120;
+            clmVendedor.ReadOnly = true;
+            clmVendedor.DataPropertyName = "Vendedor";
+            clmVendedor.HeaderText = "Vendedor";
+            dtgTop5.Columns.Add(clmVendedor);
+
+            DataGridViewTextBoxColumn clmFacturacion = new DataGridViewTextBoxColumn();
+            clmFacturacion.Width = 200;
+            clmFacturacion.ReadOnly = true;
+            clmFacturacion.DataPropertyName = "Facturacoion";
+            clmFacturacion.HeaderText = "Facturacion";
+            dtgTop5.Columns.Add(clmFacturacion);
+
+            dtgTop5.DataSource = ds.Tables[0];
+        }
+
+        private void configurarGrillaVendedoresMayorCalificacion(DataSet ds)
+        {
+            dtgTop5.Columns.Clear();
+            dtgTop5.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn clmVendedor = new DataGridViewTextBoxColumn();
+            clmVendedor.Width = 120;
+            clmVendedor.ReadOnly = true;
+            clmVendedor.DataPropertyName = "Vendedor";
+            clmVendedor.HeaderText = "Vendedor";
+            dtgTop5.Columns.Add(clmVendedor);
+
+            DataGridViewTextBoxColumn clmFacturacion = new DataGridViewTextBoxColumn();
+            clmFacturacion.Width = 200;
+            clmFacturacion.ReadOnly = true;
+            clmFacturacion.DataPropertyName = "SumaCalificaciones";
+            clmFacturacion.HeaderText = "Suma de Califiaciones";
+            dtgTop5.Columns.Add(clmFacturacion);
+
+            dtgTop5.DataSource = ds.Tables[0];
+        }
+
+        private void configurarGrillaVendedoresMayorPubliSinClasificar(DataSet ds)
+        {
+            dtgTop5.Columns.Clear();
+            dtgTop5.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn clmCliente = new DataGridViewTextBoxColumn();
+            clmCliente.Width = 120;
+            clmCliente.ReadOnly = true;
+            clmCliente.DataPropertyName = "Cliente";
+            clmCliente.HeaderText = "Cliente";
+            dtgTop5.Columns.Add(clmCliente);
+
+            DataGridViewTextBoxColumn clmCantPubliSinClasificar = new DataGridViewTextBoxColumn();
+            clmCantPubliSinClasificar.Width = 200;
+            clmCantPubliSinClasificar.ReadOnly = true;
+            clmCantPubliSinClasificar.DataPropertyName = "CantPubliSinClasificar";
+            clmCantPubliSinClasificar.HeaderText = "Cantidad publicaciones sin clasificar";
+            dtgTop5.Columns.Add(clmCantPubliSinClasificar);
+
+            dtgTop5.DataSource = ds.Tables[0];
+        }
+
+        private void configuracionListadoVisible()
+        {
+            dtgTop5.Visible = true;
+        }
+
+        private void configuracionTop5Visible()
+        {
+            cmbListado.Visible = true;
+            btnVer.Visible = true;
+        }
+
+        private void btnSeleccionar_Click_1(object sender, EventArgs e)
+        {
+            if (cmbTrimestre.SelectedIndex == 0) //cargarParametrosPrimerTrimestre; 
+            if (cmbTrimestre.SelectedIndex == 1) cargarListadoDeVendedoresConMayorFacturacion();
+            if (cmbTrimestre.SelectedIndex == 2) cargarListadoDeVendedoresConMayorCalificacion();
+            if (cmbTrimestre.SelectedIndex == 3) cargarListadoDeClientesConMayorCantPubliSinClasificar();
+            configuracionTop5Visible();
+        }
+
+        private void btnVer_Click_1(object sender, EventArgs e)
+        {
+            if (cmbListado.SelectedIndex == 0)
+            {
+                grpFiltros.Visible = true;
+                cargarListadoDeVendedoresConMayorCantProdNoVendidos();
+            }
+            if (cmbListado.SelectedIndex == 1)
+            {
+                grpFiltros.Visible = false;
+                cargarListadoDeVendedoresConMayorFacturacion();
+            }
+            if (cmbListado.SelectedIndex == 2)
+            {
+                grpFiltros.Visible = false;
+                cargarListadoDeVendedoresConMayorCalificacion();
+            }
+            if (cmbListado.SelectedIndex == 3)
+            {
+                grpFiltros.Visible = false;
+                cargarListadoDeClientesConMayorCantPubliSinClasificar();
+            }
+            configuracionListadoVisible();
+        }
+
+              
     }
 }

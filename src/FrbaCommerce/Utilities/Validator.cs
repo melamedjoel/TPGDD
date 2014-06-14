@@ -54,8 +54,7 @@ namespace Utilities
                 return false;
             }
         }
-
-
+        
         public static string ValidarNulo(string textoAValidar, string nombreCampo)
         {
             if (string.IsNullOrEmpty(textoAValidar))

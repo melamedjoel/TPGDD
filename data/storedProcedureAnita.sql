@@ -48,3 +48,71 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = C.id_Usuario_Calificado
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = C.id_Usuario_Calificado
 WHERE id_Usuario_Calificador = @id_Usuario
 GO
+
+--Procedure traerListadoUsuariosConMayorCantidadDeProductosSinVender
+CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVender]
+	@id_Usuario numeric(18,0),
+	@Fecha_Hasta datetime,
+	@Fecha_Desde datetime,
+	@Año nvarchar
+AS
+
+SELECT TOP 5 U.id_Usuario, COUNT(P.Codigo) AS CantPublicNoVendidos
+FROM ATJ.Usuarios U
+INNER JOIN ATJ.Publicaciones P ON P.id_Usuario = U.id_Usuario
+WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_desde) AND MONTH(@Fecha_hasta)
+AND YEAR(P.Fecha_creacion) = @Año
+AND P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
+AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O)
+GROUP BY U.id_Usuario
+ORDER BY CantPublicNoVendidos DESC
+GO
+
+--Procedure traerListadoUsuariosConMayorFacturacion
+CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorFacturacion]
+	@id_Usuario numeric(18,0),
+	@Fecha_Hasta datetime,
+	@Fecha_Desde datetime,
+	@Año nvarchar
+	
+AS
+
+SELECT TOP 5 U.id_Usuario, SUM(P.Precio) AS Facturacion
+FROM ATJ.Usuarios U
+INNER JOIN ATJ.Publicaciones P ON P.id_Usuario = U.id_Usuario
+WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
+AND YEAR(P.Fecha_creacion) = @Año
+AND P.Codigo IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
+AND P.Codigo IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O)
+GROUP BY U.id_Usuario
+ORDER BY Facturacion DESC
+GO
+
+-- Procedure traerListadoUsuariosConMayorCalificacion
+CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCalificacion]
+	@id_Usuario numeric(18,0),
+	@Fecha_Hasta datetime,
+	@Fecha_Desde datetime,
+	@Año nvarchar
+AS
+
+SELECT TOP 5 Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END,
+SUM(C.Cant_Estrellas) AS SumaCalificaciones
+FROM ATJ.Calificaciones C
+LEFT JOIN ATJ.Empresas E ON E.id_Usuario = C.id_Usuario_Calificado
+LEFT JOIN ATJ.Clientes S ON S.id_Usuario = C.id_Usuario_Calificado
+INNER JOIN ATJ.Usuarios U ON C.id_Usuario_Calificado  = U.id_Usuario
+WHERE id_Usuario_Calificador = 3
+GROUP BY Vendedor
+ORDER BY SumaCalificaciones DESC
+GO
+
+-- Original
+SELECT TOP 5 C.id_Usuario_Calificado,
+SUM(C.Cant_Estrellas) AS SumaCalificaciones
+FROM ATJ.Calificaciones C
+INNER JOIN ATJ.Usuarios U ON C.id_Usuario_Calificado  = U.id_Usuario
+WHERE id_Usuario_Calificador = @id_Usuario
+GROUP BY C.id_Usuario_Calificado
+ORDER BY SumaCalificaciones DESC
+GO
