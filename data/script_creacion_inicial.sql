@@ -323,7 +323,8 @@ CREATE TABLE ATJ.Facturas
 	nro_Factura numeric(18, 0) NOT NULL IDENTITY (1, 1),
 	Fecha datetime NULL DEFAULT GETDATE(),
 	Precio_Total numeric(18, 2) NULL,
-	id_Forma_Pago int NULL
+	id_Forma_Pago int NULL,
+	id_Usuario int NOT NULL
 	)  ON [PRIMARY]
 GO
 ALTER TABLE ATJ.Facturas ADD CONSTRAINT
@@ -845,10 +846,12 @@ SELECT DISTINCT M.Forma_Pago_Desc FROM gd_esquema.Maestra M where M.Factura_Nro 
 SET IDENTITY_INSERT ATJ.Facturas ON
 
 INSERT INTO ATJ.Facturas
-(nro_Factura, Fecha, Precio_Total, id_Forma_Pago)
-SELECT distinct M.Factura_Nro, M.Factura_Fecha, M.Factura_Total, FP.id_Forma_Pago
+(nro_Factura, Fecha, Precio_Total, id_Forma_Pago, id_Usuario)
+SELECT distinct M.Factura_Nro, M.Factura_Fecha, M.Factura_Total, FP.id_Forma_Pago, Entidad = (CASE WHEN Publ_Cli_Dni IS null THEN Uempresa.id_Usuario ELSE Ucliente.id_Usuario END)
 FROM gd_esquema.Maestra M 
 LEFT JOIN ATJ.Formas_Pago FP ON FP.Descripcion = M.Forma_Pago_Desc
+LEFT JOIN ATJ.Usuarios AS "Uempresa" ON Uempresa.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))
+LEFT JOIN ATJ.Usuarios AS "Ucliente" ON Ucliente.Username = CAST(M.Publ_Cli_Dni AS NVARCHAR(50))
 where M.Factura_Nro is not null
 
 SET IDENTITY_INSERT ATJ.Facturas OFF

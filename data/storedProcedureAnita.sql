@@ -71,12 +71,12 @@ GO
 
 --Procedure traerListadoUsuariosConMayorFacturacion
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorFacturacion]
-	@id_Usuario numeric(18,0),
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
 	@Año nvarchar
 	
 AS
+
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
 SUM(P.Precio) AS Facturacion
@@ -85,8 +85,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
 AND YEAR(P.Fecha_creacion) = @Año
-AND(P.Codigo IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
-OR P.Codigo IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
+AND P.id_Usuario IN (SELECT F.id_Usuario FROM ATJ.Facturas F)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY Facturacion DESC
 GO
@@ -116,15 +115,15 @@ CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantDePublicacionesSinClasif
 
 AS
 
-SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
+SELECT TOP 5 Cliente = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
 COUNT(P.Codigo) AS CantPubliSinClasificar
 FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 INNER JOIN ATJ.Calificaciones C ON P.id_Usuario = C.id_Usuario_Calificado 
 WHERE 
-MONTH(P.Fecha_creacion) BETWEEN MONTH('2013-01-06 00:00:00.000') AND MONTH('2013-03-06 00:00:00.000')
-AND YEAR(P.Fecha_creacion) = '2013'
+MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
+AND YEAR(P.Fecha_creacion) = @Año
 AND (P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Calificaciones C))
 AND P.id_Usuario = C.id_Usuario_Calificado
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social

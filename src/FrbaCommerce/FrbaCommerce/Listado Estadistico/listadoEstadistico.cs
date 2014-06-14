@@ -19,6 +19,8 @@ namespace FrbaCommerce.Listado_Estadistico
         private DateTime Fecha_Hasta;
         private DateTime Fecha_Desde;
         private string Año;
+        private string Mes;
+        private string GradoVisibilidad;
        
         private void listadoEstadistico_Load(object sender, EventArgs e)
         {
@@ -56,6 +58,7 @@ namespace FrbaCommerce.Listado_Estadistico
                 try
                 {
                     ValidarCampos();
+                    Año = txtAño.Text;
                     lblTrimestre.Visible = true;
                     cmbTrimestre.Visible = true;
                     btnSeleccionar.Visible = true;
@@ -85,7 +88,9 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            // CargarListadoDeVendedoresConFiltros();
+            Mes = txtMes.Text;
+            GradoVisibilidad = txtVisibilidad.Text;
+            cargarListadoDeVendedoresConMayorCantProdNoVendidosConFiltros();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -99,7 +104,26 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             try
             {
-                DataSet ds = unUsuario.obtenerVendedoresConMayorCantProdNoVendidos();
+                DataSet ds = unUsuario.obtenerVendedoresConMayorCantProdNoVendidos(Fecha_Hasta, Fecha_Desde, Año);
+                configurarGrillaVendedoresMayorCantPubliNoVendidas(ds);
+            }
+
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void cargarListadoDeVendedoresConMayorCantProdNoVendidosConFiltros()
+        {
+            try
+            {
+                DataSet ds = unUsuario.obtenerVendedoresConMayorCantProdNoVendidosConFiltros(Fecha_Hasta, Fecha_Desde, Año, Mes, GradoVisibilidad);
                 configurarGrillaVendedoresMayorCantPubliNoVendidas(ds);
             }
 
@@ -136,7 +160,7 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             try
             {
-                DataSet ds = unUsuario.obtenerVendedoresMayorCalificacion();
+                DataSet ds = unUsuario.obtenerVendedoresMayorCalificacion(Fecha_Hasta, Fecha_Desde, Año);
                 configurarGrillaVendedoresMayorCalificacion(ds);
             }
 
@@ -154,7 +178,7 @@ namespace FrbaCommerce.Listado_Estadistico
          {
              try
              {
-                 DataSet ds = unUsuario.obtenerClientesMayorCantPubliSinClasificar();
+                 DataSet ds = unUsuario.obtenerClientesMayorCantPubliSinClasificar(Fecha_Hasta, Fecha_Desde, Año);
                  configurarGrillaVendedoresMayorPubliSinClasificar(ds);
              }
 
@@ -183,7 +207,7 @@ namespace FrbaCommerce.Listado_Estadistico
             DataGridViewTextBoxColumn clmCantPubliNoVendidas = new DataGridViewTextBoxColumn();
             clmCantPubliNoVendidas.Width = 200;
             clmCantPubliNoVendidas.ReadOnly = true;
-            clmCantPubliNoVendidas.DataPropertyName = "CantPubliNoVendidas";
+            clmCantPubliNoVendidas.DataPropertyName = "CantPublicNoVendidos";
             clmCantPubliNoVendidas.HeaderText = "Cantidad de Publicaciones no vendidas";
             dtgTop5.Columns.Add(clmCantPubliNoVendidas);
 
@@ -205,7 +229,7 @@ namespace FrbaCommerce.Listado_Estadistico
             DataGridViewTextBoxColumn clmFacturacion = new DataGridViewTextBoxColumn();
             clmFacturacion.Width = 200;
             clmFacturacion.ReadOnly = true;
-            clmFacturacion.DataPropertyName = "Facturacoion";
+            clmFacturacion.DataPropertyName = "Facturacion";
             clmFacturacion.HeaderText = "Facturacion";
             dtgTop5.Columns.Add(clmFacturacion);
 
@@ -269,11 +293,35 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
-            if (cmbTrimestre.SelectedIndex == 0) //cargarParametrosPrimerTrimestre; 
-            if (cmbTrimestre.SelectedIndex == 1) cargarListadoDeVendedoresConMayorFacturacion();
-            if (cmbTrimestre.SelectedIndex == 2) cargarListadoDeVendedoresConMayorCalificacion();
-            if (cmbTrimestre.SelectedIndex == 3) cargarListadoDeClientesConMayorCantPubliSinClasificar();
+            if (cmbTrimestre.SelectedIndex == 0) cargarParametrosPrimerTrimestre();
+            if (cmbTrimestre.SelectedIndex == 1) cargarParametrosSegundoTrimestre();
+            if (cmbTrimestre.SelectedIndex == 2) cargarParametrosTercerTrimestre();
+            if (cmbTrimestre.SelectedIndex == 3) cargarParametrosCuartoTrimestre();
             configuracionTop5Visible();
+        }
+
+        private void cargarParametrosCuartoTrimestre()
+        {
+            Fecha_Desde = Convert.ToDateTime(Año + "-10-01");
+            Fecha_Hasta = Convert.ToDateTime(Año + "-12-31");
+        }
+
+        private void cargarParametrosSegundoTrimestre()
+        {
+            Fecha_Desde = Convert.ToDateTime(Año + "-04-01");
+            Fecha_Hasta = Convert.ToDateTime(Año + "-06-30");
+        }
+
+        private void cargarParametrosTercerTrimestre()
+        {
+            Fecha_Desde = Convert.ToDateTime(Año + "-07-01");
+            Fecha_Hasta = Convert.ToDateTime(Año + "-09-30");
+        }
+
+        private void cargarParametrosPrimerTrimestre()
+        {
+            Fecha_Desde = Convert.ToDateTime(Año + "-01-01");
+            Fecha_Hasta = Convert.ToDateTime(Año + "-03-31");
         }
 
         private void btnVer_Click_1(object sender, EventArgs e)

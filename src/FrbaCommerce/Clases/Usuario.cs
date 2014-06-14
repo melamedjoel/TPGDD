@@ -210,39 +210,68 @@ namespace Clases
             return ds;
         }
 
-        public DataSet obtenerVendedoresConMayorCantProdNoVendidos()
+        public DataSet obtenerVendedoresConMayorCantProdNoVendidos(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
-            throw new NotImplementedException();
+            this.setearListaDeParametrosConTrimestreAño(Fecha_Hasta, Fecha_Desde, Año);
+            DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantidadDeProductosSinVender");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
+        public DataSet obtenerVendedoresConMayorCantProdNoVendidosConFiltros(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año, string Mes, string GradoVisibilidad)
+        {
+            this.setearListaDeParametrosConTrimestreAñoMesVisibilidad(Fecha_Hasta, Fecha_Desde, Año,Mes,GradoVisibilidad);
+            DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantidadDeProductosSinVender");
+            this.parameterList.Clear();
+
+            return ds;
         }
 
         public DataSet obtenerVendedoresConMayorFacturacion(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
-            this.setearListaDeParametrosConUsuarioTrimestreAño(Fecha_Hasta,Fecha_Desde,Año);
+            this.setearListaDeParametrosConTrimestreAño(Fecha_Hasta,Fecha_Desde,Año);
             DataSet ds = this.TraerListado(this.parameterList, "ConMayorFacturacion");
             this.parameterList.Clear();
 
             return ds;
         }
 
-        public DataSet obtenerVendedoresMayorCalificacion()
+        public DataSet obtenerVendedoresMayorCalificacion(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
-            throw new NotImplementedException();
+            this.setearListaDeParametrosConTrimestreAño(Fecha_Hasta, Fecha_Desde, Año);
+            DataSet ds = this.TraerListado(this.parameterList, "ConMayorCalificacion");
+            this.parameterList.Clear();
+
+            return ds;
         }
 
-        public DataSet obtenerClientesMayorCantPubliSinClasificar()
+        public DataSet obtenerClientesMayorCantPubliSinClasificar(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
-            throw new NotImplementedException();
+            this.setearListaDeParametrosConTrimestreAño(Fecha_Hasta, Fecha_Desde, Año);
+            DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantDePublicacionesSinClasificar");
+            this.parameterList.Clear();
+
+            return ds;
         }
 
         #endregion
 
         #region metodos privados
-        private void setearListaDeParametrosConUsuarioTrimestreAño(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
+        private void setearListaDeParametrosConTrimestreAño(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
-            parameterList.Add(new SqlParameter("@id_Usuario", this.Id_Usuario));
             parameterList.Add(new SqlParameter("@Fecha_Hasta", Fecha_Hasta));
             parameterList.Add(new SqlParameter("@Fecha_Desde", Fecha_Desde));
             parameterList.Add(new SqlParameter("@Año", Año));
+        }
+
+        private void setearListaDeParametrosConTrimestreAñoMesVisibilidad(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año,string Mes, string GradoVisibilidad)
+        {
+            parameterList.Add(new SqlParameter("@Fecha_Hasta", Fecha_Hasta));
+            parameterList.Add(new SqlParameter("@Fecha_Desde", Fecha_Desde));
+            parameterList.Add(new SqlParameter("@Año", Año));
+            parameterList.Add(new SqlParameter("@Mes", Mes));
+            parameterList.Add(new SqlParameter("@GradoVisibilidad", GradoVisibilidad));
         }
 
         private void setearListaDeParametrosSoloConIdUsuario()
