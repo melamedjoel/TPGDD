@@ -182,6 +182,15 @@ namespace Clases
             return ds;
         }
 
+        public static DataSet obtenerTodasConFiltros(DateTime unaFecha, string unaDesc, string filtroDeRubros)
+        {
+            Publicacion unaPublic = new Publicacion();
+            unaPublic.setearListaDeParametrosConFechaYFiltros(unaFecha, unaDesc, filtroDeRubros);
+            DataSet ds = unaPublic.TraerListado(unaPublic.parameterList, "NoVendidasOrdenadoPorVisibilidadConFiltros");
+            unaPublic.parameterList.Clear();
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados
@@ -193,6 +202,13 @@ namespace Clases
         private void setearListaDeParametrosConFecha(DateTime unaFecha)
         {
             parameterList.Add(new SqlParameter("@Fecha_Vencimiento", unaFecha));
+        }
+
+        private void setearListaDeParametrosConFechaYFiltros(DateTime unaFecha, string unaDesc, string filtroDeRubros)
+        {
+            parameterList.Add(new SqlParameter("@Fecha_Vencimiento", unaFecha));
+            parameterList.Add(new SqlParameter("@Descripcion", unaDesc));
+            parameterList.Add(new SqlParameter("@filtroRubros", filtroDeRubros));
         }
 
         private void setearListaDeParametrosConCodigoPublic(int unCodigo)

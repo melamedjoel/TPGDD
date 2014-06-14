@@ -150,7 +150,12 @@ namespace FrbaCommerce.Comprar_Ofertar
         {
             try
             {
-                DataSet ds = Publicacion.obtenerTodasConFiltros(unUsuario, txtDescripcion.Text);
+                string filtroDeRubros = "";
+                foreach (Rubro unRubro in lstRubros.CheckedItems)
+                {
+                    filtroDeRubros += unRubro.Descripcion;
+                }
+                DataSet ds = Publicacion.obtenerTodasConFiltros(Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]),txtDescripcion.Text, filtroDeRubros);
                 configurarGrilla(ds);
             }
             catch (ErrorConsultaException ex)
