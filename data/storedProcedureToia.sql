@@ -105,7 +105,7 @@ AS
 							Activo = @Activo
 							where id_Cliente = @id_Cliente
 GO
-ALTER PROCEDURE ATJ.insertEmpresa
+CREATE PROCEDURE ATJ.insertEmpresa
 	@Razon_social nvarchar(255),
 	@Cuit nvarchar(50),
 	@Mail nvarchar(50),
