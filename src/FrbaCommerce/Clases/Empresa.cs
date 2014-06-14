@@ -30,6 +30,7 @@ namespace Clases
         private bool _Activo;
         private decimal _Reputacion;
 
+        private int _id_Rol = 3;
         private Usuario _usuario;
         #endregion
 
@@ -114,6 +115,10 @@ namespace Clases
             get { return _usuario; }
             set { _usuario = value; }
         }
+        public int id_Rol
+        {
+            get { return _id_Rol; }
+        }
         #endregion
 
         #region constructor
@@ -197,6 +202,7 @@ namespace Clases
             this.usuario.Id_Usuario = this.usuario.GuardarYObtenerID();
             setearListaDeParametros();
             setearListaDeParametrosConIdUsuario(this.usuario.Id_Usuario);
+            setearListaDeParametrosConIdRol();
             this.Guardar(parameterList);            
             parameterList.Clear();
             
@@ -208,7 +214,7 @@ namespace Clases
             //    throw new BadInsertException();
             //}
         }
-        
+
         public void ModificarDatos()
         {
             setearListaDeParametrosConIdEmpresa();
@@ -220,13 +226,13 @@ namespace Clases
            
         }
 
-        public void Desactivar()
-        {
-            setearListaDeParametrosConIdEmpresa();
-            this.Deshabilitar(parameterList);
-            parameterList.Clear();
+        ////public void Desactivar()
+        ////{
+        ////    setearListaDeParametrosConIdEmpresa();
+        ////    this.Deshabilitar(parameterList);
+        ////    parameterList.Clear();
             
-        }
+        ////}
 
         #endregion
 
@@ -268,12 +274,23 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Dom_cod_postal", this.Dom_cod_postal));
             parameterList.Add(new SqlParameter("@Dom_ciudad", this.Dom_ciudad));
             parameterList.Add(new SqlParameter("@Nombre_contacto", this.Nombre_contacto));
-            parameterList.Add(new SqlParameter("@Activo", this.Activo));       
+            parameterList.Add(new SqlParameter("@Activo", this.Activo));
         }
-        
-        
+
+        private void setearListaDeParametrosConIdRol()
+        {
+            parameterList.Add(new SqlParameter("@Id_Rol", this.id_Rol));
+        }
+                        
         #endregion
 
-       
+
+
+        public void Eliminar()
+        {
+            setearListaDeParametrosConIdEmpresa();
+            this.Eliminar(parameterList);
+            parameterList.Clear();
+        }
     }
 }

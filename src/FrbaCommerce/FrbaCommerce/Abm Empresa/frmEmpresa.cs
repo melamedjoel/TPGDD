@@ -207,7 +207,7 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Activo = true;
 
                 unaEmpresaNueva.guardarDatosDeEmpresaNueva();
-                DialogResult dr = MessageBox.Show("La empresa ha sido creada", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult dr = MessageBox.Show("La empresa ha sido creada. Usuario y contraseña del nuevo Usuario =" + unaEmpresaNueva.Cuit, "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
                 {
                     this.Close();

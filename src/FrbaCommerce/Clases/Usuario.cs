@@ -265,7 +265,6 @@ namespace Clases
             parameterList.Add(new SqlParameter("@ClaveAutoGenerada", this.ClaveAutoGenerada));
             parameterList.Add(new SqlParameter("@Activo", this.Activo));
         }
-
         private void setearListaDeParametrosConUsuarioYClave()
         {
             parameterList.Add(new SqlParameter("@Username", this.Username));

@@ -154,6 +154,8 @@ namespace FrbaCommerce.Abm_Cliente
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            if (txtDni.Text != "") { Validator.EsNumero(txtDni.Text); }
+            else txtDni.Text = "0";
             CargarListadoDeClientesConFiltros();
         }
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -190,7 +192,7 @@ namespace FrbaCommerce.Abm_Cliente
             if (dr == DialogResult.Yes)
             {
                 Cliente unCliente = new Cliente(valorIdSeleccionado());
-                unCliente.Desactivar();
+                unCliente.Eliminar();
                 MessageBox.Show("El Cliente ha sido eliminada", "Eliminada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarListadoDeClientes();
             }

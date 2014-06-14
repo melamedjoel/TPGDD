@@ -299,6 +299,7 @@
             this.cmbTipoDni.Name = "cmbTipoDni";
             this.cmbTipoDni.Size = new System.Drawing.Size(57, 21);
             this.cmbTipoDni.TabIndex = 59;
+            this.cmbTipoDni.SelectedValueChanged += new System.EventHandler(this.cmbTipoDni_SelectedValueChanged);
             // 
             // btnVolver
             // 

@@ -28,9 +28,11 @@ namespace Clases
         private int _Dom_piso;
         private string _Dom_depto;
         private string _Dom_cod_postal;
+        private string _Dom_ciudad;
         private bool _Activo;
         private decimal _Reputacion;
 
+        private int _id_Rol = 2;
         private Usuario _usuario;
         #endregion
 
@@ -105,6 +107,11 @@ namespace Clases
             get { return _Dom_cod_postal; }
             set { _Dom_cod_postal = value; }
         }
+        public string Dom_ciudad
+        {
+            get { return _Dom_ciudad; }
+            set { _Dom_ciudad = value; }
+        }
         public bool Activo
         {
             get { return _Activo; }
@@ -119,6 +126,10 @@ namespace Clases
         {
             get { return _usuario; }
             set { _usuario = value; }
+        }
+        public int id_Rol
+        {
+            get { return _id_Rol; }
         }
         #endregion
 
@@ -172,7 +183,7 @@ namespace Clases
             this.Activo = Convert.ToBoolean(dr["Activo"]);
             this.usuario = new Usuario();
             //this.usuario.Id_Usuario = Convert.ToInt32(dr["id_Usuario"]);
-            this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
+            //this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
         }
  public void CargarObjetoClienteConId()
         {
@@ -204,7 +215,8 @@ namespace Clases
         {
             this.usuario.Id_Usuario = this.usuario.GuardarYObtenerID();
             setearListaDeParametros();
-            setearListaDeParametrosConIdUsuario(this.usuario.Id_Usuario);
+            setearListaDeParametrosConIdRol();
+            setearListaDeParametrosConIdUsuario(this.usuario.Id_Usuario);            
             this.Guardar(parameterList);            
             parameterList.Clear();
             
@@ -228,13 +240,13 @@ namespace Clases
            
         }
 
-        public void Desactivar()
-        {
-            setearListaDeParametrosConIdCliente();
-            this.Deshabilitar(parameterList);
-            parameterList.Clear();
+        ////public void Desactivar()
+        ////{
+        ////    setearListaDeParametrosConIdCliente();
+        ////    this.Deshabilitar(parameterList);
+        ////    parameterList.Clear();
             
-        }
+        ////}
 
         #endregion
 
@@ -281,12 +293,23 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Dom_piso", this.Dom_piso));
             parameterList.Add(new SqlParameter("@Dom_depto", this.Dom_depto));
             parameterList.Add(new SqlParameter("@Dom_cod_postal", this.Dom_cod_postal));
-            //parameterList.Add(new SqlParameter("@Dom_ciudad", this.Dom_ciudad));
-            parameterList.Add(new SqlParameter("@Activo", this.Activo));       
+            parameterList.Add(new SqlParameter("@Dom_ciudad", this.Dom_ciudad));
+            parameterList.Add(new SqlParameter("@Activo", this.Activo));
         }
         
-        
+        private void setearListaDeParametrosConIdRol()
+        {        
+            parameterList.Add(new SqlParameter("@idRol", this.id_Rol));
+        }
+
         #endregion
 
+
+        public void Eliminar()
+        {
+            setearListaDeParametrosConIdCliente();
+            this.Eliminar(parameterList);
+            parameterList.Clear();
+        }
     }
 }

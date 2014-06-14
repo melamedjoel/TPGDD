@@ -33,6 +33,7 @@ namespace FrbaCommerce.Abm_Cliente
             txtCodPostal.Text = unCliente.Dom_cod_postal;
             txtDepto.Text = unCliente.Dom_depto;
             txtCuil.Text = unCliente.Cuil;
+            cmbTipoDni.Text = unCliente.Tipo_Dni;
             txtDni.Text = Convert.ToString(unCliente.Dni);
             txtFechaNac.Text = Convert.ToString(unCliente.Fecha_nac);
             //txtLocalidad.Text = unCliente.Dom_ciudad;
@@ -57,6 +58,7 @@ namespace FrbaCommerce.Abm_Cliente
             txtNumeroCalle.Enabled = false;
             txtTelefono.Enabled = false;
             chkActivo.Enabled = false;
+            cmbTipoDni.Enabled = false;
 
             btnAceptarACliente.Visible = false;
             btnAceptarMCliente.Visible = false;
@@ -73,6 +75,7 @@ namespace FrbaCommerce.Abm_Cliente
             txtCodPostal.Text = unCliente.Dom_cod_postal;
             txtDepto.Text = unCliente.Dom_depto;
             txtCuil.Text = unCliente.Cuil;
+            cmbTipoDni.Text = unCliente.Tipo_Dni;
             txtDni.Text = Convert.ToString(unCliente.Dni);
             txtFechaNac.Text = Convert.ToString(unCliente.Fecha_nac);
             //txtLocalidad.Text = unCliente.Dom_ciudad;
@@ -174,7 +177,7 @@ namespace FrbaCommerce.Abm_Cliente
                 //unClienteNuevo.Tipo_Dni = cmbTipoDni.GetItemText;
                 unClienteNuevo.Cuil = txtCuil.Text;
                 unClienteNuevo.Dom_calle = txtCalle.Text;
-                //unClienteNuevo.Dom_ciudad = txtLocalidad.Text;
+                unClienteNuevo.Dom_ciudad = txtLocalidad.Text;
                 unClienteNuevo.Dom_cod_postal = txtCodPostal.Text;
                 unClienteNuevo.Dom_depto = txtDepto.Text;
                 unClienteNuevo.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
@@ -183,11 +186,11 @@ namespace FrbaCommerce.Abm_Cliente
                 unClienteNuevo.Mail = txtMail.Text;
                 unClienteNuevo.Telefono = txtTelefono.Text;
                 unClienteNuevo.usuario = new Usuario();
-                unClienteNuevo.usuario.CrearDefault(unClienteNuevo.Cuil);
+                unClienteNuevo.usuario.CrearDefault(Convert.ToString(unClienteNuevo.Dni));
                 unClienteNuevo.Activo = true;
 
                 unClienteNuevo.guardarDatosDeClienteNuevo();
-                DialogResult dr = MessageBox.Show("El Cliente ha sido creado", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult dr = MessageBox.Show("El Cliente ha sido creado. Usuario y contraseña del nuevo usuario =" + Convert.ToString(unClienteNuevo.Dni), "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
                 {
                     this.Close();
@@ -223,6 +226,12 @@ namespace FrbaCommerce.Abm_Cliente
 
             //FALTA VALIDAR QUE NO EXISTA CLIENTE CON ESE TIPO Y NRODEDOC
             //NO PUEDE HABER TMP MISMO TELEFONO Y ¿CUIL?
+        }
+
+        private void cmbTipoDni_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cmbTipoDni.Text != "Dni") { txtDni.Enabled = false; }
+
         }
 
     }

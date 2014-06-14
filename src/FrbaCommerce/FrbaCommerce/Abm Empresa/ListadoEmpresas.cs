@@ -180,7 +180,7 @@ namespace FrbaCommerce.Abm_Empresa
             if (dr == DialogResult.Yes)
             {
                 Empresa unaEmpresa = new Empresa(valorIdSeleccionado());
-                unaEmpresa.Desactivar();
+                unaEmpresa.Eliminar();
                 MessageBox.Show("La empresa ha sido eliminada", "Eliminada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarListadoDeEmpresas();
             }

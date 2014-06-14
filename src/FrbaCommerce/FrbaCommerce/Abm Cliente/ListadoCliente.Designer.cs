@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.grpFiltros = new System.Windows.Forms.GroupBox();
             this.cmbTipoDni = new System.Windows.Forms.ComboBox();
@@ -54,8 +54,8 @@
             // dtgListado
             // 
             this.dtgListado.AllowUserToAddRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -253,6 +253,7 @@
             this.Controls.Add(this.dtgListado);
             this.Name = "listadoCliente";
             this.Text = "Listado de Clientes";
+            this.Load += new System.EventHandler(this.listadoCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).EndInit();
             this.grpFiltros.ResumeLayout(false);
             this.grpFiltros.PerformLayout();

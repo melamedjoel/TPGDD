@@ -105,8 +105,7 @@ AS
 							Activo = @Activo
 							where id_Cliente = @id_Cliente
 GO
---Procedure insertEmpresa
-CREATE PROCEDURE ATJ.insertEmpresa
+ALTER PROCEDURE ATJ.insertEmpresa
 	@Razon_social nvarchar(255),
 	@Cuit nvarchar(50),
 	@Mail nvarchar(50),
@@ -120,6 +119,7 @@ CREATE PROCEDURE ATJ.insertEmpresa
 	@Dom_ciudad nvarchar(255),
 	@Nombre_contacto nvarchar(255),
 	@Activo bit,
+	@id_Rol int,
 	@id_Usuario int
 	
 AS
@@ -129,8 +129,13 @@ AS
 	VALUES
 	(@Razon_social, @Cuit, @Fecha_creacion, @Mail, @Telefono, @Dom_calle, @Dom_nro_calle,
 	@Dom_piso, @Dom_depto, @Dom_cod_postal, @Dom_ciudad, @Nombre_contacto,@Activo, @id_Usuario)
-
+	
+	INSERT INTO ATJ.Rol_Usuario 
+	(id_Rol, id_Usuario)
+	VALUES
+	(@id_Rol, @id_Usuario)
 GO
+
 --Procedure insertCliente
 CREATE PROCEDURE ATJ.insertCliente
 	@Tipo_Dni nvarchar(50),
@@ -146,21 +151,27 @@ CREATE PROCEDURE ATJ.insertCliente
 	@Dom_piso numeric(18,0),
 	@Dom_depto nvarchar(50),
 	@Dom_cod_postal nvarchar(50),
+	@Dom_ciudad nvarchar(255),
 	@Activo bit,
+	@id_Rol int,
 	@id_Usuario int
 	
 AS
 	INSERT INTO ATJ.Clientes
 	(Tipo_Dni, Dni, Cuil, Apellido, Nombre, Fecha_nac, Mail, Telefono, Dom_calle, Dom_nro_calle,
-	Dom_piso, Dom_depto, Dom_cod_postal,Activo, id_Usuario)
+	Dom_piso, Dom_depto, Dom_cod_postal, Dom_ciudad, Activo, id_Usuario)
 	VALUES
 	(@Tipo_Dni, @Dni, @Cuil, @Apellido, @Nombre, @Fecha_nac, @Mail, @Telefono, @Dom_calle, @Dom_nro_calle,
-	@Dom_piso, @Dom_depto, @Dom_cod_postal,@Activo, @id_Usuario)
+	@Dom_piso, @Dom_depto, @Dom_cod_postal, @Dom_ciudad, @Activo, @id_Usuario)
 
+	INSERT INTO ATJ.Rol_Usuario 
+	(id_Rol, id_Usuario)
+	VALUES
+	(@id_Rol, @id_Usuario)
 GO
 
 --Procedure traerListadoEmpresasConFiltros 
-CREATE PROCEDURE [ATJ].[traerListadoEmpresasConFiltros]
+CREATE PROCEDURE ATJ.traerListadoEmpresasConFiltros
     @Razon_social nvarchar(255), 
     @Cuit nvarchar(50),
     @Mail nvarchar(50)
@@ -168,27 +179,28 @@ CREATE PROCEDURE [ATJ].[traerListadoEmpresasConFiltros]
 AS 
     SELECT *, (Dom_calle+' '+Convert(nvarchar(50),Dom_nro_calle)+' '+Convert(nvarchar(50),Dom_piso)+'° '+Dom_depto) AS Direccion
     FROM ATJ.Empresas
-    WHERE	Razon_social = (CASE WHEN @Razon_social <> '' THEN @Razon_social ELSE Razon_social END) AND 
+    WHERE	Razon_social LIKE( CASE WHEN @Razon_social <> '' THEN '%' + @Razon_social + '%' ELSE Razon_social END) AND 
 			Cuit = (CASE WHEN @Cuit <> '' THEN @Cuit ELSE Cuit END) AND 
-			Mail = (CASE WHEN @Mail <> '' THEN @Mail ELSE Mail END)
+			Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END)
 GO
 
 --Procedure traerListadoClientesConFiltros
 CREATE PROCEDURE ATJ.traerListadoClientesConFiltros 
-    @Nombre nvarchar(255), 
-    @Apellido nvarchar(255),
-    @Tipo_Dni nvarchar(50),
-    @Dni numeric(18,0),
-    @Mail nvarchar(255)
+    @Nombre nvarchar(255)=null, 
+    @Apellido nvarchar(255)=null,
+    @Tipo_Dni nvarchar(50)=null,
+    @Dni nvarchar(50)=null,
+    @Mail nvarchar(255)=null
 AS 
     SELECT *
     FROM ATJ.Clientes
-    WHERE	Nombre = @Nombre AND 
-			Apellido = @Apellido AND
-			Tipo_Dni = @Tipo_Dni AND
-			Dni = @Dni AND
-			Mail = @Mail
-			
+    WHERE	Nombre LIKE (CASE WHEN @Nombre <> '' THEN '%' + @Nombre + '%' ELSE Nombre END) AND 
+			Apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE Apellido END) AND
+			Tipo_Dni LIKE (CASE WHEN @Tipo_Dni <> '' THEN @Tipo_Dni ELSE Tipo_Dni END) AND
+			Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END) and
+			Dni LIKE CAST(@Dni AS NUMERIC(18,0)) 
+			--Dni LIKE '%42%' --(CASE WHEN ('42' = '') THEN Dni ELSE '%42%' END)
+			--CONVERT(varchar(20), Dni) LIKE (CASE WHEN (42 <> 0) THEN '%42%' ELSE Dni END)
 GO
 
 --Procedure deshabilitarEmpresa
@@ -215,7 +227,6 @@ AS
 	(Username, Clave, ClaveAutoGenerada, Activo)
 	VALUES
 	(@Username, @Clave, @ClaveAutoGenerada, @Activo)
-
 GO
 
 --Procedure insertUsuario_RetornarID
@@ -233,6 +244,32 @@ AS
 	SELECT @@IDENTITY AS id_Usuario;
 
 GO
+
+--------Procedure insertUsuario_RetornarID
+------alter PROCEDURE ATJ.insertUsuario_RetornarID
+------	@idRol int,
+------	@Username nvarchar(255),
+------	@Clave nvarchar(255),
+------	@ClaveAutoGenerada bit,
+------	@Activo bit
+------AS 
+  
+------	INSERT INTO ATJ.Usuarios
+------	(Username, Clave, ClaveAutoGenerada, Activo)
+------	VALUES
+------	(@Username, @Clave, @ClaveAutoGenerada, @Activo)
+	
+------DECLARE @id_Usuario int
+------SET @id_Usuario = (SELECT id_Usuario FROM atj.Usuarios Where Username = @Username)
+
+------	INSERT INTO ATJ.Rol_Usuario 
+------	(id_Rol, id_Usuario)
+------	VALUES
+------	(@idRol, @id_Usuario)
+	
+------	SELECT @@IDENTITY AS id_Usuario;
+
+------GO
 
 --Procedure traerListadoPublicacionesConCodigo
 CREATE PROCEDURE ATJ.traerListadoPublicacionesConCodigo
