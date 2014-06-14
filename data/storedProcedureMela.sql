@@ -249,3 +249,87 @@ CREATE PROCEDURE ATJ.traerListadoRolesPorNombre
 AS
 	SELECT * FROM ATJ.Roles where Nombre LIKE '%' + @Nombre + '%'
 GO
+
+
+--Procedure traerListadoRubrosPorId_Rubro
+CREATE PROCEDURE [ATJ].[traerListadoRubrosPorId_Rubro] 
+    @id_Rubro numeric(18,0) 
+AS 
+    SELECT * FROM ATJ.Rubros
+	WHERE id_Rubro = @id_Rubro
+GO
+
+--Procedure traerListadoVisibilidadesPorCod_Visibilidad
+CREATE PROCEDURE [ATJ].[traerListadoVisibilidadesPorCod_Visibilidad] 
+    @cod_Visibilidad numeric(18,0) 
+AS 
+    SELECT * FROM ATJ.Visibilidades
+	WHERE cod_Visibilidad = @cod_Visibilidad
+GO
+
+--Procedure traerListadoEstados_PublicacionPorId_Estado
+CREATE PROCEDURE [ATJ].[traerListadoEstados_PublicacionPorId_Estado] 
+    @id_Estado numeric(18,0) 
+AS 
+    SELECT * FROM ATJ.Estados_Publicacion
+	WHERE id_Estado = @id_Estado
+GO
+
+--Procedure traerListadoTipos_PublicacionPorId_Tipo
+CREATE PROCEDURE [ATJ].[traerListadoTipos_PublicacionPorId_Tipo] 
+    @id_Tipo numeric(18,0) 
+AS 
+    SELECT * FROM ATJ.Tipos_Publicacion
+	WHERE id_Tipo = @id_Tipo
+GO
+
+--Procedure traerListadoUsuariosPorId_Usuario
+CREATE PROCEDURE [ATJ].[traerListadoUsuariosPorId_Usuario] 
+    @id_Usuario numeric(18,0) 
+AS 
+    SELECT * FROM ATJ.Usuarios
+	WHERE id_Usuario = @id_Usuario
+GO
+
+--Procedure traerListadoPublicacionesPorCod_Publicacion
+CREATE PROCEDURE [ATJ].[traerListadoPublicacionesPorCod_Publicacion] 
+    @cod_Publicacion numeric(18,0) 
+AS 
+    SELECT * FROM ATJ.Publicaciones
+	WHERE Codigo = @cod_Publicacion
+GO
+
+--Procedure traerListadoPublicacionesPorId_Usuario
+CREATE PROCEDURE [ATJ].[traerListadoPublicacionesPorId_Usuario] 
+    @id_Usuario numeric(18,0) 
+AS 
+    SELECT P.Codigo as Codigo, P.Descripcion as Descripcion, U.Username as Username, P.Stock as Stock, P.Precio Precio,
+    P.Fecha_creacion Fecha_creacion, P.Fecha_Vencimiento Fecha_vencimiento, 
+    TP.Nombre NombreTipo, V.Descripcion DescVisibilidad, E.Nombre NombreEstado,
+    R.Descripcion NombreRubro, P.permiso_Preguntas permiso_Preguntas
+    FROM ATJ.Publicaciones P
+    INNER JOIN ATJ.Usuarios U ON U.id_Usuario = P.id_Usuario
+    INNER JOIN ATJ.Tipos_Publicacion TP on TP.id_Tipo = P.id_Tipo
+    INNER JOIN ATJ.Visibilidades V on V.cod_Visibilidad = P.cod_Visibilidad
+    INNER JOIN ATJ.Estados_Publicacion E on E.id_Estado = P.id_Estado
+    INNER JOIN ATJ.Rubros R on R.id_Rubro = P.id_Rubro
+	WHERE P.id_Usuario = @id_Usuario
+GO
+
+--Procedure traerListadoPublicacionesPorId_UsuarioYFiltros
+CREATE PROCEDURE [ATJ].[traerListadoPublicacionesPorId_UsuarioYFiltros] 
+    @id_Usuario numeric(18,0),
+	@Descripcion nvarchar(255)
+AS 
+    SELECT P.Codigo as Codigo, P.Descripcion as Descripcion, U.Username as Username, P.Stock as Stock, P.Precio Precio,
+    P.Fecha_creacion Fecha_creacion, P.Fecha_Vencimiento Fecha_vencimiento, 
+    TP.Nombre NombreTipo, V.Descripcion DescVisibilidad, E.Nombre NombreEstado,
+    R.Descripcion NombreRubro, P.permiso_Preguntas permiso_Preguntas
+    FROM ATJ.Publicaciones P
+    INNER JOIN ATJ.Usuarios U ON U.id_Usuario = P.id_Usuario
+    INNER JOIN ATJ.Tipos_Publicacion TP on TP.id_Tipo = P.id_Tipo
+    INNER JOIN ATJ.Visibilidades V on V.cod_Visibilidad = P.cod_Visibilidad
+    INNER JOIN ATJ.Estados_Publicacion E on E.id_Estado = P.id_Estado
+    INNER JOIN ATJ.Rubros R on R.id_Rubro = P.id_Rubro
+	WHERE P.id_Usuario = @id_Usuario AND P.Descripcion LIKE '%' + @Descripcion + '%'
+GO

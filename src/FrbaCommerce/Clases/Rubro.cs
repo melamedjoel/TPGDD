@@ -18,6 +18,26 @@ namespace Clases
 
         #endregion
 
+        #region constructor
+        public Rubro()
+        {
+            this.id_Rubro = -1;
+            this.Descripcion = "";
+            this.Activo = false;
+        }
+
+        public Rubro(int unIdRubro)
+        {
+            this.id_Rubro = unIdRubro;
+            DataSet ds = Rubro.ObtenerRubroPorId(this.id_Rubro);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
+
+        }
+        #endregion
+
         #region properties
         public int id_Rubro
         {
@@ -38,14 +58,15 @@ namespace Clases
         #endregion
 
         #region metodos publicos
-        public override string NombreTabla()
-        {
-            return "Rubros";
-        }
 
-        public override string NombreEntidad()
+        public static DataSet ObtenerRubroPorId(int id_Rubro)
         {
-            return "Rubro";
+            Rubro unRubro = new Rubro();
+            unRubro.setearListaDeParametrosConIdRubro(id_Rubro);
+            DataSet ds = unRubro.TraerListado(unRubro.parameterList, "PorId_Rubro");
+            unRubro.parameterList.Clear();
+
+            return ds;
         }
 
         public override void DataRowToObject(DataRow dr)
@@ -57,10 +78,24 @@ namespace Clases
         }
 
 
+        public override string NombreTabla()
+        {
+            return "Rubros";
+        }
+
+        public override string NombreEntidad()
+        {
+            return "Rubro";
+        }
+
+
         #endregion
 
         #region metodos privados
-
+        private void setearListaDeParametrosConIdRubro(int id_Rubro)
+        {
+            parameterList.Add(new SqlParameter("@id_Rubro", id_Rubro));
+        }
         #endregion
     }
 }

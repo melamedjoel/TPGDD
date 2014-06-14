@@ -118,7 +118,7 @@ CREATE TABLE ATJ.Publicaciones
 	cod_Visibilidad numeric(18, 0) NULL,
 	id_Estado int NULL,
 	id_Rubro int NULL,
-	permiso_Preguntas bit NULL
+	permiso_Preguntas bit NULL DEFAULT 1
 	)  ON [PRIMARY]
 GO
 ALTER TABLE ATJ.Publicaciones ADD CONSTRAINT

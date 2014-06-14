@@ -17,6 +17,27 @@ namespace Clases
        
         #endregion
 
+        #region constructor
+
+            public Estado_Publicacion()
+            {
+                this.id_Estado = -1;
+                this.Nombre = "";
+            }
+
+            public Estado_Publicacion(int unIdEstado)
+            {
+                this.id_Estado = unIdEstado;
+                DataSet ds = Estado_Publicacion.ObtenerEstadoPorIdEstado(this.id_Estado);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRowToObject(ds.Tables[0].Rows[0]);
+                }
+
+            }
+        #endregion
+
+
         #region properties
         public int id_Estado
         {
@@ -49,10 +70,23 @@ namespace Clases
         }
 
 
+        public static DataSet ObtenerEstadoPorIdEstado(int id_Estado)
+        {
+            Estado_Publicacion unEstado = new Estado_Publicacion();
+            unEstado.setearListaDeParametrosConIdEstado(id_Estado);
+            DataSet ds = unEstado.TraerListado(unEstado.parameterList, "PorId_Estado");
+            unEstado.parameterList.Clear();
+
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados
-
+        private void setearListaDeParametrosConIdEstado(int id_Estado)
+        {
+            parameterList.Add(new SqlParameter("@id_Estado", id_Estado));
+        }
         #endregion
     }
 }

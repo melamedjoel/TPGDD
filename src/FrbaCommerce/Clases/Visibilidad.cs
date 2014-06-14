@@ -79,6 +79,17 @@ namespace Clases
             this.Porcentaje = unPorcentaje;
             this.Activo= unValorDeActivo;
         }
+
+        public Visibilidad(int codigoVisibilidad)
+        {
+            this.cod_Visibilidad= codigoVisibilidad;
+            DataSet ds = Visibilidad.obtenerTodasLasVisibilidadesPorCodigo(this.cod_Visibilidad);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
+
+        }
         #endregion
 
         #region metodos publicos
@@ -100,6 +111,17 @@ namespace Clases
             this.Precio = Convert.ToDecimal(dr["Precio"]);
             this.Porcentaje = Convert.ToDecimal(dr["Porcentaje"]);
             this.Activo = Convert.ToBoolean(dr["Activo"]);
+        }
+
+        public static DataSet obtenerTodasLasVisibilidadesPorCodigo(int unCodigo)
+        {
+            Visibilidad unaVisibilidad = new Visibilidad();
+            unaVisibilidad.cod_Visibilidad = unCodigo;
+            unaVisibilidad.setearListaDeParametrosConCodVisibilidad();
+            DataSet ds = unaVisibilidad.TraerListado(unaVisibilidad.parameterList, "PorCod_Visibilidad");
+            unaVisibilidad.parameterList.Clear();
+
+            return ds;
         }
 
         public void Deshabilitar()

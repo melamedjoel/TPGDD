@@ -181,6 +181,12 @@
     <Compile Include="Login\LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mis Publicaciones\frmDetallePublic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mis Publicaciones\frmDetallePublic.Designer.cs">
+      <DependentUpon>frmDetallePublic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mis Publicaciones\frmMisPublicaciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mis Publicaciones\frmDetallePublic.resx">
+      <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mis Publicaciones\frmMisPublicaciones.resx">
       <DependentUpon>frmMisPublicaciones.cs</DependentUpon>

@@ -17,6 +17,28 @@ namespace Clases
 
         #endregion
 
+        #region constructor
+
+        public Tipo_Publicacion()
+        {
+            this.id_Tipo = -1;
+            this.Nombre = "";
+        }
+
+        public Tipo_Publicacion(int unIdTipo)
+        {
+            this.id_Tipo = unIdTipo;
+            DataSet ds = Tipo_Publicacion.ObtenerTiposPublicacionPorId(this.id_Tipo);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
+
+        }
+
+        #endregion
+
+
         #region properties
         public int id_Tipo
         {
@@ -50,10 +72,23 @@ namespace Clases
         }
 
 
+        public static DataSet ObtenerTiposPublicacionPorId(int id_Tipo)
+        {
+            Tipo_Publicacion unTipo = new Tipo_Publicacion();
+            unTipo.setearListaDeParametrosConIdTipo(id_Tipo);
+            DataSet ds = unTipo.TraerListado(unTipo.parameterList, "PorId_Tipo");
+            unTipo.parameterList.Clear();
+
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados
-
+        private void setearListaDeParametrosConIdTipo(int id_Tipo)
+        {
+            parameterList.Add(new SqlParameter("@id_Tipo", id_Tipo));
+        }
         #endregion
     }
 }

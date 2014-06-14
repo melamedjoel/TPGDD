@@ -37,6 +37,11 @@ namespace Clases
         }
         public Usuario(int unIdUsuario){
             this.Id_Usuario = unIdUsuario;
+            DataSet ds = Usuario.ObtenerUsuarioPorId(this.Id_Usuario);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
         }
         #endregion
 
@@ -98,6 +103,17 @@ namespace Clases
             this.Clave =  dr["Clave"].ToString();
             this.ClaveAutoGenerada = Convert.ToBoolean(dr["ClaveAutoGenerada"]);
             this.Activo = Convert.ToBoolean(dr["Activo"]);
+        }
+
+        public static DataSet ObtenerUsuarioPorId(int unIdUsuario)
+        {
+            Usuario unUsuario = new Usuario();
+            unUsuario.Id_Usuario = unIdUsuario;
+            unUsuario.setearListaDeParametrosSoloConIdUsuario();
+            DataSet ds = unUsuario.TraerListado(unUsuario.parameterList, "PorId_Usuario");
+            unUsuario.parameterList.Clear();
+
+            return ds;
         }
 
         public bool IntentarLogIn()
