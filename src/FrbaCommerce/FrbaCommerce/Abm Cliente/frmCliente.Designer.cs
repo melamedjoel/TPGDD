@@ -292,6 +292,7 @@
             // 
             // cmbTipoDni
             // 
+            this.cmbTipoDni.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDni.FormattingEnabled = true;
             this.cmbTipoDni.Items.AddRange(new object[] {
             "Dni"});

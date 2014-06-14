@@ -6,8 +6,8 @@ CREATE PROCEDURE ATJ.traerListadoEmpresas
     
 AS 
     SELECT *, (Dom_calle+' '+Convert(nvarchar(50),Dom_nro_calle)+' '+Convert(nvarchar(50),Dom_piso)+'° '+Dom_depto) AS Direccion
-    FROM ATJ.Empresas
-    
+    FROM ATJ.Empresas  
+    WHERE Eliminado = 0 
 			
 GO
 
@@ -16,9 +16,8 @@ CREATE PROCEDURE ATJ.traerListadoClientes
     
 AS 
     SELECT *, (Dom_calle+' '+Convert(nvarchar(50),Dom_nro_calle)+' '+Convert(nvarchar(50),Dom_piso)+'° '+Dom_depto) AS Direccion
-    FROM ATJ.Clientes 
-    
-			
+    FROM ATJ.Clientes
+    WHERE Eliminado = 0
 GO
 
 --Procedure traerEmpresaConId 
@@ -27,8 +26,7 @@ CREATE PROCEDURE ATJ.traerEmpresaConId
 AS 
     SELECT *
     FROM ATJ.Empresas
-    WHERE	id_Empresa = @id_Empresa  
-			
+    WHERE	id_Empresa = @id_Empresa
 GO
 --Procedure traerClienteaConId 
 CREATE PROCEDURE ATJ.traerClienteConId
@@ -43,18 +41,18 @@ GO
 --Procedure updateEmpresa
 CREATE PROCEDURE ATJ.updateEmpresa
 	@id_empresa int,
-	@Razon_social nvarchar(255),
-	@Cuit nvarchar(50),
-	@Mail nvarchar(50),
-	@Fecha_creacion datetime,
-	@Telefono nvarchar(255),
-	@Dom_calle nvarchar(100),
-	@Dom_nro_calle numeric(18,0),
-	@Dom_piso numeric(18,0),
-	@Dom_depto nvarchar(50),
-	@Dom_cod_postal nvarchar(50),
-	@Dom_ciudad nvarchar(255),
-	@Nombre_contacto nvarchar(255),
+	@Razon_social nvarchar(255) =null,
+	@Cuit nvarchar(50) =null,
+	@Mail nvarchar(50) =null,
+	@Fecha_creacion datetime =null,
+	@Telefono nvarchar(255) =null,
+	@Dom_calle nvarchar(100) =null,
+	@Dom_nro_calle numeric(18,0) =null,
+	@Dom_piso numeric(18,0) =null,
+	@Dom_depto nvarchar(50) =null,
+	@Dom_cod_postal nvarchar(50) =null,
+	@Dom_ciudad nvarchar(255) =null,
+	@Nombre_contacto nvarchar(255) =null,
 	@Activo bit
 AS
 	UPDATE ATJ.Empresas SET Razon_social = @Razon_social,
@@ -72,26 +70,36 @@ AS
 							Activo = @Activo
 							where id_Empresa = @id_empresa
 GO
+--Procedure deleteEmpresa
+CREATE PROCEDURE ATJ.deleteEmpresa
+	@id_empresa int
+AS
+	UPDATE ATJ.Empresas SET eliminado = 1
+							where id_Empresa = @id_empresa
+GO
 
 --Procedure updateCliente
 CREATE PROCEDURE ATJ.updateCliente
 	@id_Cliente int,
-	@Tipo_Dni nvarchar(50),
-	@Dni numeric(18,0),
-	@Apellido nvarchar(255),
-	@Nombre nvarchar(255),
-	@Fecha_nac datetime,
-	@Mail nvarchar(255),
-	@Telefono nvarchar(255),
-	@Dom_calle nvarchar(255),
-	@Dom_nro_calle numeric(18,0),
-	@Dom_piso numeric(18,0),
-	@Dom_depto nvarchar(50),
-	@Dom_cod_postal nvarchar(50),
+	@Tipo_Dni nvarchar(50) =null,
+	@Dni numeric(18,0) =null,
+	@Cuil nvarchar(50) =null,
+	@Apellido nvarchar(255) =null,
+	@Nombre nvarchar(255) =null,
+	@Fecha_nac datetime =null,
+	@Mail nvarchar(255) =null,
+	@Telefono nvarchar(255) =null,
+	@Dom_calle nvarchar(255) =null,
+	@Dom_nro_calle numeric(18,0) =null,
+	@Dom_piso numeric(18,0) =null,
+	@Dom_depto nvarchar(50) =null,
+	@Dom_cod_postal nvarchar(50) =null,
+	@Dom_ciudad nvarchar(255) =null,
 	@Activo bit
 AS
 	UPDATE ATJ.Clientes SET Tipo_Dni = @Tipo_Dni,
 							Dni = @Dni,
+							Cuil = @Cuil,
 							Apellido = @Apellido,
 							Nombre = @Nombre,
 							Fecha_nac = @Fecha_nac,
@@ -102,22 +110,30 @@ AS
 							Dom_piso = @Dom_piso,
 							Dom_depto = @Dom_depto,
 							Dom_cod_postal = @Dom_cod_postal,
+							Dom_ciudad = @Dom_ciudad,
 							Activo = @Activo
 							where id_Cliente = @id_Cliente
 GO
+--Procedure deleteCliente
+CREATE PROCEDURE ATJ.deleteCliente
+	@id_cliente int
+AS
+	UPDATE ATJ.Clientes SET eliminado = 1
+							where id_Cliente = @id_cliente 
+GO
 CREATE PROCEDURE ATJ.insertEmpresa
-	@Razon_social nvarchar(255),
-	@Cuit nvarchar(50),
-	@Mail nvarchar(50),
-	@Fecha_creacion datetime,
-	@Telefono nvarchar(255),
-	@Dom_calle nvarchar(100),
-	@Dom_nro_calle numeric(18,0),
-	@Dom_piso numeric(18,0),
-	@Dom_depto nvarchar(50),
-	@Dom_cod_postal nvarchar(50),
-	@Dom_ciudad nvarchar(255),
-	@Nombre_contacto nvarchar(255),
+	@Razon_social nvarchar(255) =null,
+	@Cuit nvarchar(50) =null,
+	@Mail nvarchar(50) =null,
+	@Fecha_creacion datetime =null,
+	@Telefono nvarchar(255) =null,
+	@Dom_calle nvarchar(100) =null,
+	@Dom_nro_calle numeric(18,0) =null,
+	@Dom_piso numeric(18,0) =null,
+	@Dom_depto nvarchar(50) =null,
+	@Dom_cod_postal nvarchar(50) =null,
+	@Dom_ciudad nvarchar(255) =null,
+	@Nombre_contacto nvarchar(255) =null,
 	@Activo bit,
 	@id_Rol int,
 	@id_Usuario int
@@ -138,20 +154,20 @@ GO
 
 --Procedure insertCliente
 CREATE PROCEDURE ATJ.insertCliente
-	@Tipo_Dni nvarchar(50),
-	@Dni numeric(18,0),
-	@Cuil nvarchar(50),
-	@Apellido nvarchar(255),
-	@Nombre nvarchar(255),
-	@Fecha_nac datetime,
-	@Mail nvarchar(50),
-	@Telefono nvarchar(255),
-	@Dom_calle nvarchar(100),
-	@Dom_nro_calle numeric(18,0),
-	@Dom_piso numeric(18,0),
-	@Dom_depto nvarchar(50),
-	@Dom_cod_postal nvarchar(50),
-	@Dom_ciudad nvarchar(255),
+	@Tipo_Dni nvarchar(50) =null,
+	@Dni numeric(18,0) =null,
+	@Cuil nvarchar(50) =null,
+	@Apellido nvarchar(255) =null,
+	@Nombre nvarchar(255) =null,
+	@Fecha_nac datetime =null,
+	@Mail nvarchar(50) =null,
+	@Telefono nvarchar(255) =null,
+	@Dom_calle nvarchar(100) =null,
+	@Dom_nro_calle numeric(18,0) =null,
+	@Dom_piso numeric(18,0) =null,
+	@Dom_depto nvarchar(50) =null,
+	@Dom_cod_postal nvarchar(50) =null,
+	@Dom_ciudad nvarchar(255) =null,
 	@Activo bit,
 	@id_Rol int,
 	@id_Usuario int
@@ -179,9 +195,10 @@ CREATE PROCEDURE ATJ.traerListadoEmpresasConFiltros
 AS 
     SELECT *, (Dom_calle+' '+Convert(nvarchar(50),Dom_nro_calle)+' '+Convert(nvarchar(50),Dom_piso)+'° '+Dom_depto) AS Direccion
     FROM ATJ.Empresas
-    WHERE	Razon_social LIKE( CASE WHEN @Razon_social <> '' THEN '%' + @Razon_social + '%' ELSE Razon_social END) AND 
-			Cuit = (CASE WHEN @Cuit <> '' THEN @Cuit ELSE Cuit END) AND 
-			Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END)
+    WHERE	Razon_social LIKE( CASE WHEN @Razon_social <> '' THEN '%' + @Razon_social + '%' ELSE Razon_social END) 
+    AND		Cuit = (CASE WHEN @Cuit <> '' THEN @Cuit ELSE Cuit END) 
+	AND		Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END)
+	AND		Eliminado = 0
 GO
 
 --Procedure traerListadoClientesConFiltros
@@ -194,11 +211,12 @@ CREATE PROCEDURE ATJ.traerListadoClientesConFiltros
 AS 
     SELECT *
     FROM ATJ.Clientes
-    WHERE	Nombre LIKE (CASE WHEN @Nombre <> '' THEN '%' + @Nombre + '%' ELSE Nombre END) AND 
-			Apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE Apellido END) AND
-			Tipo_Dni LIKE (CASE WHEN @Tipo_Dni <> '' THEN @Tipo_Dni ELSE Tipo_Dni END) AND
-			Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END) and
-			Dni LIKE CAST(@Dni AS NUMERIC(18,0)) 
+    WHERE	Nombre LIKE (CASE WHEN @Nombre <> '' THEN '%' + @Nombre + '%' ELSE Nombre END) 
+    AND		Apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE Apellido END) 
+    AND		Tipo_Dni LIKE (CASE WHEN @Tipo_Dni <> '' THEN @Tipo_Dni ELSE Tipo_Dni END) 
+    AND		Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END) 
+    AND		Dni LIKE CAST(@Dni AS NUMERIC(18,0)) 
+    AND		Eliminado = 0
 			--Dni LIKE '%42%' --(CASE WHEN ('42' = '') THEN Dni ELSE '%42%' END)
 			--CONVERT(varchar(20), Dni) LIKE (CASE WHEN (42 <> 0) THEN '%42%' ELSE Dni END)
 GO
@@ -302,34 +320,6 @@ SELECT E.*
 GO
 
 
---Procedure updatePublicacion
-CREATE PROCEDURE ATJ.updatePublicacion
-	@Codigo numeric(18,0),
-	@id_Usuario int,
-	@Descripcion nvarchar(255),
-	@Stock numeric(18, 0),
-	@Fecha_creacion datetime,
-	@Fecha_vencimiento datetime,
-	@Precio numeric(18, 2),
-	@id_Tipo int,
-	@cod_Visibilidad numeric(18, 0),
-	@id_Estado int,
-	@id_Rubro int,
-	@permiso_Preguntas bit
-AS
-	UPDATE ATJ.Publicaciones SET Descripcion = @Descripcion,
-							Stock = @Stock,
-							Fecha_creacion = @Fecha_creacion,
-							Fecha_vencimiento = @Fecha_vencimiento,
-							Precio = @Precio,
-							id_Tipo = @id_Tipo,
-							cod_Visibilidad = cod_Visibilidad,
-							id_Estado = @id_Estado,
-							id_Rubro = @id_Rubro,
-							permiso_Preguntas = @permiso_Preguntas
-							where Codigo = @Codigo
-	
-GO
 
 --Procedure traerListadoPublicacionesConFiltros
 CREATE PROCEDURE ATJ.traerListadoPublicacionesConFiltros 

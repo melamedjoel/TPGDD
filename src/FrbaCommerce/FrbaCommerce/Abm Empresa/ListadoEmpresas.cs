@@ -191,9 +191,7 @@ namespace FrbaCommerce.Abm_Empresa
             frmEmpresa _frmEmpresa = new frmEmpresa();
             _frmEmpresa.AbrirParaAgregar(this);
         }
-
-
-        
+    
 
 
     }

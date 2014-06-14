@@ -231,6 +231,7 @@ namespace Clases
         
         public void ModificarDatos()
         {
+            parameterList.Clear();
             setearListaDeParametrosConIdCliente();
             setearListaDeParametros();            
             if (this.Modificar(parameterList))
@@ -280,13 +281,13 @@ namespace Clases
         private void setearListaDeParametros()
         {
             //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
-            parameterList.Add(new SqlParameter("@Tipo_Dni", this.Tipo_Dni));
+            parameterList.Add(new SqlParameter("@Tipo_Dni", "Dni"));
             parameterList.Add(new SqlParameter("@Dni", this.Dni));
             parameterList.Add(new SqlParameter("@Cuil", this.Cuil));
             parameterList.Add(new SqlParameter("@Apellido", this.Apellido));
             parameterList.Add(new SqlParameter("@Nombre", this.Nombre));
-            parameterList.Add(new SqlParameter("@Mail", this.Mail));
             parameterList.Add(new SqlParameter("@Fecha_nac", this.Fecha_nac));
+            parameterList.Add(new SqlParameter("@Mail", this.Mail));            
             parameterList.Add(new SqlParameter("@Telefono", this.Telefono));
             parameterList.Add(new SqlParameter("@Dom_calle", this.Dom_calle));
             parameterList.Add(new SqlParameter("@Dom_nro_calle", this.Dom_nro_calle));
@@ -299,7 +300,7 @@ namespace Clases
         
         private void setearListaDeParametrosConIdRol()
         {        
-            parameterList.Add(new SqlParameter("@idRol", this.id_Rol));
+            parameterList.Add(new SqlParameter("@id_Rol", this.id_Rol));
         }
 
         #endregion

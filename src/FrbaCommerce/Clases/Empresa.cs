@@ -217,6 +217,7 @@ namespace Clases
 
         public void ModificarDatos()
         {
+            parameterList.Clear();
             setearListaDeParametrosConIdEmpresa();
             setearListaDeParametros();            
             if (this.Modificar(parameterList))
@@ -283,8 +284,6 @@ namespace Clases
         }
                         
         #endregion
-
-
 
         public void Eliminar()
         {

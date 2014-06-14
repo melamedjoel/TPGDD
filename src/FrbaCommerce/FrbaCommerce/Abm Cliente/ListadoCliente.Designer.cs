@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.grpFiltros = new System.Windows.Forms.GroupBox();
             this.cmbTipoDni = new System.Windows.Forms.ComboBox();
@@ -54,8 +54,8 @@
             // dtgListado
             // 
             this.dtgListado.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -84,20 +84,23 @@
             this.grpFiltros.Controls.Add(this.button2);
             this.grpFiltros.Location = new System.Drawing.Point(119, 4);
             this.grpFiltros.Name = "grpFiltros";
-            this.grpFiltros.Size = new System.Drawing.Size(499, 103);
+            this.grpFiltros.Size = new System.Drawing.Size(501, 105);
             this.grpFiltros.TabIndex = 42;
             this.grpFiltros.TabStop = false;
             this.grpFiltros.Text = "Filtros";
             // 
             // cmbTipoDni
             // 
+            this.cmbTipoDni.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDni.FormattingEnabled = true;
             this.cmbTipoDni.Items.AddRange(new object[] {
-            "Dni"});
+            "Dni",
+            "Otro"});
             this.cmbTipoDni.Location = new System.Drawing.Point(284, 20);
             this.cmbTipoDni.Name = "cmbTipoDni";
             this.cmbTipoDni.Size = new System.Drawing.Size(57, 21);
             this.cmbTipoDni.TabIndex = 61;
+            this.cmbTipoDni.SelectedIndexChanged += new System.EventHandler(this.cmbTipoDni_SelectedIndexChanged);
             // 
             // lblTipoDoc
             // 
@@ -244,6 +247,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(732, 311);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.btnEliminar);

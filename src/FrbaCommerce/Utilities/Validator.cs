@@ -73,6 +73,18 @@ namespace Utilities
             return string.Empty;
             
         }
+
+        public static string SoloNumerosPeroOpcional(string textoAValidar, string nombreCampo)
+        {
+            string strError = "";
+            if (String.IsNullOrEmpty(textoAValidar))
+                return strError;
+            if (!EsNumero(textoAValidar))
+            {
+                strError += "El campo " + nombreCampo + " tiene caracteres invalidos\n";
+            }
+            return strError;
+        }
     }
         
 }
