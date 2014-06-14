@@ -34,6 +34,6 @@ DROP PROCEDURE ATJ.validarVisibilidadEnPublicacion;
 DROP PROCEDURE ATJ.traerListadoRubros;
 DROP PROCEDURE [ATJ].[traerListadoPublicacionesNoVendidasOrdenadoPorVisibilidad];
 DROP PROCEDURE ATJ.insertPregunta_RetornarID;
-
+DROP PROCEDURE ATJ.insertOferta_RetornarID;
 
 

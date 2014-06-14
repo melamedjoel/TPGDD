@@ -274,6 +274,22 @@ AS
 	SELECT @@IDENTITY AS cod_Visibilidad;
 GO
 
+--Procedure insertOferta_RetornarID
+CREATE PROCEDURE ATJ.insertOferta_RetornarID
+	@cod_Publicacion numeric (18,0),
+	@id_Usuario_Vendedor int,
+	@id_Usuario_Comprador int,
+	@Fecha datetime,
+	@Monto numeric(18,2)
+AS
+	INSERT INTO ATJ.Ofertas
+	(cod_Publicacion, id_Usuario_Vendedor, id_Usuario_Comprador, Fecha, Monto)
+	VALUES 
+	(@cod_Publicacion, @id_Usuario_Vendedor, @id_Usuario_Comprador, @Fecha, @Monto)
+	
+	SELECT @@IDENTITY AS id_Oferta;
+GO
+
 --Procedure insertPregunta_RetornarID
 CREATE PROCEDURE ATJ.insertPregunta_RetornarID
 	@txtPregunta nvarchar(255),

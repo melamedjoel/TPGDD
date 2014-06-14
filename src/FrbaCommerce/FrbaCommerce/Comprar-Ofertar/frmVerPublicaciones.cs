@@ -190,7 +190,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
                 frmDetallePublicGeneral _frmDetalle = new frmDetallePublicGeneral();
                 Publicacion unaPublic = new Publicacion(valorIdSeleccionado());
-                _frmDetalle.AbrirParaVer(unaPublic, this);
+                _frmDetalle.AbrirParaVer(unaPublic, this, unUsuario);
             }
             catch (ErrorConsultaException ex)
             {

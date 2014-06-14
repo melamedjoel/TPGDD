@@ -405,7 +405,7 @@ CREATE TABLE ATJ.Ofertas
 	cod_Publicacion numeric(18, 0) NOT NULL,
 	id_Usuario_Vendedor int NOT NULL,
 	id_Usuario_Comprador int NOT NULL,
-	gano_Subasta bit NULL,
+	gano_Subasta bit NULL DEFAULT 0,
 	Fecha datetime NULL,
 	Monto numeric(18, 2) NULL
 	)  ON [PRIMARY]

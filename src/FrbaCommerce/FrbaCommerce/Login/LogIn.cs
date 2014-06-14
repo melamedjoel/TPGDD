@@ -174,7 +174,7 @@ namespace FrbaCommerce.Login
                 //nos ofrezca un textbox y nos devuelta el resultado ingresado por el usuario. En este caso,
                 //le vamos a decir que su pass fue autogenerada y que la cambie. Si no ingreso nada, lo deshabilitamos.
                 //Sino, la encriptamos y updateamos la password
-                string dialogResult = DialogManager.ShowDialog("Este es su primer ingreso en el sistema, por favor, actualice su clave", "Cambio de clave");
+                string dialogResult = DialogManager.ShowDialogWithPassword("Este es su primer ingreso en el sistema, por favor, actualice su clave", "Cambio de clave");
                
                 if (string.IsNullOrEmpty(dialogResult))
                 {

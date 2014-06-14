@@ -16,28 +16,29 @@ namespace FrbaCommerce.Comprar_Ofertar
     {
         frmVerPublicaciones frmPadre = new frmVerPublicaciones();
         Publicacion publicDelForm = new Publicacion();
+        Usuario unUsuario = new Usuario();
         public frmDetallePublicGeneral()
         {
             InitializeComponent();
         }
 
-        public void AbrirParaVer(Publicacion unaPublic, frmVerPublicaciones frmEnviador)
+        public void AbrirParaVer(Publicacion unaPublic, frmVerPublicaciones frmEnviador, Usuario user)
         {
             frmPadre = frmEnviador;
             publicDelForm = unaPublic;
 
-            this.Show();
+            this.abrirConUsuario(user);
 
-            txtDescripcion.Text = unaPublic.Descripcion;
-            txtEstado.Text = unaPublic.Estado_Publicacion.Nombre;
-            txtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
-            txtFechaVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
-            txtRubro.Text = unaPublic.Rubro.Descripcion;
-            txtStock.Text = unaPublic.Stock.ToString();
-            txtUsuario.Text = unaPublic.Usuario.Username;
-            txtVisibilidad.Text = unaPublic.Visibilidad.Descripcion;
-            txtTipo.Text = unaPublic.Tipo_Publicacion.Nombre;
-            txtPrecio.Text = unaPublic.Precio.ToString();
+            lblDescripcionACompletar.Text = unaPublic.Descripcion;
+            lblEstadoACompletar.Text = unaPublic.Estado_Publicacion.Nombre;
+            lblFechaCreacionACompletar.Text = unaPublic.Fecha_creacion.ToString();
+            lblFechaVencimientoACompletar.Text = unaPublic.Fecha_vencimiento.ToString();
+            lblRubroACompletar.Text = unaPublic.Rubro.Descripcion;
+            lblStockACompletar.Text = unaPublic.Stock.ToString();
+            lblUsuarioACompletar.Text = unaPublic.Usuario.Username;
+            lblVisibilidadACompletar.Text = unaPublic.Visibilidad.Descripcion;
+            lblTipoACompletar.Text = unaPublic.Tipo_Publicacion.Nombre;
+            lblPrecioACompletar.Text = unaPublic.Precio.ToString();
             grpPreguntas.Visible = unaPublic.Permiso_Preguntas;
 
             if (publicDelForm.Tipo_Publicacion.Nombre == "Subasta")
@@ -51,6 +52,12 @@ namespace FrbaCommerce.Comprar_Ofertar
                 btnOfertar.Visible = false;
             }
 
+        }
+
+        public void abrirConUsuario(Usuario user)
+        {
+            unUsuario = user;
+            this.Show();
         }
 
         private void frmDetallePublicGeneral_Load(object sender, EventArgs e)
@@ -68,7 +75,61 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnOfertar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                ValidarAutoCompra();
+                string montoOfertado = "";
+                while (montoOfertado == "")
+                {
+                    montoOfertado = DialogManager.ShowDialogCommonText("Por favor, ingrese un monto a ofertar", "Ofertar");
 
+                    if (string.IsNullOrEmpty(montoOfertado))
+                    {
+                        MessageBox.Show("Debe ingresar un monto válido", "Monto inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (montoOfertado != "cancel")
+                    {
+                        string error = ValidarMontoOfertado(montoOfertado);
+                        if (error != "")
+                        {
+                            MessageBox.Show(error, "Monto inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            montoOfertado = "";
+                        }else{
+                            Oferta nuevaOferta = new Oferta(Convert.ToDecimal(montoOfertado), Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]) ,publicDelForm, unUsuario);
+                            nuevaOferta.guardarNuevaOferta();
+                            MessageBox.Show("La oferta ha sido realizada", "Oferta realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+        private string ValidarMontoOfertado(string montoOfertado)
+        {
+            string strErrores = "";
+            strErrores += (publicDelForm.Precio >= Convert.ToDecimal(montoOfertado)) ? "No se puede realizar esta acción dado que el precio de la subasta es mayor al ingresado" : "";
+            if (strErrores.Length > 0)
+            {
+                return strErrores;
+            }
+            return "";
+            
+        }
+
+        private void ValidarAutoCompra()
+        {
+            string strErrores = "";
+            strErrores += (publicDelForm.Usuario.Id_Usuario == unUsuario.Id_Usuario) ? "No se puede realizar esta acción sobre su propia publicación" : "";
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            }
         }
 
         private void btnComprar_Click(object sender, EventArgs e)
