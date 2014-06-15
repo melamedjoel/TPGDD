@@ -42,9 +42,9 @@
             this.btnComprar = new System.Windows.Forms.Button();
             this.btnOfertar = new System.Windows.Forms.Button();
             this.grpPreguntas = new System.Windows.Forms.GroupBox();
+            this.btnRegistrarPregunta = new System.Windows.Forms.Button();
             this.txtPreguntas = new System.Windows.Forms.TextBox();
             this.lblPreguntas = new System.Windows.Forms.Label();
-            this.btnRegistrarPregunta = new System.Windows.Forms.Button();
             this.lblPrecioACompletar = new System.Windows.Forms.Label();
             this.lblRubroACompletar = new System.Windows.Forms.Label();
             this.lblEstadoACompletar = new System.Windows.Forms.Label();
@@ -190,6 +190,16 @@
             this.grpPreguntas.TabStop = false;
             this.grpPreguntas.Text = "Realizar Preguntas";
             // 
+            // btnRegistrarPregunta
+            // 
+            this.btnRegistrarPregunta.Location = new System.Drawing.Point(62, 128);
+            this.btnRegistrarPregunta.Name = "btnRegistrarPregunta";
+            this.btnRegistrarPregunta.Size = new System.Drawing.Size(125, 23);
+            this.btnRegistrarPregunta.TabIndex = 77;
+            this.btnRegistrarPregunta.Text = "Registrar Pregunta";
+            this.btnRegistrarPregunta.UseVisualStyleBackColor = true;
+            this.btnRegistrarPregunta.Click += new System.EventHandler(this.btnRegistrarPregunta_Click);
+            // 
             // txtPreguntas
             // 
             this.txtPreguntas.Location = new System.Drawing.Point(62, 26);
@@ -207,16 +217,6 @@
             this.lblPreguntas.Size = new System.Drawing.Size(50, 13);
             this.lblPreguntas.TabIndex = 75;
             this.lblPreguntas.Text = "Pregunta";
-            // 
-            // btnRegistrarPregunta
-            // 
-            this.btnRegistrarPregunta.Location = new System.Drawing.Point(62, 128);
-            this.btnRegistrarPregunta.Name = "btnRegistrarPregunta";
-            this.btnRegistrarPregunta.Size = new System.Drawing.Size(125, 23);
-            this.btnRegistrarPregunta.TabIndex = 77;
-            this.btnRegistrarPregunta.Text = "Registrar Pregunta";
-            this.btnRegistrarPregunta.UseVisualStyleBackColor = true;
-            this.btnRegistrarPregunta.Click += new System.EventHandler(this.btnRegistrarPregunta_Click);
             // 
             // lblPrecioACompletar
             // 
@@ -257,6 +257,7 @@
             // lblTipoACompletar
             // 
             this.lblTipoACompletar.AutoSize = true;
+            this.lblTipoACompletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTipoACompletar.Location = new System.Drawing.Point(142, 185);
             this.lblTipoACompletar.Name = "lblTipoACompletar";
             this.lblTipoACompletar.Size = new System.Drawing.Size(0, 13);

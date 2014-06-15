@@ -39,19 +39,26 @@ namespace FrbaCommerce.Comprar_Ofertar
             lblVisibilidadACompletar.Text = unaPublic.Visibilidad.Descripcion;
             lblTipoACompletar.Text = unaPublic.Tipo_Publicacion.Nombre;
             lblPrecioACompletar.Text = unaPublic.Precio.ToString();
-            grpPreguntas.Visible = unaPublic.Permiso_Preguntas;
-
-            if (publicDelForm.Tipo_Publicacion.Nombre == "Subasta")
+            if (puedeComprarUOfertar())
             {
-                btnComprar.Visible = false;
-                btnOfertar.Visible = true;
-            }
-            else
-            {
-                btnComprar.Visible = true;
-                btnOfertar.Visible = false;
+                grpPreguntas.Visible = unaPublic.Permiso_Preguntas;
+                if (publicDelForm.Tipo_Publicacion.Nombre == "Subasta")
+                {
+                    btnComprar.Visible = false;
+                    btnOfertar.Visible = true;
+                }
+                else
+                {
+                    btnComprar.Visible = true;
+                    btnOfertar.Visible = false;
+                }
             }
 
+        }
+
+        private bool puedeComprarUOfertar()
+        {
+            return (unUsuario.Rol.Nombre == "Cliente");
         }
 
         public void abrirConUsuario(Usuario user)
@@ -67,8 +74,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            frmPadre.CargarListadoDePublicaciones();
-            frmPadre.CargarListadoDeRubros();
+            
             frmPadre.Show();
             this.Close();
         }
@@ -134,7 +140,13 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
-            
+            DetalleVendedorParaComprar frmDetalleVendedor = new DetalleVendedorParaComprar();
+            Cliente unCli = new Cliente(publicDelForm.Usuario);
+            if (unCli.id_Cliente ==0)
+                frmDetalleVendedor.abrirConEmpresaComoVendedor(unUsuario, this, publicDelForm, frmPadre);
+            else
+                frmDetalleVendedor.abrirConClienteComoVendedor(unUsuario, this, publicDelForm, frmPadre);
+
         }
 
         private void btnRegistrarPregunta_Click(object sender, EventArgs e)

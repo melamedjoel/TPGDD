@@ -219,8 +219,8 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
                 unaEmpresaNueva.Telefono = txtTelefono.Text;
-                unaEmpresaNueva.usuario = new Usuario();
-                unaEmpresaNueva.usuario.CrearDefault(unaEmpresaNueva.Cuit);
+                unaEmpresaNueva.Usuario = new Usuario();
+                unaEmpresaNueva.Usuario.CrearDefault(unaEmpresaNueva.Cuit);
                 unaEmpresaNueva.Activo = true;
 
                 unaEmpresaNueva.guardarDatosDeEmpresaNueva();
@@ -266,8 +266,8 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
                 unaEmpresaNueva.Telefono = txtTelefono.Text;
-                unaEmpresaNueva.usuario = new Usuario();
-                unaEmpresaNueva.usuario.CrearDefault(unaEmpresaNueva.Cuit);
+                unaEmpresaNueva.Usuario = new Usuario();
+                unaEmpresaNueva.Usuario.CrearDefault(unaEmpresaNueva.Cuit);
                 unaEmpresaNueva.Activo = true;
 
                 unaEmpresaNueva.guardarDatosDeEmpresaNuevaRegistrada(this.id_usuario_registrado);

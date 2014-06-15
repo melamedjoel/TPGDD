@@ -121,6 +121,12 @@
     <Compile Include="Calificar Vendedor\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Comprar-Ofertar\DetalleVendedorParaComprar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar-Ofertar\DetalleVendedorParaComprar.Designer.cs">
+      <DependentUpon>DetalleVendedorParaComprar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Comprar-Ofertar\frmDetallePublicGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Visibilidad\ListadoVisibilidad.resx">
       <DependentUpon>ListadoVisibilidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar-Ofertar\DetalleVendedorParaComprar.resx">
+      <DependentUpon>DetalleVendedorParaComprar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar-Ofertar\frmDetallePublicGeneral.resx">
       <DependentUpon>frmDetallePublicGeneral.cs</DependentUpon>

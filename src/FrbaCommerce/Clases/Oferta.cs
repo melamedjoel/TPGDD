@@ -109,12 +109,12 @@ namespace Clases
         public void guardarNuevaOferta()
         {
             setearListaDeParametrosConMontoCodPublicacionVendedorCompradorFecha();
-            DataSet dsNuevaPreg = this.GuardarYObtenerID(parameterList);
+            DataSet dsNuevaOferta = this.GuardarYObtenerID(parameterList);
             parameterList.Clear();
 
-            if (dsNuevaPreg.Tables[0].Rows.Count > 0)
+            if (dsNuevaOferta.Tables[0].Rows.Count > 0)
             {
-                id_Oferta = Convert.ToInt32(dsNuevaPreg.Tables[0].Rows[0]["id_Oferta"]);
+                id_Oferta = Convert.ToInt32(dsNuevaOferta.Tables[0].Rows[0]["id_Oferta"]);
             }
             else
             {

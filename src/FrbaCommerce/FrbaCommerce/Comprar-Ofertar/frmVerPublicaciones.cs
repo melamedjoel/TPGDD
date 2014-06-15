@@ -215,6 +215,10 @@ namespace FrbaCommerce.Comprar_Ofertar
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtDescripcion.Text = "";
+            while (lstRubros.CheckedIndices.Count > 0)
+            {
+                lstRubros.SetItemChecked(lstRubros.CheckedIndices[0], false);
+            }
             CargarListadoDePublicaciones();
         }
     }

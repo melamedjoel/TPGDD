@@ -15,7 +15,7 @@ namespace Clases
     
         #region atributos
         private int _id_Cliente;
-        private string _Tipo_Dni;
+        private string _Tipo_Doc;
         private int _Dni;
         private string _Cuil;
         private string _Apellido;
@@ -42,10 +42,10 @@ namespace Clases
             get { return _id_Cliente; }
             set { _id_Cliente = value; }
         }
-        public string Tipo_Dni
+        public string Tipo_Doc
         {
-            get { return _Tipo_Dni; }
-            set { _Tipo_Dni = value; }
+            get { return _Tipo_Doc; }
+            set { _Tipo_Doc = value; }
         }
         public int Dni
         {
@@ -122,7 +122,7 @@ namespace Clases
             get { return _Reputacion; }
             set { _Reputacion = value; }
         }        
-        public Usuario usuario
+        public Usuario Usuario
         {
             get { return _usuario; }
             set { _usuario = value; }
@@ -139,16 +139,25 @@ namespace Clases
         }
         public Cliente(int unIdCliente){
             this.id_Cliente = unIdCliente;
-            
-
         }
         public Cliente(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail){
             this.Apellido = unApellido;
             this.Nombre = unNombre;
-            this.Tipo_Dni = unTipoDni;
+            this.Tipo_Doc = unTipoDni;
             this.Dni = unDni;
             this.Mail = unMail;
         }
+
+        public Cliente(Usuario user)
+        {
+            this.Usuario = new Usuario(user.Id_Usuario);
+            DataSet ds = Cliente.ObtenerClientePorIdUsuario(this.Usuario.Id_Usuario);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
+        }
+
 
         #endregion
 
@@ -167,7 +176,7 @@ namespace Clases
         {
             // Esto es tal cual lo devuelve el stored de la DB
             this.id_Cliente = Convert.ToInt32(dr["id_Cliente"]);
-            this.Tipo_Dni = dr["Tipo_Dni"].ToString();
+            this.Tipo_Doc = dr["Tipo_Dni"].ToString();
             this.Dni = Convert.ToInt32(dr["Dni"]);
             this.Cuil = dr["Cuil"].ToString();
             this.Apellido = dr["Apellido"].ToString();
@@ -181,11 +190,11 @@ namespace Clases
             this.Dom_depto = dr["Dom_depto"].ToString();
             this.Dom_cod_postal = dr["Dom_cod_postal"].ToString();
             this.Activo = Convert.ToBoolean(dr["Activo"]);
-            this.usuario = new Usuario();
-            //this.usuario.Id_Usuario = Convert.ToInt32(dr["id_Usuario"]);
-            //this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
+            this.Usuario = new Usuario(Convert.ToInt32(dr["id_Usuario"]));
+            if (!String.IsNullOrEmpty(dr["Reputacion"].ToString())) this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
         }
- public void CargarObjetoClienteConId()
+        
+        public void CargarObjetoClienteConId()
         {
             setearListaDeParametrosConIdCliente();
             DataSet ds = SQLHelper.ExecuteDataSet("traerClienteConId", CommandType.StoredProcedure, parameterList);
@@ -194,6 +203,16 @@ namespace Clases
             {
                 DataRowToObject(ds.Tables[0].Rows[0]);
             }
+        }
+
+        public static DataSet ObtenerClientePorIdUsuario(int unIdUsuario)
+        {
+            Cliente unCliente = new Cliente();
+            unCliente.setearListaDeParametrosConIdUsuario(unIdUsuario);
+            DataSet ds = unCliente.TraerListado(unCliente.parameterList, "PorId_Usuario");
+            unCliente.parameterList.Clear();
+
+            return ds;
         }
 
         public static DataSet obtenerTodosLosClientes()
@@ -205,7 +224,7 @@ namespace Clases
         public static DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
         {
             Cliente unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail);
-            unCliente.setearListaDeParametrosConFiltros(unCliente.Nombre, unCliente.Apellido, unCliente.Tipo_Dni, unCliente.Dni, unCliente.Mail);
+            unCliente.setearListaDeParametrosConFiltros(unCliente.Nombre, unCliente.Apellido, unCliente.Tipo_Doc, unCliente.Dni, unCliente.Mail);
             DataSet ds = unCliente.TraerListado(unCliente.parameterList, "ConFiltros");
             unCliente.parameterList.Clear();
             return ds;
@@ -213,10 +232,10 @@ namespace Clases
        
         public void guardarDatosDeClienteNuevo()
         {
-            this.usuario.Id_Usuario = this.usuario.GuardarYObtenerID();
+            this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
             setearListaDeParametros();
             setearListaDeParametrosConIdRol();
-            setearListaDeParametrosConIdUsuario(this.usuario.Id_Usuario);            
+            setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);            
             this.Guardar(parameterList);            
             parameterList.Clear();
             

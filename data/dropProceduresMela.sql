@@ -36,5 +36,8 @@ DROP PROCEDURE [ATJ].[traerListadoPublicacionesNoVendidasOrdenadoPorVisibilidad]
 DROP PROCEDURE ATJ.insertPregunta_RetornarID;
 DROP PROCEDURE ATJ.insertOferta_RetornarID;
 DROP PROCEDURE [ATJ].[traerListadoPublicacionesNoVendidasOrdenadoPorVisibilidadConFiltros];
-
+DROP PROCEDURE [ATJ].[traerListadoClientesPorId_Usuario]; 
+DROP PROCEDURE [ATJ].[traerListadoEmpresasPorId_Usuario];
+DROP PROCEDURE ATJ.insertCompra_RetornarID;
+DROP PROCEDURE ATJ.updatePublicacion;
 

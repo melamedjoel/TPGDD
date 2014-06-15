@@ -110,7 +110,7 @@ namespace Clases
             get { return _Reputacion; }
             set { _Reputacion = value; }
         }
-        public Usuario usuario
+        public Usuario Usuario
         {
             get { return _usuario; }
             set { _usuario = value; }
@@ -135,6 +135,16 @@ namespace Clases
             this.Cuit = unCuit;
             this.Mail = unEmail;
 
+        }
+
+        public Empresa(Usuario user)
+        {
+            this.Usuario = new Usuario(user.Id_Usuario);
+            DataSet ds = Empresa.ObtenerEmpresaPorIdUsuario(this.Usuario.Id_Usuario);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                DataRowToObject(ds.Tables[0].Rows[0]);
+            }
         }
 
         #endregion
@@ -167,8 +177,8 @@ namespace Clases
             this.Dom_ciudad = dr["Dom_ciudad"].ToString();
             this.Nombre_contacto = dr["Nombre_contacto"].ToString();
             this.Activo = Convert.ToBoolean(dr["Activo"]);
-            this.usuario = new Usuario(Convert.ToInt32(dr["id_Usuario"]));
-            //this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
+            this.Usuario = new Usuario(Convert.ToInt32(dr["id_Usuario"]));
+            if (!String.IsNullOrEmpty(dr["Reputacion"].ToString())) this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
         }
 
         public void CargarObjetoEmpresaConId()
@@ -180,6 +190,17 @@ namespace Clases
             {
                 DataRowToObject(ds.Tables[0].Rows[0]);
             }
+        }
+
+        public static DataSet ObtenerEmpresaPorIdUsuario(int unIdUsuario)
+        {
+            Empresa unaEmpresa = new Empresa();
+            unaEmpresa.setearListaDeParametrosConIdUsuario(unIdUsuario);
+            DataSet ds = unaEmpresa.TraerListado(unaEmpresa.parameterList, "PorId_Usuario");
+            unaEmpresa.parameterList.Clear();
+
+            return ds;
+            
         }
 
         public static DataSet obtenerTodasLasEmpresas()
@@ -199,9 +220,9 @@ namespace Clases
        
         public void guardarDatosDeEmpresaNueva()
         {
-            this.usuario.Id_Usuario = this.usuario.GuardarYObtenerID();
+            this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
             setearListaDeParametros();
-            setearListaDeParametrosConIdUsuario(this.usuario.Id_Usuario);
+            setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);
             setearListaDeParametrosConIdRol();
             this.Guardar(parameterList);            
             parameterList.Clear();
@@ -232,6 +253,14 @@ namespace Clases
             }
            
         }
+
+        public void Eliminar()
+        {
+            setearListaDeParametrosConIdEmpresa();
+            this.Eliminar(parameterList);
+            parameterList.Clear();
+        }
+
 
         ////public void Desactivar()
         ////{
@@ -291,13 +320,7 @@ namespace Clases
                         
         #endregion
 
-        public void Eliminar()
-        {
-            setearListaDeParametrosConIdEmpresa();
-            this.Eliminar(parameterList);
-            parameterList.Clear();
-        }
-
+      
         
     }
 }

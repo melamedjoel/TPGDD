@@ -39,7 +39,7 @@ namespace FrbaCommerce.Abm_Cliente
             txtCodPostal.Text = unCliente.Dom_cod_postal;
             txtDepto.Text = unCliente.Dom_depto;
             txtCuil.Text = unCliente.Cuil;
-            cmbTipoDni.SelectedValue = unCliente.Tipo_Dni;
+            cmbTipoDni.SelectedValue = unCliente.Tipo_Doc;
 
             txtDni.Text = Convert.ToString(unCliente.Dni);
             txtFechaNac.Text = Convert.ToString(unCliente.Fecha_nac);
@@ -82,7 +82,7 @@ namespace FrbaCommerce.Abm_Cliente
             txtCodPostal.Text = unCliente.Dom_cod_postal;
             txtDepto.Text = unCliente.Dom_depto;
             txtCuil.Text = unCliente.Cuil;
-            cmbTipoDni.Text = unCliente.Tipo_Dni;
+            cmbTipoDni.Text = unCliente.Tipo_Doc;
             txtDni.Text = Convert.ToString(unCliente.Dni);
             txtFechaNac.Text = Convert.ToString(unCliente.Fecha_nac);
             txtLocalidad.Text = unCliente.Dom_ciudad;
@@ -184,7 +184,7 @@ namespace FrbaCommerce.Abm_Cliente
                 clienteDelForm.Apellido = txtApellido.Text;
                 clienteDelForm.Nombre = txtNombre.Text;
                 clienteDelForm.Dni = Int32.Parse(txtDni.Text);
-                clienteDelForm.Tipo_Dni = cmbTipoDni.SelectedValue.ToString();
+                clienteDelForm.Tipo_Doc = cmbTipoDni.SelectedValue.ToString();
                 clienteDelForm.Cuil = txtCuil.Text;
                 clienteDelForm.Dom_calle = txtCalle.Text;
                 clienteDelForm.Dom_ciudad = txtLocalidad.Text;
@@ -230,7 +230,7 @@ namespace FrbaCommerce.Abm_Cliente
                 unClienteNuevo.Apellido = txtApellido.Text;
                 unClienteNuevo.Nombre = txtNombre.Text;
                 unClienteNuevo.Dni = Int32.Parse(txtDni.Text);
-                unClienteNuevo.Tipo_Dni = cmbTipoDni.Text;
+                unClienteNuevo.Tipo_Doc = cmbTipoDni.Text;
                 unClienteNuevo.Cuil = txtCuil.Text;
                 unClienteNuevo.Dom_calle = txtCalle.Text;
                 unClienteNuevo.Dom_ciudad = txtLocalidad.Text;
@@ -241,8 +241,8 @@ namespace FrbaCommerce.Abm_Cliente
                 if (!String.IsNullOrEmpty(txtFechaNac.Text)) unClienteNuevo.Fecha_nac = DateTime.Parse(txtFechaNac.Text);
                 unClienteNuevo.Mail = txtMail.Text;
                 unClienteNuevo.Telefono = txtTelefono.Text;
-                unClienteNuevo.usuario = new Usuario();
-                unClienteNuevo.usuario.CrearDefault(Convert.ToString(unClienteNuevo.Dni));
+                unClienteNuevo.Usuario = new Usuario();
+                unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Dni));
                 unClienteNuevo.Activo = true;
 
                 unClienteNuevo.guardarDatosDeClienteNuevo();
@@ -279,7 +279,7 @@ namespace FrbaCommerce.Abm_Cliente
                 unClienteNuevo.Apellido = txtApellido.Text;
                 unClienteNuevo.Nombre = txtNombre.Text;
                 unClienteNuevo.Dni = Int32.Parse(txtDni.Text);
-                unClienteNuevo.Tipo_Dni = cmbTipoDni.Text;
+                unClienteNuevo.Tipo_Doc = cmbTipoDni.Text;
                 unClienteNuevo.Cuil = txtCuil.Text;
                 unClienteNuevo.Dom_calle = txtCalle.Text;
                 unClienteNuevo.Dom_ciudad = txtLocalidad.Text;
@@ -290,8 +290,8 @@ namespace FrbaCommerce.Abm_Cliente
                 if (!String.IsNullOrEmpty(txtFechaNac.Text)) unClienteNuevo.Fecha_nac = DateTime.Parse(txtFechaNac.Text);
                 unClienteNuevo.Mail = txtMail.Text;
                 unClienteNuevo.Telefono = txtTelefono.Text;
-                unClienteNuevo.usuario = new Usuario();
-                unClienteNuevo.usuario.CrearDefault(Convert.ToString(unClienteNuevo.Dni));
+                unClienteNuevo.Usuario = new Usuario();
+                unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Dni));
                 unClienteNuevo.Activo = true;
 
                 unClienteNuevo.guardarDatosDeClienteNuevoRegistrado(this.id_usuario_registrado);

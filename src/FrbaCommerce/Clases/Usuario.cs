@@ -41,6 +41,8 @@ namespace Clases
             if (ds.Tables[0].Rows.Count > 0)
             {
                 DataRowToObject(ds.Tables[0].Rows[0]);
+                
+                
             }
         }
         #endregion
@@ -137,6 +139,7 @@ namespace Clases
             this.Rol.DataRowToObject(ds.Tables[0].Rows[0]);
         }
 
+
         public void Deshabilitar()
         {
             setearListaDeParametrosConUsuario();
@@ -178,6 +181,15 @@ namespace Clases
             this.Id_Usuario = this.GuardarYObtenerID();
             parameterList.Clear();
         }
+
+        public int GuardarYObtenerID()
+        {
+            setearListaDeParametros();
+            DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
+            this.Id_Usuario = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
+            return this.Id_Usuario;
+        }  
+
         public DataSet obtenerTodasLasCompras()
         {
             this.setearListaDeParametrosSoloConIdUsuario();
@@ -309,13 +321,5 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Username", this.Username));
         }
         #endregion
-
-        internal int GuardarYObtenerID()
-        {
-            setearListaDeParametros();
-            DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
-            this.Id_Usuario = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
-            return this.Id_Usuario;
-        }  
     }
 }

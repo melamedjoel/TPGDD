@@ -258,6 +258,27 @@ AS
 	WHERE cod_Visibilidad = @cod_Visibilidad
 GO
 
+--Procedure updatePublicacion
+CREATE PROCEDURE ATJ.updatePublicacion
+	@Codigo int,
+	@id_Usuario numeric(18,0),
+	@Descripcion nvarchar(255),
+	@Stock numeric(18,0),
+	@Fecha_creacion datetime,
+	@Fecha_vencimiento datetime,
+	@Precio numeric(18,2),
+	@id_Tipo numeric(18,0),
+	@cod_Visibilidad numeric(18,0),
+	@id_Estado numeric(18,0),
+	@id_Rubro numeric(18,0),
+	@permiso_Preguntas bit
+AS
+	UPDATE ATJ.Publicaciones SET id_Usuario = @id_Usuario, Descripcion = @Descripcion, Stock = @Stock, Fecha_creacion = @Fecha_creacion, 
+	@Fecha_vencimiento = @Fecha_vencimiento,Precio = @Precio, id_Tipo = @id_Tipo, cod_Visibilidad = @cod_Visibilidad, id_Estado = @id_Estado,
+	id_Rubro = @id_Rubro, permiso_Preguntas = @permiso_Preguntas
+	WHERE Codigo = @Codigo
+GO
+
 
 --Procedure insertVisibilidad_RetornarID
 CREATE PROCEDURE ATJ.insertVisibilidad_RetornarID
@@ -289,6 +310,23 @@ AS
 	
 	SELECT @@IDENTITY AS id_Oferta;
 GO
+
+--Procedure insertCompra_RetornarID
+CREATE PROCEDURE ATJ.insertCompra_RetornarID
+	@cod_Publicacion numeric (18,0),
+	@id_Usuario_Vendedor int,
+	@id_Usuario_Comprador int,
+	@Fecha datetime,
+	@Cantidad numeric(18,0)
+AS
+	INSERT INTO ATJ.Compras
+	(cod_Publicacion, id_Usuario_Vendedor, id_Usuario_Comprador, Fecha, Cantidad)
+	VALUES 
+	(@cod_Publicacion, @id_Usuario_Vendedor, @id_Usuario_Comprador, @Fecha, @Cantidad)
+	
+	SELECT @@IDENTITY AS id_Compra;
+GO
+
 
 --Procedure insertPregunta_RetornarID
 CREATE PROCEDURE ATJ.insertPregunta_RetornarID
@@ -332,6 +370,22 @@ CREATE PROCEDURE [ATJ].[traerListadoRubrosPorId_Rubro]
 AS 
     SELECT * FROM ATJ.Rubros
 	WHERE id_Rubro = @id_Rubro
+GO
+
+--Procedure traerListadoClientesPorId_Usuario
+CREATE PROCEDURE [ATJ].[traerListadoClientesPorId_Usuario] 
+    @id_Usuario numeric(18,0) 
+AS 
+    SELECT * FROM ATJ.Clientes
+	WHERE id_Usuario = @id_Usuario
+GO
+
+--Procedure traerListadoEmpresasPorId_Usuario
+CREATE PROCEDURE [ATJ].[traerListadoEmpresasPorId_Usuario] 
+    @id_Usuario numeric(18,0) 
+AS 
+    SELECT * FROM ATJ.Empresas
+	WHERE id_Usuario = @id_Usuario
 GO
 
 --Procedure traerListadoVisibilidadesPorCod_Visibilidad

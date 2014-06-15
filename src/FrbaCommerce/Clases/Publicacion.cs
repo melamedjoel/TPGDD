@@ -191,6 +191,25 @@ namespace Clases
             return ds;
         }
 
+        public void descontarStock(int cantidadIngresada)
+        {
+            Stock = Stock - cantidadIngresada;
+            ModificarDatos();
+            
+        }
+
+        public void ModificarDatos()
+        {
+            setearListaDeParametrosEntidadEntera();
+
+            if (this.Modificar(parameterList))
+            {
+                parameterList.Clear();
+            }
+
+        }
+
+
         #endregion
 
         #region metodos privados
@@ -221,6 +240,24 @@ namespace Clases
             parameterList.Add(new SqlParameter("@id_Usuario", unIdUsuario));
             parameterList.Add(new SqlParameter("@Descripcion", unaDesc));
         }
+
+        private void setearListaDeParametrosEntidadEntera()
+        {
+            parameterList.Add(new SqlParameter("@Codigo", Codigo));
+            parameterList.Add(new SqlParameter("@id_Usuario", Usuario.Id_Usuario));
+            parameterList.Add(new SqlParameter("@Descripcion", Descripcion));
+            parameterList.Add(new SqlParameter("@Stock", Stock));
+            parameterList.Add(new SqlParameter("@Fecha_creacion", Fecha_creacion));
+            parameterList.Add(new SqlParameter("@Fecha_vencimiento", Fecha_vencimiento));
+            parameterList.Add(new SqlParameter("@Precio", Precio));
+            parameterList.Add(new SqlParameter("@id_Tipo", Tipo_Publicacion.id_Tipo));
+            parameterList.Add(new SqlParameter("@cod_Visibilidad", Visibilidad.cod_Visibilidad));
+            parameterList.Add(new SqlParameter("@id_Estado", Estado_Publicacion.id_Estado));
+            parameterList.Add(new SqlParameter("@id_Rubro", Rubro.id_Rubro));
+            parameterList.Add(new SqlParameter("@permiso_Preguntas", Permiso_Preguntas));
+        }
+
         #endregion
+
     }
 }

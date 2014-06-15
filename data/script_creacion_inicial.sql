@@ -133,7 +133,7 @@ ALTER TABLE ATJ.Publicaciones ADD CONSTRAINT
 GO
 ALTER TABLE ATJ.Publicaciones SET (LOCK_ESCALATION = TABLE)
 GO
-ALTER TABLE ATJ.Publicaciones WITH NOCHECK ADD CONSTRAINT CK_STOCK CHECK(Stock>0)
+ALTER TABLE ATJ.Publicaciones WITH NOCHECK ADD CONSTRAINT CK_STOCK CHECK(Stock>-1)
 GO
 ------------------------------------------------------------------------------------------------------------------------------
 -- Creacion tabla de datos Tipos_Publicacion

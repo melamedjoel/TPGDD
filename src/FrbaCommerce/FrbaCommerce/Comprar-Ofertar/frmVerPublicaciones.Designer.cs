@@ -30,14 +30,14 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grpFiltros = new System.Windows.Forms.GroupBox();
+            this.lblRubro = new System.Windows.Forms.Label();
+            this.lstRubros = new System.Windows.Forms.CheckedListBox();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.btnVer = new System.Windows.Forms.Button();
-            this.lstRubros = new System.Windows.Forms.CheckedListBox();
-            this.lblRubro = new System.Windows.Forms.Label();
             this.grpFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).BeginInit();
             this.SuspendLayout();
@@ -56,6 +56,23 @@
             this.grpFiltros.TabIndex = 38;
             this.grpFiltros.TabStop = false;
             this.grpFiltros.Text = "Filtros";
+            // 
+            // lblRubro
+            // 
+            this.lblRubro.AutoSize = true;
+            this.lblRubro.Location = new System.Drawing.Point(20, 64);
+            this.lblRubro.Name = "lblRubro";
+            this.lblRubro.Size = new System.Drawing.Size(41, 13);
+            this.lblRubro.TabIndex = 32;
+            this.lblRubro.Text = "Rubros";
+            // 
+            // lstRubros
+            // 
+            this.lstRubros.FormattingEnabled = true;
+            this.lstRubros.Location = new System.Drawing.Point(19, 82);
+            this.lstRubros.Name = "lstRubros";
+            this.lstRubros.Size = new System.Drawing.Size(178, 109);
+            this.lstRubros.TabIndex = 31;
             // 
             // txtDescripcion
             // 
@@ -122,23 +139,6 @@
             this.btnVer.UseVisualStyleBackColor = true;
             this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
-            // lstRubros
-            // 
-            this.lstRubros.FormattingEnabled = true;
-            this.lstRubros.Location = new System.Drawing.Point(19, 82);
-            this.lstRubros.Name = "lstRubros";
-            this.lstRubros.Size = new System.Drawing.Size(178, 109);
-            this.lstRubros.TabIndex = 31;
-            // 
-            // lblRubro
-            // 
-            this.lblRubro.AutoSize = true;
-            this.lblRubro.Location = new System.Drawing.Point(20, 64);
-            this.lblRubro.Name = "lblRubro";
-            this.lblRubro.Size = new System.Drawing.Size(41, 13);
-            this.lblRubro.TabIndex = 32;
-            this.lblRubro.Text = "Rubros";
-            // 
             // frmVerPublicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,6 +149,7 @@
             this.Controls.Add(this.dtgListado);
             this.Controls.Add(this.grpFiltros);
             this.Name = "frmVerPublicaciones";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ver Publicaciones";
             this.Load += new System.EventHandler(this.frmVerPublicaciones_Load);
             this.grpFiltros.ResumeLayout(false);

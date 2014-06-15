@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using Excepciones;
 
 namespace Clases
 {
@@ -13,14 +14,34 @@ namespace Clases
 
         #region atributos
         private int _id_Compra;
-        private DateTime _Fecha;
-        private int _Cantidad;
+        private DateTime _fecha;
+        private int _cantidad;
 
-        private Publicacion _Publicacion;
+        private Publicacion _publicacion;
         private Usuario _usuario_Vendedor;
         private Usuario _usuario_Comprador;
 
         #endregion
+
+        #region constructor
+
+        public Compra()
+        {
+            id_Compra = -1;
+            Cantidad = -1;
+        }
+
+        public Compra(int cantidadIngresada, DateTime unaFecha, Publicacion unaPublic, Usuario unUsuarioComprador)
+        {
+            id_Compra = -1;
+            Publicacion = unaPublic;
+            usuario_Vendedor = unaPublic.Usuario;
+            usuario_Comprador = unUsuarioComprador;
+            Cantidad = cantidadIngresada;
+            Fecha = unaFecha;
+        }
+        #endregion
+
 
         #region properties
         public int id_Compra
@@ -30,18 +51,18 @@ namespace Clases
         }
         public DateTime Fecha
         {
-            get { return _Fecha; }
-            set { _Fecha = value; }
+            get { return _fecha; }
+            set { _fecha = value; }
         }
         public int Cantidad
         {
-            get { return _Cantidad; }
-            set { _Cantidad = value; }
+            get { return _cantidad; }
+            set { _cantidad = value; }
         }
         public Publicacion Publicacion
         {
-            get { return _Publicacion; }
-            set { _Publicacion = value; }
+            get { return _publicacion; }
+            set { _publicacion = value; }
         }
         public Usuario usuario_Vendedor
         {
@@ -71,14 +92,28 @@ namespace Clases
         {
             // Esto es tal cual lo devuelve el stored de la DB
             this.id_Compra = Convert.ToInt32(dr["id_Compra"]);
-            this.Publicacion = new Publicacion();
-            //this.Publicacion.Codigo = Convert.ToInt32(dr["cod_Publicacion"]);
-            this.usuario_Vendedor = new Usuario();
-            //this.usuario_Vendedor.Id_Usuario = Convert.ToInt32(dr["id_Usuario_Vendedor"]);
-            this.usuario_Comprador = new Usuario();
-            //this.usuario_Comprador.Id_Usuario = Convert.ToInt32(dr["id_Usuario_Comprador"]);
+            this.Publicacion = new Publicacion(Convert.ToInt32(dr["cod_Publicacion"]));
+            this.usuario_Vendedor = new Usuario(Convert.ToInt32(dr["id_Usuario_Vendedor"]));
+            this.usuario_Comprador = new Usuario(Convert.ToInt32(dr["id_Usuario_Comprador"]));
             this.Fecha = Convert.ToDateTime(dr["Fecha"]);
             this.Cantidad = Convert.ToInt32(dr["Cantidad"]);
+
+        }
+
+        public void guardarNuevaCompra()
+        {
+            setearListaDeParametrosConCantidadCodPublicacionVendedorCompradorFecha();
+            DataSet dsNuevaCompra = this.GuardarYObtenerID(parameterList);
+            parameterList.Clear();
+
+            if (dsNuevaCompra.Tables[0].Rows.Count > 0)
+            {
+                id_Compra = Convert.ToInt32(dsNuevaCompra.Tables[0].Rows[0]["id_Compra"]);
+            }
+            else
+            {
+                throw new BadInsertException();
+            }
 
         }
 
@@ -86,6 +121,16 @@ namespace Clases
         #endregion
 
         #region metodos privados
+
+        private void setearListaDeParametrosConCantidadCodPublicacionVendedorCompradorFecha()
+        {
+            parameterList.Add(new SqlParameter("@cod_Publicacion", Publicacion.Codigo));
+            parameterList.Add(new SqlParameter("@id_Usuario_Vendedor", usuario_Vendedor.Id_Usuario));
+            parameterList.Add(new SqlParameter("@id_Usuario_Comprador", usuario_Comprador.Id_Usuario));
+            parameterList.Add(new SqlParameter("@Fecha", Fecha));
+            parameterList.Add(new SqlParameter("@Cantidad", Cantidad));
+
+        }
 
         #endregion
     }
