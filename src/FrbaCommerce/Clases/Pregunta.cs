@@ -69,6 +69,14 @@ namespace Clases
             Respuesta = "";
             Publicacion = unaPublic;
         }
+
+        public Pregunta(string unaRespuesta)
+        {
+            id_Pregunta = -1;
+            Respuesta = "";
+            
+        }
+
         #endregion
 
         #region metodos publicos
@@ -109,6 +117,31 @@ namespace Clases
 
         }
 
+        public void GuardarRespuesta(int id_Pregunta,string respuesta)
+        {
+            setearListaDeParametrosConPreguntaYRespuesta(id_Pregunta,respuesta);
+            this.Modificar(parameterList);
+            parameterList.Clear();
+        }
+
+        public DataSet obtenerPreguntasConRespuestas(int cod_Publicacion, Usuario unUsuario)
+        {
+            this.setearListaDeParametrosConUsuarioYPublicacion(cod_Publicacion, unUsuario.Id_Usuario);
+            DataSet ds = this.TraerListado(this.parameterList, "ConRespuestasPorUsuarioYPublicacion");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
+        public DataSet obtenerPreguntasSinRespuestas(int cod_Publicacion, Usuario unUsuario)
+        {
+            this.setearListaDeParametrosConUsuarioYPublicacion(unUsuario.Id_Usuario, cod_Publicacion);
+            DataSet ds = this.TraerListado(this.parameterList, "SinRespuestasPorUsuarioYPublicacion");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados
@@ -117,7 +150,22 @@ namespace Clases
             parameterList.Add(new SqlParameter("@txtPregunta", texto_Pregunta));
             parameterList.Add(new SqlParameter("@cod_Publicacion", Publicacion.Codigo));    
         }
+
+        private void setearListaDeParametrosConUsuarioYPublicacion(int usuario,int publicacion)
+        {
+            parameterList.Add(new SqlParameter("@id_Usuario", usuario));
+            parameterList.Add(new SqlParameter("@cod_Publicacion", publicacion));
+        }
+
+        private void setearListaDeParametrosConPreguntaYRespuesta(int id_pregunta, string respuesta)
+        {
+            parameterList.Add(new SqlParameter("@id_Pregunta", id_pregunta));
+            parameterList.Add(new SqlParameter("@Respuesta", respuesta));
+        }
+
         #endregion
 
+
+        
     }
 }

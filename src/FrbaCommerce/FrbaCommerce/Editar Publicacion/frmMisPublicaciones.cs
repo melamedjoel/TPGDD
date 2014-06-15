@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Clases;
 using Utilities;
 using Excepciones;
+using FrbaCommerce.Gestion_de_Preguntas;
 
 
 
@@ -17,6 +18,7 @@ namespace FrbaCommerce.Editar_Publicacion
     public partial class frmMisPublicaciones : Form
     {
         Usuario unUsuario = new Usuario();
+        private int cod_Publicacion;
 
         public frmMisPublicaciones()
         {
@@ -195,6 +197,25 @@ namespace FrbaCommerce.Editar_Publicacion
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
+
+        private void btnRespuestas_Click(object sender, EventArgs e)
+        {
+            listadoPreguntas _frmVerRespuestas = new listadoPreguntas();
+            cod_Publicacion = valorIdSeleccionado();
+            _frmVerRespuestas.abrirConUsuario(unUsuario);
+            _frmVerRespuestas.AbrirParaVer(cod_Publicacion,this);
+        }
+
+        private void btnResponderPregs_Click(object sender, EventArgs e)
+        {
+            listadoPreguntas _frmVerRespuestas = new listadoPreguntas();
+            cod_Publicacion = valorIdSeleccionado();
+            _frmVerRespuestas.abrirConUsuario(unUsuario);
+            _frmVerRespuestas.AbrirParaResponder(cod_Publicacion, this);
+        }
+
+        
     }
 }

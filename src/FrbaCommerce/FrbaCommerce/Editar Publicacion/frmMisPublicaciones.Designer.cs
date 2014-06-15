@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grpFiltros = new System.Windows.Forms.GroupBox();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblDescripcion = new System.Windows.Forms.Label();
@@ -37,7 +37,7 @@
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.btnVer = new System.Windows.Forms.Button();
             this.btnResponderPregs = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRespuestas = new System.Windows.Forms.Button();
             this.grpFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).BeginInit();
             this.SuspendLayout();
@@ -95,8 +95,8 @@
             // dtgListado
             // 
             this.dtgListado.AllowUserToAddRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -128,15 +128,17 @@
             this.btnResponderPregs.TabIndex = 43;
             this.btnResponderPregs.Text = "Responder Preguntas";
             this.btnResponderPregs.UseVisualStyleBackColor = true;
+            this.btnResponderPregs.Click += new System.EventHandler(this.btnResponderPregs_Click);
             // 
-            // button1
+            // btnRespuestas
             // 
-            this.button1.Location = new System.Drawing.Point(723, 136);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 35);
-            this.button1.TabIndex = 44;
-            this.button1.Text = "Ver Respuestas";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRespuestas.Location = new System.Drawing.Point(723, 136);
+            this.btnRespuestas.Name = "btnRespuestas";
+            this.btnRespuestas.Size = new System.Drawing.Size(75, 35);
+            this.btnRespuestas.TabIndex = 44;
+            this.btnRespuestas.Text = "Ver Respuestas";
+            this.btnRespuestas.UseVisualStyleBackColor = true;
+            this.btnRespuestas.Click += new System.EventHandler(this.btnRespuestas_Click);
             // 
             // frmMisPublicaciones
             // 
@@ -144,7 +146,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(965, 477);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnRespuestas);
             this.Controls.Add(this.btnResponderPregs);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.dtgListado);
@@ -169,6 +171,6 @@
         public System.Windows.Forms.DataGridView dtgListado;
         public System.Windows.Forms.Button btnVer;
         private System.Windows.Forms.Button btnResponderPregs;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRespuestas;
     }
 }

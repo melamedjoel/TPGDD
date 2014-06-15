@@ -157,6 +157,12 @@
     <Compile Include="Gestion de Preguntas\listadoPreguntas.Designer.cs">
       <DependentUpon>listadoPreguntas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gestion de Preguntas\ResponderPregunta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion de Preguntas\ResponderPregunta.Designer.cs">
+      <DependentUpon>ResponderPregunta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\Facturar Publicaciones\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +260,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion de Preguntas\listadoPreguntas.resx">
       <DependentUpon>listadoPreguntas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion de Preguntas\ResponderPregunta.resx">
+      <DependentUpon>ResponderPregunta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\listadoHistorialDeOperaciones.resx">
       <DependentUpon>listadoHistorialDeOperaciones.cs</DependentUpon>

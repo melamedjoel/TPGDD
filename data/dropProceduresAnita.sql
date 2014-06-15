@@ -7,5 +7,8 @@ DROP PROCEDURE ATJ.traerListadoUsuariosConMayorFacturacion;
 DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCalificacion;
 DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantDePublicacionesSinClasificar;
 DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantidadDeProductosSinVenderConFiltros;
+DROP PROCEDURE ATJ.traerListadoPreguntasConRespuestasPorUsuarioYPublicacion;
+DROP PROCEDURE ATJ.traerListadoPreguntasSinRespuestasPorUsuarioYPublicacion;
+DROP PROCEDURE ATJ.updatePreguntaConRespuesta;
 
 

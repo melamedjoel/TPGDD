@@ -28,34 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dtgPreguntas = new System.Windows.Forms.DataGridView();
+            this.btnVolver = new System.Windows.Forms.Button();
+            this.btnResponder = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgPreguntas)).BeginInit();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // dtgPreguntas
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Responder preguntas",
-            "Ver respuestas"});
-            this.comboBox1.Location = new System.Drawing.Point(29, 22);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.dtgPreguntas.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            this.dtgPreguntas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgPreguntas.Location = new System.Drawing.Point(12, 31);
+            this.dtgPreguntas.Name = "dtgPreguntas";
+            this.dtgPreguntas.Size = new System.Drawing.Size(794, 263);
+            this.dtgPreguntas.TabIndex = 1;
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(724, 316);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 2;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
+            // btnResponder
+            // 
+            this.btnResponder.Location = new System.Drawing.Point(630, 316);
+            this.btnResponder.Name = "btnResponder";
+            this.btnResponder.Size = new System.Drawing.Size(75, 23);
+            this.btnResponder.TabIndex = 3;
+            this.btnResponder.Text = "Responder";
+            this.btnResponder.UseVisualStyleBackColor = true;
+            this.btnResponder.Click += new System.EventHandler(this.btnResponder_Click);
             // 
             // listadoPreguntas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 269);
-            this.Controls.Add(this.comboBox1);
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ClientSize = new System.Drawing.Size(818, 351);
+            this.Controls.Add(this.btnResponder);
+            this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.dtgPreguntas);
             this.Name = "listadoPreguntas";
-            this.Text = "listadoPreguntas";
+            this.Text = "Listado de Preguntas";
+            ((System.ComponentModel.ISupportInitialize)(this.dtgPreguntas)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DataGridView dtgPreguntas;
+        private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnResponder;
+
     }
 }

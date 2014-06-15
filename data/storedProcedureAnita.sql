@@ -155,3 +155,53 @@ AND MONTH(P.Fecha_creacion) = (CASE WHEN 2 <> '' THEN 2 ELSE MONTH(P.Fecha_creac
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY CantPublicNoVendidos DESC
 GO
+
+--Procedure traerListadoPreguntasConRespuestasPorUsuarioYPublicacion
+CREATE PROCEDURE ATJ.traerListadoPreguntasConRespuestasPorUsuarioYPublicacion
+    @id_Usuario int,
+    @cod_Publicacion numeric(18,0)
+
+AS 
+    SELECT R.id_Pregunta AS id_Pregunta, R.Pregunta AS Pregunta, R.Respuesta AS Respuesta, R.Fecha_respuesta AS Fecha_respuesta, 
+    P.Codigo AS Codigo, P.Descripcion AS Descripcion, P.Stock AS Stock,P.Fecha_creacion AS Fecha_creacion, P.Fecha_vencimiento AS Fecha_Vencimiento, 
+    P.Precio AS Precio
+    FROM ATJ.Usuarios U 
+    INNER JOIN ATJ.Publicaciones P ON U.id_Usuario = P.id_Usuario 
+    INNER JOIN ATJ.Pregunta_Publicacion PP ON PP.cod_Publicacion = P.Codigo 
+    INNER JOIN ATJ.Preguntas R ON R.id_Pregunta = PP.id_Pregunta 
+    WHERE	R.Respuesta IS NOT NULL
+	AND		U.id_Usuario = @id_Usuario
+	AND		P.Codigo = @cod_Publicacion
+GO
+
+--Procedure traerListadoPreguntasSinRespuestasPorUsuarioYPublicacion
+CREATE PROCEDURE ATJ.traerListadoPreguntasSinRespuestasPorUsuarioYPublicacion
+    @id_Usuario numeric(18,0),
+    @cod_Publicacion numeric(18,0)
+
+AS 
+    SELECT R.id_Pregunta AS id_Pregunta, R.Pregunta AS Pregunta, R.Respuesta AS Respuesta, 
+    R.Fecha_respuesta AS Fecha_respuesta, P.Codigo AS Codigo, P.Descripcion AS Descripcion, 
+    P.Stock AS Stock,P.Fecha_creacion AS Fecha_creacion, P.Fecha_vencimiento AS Fecha_Vencimiento, 
+    P.Precio AS Precio
+    FROM ATJ.Usuarios U 
+    INNER JOIN ATJ.Publicaciones P ON U.id_Usuario = P.id_Usuario 
+    INNER JOIN ATJ.Pregunta_Publicacion PP ON PP.cod_Publicacion = P.Codigo 
+    INNER JOIN ATJ.Preguntas R ON R.id_Pregunta = PP.id_Pregunta 
+    WHERE	R.Respuesta IS NULL
+	AND		U.id_Usuario = @id_Usuario
+	AND		P.Codigo = @cod_Publicacion
+GO
+
+--Procedure updatePreguntaConRespuesta
+CREATE PROCEDURE ATJ.updatePreguntaConRespuesta
+	@id_Pregunta int,
+	@Respuesta nvarchar(255)
+	
+AS
+
+	UPDATE ATJ.Preguntas SET	Respuesta = @Respuesta,
+								Fecha_respuesta = GETDATE()
+	WHERE id_Pregunta = @id_Pregunta 
+	
+GO
