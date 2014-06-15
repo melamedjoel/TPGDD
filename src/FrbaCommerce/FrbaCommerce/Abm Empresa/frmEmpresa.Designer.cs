@@ -56,6 +56,7 @@
             this.btnAceptarMEmpresa = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.chkActivo = new System.Windows.Forms.CheckBox();
+            this.btnAceptarREmpresa = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtCodPostal
@@ -291,11 +292,22 @@
             this.chkActivo.Text = "Activo";
             this.chkActivo.UseVisualStyleBackColor = true;
             // 
+            // btnAceptarREmpresa
+            // 
+            this.btnAceptarREmpresa.Location = new System.Drawing.Point(309, 197);
+            this.btnAceptarREmpresa.Name = "btnAceptarREmpresa";
+            this.btnAceptarREmpresa.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptarREmpresa.TabIndex = 54;
+            this.btnAceptarREmpresa.Text = "Aceptar";
+            this.btnAceptarREmpresa.UseVisualStyleBackColor = true;
+            this.btnAceptarREmpresa.Click += new System.EventHandler(this.btnAceptarREmpresa_Click);
+            // 
             // frmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(501, 232);
+            this.Controls.Add(this.btnAceptarREmpresa);
             this.Controls.Add(this.chkActivo);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnAceptarMEmpresa);
@@ -361,5 +373,6 @@
         private System.Windows.Forms.Button btnAceptarMEmpresa;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.CheckBox chkActivo;
+        private System.Windows.Forms.Button btnAceptarREmpresa;
     }
 }

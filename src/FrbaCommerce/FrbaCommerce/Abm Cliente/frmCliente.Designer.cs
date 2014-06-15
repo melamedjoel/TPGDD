@@ -60,6 +60,7 @@
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnAceptarMCliente = new System.Windows.Forms.Button();
             this.btnAceptarACliente = new System.Windows.Forms.Button();
+            this.btnAceptarRCliente = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -332,11 +333,22 @@
             this.btnAceptarACliente.UseVisualStyleBackColor = true;
             this.btnAceptarACliente.Click += new System.EventHandler(this.btnAceptarACliente_Click);
             // 
+            // btnAceptarRCliente
+            // 
+            this.btnAceptarRCliente.Location = new System.Drawing.Point(327, 190);
+            this.btnAceptarRCliente.Name = "btnAceptarRCliente";
+            this.btnAceptarRCliente.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptarRCliente.TabIndex = 63;
+            this.btnAceptarRCliente.Text = "Aceptar";
+            this.btnAceptarRCliente.UseVisualStyleBackColor = true;
+            this.btnAceptarRCliente.Click += new System.EventHandler(this.btnAceptarRCliente_Click);
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(504, 220);
+            this.Controls.Add(this.btnAceptarRCliente);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnAceptarMCliente);
             this.Controls.Add(this.btnAceptarACliente);
@@ -410,5 +422,6 @@
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnAceptarMCliente;
         private System.Windows.Forms.Button btnAceptarACliente;
+        private System.Windows.Forms.Button btnAceptarRCliente;
     }
 }

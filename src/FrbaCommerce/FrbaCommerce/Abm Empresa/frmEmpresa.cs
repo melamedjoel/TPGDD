@@ -17,9 +17,15 @@ namespace FrbaCommerce.Abm_Empresa
     {
         listadoEmpresa frmPadre = new listadoEmpresa();
         Empresa empresaDelForm = new Empresa();
+        private int _id_usuario_registrado;
         public frmEmpresa()
         {
             InitializeComponent();
+        }
+        public int id_usuario_registrado
+        {
+            get { return _id_usuario_registrado; }
+            set { _id_usuario_registrado = value; }
         }
 
         public void AbrirParaVer(Empresa unaEmpresa, listadoEmpresa frmEnviador)
@@ -94,6 +100,7 @@ namespace FrbaCommerce.Abm_Empresa
             chkActivo.Enabled = true;
 
             btnAceptarAEmpresa.Visible = false;
+            btnAceptarREmpresa.Visible = false;
             
         }
         public void AbrirParaAgregar(listadoEmpresa frmEnviador)
@@ -117,6 +124,30 @@ namespace FrbaCommerce.Abm_Empresa
 
             btnAceptarMEmpresa.Visible = false;
             btnAceptarAEmpresa.Visible = true;
+            btnAceptarREmpresa.Visible = false;
+        }
+        public void AbrirParaRegistrarNuevaEmpresa(int id_Usuario)
+        {
+            this.Show();
+            txtRazonSocial.Text = "";
+            txtCuit.Text = "";
+            txtNombreContacto.Text = "";
+            txtMail.Text = "";
+            txtTelefono.Text = "";
+            txtCalle.Text = "";
+            txtNumeroCalle.Text = "";
+            txtNroPiso.Text = "";
+            txtDepto.Text = "";
+            txtCodPostal.Text = "";
+            txtLocalidad.Text = "";
+            txtFechaCreacion.Text = Convert.ToString(DateTime.Today);
+            chkActivo.Visible = false;
+
+            this.id_usuario_registrado = id_Usuario;
+
+            btnAceptarMEmpresa.Visible = false;
+            btnAceptarAEmpresa.Visible = false;
+            btnAceptarREmpresa.Visible = true;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -169,23 +200,6 @@ namespace FrbaCommerce.Abm_Empresa
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
-        private void ValidarCampos()
-        {
-            string strErrores = "";
-            strErrores = Validator.ValidarNulo(txtRazonSocial.Text, "Razon Social");
-            strErrores = strErrores + Validator.ValidarNulo(txtCuit.Text, "Cuit");
-            strErrores += Validator.SoloNumerosPeroOpcional(txtNroPiso.Text, "Numero de Piso");
-            strErrores += Validator.SoloNumerosPeroOpcional(txtNumeroCalle.Text, "Numero de Calle");             
-            if (strErrores.Length > 0)
-            {
-                throw new Exception(strErrores);
-            }
-
-            
-            //FALTA VALIDAR QUE NO EXISTE EMPRESA CON ESTA RAZON SOCIAL Y CUIT
-        }
-
         private void btnAceptarAEmpresa_Click(object sender, EventArgs e)
         {
             try
@@ -233,7 +247,66 @@ namespace FrbaCommerce.Abm_Empresa
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-     
+        private void btnAceptarREmpresa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidarCampos();
+                Empresa unaEmpresaNueva = new Empresa();
+                unaEmpresaNueva.Razon_social = txtRazonSocial.Text;
+                unaEmpresaNueva.Cuit = txtCuit.Text;
+                unaEmpresaNueva.Activo = true;
+                unaEmpresaNueva.Dom_calle = txtCalle.Text;
+                unaEmpresaNueva.Dom_ciudad = txtLocalidad.Text;
+                unaEmpresaNueva.Dom_cod_postal = txtCodPostal.Text;
+                unaEmpresaNueva.Dom_depto = txtDepto.Text;
+                if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) unaEmpresaNueva.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
+                if (!String.IsNullOrEmpty(txtNroPiso.Text)) unaEmpresaNueva.Dom_piso = Int32.Parse(txtNroPiso.Text);
+                if (!String.IsNullOrEmpty(txtDepto.Text)) unaEmpresaNueva.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
+                unaEmpresaNueva.Mail = txtMail.Text;
+                unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
+                unaEmpresaNueva.Telefono = txtTelefono.Text;
+                unaEmpresaNueva.usuario = new Usuario();
+                unaEmpresaNueva.usuario.CrearDefault(unaEmpresaNueva.Cuit);
+                unaEmpresaNueva.Activo = true;
 
+                unaEmpresaNueva.guardarDatosDeEmpresaNuevaRegistrada(this.id_usuario_registrado);
+                DialogResult dr = MessageBox.Show("El usuario ha sido registrado y la empresa creada.", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dr == DialogResult.OK)
+                {
+                    this.Close();
+                    frmPadre.BringToFront();
+                }
+                ////INSERTAR EN LA TABLA ROL_USUARIO EL ID_ROL (ATRIBUTO) CON THIS.ID_US_REGISTR
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (BadInsertException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ValidarCampos()
+        {
+            string strErrores = "";
+            strErrores = Validator.ValidarNulo(txtRazonSocial.Text, "Razon Social");
+            strErrores = strErrores + Validator.ValidarNulo(txtCuit.Text, "Cuit");
+            strErrores += Validator.SoloNumerosPeroOpcional(txtNroPiso.Text, "Numero de Piso");
+            strErrores += Validator.SoloNumerosPeroOpcional(txtNumeroCalle.Text, "Numero de Calle");             
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            }
+
+            
+            //FALTA VALIDAR QUE NO EXISTE EMPRESA CON ESTA RAZON SOCIAL Y CUIT
+        }
+        
     }
 }

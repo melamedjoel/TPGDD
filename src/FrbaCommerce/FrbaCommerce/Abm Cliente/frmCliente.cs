@@ -16,11 +16,17 @@ namespace FrbaCommerce.Abm_Cliente
     {
         listadoCliente frmPadre = new listadoCliente();
         Cliente clienteDelForm = new Cliente();
+        private int _id_usuario_registrado;
+
         public frmCliente()
         {
             InitializeComponent();
         }
-       
+        public int id_usuario_registrado
+        {
+            get { return _id_usuario_registrado; }
+            set { _id_usuario_registrado = value; }
+        }
         public void AbrirParaVer(Cliente unCliente, listadoCliente frmEnviador)
         {
             frmPadre = frmEnviador;
@@ -88,11 +94,60 @@ namespace FrbaCommerce.Abm_Cliente
             chkActivo.Checked = unCliente.Activo;
 
             btnAceptarACliente.Visible = false;
+            btnAceptarRCliente.Visible = false;
 
         }
         public void AbrirParaAgregar(listadoCliente frmEnviador)
         {
             frmPadre = frmEnviador;
+            this.Show();
+            //"" Es necesario??? 
+            txtApellido.Text = "";
+            txtCalle.Text = "";
+            txtCodPostal.Text = "";
+            txtDepto.Text = "";
+            txtCuil.Text = "";
+            txtDni.Text = "";
+            txtFechaNac.Text = Convert.ToString(DateTime.Today);
+            txtLocalidad.Text = "";
+            txtMail.Text = "";
+            txtNombre.Text = "";
+            txtNroPiso.Text = "";
+            txtNumeroCalle.Text = "";
+            txtTelefono.Text = "";
+            chkActivo.Visible = false;
+
+            btnAceptarMCliente.Visible = false;
+            btnAceptarACliente.Visible = true;
+            btnAceptarRCliente.Visible = false;
+        }
+        public void AbrirParaRegistrarNuevoCliente(int id_usuario)
+        {
+            this.Show();
+            txtApellido.Text = "";
+            txtCalle.Text = "";
+            txtCodPostal.Text = "";
+            txtDepto.Text = "";
+            txtCuil.Text = "";
+            txtDni.Text = "";
+            txtFechaNac.Text = Convert.ToString(DateTime.Today);
+            txtLocalidad.Text = "";
+            txtMail.Text = "";
+            txtNombre.Text = "";
+            txtNroPiso.Text = "";
+            txtNumeroCalle.Text = "";
+            txtTelefono.Text = "";
+            chkActivo.Visible = false;
+
+            this.id_usuario_registrado = id_usuario;
+
+            btnAceptarMCliente.Visible = false;
+            btnAceptarACliente.Visible = false;
+            btnAceptarRCliente.Visible = true;
+        }
+
+        public void AbrirParaRegistrarNuevoCliente()
+        {
             this.Show();
             //"" Es necesario??? 
             txtApellido.Text = "";
@@ -150,7 +205,7 @@ namespace FrbaCommerce.Abm_Cliente
                     frmPadre.BringToFront();
                 }
 
-                frmPadre.CargarListadoDeClientes();
+                ////frmPadre.CargarListadoDeClientes();
             }
             catch (ErrorConsultaException ex)
             {
@@ -199,6 +254,54 @@ namespace FrbaCommerce.Abm_Cliente
                 }
 
                 frmPadre.CargarListadoDeClientes();
+
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (BadInsertException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnAceptarRCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidarCampos();
+                Cliente unClienteNuevo = new Cliente();
+
+                unClienteNuevo.Apellido = txtApellido.Text;
+                unClienteNuevo.Nombre = txtNombre.Text;
+                unClienteNuevo.Dni = Int32.Parse(txtDni.Text);
+                unClienteNuevo.Tipo_Dni = cmbTipoDni.Text;
+                unClienteNuevo.Cuil = txtCuil.Text;
+                unClienteNuevo.Dom_calle = txtCalle.Text;
+                unClienteNuevo.Dom_ciudad = txtLocalidad.Text;
+                unClienteNuevo.Dom_cod_postal = txtCodPostal.Text;
+                unClienteNuevo.Dom_depto = txtDepto.Text;
+                if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) unClienteNuevo.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
+                if (!String.IsNullOrEmpty(txtNroPiso.Text)) unClienteNuevo.Dom_piso = Int32.Parse(txtNroPiso.Text);
+                if (!String.IsNullOrEmpty(txtFechaNac.Text)) unClienteNuevo.Fecha_nac = DateTime.Parse(txtFechaNac.Text);
+                unClienteNuevo.Mail = txtMail.Text;
+                unClienteNuevo.Telefono = txtTelefono.Text;
+                unClienteNuevo.usuario = new Usuario();
+                unClienteNuevo.usuario.CrearDefault(Convert.ToString(unClienteNuevo.Dni));
+                unClienteNuevo.Activo = true;
+
+                unClienteNuevo.guardarDatosDeClienteNuevoRegistrado(this.id_usuario_registrado);
+                DialogResult dr = MessageBox.Show("El Usuario ha sido registrado y el Cliente creado.", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dr == DialogResult.OK)
+                {
+                    this.Close();
+                    frmPadre.BringToFront();
+                }
+                ////INSERTAR EN LA TABLA ROL_USUARIO EL ID_ROL (ATRIBUTO) CON THIS.ID_US_REGISTR
 
             }
             catch (ErrorConsultaException ex)

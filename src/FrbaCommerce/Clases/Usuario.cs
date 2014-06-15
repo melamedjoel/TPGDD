@@ -173,7 +173,11 @@ namespace Clases
             this.ClaveAutoGenerada = true;
             this.Activo = true;
         }
-
+        public void guardarDatosDeUsuarioNuevo()
+        {
+            this.Id_Usuario = this.GuardarYObtenerID();
+            parameterList.Clear();
+        }
         public DataSet obtenerTodasLasCompras()
         {
             this.setearListaDeParametrosSoloConIdUsuario();
@@ -306,15 +310,12 @@ namespace Clases
         }
         #endregion
 
-
-
         internal int GuardarYObtenerID()
         {
             setearListaDeParametros();
             DataSet dsNuevoUsuario = this.GuardarYObtenerID(parameterList);
             this.Id_Usuario = Convert.ToInt32(dsNuevoUsuario.Tables[0].Rows[0]["id_Usuario"]);
             return this.Id_Usuario;
-        }
-
+        }  
     }
 }

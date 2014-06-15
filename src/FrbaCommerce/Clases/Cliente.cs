@@ -228,6 +228,14 @@ namespace Clases
             //    throw new BadInsertException();
             //}
         }
+
+        public void guardarDatosDeClienteNuevoRegistrado(int id_usuario)
+        {
+            setearListaDeParametros();
+            setearListaDeParametrosConIdUsuario(id_usuario);
+            this.Guardar(parameterList);
+            parameterList.Clear();
+        }
         
         public void ModificarDatos()
         {
@@ -312,5 +320,6 @@ namespace Clases
             this.Eliminar(parameterList);
             parameterList.Clear();
         }
+
     }
 }

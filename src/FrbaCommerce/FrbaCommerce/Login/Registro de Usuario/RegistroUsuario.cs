@@ -11,7 +11,8 @@ using Microsoft.VisualBasic;
 using Clases;
 using Excepciones;
 using Utilities;
-
+using FrbaCommerce.Abm_Cliente;
+using FrbaCommerce.Abm_Empresa;
 
 namespace FrbaCommerce.Registro_de_Usuario
 {
@@ -21,5 +22,49 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
             InitializeComponent();
         }
+        private void registroUsuario_Load(object sender, EventArgs e)
+        {
+            cmdRol.SelectedIndex = 0;
+        }
+
+        private void btnContinuar_Click(object sender, EventArgs e)
+        {
+            ValidarCampos();
+            Usuario unUsuarioNuevo = new Usuario();
+
+            unUsuarioNuevo.Username = txtUsername.Text;
+            unUsuarioNuevo.Clave = Encryptor.GetSHA256(txtPassword.Text);
+            unUsuarioNuevo.ClaveAutoGenerada = false;
+            unUsuarioNuevo.Activo = true;
+
+            unUsuarioNuevo.guardarDatosDeUsuarioNuevo();
+
+            if (cmdRol.Text == "Empresa")
+            {
+                frmEmpresa _frmEmpresa = new frmEmpresa();
+                _frmEmpresa.AbrirParaRegistrarNuevaEmpresa(unUsuarioNuevo.Id_Usuario);
+            }
+            if (cmdRol.Text == "Cliente")
+            {
+                frmCliente _frmCliente = new frmCliente();
+                _frmCliente.AbrirParaRegistrarNuevoCliente(unUsuarioNuevo.Id_Usuario);
+            }
+
+
+        }
+
+        private void ValidarCampos()
+        {
+            string strErrores = "";
+            strErrores += Validator.ValidarNulo(txtUsername.Text, "Username");
+            strErrores += Validator.ValidarNulo(txtPassword.Text, "Password");
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            }
+            
+        }
+
+      
     }
 }
