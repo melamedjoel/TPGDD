@@ -115,11 +115,17 @@
     <Compile Include="Abm Visibilidad\ListadoVisibilidad.Designer.cs">
       <DependentUpon>ListadoVisibilidad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Calificar Vendedor\Form1.cs">
+    <Compile Include="Calificar Vendedor\vendedoresSinCalificar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Calificar Vendedor\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Calificar Vendedor\vendedoresSinCalificar.Designer.cs">
+      <DependentUpon>vendedoresSinCalificar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Calificar Vendedor\calificarVendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Calificar Vendedor\calificarVendedor.Designer.cs">
+      <DependentUpon>calificarVendedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar-Ofertar\DetalleVendedorParaComprar.cs">
       <SubType>Form</SubType>
@@ -230,6 +236,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Visibilidad\ListadoVisibilidad.resx">
       <DependentUpon>ListadoVisibilidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Calificar Vendedor\calificarVendedor.resx">
+      <DependentUpon>calificarVendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Calificar Vendedor\vendedoresSinCalificar.resx">
+      <DependentUpon>vendedoresSinCalificar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar-Ofertar\DetalleVendedorParaComprar.resx">
       <DependentUpon>DetalleVendedorParaComprar.cs</DependentUpon>

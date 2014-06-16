@@ -271,6 +271,14 @@ namespace Clases
             return ds;
         }
 
+        public DataSet obtenerVendedoresSinCalificar()
+        {
+            this.setearListaDeParametrosSoloConIdUsuario();
+            DataSet ds = this.TraerListado(this.parameterList, "VendedoresSinCalificar");
+            this.parameterList.Clear();
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados
@@ -321,5 +329,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Username", this.Username));
         }
         #endregion
+
+        
     }
 }

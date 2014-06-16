@@ -18,6 +18,7 @@ using FrbaCommerce.Listado_Estadistico;
 using FrbaCommerce.Abm_Cliente;
 using FrbaCommerce.Editar_Publicacion;
 using FrbaCommerce.Comprar_Ofertar;
+using FrbaCommerce.Calificar_Vendedor;
 
 namespace FrbaCommerce
 {
@@ -90,6 +91,12 @@ namespace FrbaCommerce
         {
             frmVerPublicaciones lasPublic = new frmVerPublicaciones();
             lasPublic.abrirConUsuario(unUsuario);
+        }
+
+        private void calificarVendedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            vendedoresSinCalificar frmListadoVendedores = new vendedoresSinCalificar();
+            frmListadoVendedores.abrirConUsuario(unUsuario);
         }
 
     }

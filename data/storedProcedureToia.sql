@@ -362,3 +362,45 @@ GO
 
 
 
+--Procedure traerListadoUsuariosVendedoresSinCalificar
+CREATE PROCEDURE ATJ.traerListadoUsuariosVendedoresSinCalificar
+	@id_Usuario int
+AS
+	SELECT	TOP 10	o.cod_Publicacion,
+					Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
+					T.Nombre, P.Descripcion, O.Fecha
+	FROM ATJ.Ofertas O
+	INNER JOIN ATJ.Publicaciones P ON P.Codigo = O.cod_Publicacion
+	INNER JOIN ATJ.Tipos_Publicacion T ON T.id_Tipo = P.id_Tipo
+	LEFT JOIN ATJ.Empresas E ON O.id_Usuario_Vendedor = E.id_Usuario
+	LEFT JOIN ATJ.Clientes S ON O.id_Usuario_Vendedor = S.id_Usuario
+	WHERE	O.id_Usuario_Comprador = @id_Usuario 
+	AND		O.gano_Subasta = 1
+	AND		O.cod_Publicacion NOT IN (SELECT cod_Publicacion FROM ATJ.Calificaciones)
+	
+	UNION
+	
+	SELECT	TOP 10  c.cod_Publicacion,
+					Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
+					T.Nombre, P.Descripcion, C.Fecha
+	FROM ATJ.Compras C
+	INNER JOIN ATJ.Publicaciones P ON P.Codigo = C.cod_Publicacion
+	INNER JOIN ATJ.Tipos_Publicacion T ON T.id_Tipo = P.id_Tipo
+	LEFT JOIN ATJ.Empresas E ON C.id_Usuario_Vendedor = E.id_Usuario
+	LEFT JOIN ATJ.Clientes S ON C.id_Usuario_Vendedor = S.id_Usuario
+	WHERE	id_Usuario_Comprador = @id_Usuario 
+	AND		C.cod_Publicacion NOT IN (SELECT cod_Publicacion FROM ATJ.Calificaciones)
+GO
+
+--Procedure insertCalificacion
+CREATE PROCEDURE ATJ.insertCalificacion
+	@id_Usuario int,
+	@cod_Publicacion int,
+	@CantEstrellas numeric(18,0),
+	@Descripcion nvarchar(255)
+AS
+	INSERT INTO ATJ.Calificaciones 
+	(id_Usuario_Calificador, cod_Publicacion, Cant_Estrellas, Descripcion)
+	VALUES
+	(@id_Usuario, @cod_Publicacion, (@CantEstrellas * 2), @Descripcion)
+GO

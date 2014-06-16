@@ -42,6 +42,7 @@
             this.listadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.misPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calificarVendedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -124,7 +125,8 @@
             this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.historialToolStripMenuItem1,
             this.listadoEstadísticoToolStripMenuItem,
-            this.misPublicacionesToolStripMenuItem});
+            this.misPublicacionesToolStripMenuItem,
+            this.calificarVendedoresToolStripMenuItem});
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
             this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.usuarioToolStripMenuItem.Text = "Usuario";
@@ -132,21 +134,21 @@
             // historialToolStripMenuItem1
             // 
             this.historialToolStripMenuItem1.Name = "historialToolStripMenuItem1";
-            this.historialToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
+            this.historialToolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
             this.historialToolStripMenuItem1.Text = "Historial";
             this.historialToolStripMenuItem1.Click += new System.EventHandler(this.historialToolStripMenuItem1_Click);
             // 
             // listadoEstadísticoToolStripMenuItem
             // 
             this.listadoEstadísticoToolStripMenuItem.Name = "listadoEstadísticoToolStripMenuItem";
-            this.listadoEstadísticoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.listadoEstadísticoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.listadoEstadísticoToolStripMenuItem.Text = "Listado Estadístico";
             this.listadoEstadísticoToolStripMenuItem.Click += new System.EventHandler(this.listadoEstadísticoToolStripMenuItem_Click);
             // 
             // misPublicacionesToolStripMenuItem
             // 
             this.misPublicacionesToolStripMenuItem.Name = "misPublicacionesToolStripMenuItem";
-            this.misPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.misPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.misPublicacionesToolStripMenuItem.Text = "Mis Publicaciones";
             this.misPublicacionesToolStripMenuItem.Click += new System.EventHandler(this.misPublicacionesToolStripMenuItem_Click);
             // 
@@ -154,6 +156,13 @@
             // 
             this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
             this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // calificarVendedoresToolStripMenuItem
+            // 
+            this.calificarVendedoresToolStripMenuItem.Name = "calificarVendedoresToolStripMenuItem";
+            this.calificarVendedoresToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.calificarVendedoresToolStripMenuItem.Text = "Calificar Vendedores";
+            this.calificarVendedoresToolStripMenuItem.Click += new System.EventHandler(this.calificarVendedoresToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -191,6 +200,7 @@
         private System.Windows.Forms.ToolStripMenuItem aBMClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem misPublicacionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verPublicacionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem calificarVendedoresToolStripMenuItem;
 
     }
 }
