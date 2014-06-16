@@ -15,8 +15,8 @@ namespace Clases
         private int _nro_Factura;
         private DateTime _Fecha;
         private decimal _Precio_Total;
-
         private Forma_Pago _Forma_Pago;
+        private Usuario _id_Usuario;
 
         #endregion
 
@@ -42,6 +42,12 @@ namespace Clases
             set { _Forma_Pago = value; }
         }
 
+        public Usuario id_Usuario
+        {
+            get { return _id_Usuario; }
+            set { _id_Usuario = value; }
+        }
+
         #endregion
 
         #region metodos publicos
@@ -65,11 +71,39 @@ namespace Clases
             this.Forma_Pago.id_Forma_Pago = Convert.ToInt32(dr["id_Forma_Pago"]);
         }
 
+        
+    
+        public int obtenerUltimoNumFactura()
+        {
+            DataSet ds = this.TraerListado(this.parameterList, "UltimoNumero");
+            this.parameterList.Clear();
+            int ultimoNum = Convert.ToInt32(ds.Tables[0].Rows[0]);
+            return ultimoNum;
+        }
 
+
+        public void cargarNuevaFactura()
+        {
+            setearListaDeParametros();
+            this.Guardar(parameterList);
+            parameterList.Clear();
+        }
+        
         #endregion
 
         #region metodos privados
+        
+        private void setearListaDeParametros()
+        {
+            parameterList.Add(new SqlParameter("@nro_Factura", this.nro_Factura));
+            parameterList.Add(new SqlParameter("@Fecha", this.Fecha));
+            parameterList.Add(new SqlParameter("@Precio_Total", this.Precio_Total));
+            parameterList.Add(new SqlParameter("@id_Forma_Pago", this.Forma_Pago));
+            parameterList.Add(new SqlParameter("@id_Usuario", this.id_Usuario));
+        }
 
         #endregion
+
+        
     }
 }

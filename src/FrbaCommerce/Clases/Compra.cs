@@ -41,8 +41,7 @@ namespace Clases
             Fecha = unaFecha;
         }
         #endregion
-
-
+        
         #region properties
         public int id_Compra
         {
@@ -116,6 +115,8 @@ namespace Clases
             }
 
         }
+
+      
 
 
         #endregion

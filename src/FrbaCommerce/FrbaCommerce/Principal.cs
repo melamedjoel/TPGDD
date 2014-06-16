@@ -18,8 +18,9 @@ using FrbaCommerce.Listado_Estadistico;
 using FrbaCommerce.Abm_Cliente;
 using FrbaCommerce.Editar_Publicacion;
 using FrbaCommerce.Comprar_Ofertar;
+using FrbaCommerce.Facturar_Publicaciones;
 using FrbaCommerce.Calificar_Vendedor;
-
+	
 namespace FrbaCommerce
 {
     public partial class Principal : Form
@@ -56,10 +57,10 @@ namespace FrbaCommerce
         }
 
         private void historialToolStripMenuItem1_Click(object sender, EventArgs e)
-       {
+        {
            listadoHistorialDeOperaciones frmListadoHistorial = new listadoHistorialDeOperaciones();
            frmListadoHistorial.abrirConUsuario(unUsuario);           
-       }
+        }
 
 
         public void abrirConUsuario(Usuario user)
@@ -91,6 +92,12 @@ namespace FrbaCommerce
         {
             frmVerPublicaciones lasPublic = new frmVerPublicaciones();
             lasPublic.abrirConUsuario(unUsuario);
+        }
+
+        private void facturarPublicacionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmFacturar frmFacturarPublicaciones = new frmFacturar();
+            frmFacturarPublicaciones.abrirConUsuario(unUsuario);
         }
 
         private void calificarVendedoresToolStripMenuItem_Click(object sender, EventArgs e)

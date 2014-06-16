@@ -73,10 +73,38 @@ namespace Clases
             this.Cantidad = Convert.ToInt32(dr["Cantidad"]);
         }
 
+        public DataSet obtenerItemsPorPublicacion(int cod_Publicacion)
+        {
+            this.setearListaDeParametrosConCodPublicacion(cod_Publicacion);
+            DataSet ds = this.TraerListado(this.parameterList, "PorPublicacion");
+            this.parameterList.Clear();
+
+            return ds;
+        }
+
+        public void cargarNuevoItemFactura()
+        {
+            setearListaDeParametros();
+            this.Guardar(parameterList);
+            parameterList.Clear();
+        }
 
         #endregion
 
         #region metodos privados
+
+        private void setearListaDeParametrosConCodPublicacion(int cod_Publicacion)
+        {
+            parameterList.Add(new SqlParameter("@cod_Publicacion", cod_Publicacion));
+        }
+
+        private void setearListaDeParametros()
+        {
+            parameterList.Add(new SqlParameter("@nro_Factura", this.Factura));
+            parameterList.Add(new SqlParameter("@cod_Publicacion", this.Publicacion));
+            parameterList.Add(new SqlParameter("@Monto", this.Monto));
+            parameterList.Add(new SqlParameter("@Cantidad", this.Cantidad));
+        }
 
         #endregion
     }

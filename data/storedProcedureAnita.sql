@@ -206,3 +206,84 @@ AS
 	WHERE id_Pregunta = @id_Pregunta 
 	
 GO
+
+--Procedure traerListadoFormas_Pago
+CREATE PROCEDURE ATJ.traerListadoFormas_Pago
+
+AS
+	SELECT *
+	FROM ATJ.Formas_Pago
+GO
+
+--Procedure trartListadoPublicacionesMasAntiguasARendirPorUsuario
+CREATE PROCEDURE ATJ.trartListadoPublicacionesARendirPorUsuario
+	@Id_Usuario int
+	
+AS
+
+SELECT P.*
+FROM ATJ.Publicaciones P
+INNER JOIN ATJ.Compras C ON C.cod_Publicacion = P.Codigo
+WHERE (P.Fecha_vencimiento <= GETDATE()
+OR P.Stock <=	(SELECT SUM(C.Cantidad) FROM ATJ.Compras C
+				 WHERE C.cod_Publicacion = P.Codigo
+				 GROUP BY C.cod_Publicacion))
+AND P.id_Usuario = @Id_Usuario
+AND P.Codigo NOT IN (SELECT I.cod_Publicacion FROM ATJ.Item_Factura I)
+ORDER BY C.Fecha ASC
+GO
+
+--Procedure traerFacturasUltimoNumero
+CREATE PROCEDURE ATJ.traerFacturasUltimoNumero
+AS
+SELECT MAX(nro_Factura)
+FROM ATJ.Facturas
+GO
+
+
+--Procedure traerItem_FacturaPorNroFactura
+CREATE PROCEDURE ATJ.traerItem_FacturaPorNroFactura
+	@nro_Factura int
+AS
+SELECT *
+FROM ATJ.Item_Factura
+WHERE nro_Factura = @nro_Factura
+GO
+
+--Procedure insertFactura
+CREATE PROCEDURE ATJ.insertFactura
+	@Nro_Factura numeric(18,0),
+    @Fecha datetime,
+    @Precio_Total numeric(18,2),
+    @id_Forma_Pago int,
+    @id_Usuario int
+AS
+INSERT INTO ATJ.Facturas
+(nro_Factura,Fecha,Precio_Total,id_Forma_Pago, id_Usuario)
+VALUES
+(@Nro_Factura,@Fecha,@Precio_Total,@id_Forma_Pago,@id_Usuario)
+GO
+
+--Procedure insertItem_Factura
+CREATE PROCEDURE ATJ.insertItem_Factura
+	@nro_Factura numeric(18,0),
+	@cod_Publicacion numeric(18,0),
+	@Monto numeric(18,2),
+	@Cantidad numeric(18,0)
+AS
+INSERT INTO ATJ.Item_Factura
+(nro_Factura,cod_Publicacion,Monto,Cantidad)
+VALUES
+(@nro_Factura,@cod_Publicacion,@Monto,@Cantidad)
+GO
+
+--Procedure traerListadoItems_FacturaPorPublicacion
+CREATE PROCEDURE ATJ.traerListadoItems_FacturaPorPublicacion
+	@cod_Publicacion numeric(18,0)
+AS
+
+SELECT *
+FROM ATJ.Item_Factura 
+WHERE cod_Publicacion = @cod_Publicacion
+GO
+

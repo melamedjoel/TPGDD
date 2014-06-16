@@ -25,9 +25,9 @@ namespace Clases
         private Visibilidad _visibilidad;
         private Estado_Publicacion _estado_Publicacion;
         private List<Rubro> _rubros;
-
-
+        
         #endregion
+
         #region constructor
         public Publicacion(){
             this.Codigo = -1;
@@ -51,8 +51,6 @@ namespace Clases
         }
         
         #endregion
-
-
 
         #region properties
         public int Codigo
@@ -246,7 +244,6 @@ namespace Clases
             }
         }
 
-
         public object obtenerRubrosEnTexto()
         {
             string textoRubros = "";
@@ -255,6 +252,14 @@ namespace Clases
                 textoRubros += unRubro.Descripcion + ", ";
             }
             return textoRubros.Remove(textoRubros.Length - 2);
+        }
+
+        public DataSet obtenerPublisARendir(Usuario unUsuario)
+        {
+            this.setearListaDeParametrosConIdUsuario(unUsuario.Id_Usuario);
+            DataSet ds = this.TraerListado(this.parameterList, "MasAntiguasARendirPorUsuario");
+            this.parameterList.Clear();
+            return ds;
         }
 
 

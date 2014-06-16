@@ -61,6 +61,7 @@ namespace FrbaCommerce.Listado_Estadistico
                     Año = txtAño.Text;
                     lblTrimestre.Visible = true;
                     cmbTrimestre.Visible = true;
+                    cmbTrimestre.SelectedIndex = 0;
                     btnSeleccionar.Visible = true;
                 }
 
@@ -288,6 +289,7 @@ namespace FrbaCommerce.Listado_Estadistico
         private void configuracionTop5Visible()
         {
             cmbListado.Visible = true;
+            cmbListado.SelectedIndex = 0;
             btnVer.Visible = true;
         }
 

@@ -59,7 +59,6 @@
             this.cmbListado.Name = "cmbListado";
             this.cmbListado.Size = new System.Drawing.Size(346, 21);
             this.cmbListado.TabIndex = 0;
-            this.cmbListado.Text = "Top 5 de ...";
             // 
             // txtAño
             // 
@@ -100,7 +99,6 @@
             this.cmbTrimestre.Name = "cmbTrimestre";
             this.cmbTrimestre.Size = new System.Drawing.Size(121, 21);
             this.cmbTrimestre.TabIndex = 5;
-            this.cmbTrimestre.Text = "Trimestre";
             // 
             // grpFiltros
             // 
@@ -174,9 +172,9 @@
             // 
             this.dtgTop5.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dtgTop5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgTop5.Location = new System.Drawing.Point(101, 134);
+            this.dtgTop5.Location = new System.Drawing.Point(118, 134);
             this.dtgTop5.Name = "dtgTop5";
-            this.dtgTop5.Size = new System.Drawing.Size(587, 224);
+            this.dtgTop5.Size = new System.Drawing.Size(570, 224);
             this.dtgTop5.TabIndex = 43;
             // 
             // btnVer

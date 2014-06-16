@@ -145,6 +145,12 @@
     <Compile Include="Comprar-Ofertar\frmVerPublicaciones.Designer.cs">
       <DependentUpon>frmVerPublicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Facturar Publicaciones\frmFacturar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturar Publicaciones\frmFacturar.Designer.cs">
+      <DependentUpon>frmFacturar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gestion de Preguntas\listadoPreguntas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar-Ofertar\frmVerPublicaciones.resx">
       <DependentUpon>frmVerPublicaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturar Publicaciones\frmFacturar.resx">
+      <DependentUpon>frmFacturar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion de Preguntas\listadoPreguntas.resx">
       <DependentUpon>listadoPreguntas.cs</DependentUpon>

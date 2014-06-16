@@ -49,11 +49,35 @@ namespace Clases
             this.Descripcion = dr["Descripcion"].ToString();
         }
 
+        public DataSet obtengoTodas()
+        {
+            DataSet ds = this.TraerListado(this.parameterList, "");
+            return ds;
+        }
+
+        public Forma_Pago obtenerPorId(int id_FormaPago)
+        {
+            setearListaDeParametros(id_FormaPago);
+            DataSet ds = this.TraerListado(this.parameterList, "PorID");
+            parameterList.Clear();
+            Forma_Pago formaPago = new Forma_Pago();
+            formaPago.id_Forma_Pago = Convert.ToInt32(ds.Tables[0].Rows[0]);
+            formaPago.Descripcion = Convert.ToString(ds.Tables[1].Rows[0]);
+            return formaPago;
+        }
 
         #endregion
 
         #region metodos privados
 
+        private void setearListaDeParametros(int id_FormaPago)
+        {
+            parameterList.Add(new SqlParameter("@id_Forma_Pago", id_FormaPago));
+            
+        }
+
         #endregion
+
+        
     }
 }

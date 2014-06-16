@@ -22,6 +22,11 @@ namespace FrbaCommerce.Historial_Cliente
             InitializeComponent();
         }
 
+        private void listadoHistorialDeOperaciones_Load(object sender, EventArgs e)
+        {
+            cmbHistorial.SelectedIndex = 0;
+        }
+
         private void configurarGrillaCompras(DataSet ds)
         {
             dtgHistorial.Columns.Clear();
