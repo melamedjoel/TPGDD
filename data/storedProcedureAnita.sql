@@ -215,8 +215,8 @@ AS
 	FROM ATJ.Formas_Pago
 GO
 
---Procedure trartListadoPublicacionesMasAntiguasARendirPorUsuario
-CREATE PROCEDURE ATJ.trartListadoPublicacionesARendirPorUsuario
+--Procedure traerListadoPublicacionesMasAntiguasARendirPorUsuario
+CREATE PROCEDURE ATJ.traerListadoPublicacionesMasAntiguasARendirPorUsuario
 	@Id_Usuario int
 	
 AS
@@ -241,8 +241,8 @@ FROM ATJ.Facturas
 GO
 
 
---Procedure traerItem_FacturaPorNroFactura
-CREATE PROCEDURE ATJ.traerItem_FacturaPorNroFactura
+--Procedure traerListadoItems_FacturaPorNroFactura
+CREATE PROCEDURE ATJ.traerListadoItems_FacturaPorNroFactura
 	@nro_Factura int
 AS
 SELECT *

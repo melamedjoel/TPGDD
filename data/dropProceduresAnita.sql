@@ -13,10 +13,10 @@ DROP PROCEDURE ATJ.updatePreguntaConRespuesta;
 DROP PROCEDURE ATJ.traerListadoFormas_Pago;
 DROP PROCEDURE ATJ.traerListadoPublicacionesMasAntiguasARendirPorUsuario;
 DROP PROCEDURE ATJ.traerFacturasUltimoNumero;
-DROP PROCEDURE ATJ.traerListadoItems_FacturaPorNroFactura;
 DROP PROCEDURE ATJ.insertFactura;
 DROP PROCEDURE ATJ.insertItem_Factura;
 DROP PROCEDURE ATJ.traerListadoItems_FacturaPorPublicacion;
+DROP PROCEDURE ATJ.traerListadoItems_FacturaPorNroFactura;
 
 
 
