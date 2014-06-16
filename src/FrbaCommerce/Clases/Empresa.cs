@@ -238,6 +238,7 @@ namespace Clases
         public void guardarDatosDeEmpresaNuevaRegistrada(int id_Usuario)
         {
             setearListaDeParametros();
+            setearListaDeParametrosConIdRol();
             setearListaDeParametrosConIdUsuario(id_Usuario);
             this.Guardar(parameterList);
             parameterList.Clear();

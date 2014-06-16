@@ -251,6 +251,7 @@ namespace Clases
         public void guardarDatosDeClienteNuevoRegistrado(int id_usuario)
         {
             setearListaDeParametros();
+            setearListaDeParametrosConIdRol();
             setearListaDeParametrosConIdUsuario(id_usuario);
             this.Guardar(parameterList);
             parameterList.Clear();

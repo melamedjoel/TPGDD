@@ -39,8 +39,7 @@ namespace FrbaCommerce.Abm_Cliente
             txtCodPostal.Text = unCliente.Dom_cod_postal;
             txtDepto.Text = unCliente.Dom_depto;
             txtCuil.Text = unCliente.Cuil;
-            cmbTipoDni.SelectedValue = unCliente.Tipo_Doc;
-
+            cmbTipoDni.Text = unCliente.Tipo_Doc;
             txtDni.Text = Convert.ToString(unCliente.Dni);
             txtFechaNac.Text = Convert.ToString(unCliente.Fecha_nac);
             txtLocalidad.Text = unCliente.Dom_ciudad;
@@ -69,6 +68,7 @@ namespace FrbaCommerce.Abm_Cliente
 
             btnAceptarACliente.Visible = false;
             btnAceptarMCliente.Visible = false;
+            btnAceptarRCliente.Visible = false;
         }
         public void AbrirParaModificar(Cliente unCliente, listadoCliente frmEnviador)
         {
@@ -101,13 +101,15 @@ namespace FrbaCommerce.Abm_Cliente
         {
             frmPadre = frmEnviador;
             this.Show();
-            //"" Es necesario??? 
+
+            cmbTipoDni.SelectedIndex = 1;
+            txtDni.Enabled = false;
+
             txtApellido.Text = "";
             txtCalle.Text = "";
             txtCodPostal.Text = "";
             txtDepto.Text = "";
             txtCuil.Text = "";
-            txtDni.Text = "";
             txtFechaNac.Text = Convert.ToString(DateTime.Today);
             txtLocalidad.Text = "";
             txtMail.Text = "";
@@ -124,12 +126,15 @@ namespace FrbaCommerce.Abm_Cliente
         public void AbrirParaRegistrarNuevoCliente(int id_usuario)
         {
             this.Show();
+
+            cmbTipoDni.SelectedIndex = 1;
+            txtDni.Enabled = false;
+
             txtApellido.Text = "";
             txtCalle.Text = "";
             txtCodPostal.Text = "";
             txtDepto.Text = "";
             txtCuil.Text = "";
-            txtDni.Text = "";
             txtFechaNac.Text = Convert.ToString(DateTime.Today);
             txtLocalidad.Text = "";
             txtMail.Text = "";
@@ -143,30 +148,8 @@ namespace FrbaCommerce.Abm_Cliente
 
             btnAceptarMCliente.Visible = false;
             btnAceptarACliente.Visible = false;
+            btnVolver.Visible = false;
             btnAceptarRCliente.Visible = true;
-        }
-
-        public void AbrirParaRegistrarNuevoCliente()
-        {
-            this.Show();
-            //"" Es necesario??? 
-            txtApellido.Text = "";
-            txtCalle.Text = "";
-            txtCodPostal.Text = "";
-            txtDepto.Text = "";
-            txtCuil.Text = "";
-            txtDni.Text = "";
-            txtFechaNac.Text = Convert.ToString(DateTime.Today);
-            txtLocalidad.Text = "";
-            txtMail.Text = "";
-            txtNombre.Text = "";
-            txtNroPiso.Text = "";
-            txtNumeroCalle.Text = "";
-            txtTelefono.Text = "";
-            chkActivo.Visible = false;
-
-            btnAceptarMCliente.Visible = false;
-            btnAceptarACliente.Visible = true;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -299,10 +282,13 @@ namespace FrbaCommerce.Abm_Cliente
                 if (dr == DialogResult.OK)
                 {
                     this.Close();
-                    frmPadre.BringToFront();
+                    Application.Run(new Inicial());
                 }
-                ////INSERTAR EN LA TABLA ROL_USUARIO EL ID_ROL (ATRIBUTO) CON THIS.ID_US_REGISTR
 
+            }
+            catch (EntidadExistenteException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ErrorConsultaException ex)
             {
@@ -336,9 +322,11 @@ namespace FrbaCommerce.Abm_Cliente
 
         private void cmbTipoDni_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (cmbTipoDni.Text != "Dni") { txtDni.Enabled = false; }
+            if (cmbTipoDni.Text == "Dni") { txtDni.Enabled = true; }
 
         }
+
+        
 
       
 

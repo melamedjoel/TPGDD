@@ -63,6 +63,7 @@ namespace FrbaCommerce.Abm_Empresa
 
             btnAceptarAEmpresa.Visible = false;
             btnAceptarMEmpresa.Visible = false;
+            btnAceptarREmpresa.Visible = false;
         }
         public void AbrirParaModificar(Empresa unaEmpresa, listadoEmpresa frmEnviador)
         {
@@ -76,10 +77,10 @@ namespace FrbaCommerce.Abm_Empresa
             txtNombreContacto.Text = unaEmpresa.Nombre_contacto;
             txtMail.Text = unaEmpresa.Mail;
             txtTelefono.Text = unaEmpresa.Telefono;
-            txtCalle.Text = unaEmpresa.Dom_calle; 
-            if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) txtNumeroCalle.Text = Convert.ToString(unaEmpresa.Dom_nro_calle);
-            if (!String.IsNullOrEmpty(txtNroPiso.Text)) txtNroPiso.Text = Convert.ToString(unaEmpresa.Dom_piso);
-            if (!String.IsNullOrEmpty(txtDepto.Text)) txtDepto.Text = Convert.ToString(unaEmpresa.Dom_depto);
+            txtCalle.Text = unaEmpresa.Dom_calle;
+            txtNumeroCalle.Text = Convert.ToString(unaEmpresa.Dom_nro_calle);
+            txtNroPiso.Text = Convert.ToString(unaEmpresa.Dom_piso);
+            txtDepto.Text = Convert.ToString(unaEmpresa.Dom_depto);
             txtCodPostal.Text = unaEmpresa.Dom_cod_postal;
             txtLocalidad.Text = unaEmpresa.Dom_ciudad;
             txtFechaCreacion.Text = Convert.ToString(unaEmpresa.Fecha_creacion);
@@ -107,7 +108,6 @@ namespace FrbaCommerce.Abm_Empresa
         {
             frmPadre = frmEnviador;
             this.Show();
-            //"" Es necesario??? 
             txtRazonSocial.Text = "";
             txtCuit.Text = "";
             txtNombreContacto.Text = "";
@@ -147,6 +147,7 @@ namespace FrbaCommerce.Abm_Empresa
 
             btnAceptarMEmpresa.Visible = false;
             btnAceptarAEmpresa.Visible = false;
+            btnVolver.Visible = false;
             btnAceptarREmpresa.Visible = true;
         }
 
@@ -171,7 +172,7 @@ namespace FrbaCommerce.Abm_Empresa
                 empresaDelForm.Dom_depto = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) empresaDelForm.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
                 if (!String.IsNullOrEmpty(txtNroPiso.Text)) empresaDelForm.Dom_piso = Int32.Parse(txtNroPiso.Text);
-                if (!String.IsNullOrEmpty(txtDepto.Text)) empresaDelForm.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
+                if (!String.IsNullOrEmpty(txtFechaCreacion.Text)) empresaDelForm.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
                 empresaDelForm.Mail = txtMail.Text;
                 empresaDelForm.Nombre_contacto = txtNombreContacto.Text;
                 empresaDelForm.Telefono = txtTelefono.Text;
@@ -215,7 +216,7 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Dom_depto = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) unaEmpresaNueva.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
                 if (!String.IsNullOrEmpty(txtNroPiso.Text)) unaEmpresaNueva.Dom_piso = Int32.Parse(txtNroPiso.Text);
-                if (!String.IsNullOrEmpty(txtDepto.Text)) unaEmpresaNueva.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
+                if (!String.IsNullOrEmpty(txtFechaCreacion.Text)) unaEmpresaNueva.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
                 unaEmpresaNueva.Telefono = txtTelefono.Text;
@@ -262,7 +263,7 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Dom_depto = txtDepto.Text;
                 if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) unaEmpresaNueva.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
                 if (!String.IsNullOrEmpty(txtNroPiso.Text)) unaEmpresaNueva.Dom_piso = Int32.Parse(txtNroPiso.Text);
-                if (!String.IsNullOrEmpty(txtDepto.Text)) unaEmpresaNueva.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
+                if (!String.IsNullOrEmpty(txtFechaCreacion.Text)) unaEmpresaNueva.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
                 unaEmpresaNueva.Telefono = txtTelefono.Text;
@@ -274,10 +275,13 @@ namespace FrbaCommerce.Abm_Empresa
                 DialogResult dr = MessageBox.Show("El usuario ha sido registrado y la empresa creada.", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
                 {
-                    this.Close();
-                    frmPadre.BringToFront();
+                    this.Close(); 
+                    Application.Run(new Inicial());
                 }
-                ////INSERTAR EN LA TABLA ROL_USUARIO EL ID_ROL (ATRIBUTO) CON THIS.ID_US_REGISTR
+            }
+            catch (EntidadExistenteException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ErrorConsultaException ex)
             {

@@ -29,27 +29,47 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         private void btnContinuar_Click(object sender, EventArgs e)
         {
-            ValidarCampos();
-            Usuario unUsuarioNuevo = new Usuario();
-
-            unUsuarioNuevo.Username = txtUsername.Text;
-            unUsuarioNuevo.Clave = Encryptor.GetSHA256(txtPassword.Text);
-            unUsuarioNuevo.ClaveAutoGenerada = false;
-            unUsuarioNuevo.Activo = true;
-
-            unUsuarioNuevo.guardarDatosDeUsuarioNuevo();
-
-            if (cmdRol.Text == "Empresa")
+            try
             {
-                frmEmpresa _frmEmpresa = new frmEmpresa();
-                _frmEmpresa.AbrirParaRegistrarNuevaEmpresa(unUsuarioNuevo.Id_Usuario);
-            }
-            if (cmdRol.Text == "Cliente")
-            {
-                frmCliente _frmCliente = new frmCliente();
-                _frmCliente.AbrirParaRegistrarNuevoCliente(unUsuarioNuevo.Id_Usuario);
-            }
+                ValidarCampos();
+                Usuario unUsuarioNuevo = new Usuario();
 
+                unUsuarioNuevo.Username = txtUsername.Text;
+                unUsuarioNuevo.Clave = Encryptor.GetSHA256(txtPassword.Text);
+                unUsuarioNuevo.ClaveAutoGenerada = false;
+                unUsuarioNuevo.Activo = true;
+
+                unUsuarioNuevo.guardarDatosDeUsuarioNuevo();
+
+                if (cmdRol.Text == "Empresa")
+                {
+                    frmEmpresa _frmEmpresa = new frmEmpresa();
+                    _frmEmpresa.AbrirParaRegistrarNuevaEmpresa(unUsuarioNuevo.Id_Usuario);
+                    this.Hide();
+                }
+                if (cmdRol.Text == "Cliente")
+                {
+                    frmCliente _frmCliente = new frmCliente();
+                    _frmCliente.AbrirParaRegistrarNuevoCliente(unUsuarioNuevo.Id_Usuario);
+                    this.Hide();
+                }
+            }
+            catch (EntidadExistenteException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (BadInsertException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 

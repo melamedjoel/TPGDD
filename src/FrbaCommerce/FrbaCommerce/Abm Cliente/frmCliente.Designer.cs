@@ -296,7 +296,8 @@
             this.cmbTipoDni.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDni.FormattingEnabled = true;
             this.cmbTipoDni.Items.AddRange(new object[] {
-            "Dni"});
+            "Dni",
+            "Otro"});
             this.cmbTipoDni.Location = new System.Drawing.Point(174, 66);
             this.cmbTipoDni.Name = "cmbTipoDni";
             this.cmbTipoDni.Size = new System.Drawing.Size(57, 21);

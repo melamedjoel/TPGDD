@@ -236,7 +236,7 @@ AS
 GO
 --Procedure insertUsuario
 CREATE PROCEDURE ATJ.insertUsuario
-	@Username int,
+	@Username nvarchar(255),
 	@Clave nvarchar(255),
 	@ClaveAutoGenerada bit,
 	@Activo bit
@@ -249,7 +249,7 @@ GO
 
 --Procedure insertUsuario_RetornarID
 CREATE PROCEDURE ATJ.insertUsuario_RetornarID
-	@Username int,
+	@Username nvarchar(255),
 	@Clave nvarchar(255),
 	@ClaveAutoGenerada bit,
 	@Activo bit
