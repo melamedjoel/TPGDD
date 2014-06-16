@@ -286,7 +286,7 @@ AS
 GO
 
 --Procedure updatePublicacion
-ALTER PROCEDURE ATJ.updatePublicacion
+CREATE PROCEDURE ATJ.updatePublicacion
 	@Codigo int,
 	@id_Usuario numeric(18,0),
 	@Descripcion nvarchar(255),

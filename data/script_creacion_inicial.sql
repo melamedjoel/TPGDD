@@ -161,6 +161,7 @@ CREATE TABLE ATJ.Visibilidades
 	Descripcion nvarchar(255) NULL,
 	Precio numeric(18, 2) NULL DEFAULT 0.00,
 	Porcentaje numeric(18, 2) NULL,
+	Duracion int NULL,
 	Activo bit NULL DEFAULT 1,
 	Eliminado bit NULL DEFAULT 0
 	)  ON [PRIMARY]
@@ -664,10 +665,16 @@ INSERT INTO ATJ.Rubros (Descripcion, Activo) (SELECT DISTINCT Publicacion_Rubro_
 --Migracion de datos tabla Visibilidades
 SET IDENTITY_INSERT ATJ.Visibilidades ON
 
-INSERT INTO ATJ.Visibilidades (cod_Visibilidad, Descripcion, Porcentaje, Precio)
-(SELECT DISTINCT Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Porcentaje, Publicacion_Visibilidad_Precio
-FROM [gd_esquema].[Maestra] where Publicacion_Visibilidad_Cod is not null)
-
+INSERT INTO ATJ.Visibilidades (cod_Visibilidad, Descripcion, Porcentaje, Precio, Duracion)
+(SELECT DISTINCT [Publicacion_Visibilidad_Cod]
+				,[Publicacion_Visibilidad_Desc]
+				,[Publicacion_Visibilidad_Precio]
+				,[Publicacion_Visibilidad_Porcentaje]
+				,(SELECT DISTINCT DATEDIFF(day,Publicacion_Fecha,Publicacion_Fecha_Venc)
+				  FROM gd_esquema.Maestra
+				  WHERE Publicacion_Visibilidad_Cod = [Publicacion_Visibilidad_Cod])
+FROM gd_esquema.Maestra 
+WHERE Publicacion_Visibilidad_Cod is not null)
 
 SET IDENTITY_INSERT ATJ.Visibilidades OFF
 
