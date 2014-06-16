@@ -35,7 +35,6 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dtgListado = new System.Windows.Forms.DataGridView();
-            this.btnVer = new System.Windows.Forms.Button();
             this.btnResponderPregs = new System.Windows.Forms.Button();
             this.btnRespuestas = new System.Windows.Forms.Button();
             this.grpFiltros.SuspendLayout();
@@ -108,21 +107,11 @@
             this.dtgListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgListado.Size = new System.Drawing.Size(873, 288);
             this.dtgListado.TabIndex = 41;
-            // 
-            // btnVer
-            // 
-            this.btnVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVer.Location = new System.Drawing.Point(885, 136);
-            this.btnVer.Name = "btnVer";
-            this.btnVer.Size = new System.Drawing.Size(31, 35);
-            this.btnVer.TabIndex = 42;
-            this.btnVer.Text = "Ver";
-            this.btnVer.UseVisualStyleBackColor = true;
-            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
+            this.dtgListado.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgListado_CellContentClick);
             // 
             // btnResponderPregs
             // 
-            this.btnResponderPregs.Location = new System.Drawing.Point(804, 136);
+            this.btnResponderPregs.Location = new System.Drawing.Point(845, 136);
             this.btnResponderPregs.Name = "btnResponderPregs";
             this.btnResponderPregs.Size = new System.Drawing.Size(75, 35);
             this.btnResponderPregs.TabIndex = 43;
@@ -132,7 +121,7 @@
             // 
             // btnRespuestas
             // 
-            this.btnRespuestas.Location = new System.Drawing.Point(723, 136);
+            this.btnRespuestas.Location = new System.Drawing.Point(764, 136);
             this.btnRespuestas.Name = "btnRespuestas";
             this.btnRespuestas.Size = new System.Drawing.Size(75, 35);
             this.btnRespuestas.TabIndex = 44;
@@ -148,7 +137,6 @@
             this.ClientSize = new System.Drawing.Size(965, 477);
             this.Controls.Add(this.btnRespuestas);
             this.Controls.Add(this.btnResponderPregs);
-            this.Controls.Add(this.btnVer);
             this.Controls.Add(this.dtgListado);
             this.Controls.Add(this.grpFiltros);
             this.Name = "frmMisPublicaciones";
@@ -169,7 +157,6 @@
         public System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txtDescripcion;
         public System.Windows.Forms.DataGridView dtgListado;
-        public System.Windows.Forms.Button btnVer;
         private System.Windows.Forms.Button btnResponderPregs;
         private System.Windows.Forms.Button btnRespuestas;
     }

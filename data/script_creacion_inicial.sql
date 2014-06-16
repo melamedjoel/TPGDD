@@ -120,7 +120,6 @@ CREATE TABLE ATJ.Publicaciones
 	id_Tipo int NULL,
 	cod_Visibilidad numeric(18, 0) NULL,
 	id_Estado int NULL,
-	id_Rubro int NULL,
 	permiso_Preguntas bit NULL DEFAULT 1
 	)  ON [PRIMARY]
 GO
@@ -194,6 +193,14 @@ ALTER TABLE ATJ.Rubros ADD CONSTRAINT
 GO
 ALTER TABLE ATJ.Rubros SET (LOCK_ESCALATION = TABLE)
 GO
+
+-----------------------------------------------------------------------------------------------------------------------------
+--Creacion de tabla de datos Rubros_Publicacion
+CREATE TABLE [ATJ].[Rubros_Publicacion] (
+	[id_Rubros_Publicacion] int IDENTITY (1,1),
+	[id_Rubro] int NOT NULL,
+	[cod_Publicacion] numeric(18,0) NOT NULL
+);
 
 ------------------------------------------------------------------------------------------------------------------------------
 -- Creacion tabla de datos Preguntas
@@ -425,7 +432,6 @@ CREATE TABLE ATJ.Calificaciones
 	(
 	cod_Calificacion numeric(18, 0) NOT NULL IDENTITY (1, 1),
 	id_Usuario_Calificador int NOT NULL,
-	id_Usuario_Calificado int NOT NULL,
 	cod_Publicacion int NOT NULL,
 	Cant_Estrellas numeric(18, 0) NULL,
 	Descripcion nvarchar(255) NULL
@@ -476,14 +482,6 @@ ADD CONSTRAINT FK_Calificador_Usuario FOREIGN KEY (id_Usuario_Calificador)
 ;
 GO
 
---Creacion foreing key usuario calificado
-ALTER TABLE ATJ.Calificaciones
-ADD CONSTRAINT FK_Calificado_Usuario FOREIGN KEY (id_Usuario_Calificado) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-;
-GO
 
 --Creacion foreing key usuario vendedor compras
 ALTER TABLE ATJ.Compras
@@ -585,14 +583,6 @@ ADD CONSTRAINT FK_Estados_Publicacion FOREIGN KEY (id_Estado)
 ;
 GO
 
---Creacion foreing key publicacion rubros
-ALTER TABLE ATJ.Publicaciones
-ADD CONSTRAINT FK_Rubros_Publicacion FOREIGN KEY (id_Rubro) 
-    REFERENCES ATJ.Rubros (id_Rubro) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
 
 --Creacion foreing key rol por funcionalidad
 ALTER TABLE ATJ.Rol_Funcionalidad
@@ -708,14 +698,13 @@ VALUES
 SET IDENTITY_INSERT ATJ.Publicaciones ON
 
 INSERT INTO ATJ.Publicaciones(Codigo,Descripcion, Fecha_creacion, Fecha_vencimiento, Precio, Stock,id_Tipo, 
-cod_Visibilidad, id_Usuario, id_Rubro, id_Estado)
+cod_Visibilidad, id_Usuario, id_Estado)
 (SELECT DISTINCT M.Publicacion_Cod, M.Publicacion_Descripcion, M.Publicacion_Fecha, M.Publicacion_Fecha_Venc,
 M.Publicacion_Precio, M.Publicacion_Stock, TP.id_Tipo, M.Publicacion_Visibilidad_Cod, 
-Entidad = (CASE WHEN Publ_Cli_Dni IS null THEN Uempresa.id_Usuario ELSE Ucliente.id_Usuario END), R.id_Rubro, E.id_Estado
+Entidad = (CASE WHEN Publ_Cli_Dni IS null THEN Uempresa.id_Usuario ELSE Ucliente.id_Usuario END), E.id_Estado
 FROM [gd_esquema].[Maestra] as "M" 
 INNER JOIN ATJ.Tipos_Publicacion as "TP" ON TP.Nombre = M.Publicacion_tipo
-INNER JOIN ATJ.Rubros AS "R" ON R.Descripcion = M.Publicacion_Rubro_Descripcion
-INNER JOIN ATJ.Estados_Publicacion AS "E" ON E.Nombre = M.Publicacion_Estado
+INNER JOIN ATJ.Estados_Publicacion AS "E" ON E.Nombre = 'Finalizada'
 LEFT JOIN ATJ.Usuarios AS "Uempresa" ON Uempresa.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))
 LEFT JOIN ATJ.Usuarios AS "Ucliente" ON Ucliente.Username = CAST(M.Publ_Cli_Dni AS NVARCHAR(50))
 WHERE M.Publicacion_Cod is not null)
@@ -748,29 +737,32 @@ VALUES
 
 SET IDENTITY_INSERT ATJ.Calificaciones ON
 
-INSERT INTO ATJ.Calificaciones (cod_Calificacion, id_Usuario_Calificado, id_Usuario_Calificador, cod_Publicacion, Cant_Estrellas, Descripcion)
+	INSERT INTO ATJ.Calificaciones (cod_Calificacion, cod_Publicacion, id_Usuario_Calificador, Cant_Estrellas, Descripcion) (
+		SELECT [Calificacion_Codigo],
+			   [Publicacion_Cod],
+			   (SELECT id_Usuario FROM ATJ.Usuarios U WHERE CONVERT(nvarchar(255), Cli_Dni) = U.Username),
+		       CAST(ROUND([Calificacion_Cant_Estrellas]/2,0) AS INT),
+		       [Calificacion_Descripcion]
+		FROM gd_esquema.Maestra
+		WHERE [Calificacion_Codigo] IS NOT NULL)
+		
+	SET IDENTITY_INSERT ATJ.Calificaciones OFF
 
-SELECT 
-M.Calificacion_Codigo,
-EntidadCalificada = (CASE WHEN M.Publ_Cli_Dni IS null THEN UempresasCalificado.id_Usuario ELSE UclientesCalificado.id_Usuario END),
-EntidadCalificadora = UclientesCalificador.id_Usuario,
-M.Publicacion_Cod,
-M.Calificacion_Cant_Estrellas,
-M.Calificacion_Descripcion
-from gd_esquema.Maestra as M
-LEFT JOIN ATJ.Usuarios as UempresasCalificado on UempresasCalificado.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))
-LEFT JOIN ATJ.Usuarios as UclientesCalificado on UclientesCalificado.Username = CAST(M.Publ_Cli_Dni AS NVARCHAR(50))
-LEFT JOIN ATJ.Usuarios as UclientesCalificador on UclientesCalificador.Username = CAST(M.Cli_Dni AS NVARCHAR(50))
-WHERE M.Calificacion_Codigo is not null 
-order by M.Calificacion_Codigo
-
-SET IDENTITY_INSERT ATJ.Calificaciones OFF
-
-SELECT @number = MAX(Calificacion_Codigo) FROM gd_esquema.Maestra
-DBCC CHECKIDENT ('ATJ.Calificaciones', RESEED, @number);
+	DECLARE @maxIdCalificacion numeric(18,0);
+	SELECT @maxIdCalificacion = MAX(Calificacion_Codigo) FROM gd_esquema.Maestra DBCC CHECKIDENT ('ATJ.Calificaciones', RESEED, @maxIdCalificacion);
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos de tabla Roles
 INSERT INTO ATJ.Roles(Nombre) VALUES ('Administrativo'),('Cliente'),('Empresa')
+
+--------------------------------------------------------------------------------------------------------------------
+--Migracion de datos de tabla Rubros_Publicacion
+INSERT INTO [ATJ].[Rubros_Publicacion] (id_Rubro, cod_Publicacion) (
+	SELECT DISTINCT
+	(SELECT id_Rubro FROM ATJ.Rubros R WHERE R.Descripcion = Publicacion_Rubro_Descripcion),
+	(SELECT P.Codigo FROM ATJ.Publicaciones P WHERE P.Codigo = Publicacion_Cod)
+	FROM gd_esquema.Maestra
+	WHERE Publicacion_Cod IS NOT NULL)
+
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos de tabla Compras
 INSERT INTO ATJ.Compras(cod_Publicacion, id_Usuario_Vendedor, id_Usuario_Comprador, Fecha, Cantidad)

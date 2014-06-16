@@ -35,9 +35,6 @@
             this.lblCreacion = new System.Windows.Forms.Label();
             this.lblFechaVencimiento = new System.Windows.Forms.Label();
             this.lblTipo = new System.Windows.Forms.Label();
-            this.lblVisibilidad = new System.Windows.Forms.Label();
-            this.lblEstado = new System.Windows.Forms.Label();
-            this.lblRubro = new System.Windows.Forms.Label();
             this.lblPrecio = new System.Windows.Forms.Label();
             this.btnComprar = new System.Windows.Forms.Button();
             this.btnOfertar = new System.Windows.Forms.Button();
@@ -46,9 +43,6 @@
             this.txtPreguntas = new System.Windows.Forms.TextBox();
             this.lblPreguntas = new System.Windows.Forms.Label();
             this.lblPrecioACompletar = new System.Windows.Forms.Label();
-            this.lblRubroACompletar = new System.Windows.Forms.Label();
-            this.lblEstadoACompletar = new System.Windows.Forms.Label();
-            this.lblVisibilidadACompletar = new System.Windows.Forms.Label();
             this.lblTipoACompletar = new System.Windows.Forms.Label();
             this.lblFechaVencimientoACompletar = new System.Windows.Forms.Label();
             this.lblFechaCreacionACompletar = new System.Windows.Forms.Label();
@@ -60,7 +54,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(328, 345);
+            this.btnVolver.Location = new System.Drawing.Point(454, 135);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 62;
@@ -122,33 +116,6 @@
             this.lblTipo.TabIndex = 67;
             this.lblTipo.Text = "Tipo";
             // 
-            // lblVisibilidad
-            // 
-            this.lblVisibilidad.AutoSize = true;
-            this.lblVisibilidad.Location = new System.Drawing.Point(39, 211);
-            this.lblVisibilidad.Name = "lblVisibilidad";
-            this.lblVisibilidad.Size = new System.Drawing.Size(53, 13);
-            this.lblVisibilidad.TabIndex = 69;
-            this.lblVisibilidad.Text = "Visibilidad";
-            // 
-            // lblEstado
-            // 
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(39, 237);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(40, 13);
-            this.lblEstado.TabIndex = 71;
-            this.lblEstado.Text = "Estado";
-            // 
-            // lblRubro
-            // 
-            this.lblRubro.AutoSize = true;
-            this.lblRubro.Location = new System.Drawing.Point(39, 263);
-            this.lblRubro.Name = "lblRubro";
-            this.lblRubro.Size = new System.Drawing.Size(36, 13);
-            this.lblRubro.TabIndex = 73;
-            this.lblRubro.Text = "Rubro";
-            // 
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
@@ -160,7 +127,7 @@
             // 
             // btnComprar
             // 
-            this.btnComprar.Location = new System.Drawing.Point(328, 316);
+            this.btnComprar.Location = new System.Drawing.Point(454, 106);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(75, 23);
             this.btnComprar.TabIndex = 78;
@@ -170,7 +137,7 @@
             // 
             // btnOfertar
             // 
-            this.btnOfertar.Location = new System.Drawing.Point(328, 316);
+            this.btnOfertar.Location = new System.Drawing.Point(454, 106);
             this.btnOfertar.Name = "btnOfertar";
             this.btnOfertar.Size = new System.Drawing.Size(75, 23);
             this.btnOfertar.TabIndex = 79;
@@ -183,18 +150,18 @@
             this.grpPreguntas.Controls.Add(this.btnRegistrarPregunta);
             this.grpPreguntas.Controls.Add(this.txtPreguntas);
             this.grpPreguntas.Controls.Add(this.lblPreguntas);
-            this.grpPreguntas.Location = new System.Drawing.Point(328, 98);
+            this.grpPreguntas.Location = new System.Drawing.Point(42, 221);
             this.grpPreguntas.Name = "grpPreguntas";
-            this.grpPreguntas.Size = new System.Drawing.Size(257, 159);
+            this.grpPreguntas.Size = new System.Drawing.Size(487, 159);
             this.grpPreguntas.TabIndex = 80;
             this.grpPreguntas.TabStop = false;
             this.grpPreguntas.Text = "Realizar Preguntas";
             // 
             // btnRegistrarPregunta
             // 
-            this.btnRegistrarPregunta.Location = new System.Drawing.Point(62, 128);
+            this.btnRegistrarPregunta.Location = new System.Drawing.Point(185, 127);
             this.btnRegistrarPregunta.Name = "btnRegistrarPregunta";
-            this.btnRegistrarPregunta.Size = new System.Drawing.Size(125, 23);
+            this.btnRegistrarPregunta.Size = new System.Drawing.Size(284, 23);
             this.btnRegistrarPregunta.TabIndex = 77;
             this.btnRegistrarPregunta.Text = "Registrar Pregunta";
             this.btnRegistrarPregunta.UseVisualStyleBackColor = true;
@@ -206,7 +173,7 @@
             this.txtPreguntas.MaxLength = 255;
             this.txtPreguntas.Multiline = true;
             this.txtPreguntas.Name = "txtPreguntas";
-            this.txtPreguntas.Size = new System.Drawing.Size(189, 91);
+            this.txtPreguntas.Size = new System.Drawing.Size(407, 91);
             this.txtPreguntas.TabIndex = 76;
             // 
             // lblPreguntas
@@ -226,33 +193,6 @@
             this.lblPrecioACompletar.Name = "lblPrecioACompletar";
             this.lblPrecioACompletar.Size = new System.Drawing.Size(0, 13);
             this.lblPrecioACompletar.TabIndex = 90;
-            // 
-            // lblRubroACompletar
-            // 
-            this.lblRubroACompletar.AutoSize = true;
-            this.lblRubroACompletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRubroACompletar.Location = new System.Drawing.Point(142, 263);
-            this.lblRubroACompletar.Name = "lblRubroACompletar";
-            this.lblRubroACompletar.Size = new System.Drawing.Size(0, 13);
-            this.lblRubroACompletar.TabIndex = 89;
-            // 
-            // lblEstadoACompletar
-            // 
-            this.lblEstadoACompletar.AutoSize = true;
-            this.lblEstadoACompletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstadoACompletar.Location = new System.Drawing.Point(142, 237);
-            this.lblEstadoACompletar.Name = "lblEstadoACompletar";
-            this.lblEstadoACompletar.Size = new System.Drawing.Size(0, 13);
-            this.lblEstadoACompletar.TabIndex = 88;
-            // 
-            // lblVisibilidadACompletar
-            // 
-            this.lblVisibilidadACompletar.AutoSize = true;
-            this.lblVisibilidadACompletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVisibilidadACompletar.Location = new System.Drawing.Point(142, 211);
-            this.lblVisibilidadACompletar.Name = "lblVisibilidadACompletar";
-            this.lblVisibilidadACompletar.Size = new System.Drawing.Size(0, 13);
-            this.lblVisibilidadACompletar.TabIndex = 87;
             // 
             // lblTipoACompletar
             // 
@@ -315,9 +255,6 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(597, 410);
             this.Controls.Add(this.lblPrecioACompletar);
-            this.Controls.Add(this.lblRubroACompletar);
-            this.Controls.Add(this.lblEstadoACompletar);
-            this.Controls.Add(this.lblVisibilidadACompletar);
             this.Controls.Add(this.lblTipoACompletar);
             this.Controls.Add(this.lblFechaVencimientoACompletar);
             this.Controls.Add(this.lblFechaCreacionACompletar);
@@ -328,9 +265,6 @@
             this.Controls.Add(this.btnOfertar);
             this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.lblPrecio);
-            this.Controls.Add(this.lblRubro);
-            this.Controls.Add(this.lblEstado);
-            this.Controls.Add(this.lblVisibilidad);
             this.Controls.Add(this.lblTipo);
             this.Controls.Add(this.lblFechaVencimiento);
             this.Controls.Add(this.lblCreacion);
@@ -357,9 +291,6 @@
         private System.Windows.Forms.Label lblCreacion;
         private System.Windows.Forms.Label lblFechaVencimiento;
         private System.Windows.Forms.Label lblTipo;
-        private System.Windows.Forms.Label lblVisibilidad;
-        private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.Label lblRubro;
         private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.Button btnComprar;
         private System.Windows.Forms.Button btnOfertar;
@@ -368,9 +299,6 @@
         private System.Windows.Forms.TextBox txtPreguntas;
         private System.Windows.Forms.Label lblPreguntas;
         private System.Windows.Forms.Label lblPrecioACompletar;
-        private System.Windows.Forms.Label lblRubroACompletar;
-        private System.Windows.Forms.Label lblEstadoACompletar;
-        private System.Windows.Forms.Label lblVisibilidadACompletar;
         private System.Windows.Forms.Label lblTipoACompletar;
         private System.Windows.Forms.Label lblFechaVencimientoACompletar;
         private System.Windows.Forms.Label lblFechaCreacionACompletar;

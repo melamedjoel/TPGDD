@@ -95,12 +95,36 @@ namespace Clases
             return ds;
         }
 
+        public static List<Rubro> obtenerPorCodPublicacion(int cod_Publicacion)
+        {
+            Rubro miRubro = new Rubro();
+            miRubro.setearListaDeParametrosConCodPublicacion(cod_Publicacion);
+            DataSet ds = miRubro.TraerListado(miRubro.parameterList, "PorCodPublicacion");
+            miRubro.parameterList.Clear();
+            List<Rubro> listaADevolver = new List<Rubro>();
+            if (ds.Tables[0].Rows.Count == 0)
+                return null;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                Rubro unRubro = new Rubro();
+                unRubro.DataRowToObject(dr);
+                listaADevolver.Add(unRubro);
+            }
+            return listaADevolver;
+        }
+
+
         #endregion
 
         #region metodos privados
         private void setearListaDeParametrosConIdRubro(int id_Rubro)
         {
             parameterList.Add(new SqlParameter("@id_Rubro", id_Rubro));
+        }
+
+        private void setearListaDeParametrosConCodPublicacion(int cod_Publicacion)
+        {
+            parameterList.Add(new SqlParameter("@cod_Publicacion", cod_Publicacion));
         }
         #endregion
 

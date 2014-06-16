@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using Conexion;
 
 namespace Clases
 {
@@ -23,7 +24,8 @@ namespace Clases
         private Tipo_Publicacion _tipo_publicacion;
         private Visibilidad _visibilidad;
         private Estado_Publicacion _estado_Publicacion;
-        private Rubro _rubro;
+        private List<Rubro> _rubros;
+
 
         #endregion
         #region constructor
@@ -108,11 +110,13 @@ namespace Clases
             get { return _estado_Publicacion; }
             set { _estado_Publicacion = value; }
         }
-        public Rubro Rubro
+
+        public List<Rubro> Rubros
         {
-            get { return _rubro; }
-            set { _rubro = value; }
+            get { return _rubros; }
+            set { _rubros = value; }
         }
+        
         #endregion
 
         #region metodos publicos
@@ -139,8 +143,8 @@ namespace Clases
             this.Tipo_Publicacion = new Tipo_Publicacion(Convert.ToInt32(dr["id_Tipo"]));
             this.Visibilidad = new Visibilidad(Convert.ToInt32(dr["cod_Visibilidad"]));
             this.Estado_Publicacion = new Estado_Publicacion(Convert.ToInt32(dr["id_Estado"]));
-            this.Rubro = new Rubro(Convert.ToInt32(dr["id_Rubro"]));
             this.Permiso_Preguntas = Convert.ToBoolean(dr["permiso_Preguntas"]);
+            this.Rubros = Rubro.obtenerPorCodPublicacion(this.Codigo);
         }
 
         public static DataSet obtenerTodas(Usuario unUsuario)
@@ -152,6 +156,7 @@ namespace Clases
 
             return ds;
         }
+
 
         public static DataSet ObtenerPublicacionPorId(int unCodigo)
         {
@@ -209,6 +214,49 @@ namespace Clases
 
         }
 
+        public void ModificarDatosYRubros()
+        {
+            setearListaDeParametrosEntidadEntera();
+
+            if (this.Modificar(parameterList))
+            {
+                parameterList.Clear();
+            }
+
+            modificarRubros();
+
+        }
+
+        public void modificarRubros()
+        {
+            setearListaDeParametrosConCodigoPublic(Codigo);
+            SQLHelper.ExecuteDataSet(_strEliminar + "Rubros_Publicacion" + "PorCod_Publicacion", CommandType.StoredProcedure, "Rubros_Publicacion", parameterList);
+            parameterList.Clear();
+            guardarRubros();
+        }
+
+        public void guardarRubros()
+        {
+            foreach (Rubro unRubro in Rubros)
+            {
+                setearListaDeParametrosConCodPublicacionEIdRubro(unRubro.id_Rubro);
+                SQLHelper.ExecuteDataSet(_strInsertar + "Rubros_Publicacion", CommandType.StoredProcedure, "Rubros_Publicacion", parameterList);
+                parameterList.Clear();
+
+            }
+        }
+
+
+        public object obtenerRubrosEnTexto()
+        {
+            string textoRubros = "";
+            foreach (Rubro unRubro in Rubros)
+            {
+                textoRubros += unRubro.Descripcion + ", ";
+            }
+            return textoRubros.Remove(textoRubros.Length - 2);
+        }
+
 
         #endregion
 
@@ -234,6 +282,12 @@ namespace Clases
         {
             parameterList.Add(new SqlParameter("@cod_Publicacion", unCodigo));
         }
+        
+        private void setearListaDeParametrosConCodPublicacionEIdRubro(int unIdRubro)
+        {
+            parameterList.Add(new SqlParameter("@cod_Publicacion", Codigo));
+            parameterList.Add(new SqlParameter("@id_Rubro", unIdRubro));
+        }
 
         private void setearListaDeParametrosConIdUsuarioYFiltros(int unIdUsuario, string unaDesc)
         {
@@ -253,7 +307,6 @@ namespace Clases
             parameterList.Add(new SqlParameter("@id_Tipo", Tipo_Publicacion.id_Tipo));
             parameterList.Add(new SqlParameter("@cod_Visibilidad", Visibilidad.cod_Visibilidad));
             parameterList.Add(new SqlParameter("@id_Estado", Estado_Publicacion.id_Estado));
-            parameterList.Add(new SqlParameter("@id_Rubro", Rubro.id_Rubro));
             parameterList.Add(new SqlParameter("@permiso_Preguntas", Permiso_Preguntas));
         }
 

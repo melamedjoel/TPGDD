@@ -18,7 +18,8 @@ namespace FrbaCommerce.Comprar_Ofertar
     public partial class frmVerPublicaciones : Form
     {
         Usuario unUsuario = new Usuario();
-
+        Dictionary<int, Publicacion> publicaciones = new Dictionary<int, Publicacion>();
+        List<Publicacion> listaDePubs = new List<Publicacion>();
         public frmVerPublicaciones()
         {
             InitializeComponent();
@@ -35,7 +36,8 @@ namespace FrbaCommerce.Comprar_Ofertar
             try
             {
                 DataSet ds = Publicacion.obtenerTodas(Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]));
-                configurarGrilla(ds);
+                llenarPublicaciones(ds);
+                configurarGrilla();
             }
             catch (ErrorConsultaException ex)
             {
@@ -47,103 +49,56 @@ namespace FrbaCommerce.Comprar_Ofertar
             }
         }
 
-        private void configurarGrilla(DataSet ds)
+        private void llenarPublicaciones(DataSet ds)
+        {
+            listaDePubs.Clear();
+            publicaciones.Clear();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                Publicacion unaPub = new Publicacion();
+                unaPub.DataRowToObject(dr);
+                listaDePubs.Add(unaPub);
+            }
+
+            publicaciones = listaDePubs.ToDictionary(unaPub => unaPub.Codigo, unaPub => unaPub);
+        }
+
+        private void configurarGrilla()
         {
             dtgListado.Columns.Clear();
-            dtgListado.AutoGenerateColumns = false;
 
-            DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
-            clmID.Width = 60;
-            clmID.ReadOnly = true;
-            clmID.DataPropertyName = "Codigo";
-            clmID.HeaderText = "Codigo";
-            dtgListado.Columns.Add(clmID);
+            var listadoABindear = publicaciones.Values.Select(unaPub => new
+            {
+                Codigo = unaPub.Codigo,
+                Descripcion = unaPub.Descripcion,
+                Creacion = unaPub.Fecha_creacion,
+                Vencimiento = unaPub.Fecha_vencimiento,
+                Stock = unaPub.Stock,
+                Precio = unaPub.Precio,
+                Preguntas = unaPub.Permiso_Preguntas,
+                Tipo = unaPub.Tipo_Publicacion.Nombre,
+                Visibilidad = unaPub.Visibilidad.Descripcion,
+                Rubros = unaPub.obtenerRubrosEnTexto()
+            });
 
-            DataGridViewTextBoxColumn clmNombreUsuario = new DataGridViewTextBoxColumn();
-            clmNombreUsuario.Width = 100;
-            clmNombreUsuario.ReadOnly = true;
-            clmNombreUsuario.DataPropertyName = "Username";
-            clmNombreUsuario.HeaderText = "Usuario";
-            dtgListado.Columns.Add(clmNombreUsuario);
+            dtgListado.DataSource = listadoABindear.ToList();
+            dtgListado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            agregarBotonVer();
 
-            DataGridViewTextBoxColumn clmDesc = new DataGridViewTextBoxColumn();
-            clmDesc.Width = 200;
-            clmDesc.ReadOnly = true;
-            clmDesc.DataPropertyName = "Descripcion";
-            clmDesc.HeaderText = "Descripcion";
-            dtgListado.Columns.Add(clmDesc);
-
-            DataGridViewTextBoxColumn clmStock = new DataGridViewTextBoxColumn();
-            clmStock.Width = 60;
-            clmStock.ReadOnly = true;
-            clmStock.DataPropertyName = "Stock";
-            clmStock.HeaderText = "Stock";
-            dtgListado.Columns.Add(clmStock);
-
-            DataGridViewTextBoxColumn clmPrecio = new DataGridViewTextBoxColumn();
-            clmPrecio.Width = 60;
-            clmPrecio.ReadOnly = true;
-            clmPrecio.DataPropertyName = "Precio";
-            clmPrecio.HeaderText = "Precio";
-            dtgListado.Columns.Add(clmPrecio);
-
-            DataGridViewTextBoxColumn clmCreacion = new DataGridViewTextBoxColumn();
-            clmCreacion.Width = 100;
-            clmCreacion.ReadOnly = true;
-            clmCreacion.DataPropertyName = "Fecha_creacion";
-            clmCreacion.HeaderText = "Fecha_creacion";
-            dtgListado.Columns.Add(clmCreacion);
-
-
-            DataGridViewTextBoxColumn clmVencimiento = new DataGridViewTextBoxColumn();
-            clmVencimiento.Width = 100;
-            clmVencimiento.ReadOnly = true;
-            clmVencimiento.DataPropertyName = "Fecha_vencimiento";
-            clmVencimiento.HeaderText = "Fecha_vencimiento";
-            dtgListado.Columns.Add(clmVencimiento);
-
-            DataGridViewTextBoxColumn clmTipo = new DataGridViewTextBoxColumn();
-            clmTipo.Width = 100;
-            clmTipo.ReadOnly = true;
-            clmTipo.DataPropertyName = "NombreTipo";
-            clmTipo.HeaderText = "Tipo";
-            dtgListado.Columns.Add(clmTipo);
-
-            DataGridViewTextBoxColumn clmVisib = new DataGridViewTextBoxColumn();
-            clmVisib.Width = 100;
-            clmVisib.ReadOnly = true;
-            clmVisib.DataPropertyName = "DescVisibilidad";
-            clmVisib.HeaderText = "Visibilidad";
-            dtgListado.Columns.Add(clmVisib);
-
-            DataGridViewTextBoxColumn clmEstado = new DataGridViewTextBoxColumn();
-            clmEstado.Width = 100;
-            clmEstado.ReadOnly = true;
-            clmEstado.DataPropertyName = "NombreEstado";
-            clmEstado.HeaderText = "Estado";
-            dtgListado.Columns.Add(clmEstado);
-
-            DataGridViewTextBoxColumn clmRubro = new DataGridViewTextBoxColumn();
-            clmRubro.Width = 100;
-            clmRubro.ReadOnly = true;
-            clmRubro.DataPropertyName = "NombreRubro";
-            clmRubro.HeaderText = "Rubro";
-            dtgListado.Columns.Add(clmRubro);
-
-            DataGridViewCheckBoxColumn clmPregs = new DataGridViewCheckBoxColumn();
-            clmPregs.Width = 30;
-            clmPregs.ReadOnly = true;
-            clmPregs.DataPropertyName = "permiso_Preguntas";
-            clmPregs.HeaderText = "Permiso Preguntas";
-            dtgListado.Columns.Add(clmPregs);
-
-            dtgListado.DataSource = ds.Tables[0];
         }
 
-        private int valorIdSeleccionado()
+        private void agregarBotonVer()
         {
-            return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["Codigo"]);
+            var nuevaClm = new DataGridViewButtonColumn
+            {
+                Text = "Ver",
+                UseColumnTextForButtonValue = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            };
+
+            dtgListado.Columns.Add(nuevaClm);
         }
+
 
 
         public void CargarListadoDePublicacionesConFiltros()
@@ -156,7 +111,8 @@ namespace FrbaCommerce.Comprar_Ofertar
                     filtroDeRubros += unRubro.Descripcion;
                 }
                 DataSet ds = Publicacion.obtenerTodasConFiltros(Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]),txtDescripcion.Text, filtroDeRubros);
-                configurarGrilla(ds);
+                llenarPublicaciones(ds);
+                configurarGrilla();
             }
             catch (ErrorConsultaException ex)
             {
@@ -188,25 +144,6 @@ namespace FrbaCommerce.Comprar_Ofertar
             lstRubros.DisplayMember = "Descripcion";
         }
 
-        private void btnVer_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                frmDetallePublicGeneral _frmDetalle = new frmDetallePublicGeneral();
-                Publicacion unaPublic = new Publicacion(valorIdSeleccionado());
-                _frmDetalle.AbrirParaVer(unaPublic, this, unUsuario);
-            }
-            catch (ErrorConsultaException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             CargarListadoDePublicacionesConFiltros();
@@ -220,6 +157,17 @@ namespace FrbaCommerce.Comprar_Ofertar
                 lstRubros.SetItemChecked(lstRubros.CheckedIndices[0], false);
             }
             CargarListadoDePublicaciones();
+        }
+
+        private void dtgListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //10 es la columna que contiene el boton de ver, las demas no deberian tener accion alguna
+            if (e.ColumnIndex != 10)
+                return;
+
+            Publicacion unaPub = listaDePubs.Find(pub => pub.Codigo == (int)dtgListado.Rows[e.RowIndex].Cells[0].Value);
+            frmDetallePublicGeneral _frmDetalle = new frmDetallePublicGeneral();
+            _frmDetalle.AbrirParaVer(unaPub, this, unUsuario);
         }
     }
 }

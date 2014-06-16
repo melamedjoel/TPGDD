@@ -32,8 +32,9 @@ SELECT C.cod_Calificacion AS cod_Calificacion,
 Calificador = (S.Nombre+' '+S.Apellido),
 C.Cant_Estrellas AS cant_Estrellas, C.Descripcion AS Descripcion
 FROM ATJ.Calificaciones C
+INNER JOIN ATJ.Publicaciones P ON P.Codigo = C.cod_Publicacion
 INNER JOIN ATJ.Clientes S ON S.id_Usuario = C.id_Usuario_Calificador
-WHERE id_Usuario_Calificado = @id_Usuario
+WHERE P.id_Usuario = @id_Usuario
 GO
 
 --Procedure traerListadoUsuariosCalificacionesOtorgadas
@@ -44,9 +45,10 @@ SELECT C.cod_Calificacion AS cod_Calificacion,
 Calificado = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
 C.Cant_Estrellas AS cant_Estrellas, C.Descripcion AS Descripcion
 FROM ATJ.Calificaciones C
-LEFT JOIN ATJ.Empresas E ON E.id_Usuario = C.id_Usuario_Calificado
-LEFT JOIN ATJ.Clientes S ON S.id_Usuario = C.id_Usuario_Calificado
-WHERE id_Usuario_Calificador = @id_Usuario
+INNER JOIN Publicaciones P ON P.Codigo = C.cod_Publicacion
+LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
+LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
+WHERE C.id_Usuario_Calificador = @id_Usuario
 GO
 
 --Procedure traerListadoUsuariosConMayorCantidadDeProductosSinVender
@@ -98,12 +100,12 @@ AS
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
 CAST(AVG(C.Cant_Estrellas) AS numeric(18,2)) AS PromedioCalificaciones
 FROM ATJ.Calificaciones C
-LEFT JOIN ATJ.Empresas E ON E.id_Usuario = C.id_Usuario_Calificado
-LEFT JOIN ATJ.Clientes S ON S.id_Usuario = C.id_Usuario_Calificado
 INNER JOIN ATJ.Publicaciones P ON P.Codigo = C.cod_Publicacion
+LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
+LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
 AND YEAR(P.Fecha_creacion) = @Año
-GROUP BY C.id_Usuario_Calificado, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
+GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY PromedioCalificaciones DESC
 GO
 
@@ -120,12 +122,11 @@ COUNT(P.Codigo) AS CantPubliSinClasificar
 FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
-INNER JOIN ATJ.Calificaciones C ON P.id_Usuario = C.id_Usuario_Calificado 
+INNER JOIN ATJ.Calificaciones C ON P.id_Usuario = P.id_Usuario 
 WHERE 
 MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
 AND YEAR(P.Fecha_creacion) = @Año
 AND (P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Calificaciones C))
-AND P.id_Usuario = C.id_Usuario_Calificado
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY CantPubliSinClasificar DESC
 GO

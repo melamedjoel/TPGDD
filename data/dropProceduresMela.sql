@@ -40,4 +40,9 @@ DROP PROCEDURE [ATJ].[traerListadoClientesPorId_Usuario];
 DROP PROCEDURE [ATJ].[traerListadoEmpresasPorId_Usuario];
 DROP PROCEDURE ATJ.insertCompra_RetornarID;
 DROP PROCEDURE ATJ.updatePublicacion;
+DROP PROCEDURE [ATJ].[traerListadoEstados_Publicacion];
+DROP PROCEDURE [ATJ].[traerListadoTipos_Publicacion];
+DROP PROCEDURE ATJ.traerListadoRubrosPorCodPublicacion;
+DROP PROCEDURE ATJ.deleteRubros_PublicacionPorCod_Publicacion;
+DROP PROCEDURE [ATJ].[insertRubros_Publicacion];
 

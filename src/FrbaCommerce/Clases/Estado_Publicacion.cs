@@ -80,6 +80,14 @@ namespace Clases
             return ds;
         }
 
+        public static DataSet obtenerTodos()
+        {
+            Estado_Publicacion unEstado = new Estado_Publicacion();
+            DataSet ds = unEstado.TraerListado(unEstado.parameterList, "");
+
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados

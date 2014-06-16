@@ -78,6 +78,15 @@ AS
 	SELECT * FROM ATJ.Rubros
 GO
 
+--Procedure traerListadoRubrosPorCodPublicacion
+CREATE PROCEDURE ATJ.traerListadoRubrosPorCodPublicacion
+	@cod_Publicacion numeric(18,0)
+AS	
+	SELECT R.* FROM ATJ.Rubros R
+	INNER JOIN Rubros_Publicacion RP ON RP.id_Rubro = R.id_Rubro
+	WHERE RP.cod_Publicacion = @cod_Publicacion
+GO
+
 
 --Procedure insertRol_RetornarID
 CREATE PROCEDURE ATJ.insertRol_RetornarID
@@ -102,12 +111,30 @@ AS
 	VALUES 
 	(@id_Rol, @id_Funcionalidad)
 GO
+
+--Procedure insertRubros_Publicacion
+CREATE PROCEDURE [ATJ].[insertRubros_Publicacion]
+	@cod_Publicacion numeric(18,0),
+	@id_Rubro numeric(18,0)
+AS
+	INSERT INTO ATJ.Rubros_Publicacion
+	(cod_Publicacion, id_Rubro)
+	VALUES 
+	(@cod_Publicacion, @id_Rubro)
+GO
 	
 --Procedure deleteRol_FuncionalidadPorIdRol
 CREATE PROCEDURE ATJ.deleteRol_Funcionalidad_PorIdRol
 	@id_Rol int
 AS
 	DELETE FROM ATJ.Rol_Funcionalidad WHERE id_Rol = @id_Rol
+GO
+
+--Procedure deleteRubros_PublicacionPorCod_Publicacion
+CREATE PROCEDURE ATJ.deleteRubros_PublicacionPorCod_Publicacion
+	@cod_Publicacion numeric(18,0)
+AS
+	DELETE FROM ATJ.Rubros_Publicacion WHERE cod_Publicacion = @cod_Publicacion
 GO
 
 --Procedure updateRol
@@ -259,7 +286,7 @@ AS
 GO
 
 --Procedure updatePublicacion
-CREATE PROCEDURE ATJ.updatePublicacion
+ALTER PROCEDURE ATJ.updatePublicacion
 	@Codigo int,
 	@id_Usuario numeric(18,0),
 	@Descripcion nvarchar(255),
@@ -270,12 +297,10 @@ CREATE PROCEDURE ATJ.updatePublicacion
 	@id_Tipo numeric(18,0),
 	@cod_Visibilidad numeric(18,0),
 	@id_Estado numeric(18,0),
-	@id_Rubro numeric(18,0),
 	@permiso_Preguntas bit
 AS
 	UPDATE ATJ.Publicaciones SET id_Usuario = @id_Usuario, Descripcion = @Descripcion, Stock = @Stock, Fecha_creacion = @Fecha_creacion, 
-	@Fecha_vencimiento = @Fecha_vencimiento,Precio = @Precio, id_Tipo = @id_Tipo, cod_Visibilidad = @cod_Visibilidad, id_Estado = @id_Estado,
-	id_Rubro = @id_Rubro, permiso_Preguntas = @permiso_Preguntas
+	Fecha_vencimiento = @Fecha_vencimiento,Precio = @Precio, id_Tipo = @id_Tipo, cod_Visibilidad = @cod_Visibilidad, id_Estado = @id_Estado, permiso_Preguntas = @permiso_Preguntas
 	WHERE Codigo = @Codigo
 GO
 
@@ -404,12 +429,24 @@ AS
 	WHERE id_Estado = @id_Estado
 GO
 
+--Procedure traerListadoEstados_Publicacion
+CREATE PROCEDURE [ATJ].[traerListadoEstados_Publicacion] 
+AS 
+    SELECT * FROM ATJ.Estados_Publicacion
+GO
+
 --Procedure traerListadoTipos_PublicacionPorId_Tipo
 CREATE PROCEDURE [ATJ].[traerListadoTipos_PublicacionPorId_Tipo] 
     @id_Tipo numeric(18,0) 
 AS 
     SELECT * FROM ATJ.Tipos_Publicacion
 	WHERE id_Tipo = @id_Tipo
+GO
+
+--Procedure traerListadoTipos_Publicacion
+CREATE PROCEDURE [ATJ].[traerListadoTipos_Publicacion] 
+AS 
+    SELECT * FROM ATJ.Tipos_Publicacion
 GO
 
 --Procedure traerListadoUsuariosPorId_Usuario
@@ -432,35 +469,21 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoPublicacionesPorId_Usuario] 
     @id_Usuario numeric(18,0) 
 AS 
-    SELECT P.Codigo as Codigo, P.Descripcion as Descripcion, U.Username as Username, P.Stock as Stock, P.Precio Precio,
-    P.Fecha_creacion Fecha_creacion, P.Fecha_Vencimiento Fecha_vencimiento, 
-    TP.Nombre NombreTipo, V.Descripcion DescVisibilidad, E.Nombre NombreEstado,
-    R.Descripcion NombreRubro, P.permiso_Preguntas permiso_Preguntas
+    SELECT P.*
     FROM ATJ.Publicaciones P
-    INNER JOIN ATJ.Usuarios U ON U.id_Usuario = P.id_Usuario
-    INNER JOIN ATJ.Tipos_Publicacion TP on TP.id_Tipo = P.id_Tipo
-    INNER JOIN ATJ.Visibilidades V on V.cod_Visibilidad = P.cod_Visibilidad
-    INNER JOIN ATJ.Estados_Publicacion E on E.id_Estado = P.id_Estado
-    INNER JOIN ATJ.Rubros R on R.id_Rubro = P.id_Rubro
 	WHERE P.id_Usuario = @id_Usuario
 GO
 
 
---Procedure traerListadoPublicaciones
+--Procedure traerListadoPublicacionesNoVendidasOrdenadoPorVisibilidad
 CREATE PROCEDURE [ATJ].[traerListadoPublicacionesNoVendidasOrdenadoPorVisibilidad] 
 	@Fecha_Vencimiento datetime
 AS 
-    SELECT P.Codigo as Codigo, P.Descripcion as Descripcion, U.Username as Username, P.Stock as Stock, P.Precio Precio,
-    P.Fecha_creacion Fecha_creacion, P.Fecha_Vencimiento Fecha_vencimiento, 
-    TP.Nombre NombreTipo, V.Descripcion DescVisibilidad, E.Nombre NombreEstado,
-    R.Descripcion NombreRubro, P.permiso_Preguntas permiso_Preguntas
+    SELECT P.*
     FROM ATJ.Publicaciones P
-    INNER JOIN ATJ.Usuarios U ON U.id_Usuario = P.id_Usuario
-    INNER JOIN ATJ.Tipos_Publicacion TP on TP.id_Tipo = P.id_Tipo
     INNER JOIN ATJ.Visibilidades V on V.cod_Visibilidad = P.cod_Visibilidad
     INNER JOIN ATJ.Estados_Publicacion E on E.id_Estado = P.id_Estado
-    INNER JOIN ATJ.Rubros R on R.id_Rubro = P.id_Rubro
-	WHERE P.Fecha_Vencimiento > @Fecha_Vencimiento AND P.Stock > 0 AND E.Nombre IN ('Publicada', 'Pausada')
+	WHERE P.Fecha_Vencimiento > @Fecha_Vencimiento AND P.Stock > 0 AND E.Nombre IN ('Publicada')
 	ORDER BY V.Precio DESC
 GO
 
@@ -470,20 +493,17 @@ CREATE PROCEDURE [ATJ].[traerListadoPublicacionesNoVendidasOrdenadoPorVisibilida
 	@Descripcion nvarchar(255),
 	@filtroRubros nvarchar(500)
 AS 
-    SELECT P.Codigo as Codigo, P.Descripcion as Descripcion, U.Username as Username, P.Stock as Stock, P.Precio Precio,
-    P.Fecha_creacion Fecha_creacion, P.Fecha_Vencimiento Fecha_vencimiento, 
-    TP.Nombre NombreTipo, V.Descripcion DescVisibilidad, E.Nombre NombreEstado,
-    R.Descripcion NombreRubro, P.permiso_Preguntas permiso_Preguntas
+    SELECT P.*
     FROM ATJ.Publicaciones P
-    INNER JOIN ATJ.Usuarios U ON U.id_Usuario = P.id_Usuario
-    INNER JOIN ATJ.Tipos_Publicacion TP on TP.id_Tipo = P.id_Tipo
     INNER JOIN ATJ.Visibilidades V on V.cod_Visibilidad = P.cod_Visibilidad
     INNER JOIN ATJ.Estados_Publicacion E on E.id_Estado = P.id_Estado
-    INNER JOIN ATJ.Rubros R on R.id_Rubro = P.id_Rubro
-	WHERE P.Fecha_Vencimiento > @Fecha_Vencimiento AND P.Stock > 0 AND E.Nombre IN ('Publicada', 'Pausada')
+	INNER JOIN ATJ.Rubros_Publicacion RP on RP.cod_Publicacion = P.Codigo
+    INNER JOIN ATJ.Rubros R on R.id_Rubro = RP.id_Rubro
+	WHERE P.Fecha_Vencimiento > @Fecha_Vencimiento AND P.Stock > 0 AND E.Nombre IN ('Publicada')
 	AND P.Descripcion LIKE (CASE WHEN @Descripcion <> '' THEN '%' + @Descripcion + '%' ELSE P.Descripcion END)
 	AND R.Descripcion IN (CASE WHEN @filtroRubros <> '' THEN @filtroRubros ELSE R.Descripcion END)	
 	ORDER BY V.Precio DESC
+	
 GO
 
 --Procedure traerListadoPublicacionesPorId_UsuarioYFiltros
@@ -491,15 +511,7 @@ CREATE PROCEDURE [ATJ].[traerListadoPublicacionesPorId_UsuarioYFiltros]
     @id_Usuario numeric(18,0),
 	@Descripcion nvarchar(255)
 AS 
-    SELECT P.Codigo as Codigo, P.Descripcion as Descripcion, U.Username as Username, P.Stock as Stock, P.Precio Precio,
-    P.Fecha_creacion Fecha_creacion, P.Fecha_Vencimiento Fecha_vencimiento, 
-    TP.Nombre NombreTipo, V.Descripcion DescVisibilidad, E.Nombre NombreEstado,
-    R.Descripcion NombreRubro, P.permiso_Preguntas permiso_Preguntas
+    SELECT P.*
     FROM ATJ.Publicaciones P
-    INNER JOIN ATJ.Usuarios U ON U.id_Usuario = P.id_Usuario
-    INNER JOIN ATJ.Tipos_Publicacion TP on TP.id_Tipo = P.id_Tipo
-    INNER JOIN ATJ.Visibilidades V on V.cod_Visibilidad = P.cod_Visibilidad
-    INNER JOIN ATJ.Estados_Publicacion E on E.id_Estado = P.id_Estado
-    INNER JOIN ATJ.Rubros R on R.id_Rubro = P.id_Rubro
 	WHERE P.id_Usuario = @id_Usuario AND P.Descripcion LIKE '%' + @Descripcion + '%'
 GO

@@ -1,4 +1,4 @@
-﻿namespace FrbaCommerce.Editar_Publicacion
+﻿namespace FrbaCommerce.Generar_Publicacion
 {
     partial class frmDetallePublic
     {
@@ -37,24 +37,27 @@
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.txtFechaCreacion = new System.Windows.Forms.TextBox();
             this.lblCreacion = new System.Windows.Forms.Label();
-            this.txtFechaVencimiento = new System.Windows.Forms.TextBox();
             this.lblFechaVencimiento = new System.Windows.Forms.Label();
-            this.txtTipo = new System.Windows.Forms.TextBox();
             this.lblTipo = new System.Windows.Forms.Label();
-            this.txtVisibilidad = new System.Windows.Forms.TextBox();
             this.lblVisibilidad = new System.Windows.Forms.Label();
-            this.txtEstado = new System.Windows.Forms.TextBox();
             this.lblEstado = new System.Windows.Forms.Label();
-            this.txtRubro = new System.Windows.Forms.TextBox();
-            this.lblRubro = new System.Windows.Forms.Label();
-            this.chkPregs = new System.Windows.Forms.CheckBox();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.lblPrecio = new System.Windows.Forms.Label();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.chkPregs = new System.Windows.Forms.CheckBox();
+            this.cmbEstado = new System.Windows.Forms.ComboBox();
+            this.cmbVisibilidad = new System.Windows.Forms.ComboBox();
+            this.cmbTipo = new System.Windows.Forms.ComboBox();
+            this.lblRubro = new System.Windows.Forms.Label();
+            this.lstRubros = new System.Windows.Forms.CheckedListBox();
+            this.dtVencimiento = new System.Windows.Forms.DateTimePicker();
+            this.btnAumentarStock = new System.Windows.Forms.Button();
+            this.btnRestarStock = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(322, 286);
+            this.btnVolver.Location = new System.Drawing.Point(478, 230);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 62;
@@ -98,7 +101,6 @@
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Enabled = false;
             this.txtDescripcion.Location = new System.Drawing.Point(143, 28);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(171, 20);
@@ -130,14 +132,6 @@
             this.lblCreacion.TabIndex = 63;
             this.lblCreacion.Text = "Fecha creacion";
             // 
-            // txtFechaVencimiento
-            // 
-            this.txtFechaVencimiento.Enabled = false;
-            this.txtFechaVencimiento.Location = new System.Drawing.Point(143, 159);
-            this.txtFechaVencimiento.Name = "txtFechaVencimiento";
-            this.txtFechaVencimiento.Size = new System.Drawing.Size(108, 20);
-            this.txtFechaVencimiento.TabIndex = 66;
-            // 
             // lblFechaVencimiento
             // 
             this.lblFechaVencimiento.AutoSize = true;
@@ -146,14 +140,6 @@
             this.lblFechaVencimiento.Size = new System.Drawing.Size(97, 13);
             this.lblFechaVencimiento.TabIndex = 65;
             this.lblFechaVencimiento.Text = "Fecha vencimiento";
-            // 
-            // txtTipo
-            // 
-            this.txtTipo.Enabled = false;
-            this.txtTipo.Location = new System.Drawing.Point(143, 185);
-            this.txtTipo.Name = "txtTipo";
-            this.txtTipo.Size = new System.Drawing.Size(108, 20);
-            this.txtTipo.TabIndex = 68;
             // 
             // lblTipo
             // 
@@ -164,14 +150,6 @@
             this.lblTipo.TabIndex = 67;
             this.lblTipo.Text = "Tipo";
             // 
-            // txtVisibilidad
-            // 
-            this.txtVisibilidad.Enabled = false;
-            this.txtVisibilidad.Location = new System.Drawing.Point(143, 211);
-            this.txtVisibilidad.Name = "txtVisibilidad";
-            this.txtVisibilidad.Size = new System.Drawing.Size(108, 20);
-            this.txtVisibilidad.TabIndex = 70;
-            // 
             // lblVisibilidad
             // 
             this.lblVisibilidad.AutoSize = true;
@@ -180,14 +158,6 @@
             this.lblVisibilidad.Size = new System.Drawing.Size(53, 13);
             this.lblVisibilidad.TabIndex = 69;
             this.lblVisibilidad.Text = "Visibilidad";
-            // 
-            // txtEstado
-            // 
-            this.txtEstado.Enabled = false;
-            this.txtEstado.Location = new System.Drawing.Point(143, 237);
-            this.txtEstado.Name = "txtEstado";
-            this.txtEstado.Size = new System.Drawing.Size(108, 20);
-            this.txtEstado.TabIndex = 72;
             // 
             // lblEstado
             // 
@@ -198,37 +168,8 @@
             this.lblEstado.TabIndex = 71;
             this.lblEstado.Text = "Estado";
             // 
-            // txtRubro
-            // 
-            this.txtRubro.Enabled = false;
-            this.txtRubro.Location = new System.Drawing.Point(143, 263);
-            this.txtRubro.Name = "txtRubro";
-            this.txtRubro.Size = new System.Drawing.Size(108, 20);
-            this.txtRubro.TabIndex = 74;
-            // 
-            // lblRubro
-            // 
-            this.lblRubro.AutoSize = true;
-            this.lblRubro.Location = new System.Drawing.Point(39, 263);
-            this.lblRubro.Name = "lblRubro";
-            this.lblRubro.Size = new System.Drawing.Size(36, 13);
-            this.lblRubro.TabIndex = 73;
-            this.lblRubro.Text = "Rubro";
-            // 
-            // chkPregs
-            // 
-            this.chkPregs.AutoSize = true;
-            this.chkPregs.Enabled = false;
-            this.chkPregs.Location = new System.Drawing.Point(42, 300);
-            this.chkPregs.Name = "chkPregs";
-            this.chkPregs.Size = new System.Drawing.Size(74, 17);
-            this.chkPregs.TabIndex = 75;
-            this.chkPregs.Text = "Preguntas";
-            this.chkPregs.UseVisualStyleBackColor = true;
-            // 
             // txtPrecio
             // 
-            this.txtPrecio.Enabled = false;
             this.txtPrecio.Location = new System.Drawing.Point(143, 106);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(108, 20);
@@ -243,24 +184,119 @@
             this.lblPrecio.TabIndex = 76;
             this.lblPrecio.Text = "Precio";
             // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Location = new System.Drawing.Point(478, 201);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.TabIndex = 78;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // chkPregs
+            // 
+            this.chkPregs.AutoSize = true;
+            this.chkPregs.Location = new System.Drawing.Point(42, 381);
+            this.chkPregs.Name = "chkPregs";
+            this.chkPregs.Size = new System.Drawing.Size(74, 17);
+            this.chkPregs.TabIndex = 75;
+            this.chkPregs.Text = "Preguntas";
+            this.chkPregs.UseVisualStyleBackColor = true;
+            // 
+            // cmbEstado
+            // 
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Location = new System.Drawing.Point(142, 237);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(121, 21);
+            this.cmbEstado.TabIndex = 80;
+            // 
+            // cmbVisibilidad
+            // 
+            this.cmbVisibilidad.FormattingEnabled = true;
+            this.cmbVisibilidad.Location = new System.Drawing.Point(143, 210);
+            this.cmbVisibilidad.Name = "cmbVisibilidad";
+            this.cmbVisibilidad.Size = new System.Drawing.Size(121, 21);
+            this.cmbVisibilidad.TabIndex = 81;
+            // 
+            // cmbTipo
+            // 
+            this.cmbTipo.FormattingEnabled = true;
+            this.cmbTipo.Location = new System.Drawing.Point(142, 183);
+            this.cmbTipo.Name = "cmbTipo";
+            this.cmbTipo.Size = new System.Drawing.Size(121, 21);
+            this.cmbTipo.TabIndex = 82;
+            // 
+            // lblRubro
+            // 
+            this.lblRubro.AutoSize = true;
+            this.lblRubro.Location = new System.Drawing.Point(39, 263);
+            this.lblRubro.Name = "lblRubro";
+            this.lblRubro.Size = new System.Drawing.Size(36, 13);
+            this.lblRubro.TabIndex = 73;
+            this.lblRubro.Text = "Rubro";
+            // 
+            // lstRubros
+            // 
+            this.lstRubros.FormattingEnabled = true;
+            this.lstRubros.Location = new System.Drawing.Point(143, 263);
+            this.lstRubros.Name = "lstRubros";
+            this.lstRubros.Size = new System.Drawing.Size(120, 94);
+            this.lstRubros.TabIndex = 79;
+            // 
+            // dtVencimiento
+            // 
+            this.dtVencimiento.Location = new System.Drawing.Point(142, 158);
+            this.dtVencimiento.Name = "dtVencimiento";
+            this.dtVencimiento.Size = new System.Drawing.Size(200, 20);
+            this.dtVencimiento.TabIndex = 83;
+            // 
+            // btnAumentarStock
+            // 
+            this.btnAumentarStock.AutoSize = true;
+            this.btnAumentarStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAumentarStock.Location = new System.Drawing.Point(258, 80);
+            this.btnAumentarStock.Name = "btnAumentarStock";
+            this.btnAumentarStock.Size = new System.Drawing.Size(26, 26);
+            this.btnAumentarStock.TabIndex = 84;
+            this.btnAumentarStock.Text = "+";
+            this.btnAumentarStock.UseVisualStyleBackColor = true;
+            this.btnAumentarStock.Click += new System.EventHandler(this.btnAumentarStock_Click);
+            // 
+            // btnRestarStock
+            // 
+            this.btnRestarStock.AutoSize = true;
+            this.btnRestarStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestarStock.Location = new System.Drawing.Point(288, 80);
+            this.btnRestarStock.Name = "btnRestarStock";
+            this.btnRestarStock.Size = new System.Drawing.Size(26, 26);
+            this.btnRestarStock.TabIndex = 85;
+            this.btnRestarStock.Text = "-";
+            this.btnRestarStock.UseVisualStyleBackColor = true;
+            this.btnRestarStock.Click += new System.EventHandler(this.btnRestarStock_Click);
+            // 
             // frmDetallePublic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(597, 410);
+            this.Controls.Add(this.btnRestarStock);
+            this.Controls.Add(this.btnAumentarStock);
+            this.Controls.Add(this.dtVencimiento);
+            this.Controls.Add(this.cmbTipo);
+            this.Controls.Add(this.cmbVisibilidad);
+            this.Controls.Add(this.cmbEstado);
+            this.Controls.Add(this.lstRubros);
+            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.chkPregs);
-            this.Controls.Add(this.txtRubro);
             this.Controls.Add(this.lblRubro);
-            this.Controls.Add(this.txtEstado);
             this.Controls.Add(this.lblEstado);
-            this.Controls.Add(this.txtVisibilidad);
             this.Controls.Add(this.lblVisibilidad);
-            this.Controls.Add(this.txtTipo);
             this.Controls.Add(this.lblTipo);
-            this.Controls.Add(this.txtFechaVencimiento);
             this.Controls.Add(this.lblFechaVencimiento);
             this.Controls.Add(this.txtFechaCreacion);
             this.Controls.Add(this.lblCreacion);
@@ -273,6 +309,7 @@
             this.Controls.Add(this.lblDescripcion);
             this.Name = "frmDetallePublic";
             this.Text = "Detalle Publicacion";
+            this.Load += new System.EventHandler(this.frmDetallePublic_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,18 +326,21 @@
         private System.Windows.Forms.Label lblDescripcion;
         private System.Windows.Forms.TextBox txtFechaCreacion;
         private System.Windows.Forms.Label lblCreacion;
-        private System.Windows.Forms.TextBox txtFechaVencimiento;
         private System.Windows.Forms.Label lblFechaVencimiento;
-        private System.Windows.Forms.TextBox txtTipo;
         private System.Windows.Forms.Label lblTipo;
-        private System.Windows.Forms.TextBox txtVisibilidad;
         private System.Windows.Forms.Label lblVisibilidad;
-        private System.Windows.Forms.TextBox txtEstado;
         private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.TextBox txtRubro;
-        private System.Windows.Forms.Label lblRubro;
-        private System.Windows.Forms.CheckBox chkPregs;
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.Label lblPrecio;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.CheckBox chkPregs;
+        private System.Windows.Forms.ComboBox cmbEstado;
+        private System.Windows.Forms.ComboBox cmbVisibilidad;
+        private System.Windows.Forms.ComboBox cmbTipo;
+        private System.Windows.Forms.Label lblRubro;
+        private System.Windows.Forms.CheckedListBox lstRubros;
+        private System.Windows.Forms.DateTimePicker dtVencimiento;
+        private System.Windows.Forms.Button btnAumentarStock;
+        private System.Windows.Forms.Button btnRestarStock;
     }
 }

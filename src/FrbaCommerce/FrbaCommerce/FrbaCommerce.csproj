@@ -139,18 +139,6 @@
     <Compile Include="Comprar-Ofertar\frmVerPublicaciones.Designer.cs">
       <DependentUpon>frmVerPublicaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\frmCompraInmediata.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Generar Publicacion\frmCompraInmediata.Designer.cs">
-      <DependentUpon>frmCompraInmediata.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Generar Publicacion\frmSubasta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Generar Publicacion\frmSubasta.Designer.cs">
-      <DependentUpon>frmSubasta.cs</DependentUpon>
-    </Compile>
     <Compile Include="Gestion de Preguntas\listadoPreguntas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,10 +181,10 @@
     <Compile Include="Login\LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\frmDetallePublic.cs">
+    <Compile Include="Generar Publicacion\frmDetallePublic.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\frmDetallePublic.Designer.cs">
+    <Compile Include="Generar Publicacion\frmDetallePublic.Designer.cs">
       <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </Compile>
     <Compile Include="Editar Publicacion\frmMisPublicaciones.cs">
@@ -252,12 +240,6 @@
     <EmbeddedResource Include="Comprar-Ofertar\frmVerPublicaciones.resx">
       <DependentUpon>frmVerPublicaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\frmCompraInmediata.resx">
-      <DependentUpon>frmCompraInmediata.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\frmSubasta.resx">
-      <DependentUpon>frmSubasta.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Gestion de Preguntas\listadoPreguntas.resx">
       <DependentUpon>listadoPreguntas.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,7 +258,7 @@
     <EmbeddedResource Include="Login\LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\frmDetallePublic.resx">
+    <EmbeddedResource Include="Generar Publicacion\frmDetallePublic.resx">
       <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\frmMisPublicaciones.resx">

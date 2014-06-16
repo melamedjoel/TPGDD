@@ -18,4 +18,5 @@ drop table ATJ.Estados_Publicacion
 drop table ATJ.Facturas 
 drop table ATJ.Formas_Pago 
 drop table ATJ.Funcionalidades
+drop table ATJ.Rubros_Publicacion
 drop schema ATJ

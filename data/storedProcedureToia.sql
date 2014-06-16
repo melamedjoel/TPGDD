@@ -319,26 +319,6 @@ SELECT E.*
 
 GO
 
-
-
---Procedure traerListadoPublicacionesConFiltros
-CREATE PROCEDURE ATJ.traerListadoPublicacionesConFiltros 
-    @id_Rubro int, 
-    @Descripcion nvarchar(255),
-    @FechaDeHoy datetime
-
-AS 
-    SELECT *
-    FROM ATJ.Publicaciones 
-    WHERE	id_Estado = 1 
-    AND		Fecha_vencimiento > @FechaDeHoy 
-    AND		id_Rubro = @id_Rubro 
-    AND		Descripcion = @Descripcion 
-    AND ( id_Tipo = 1 AND Stock >= 1 OR id_tipo <> 1)	
-    ORDER BY cod_Visibilidad 	
-GO
-
-
 --Procedure traerPreguntasNoRespondidasPorUsuario
 CREATE PROCEDURE ATJ.traerPreguntasNoRespondidasPorUsuario
     @id_Usuario int

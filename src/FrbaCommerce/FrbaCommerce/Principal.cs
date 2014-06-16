@@ -67,18 +67,7 @@ namespace FrbaCommerce
             this.Show();
         }
 
-        private void subastaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmSubasta _frmSubasta = new frmSubasta();
-            _frmSubasta.abrirConUsuario(unUsuario);
-        }
-
-        private void compraInmediataToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmCompraInmediata _frmCompra = new frmCompraInmediata();
-            _frmCompra.abrirConUsuario(unUsuario);
-        }
-
+        
         private void listadoEstadísticoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             listadoEstadistico frmListadoEstadistico = new listadoEstadistico();

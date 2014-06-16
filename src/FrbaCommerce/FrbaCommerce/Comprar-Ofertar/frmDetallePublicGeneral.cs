@@ -30,13 +30,10 @@ namespace FrbaCommerce.Comprar_Ofertar
             this.abrirConUsuario(user);
 
             lblDescripcionACompletar.Text = unaPublic.Descripcion;
-            lblEstadoACompletar.Text = unaPublic.Estado_Publicacion.Nombre;
             lblFechaCreacionACompletar.Text = unaPublic.Fecha_creacion.ToString();
             lblFechaVencimientoACompletar.Text = unaPublic.Fecha_vencimiento.ToString();
-            lblRubroACompletar.Text = unaPublic.Rubro.Descripcion;
             lblStockACompletar.Text = unaPublic.Stock.ToString();
             lblUsuarioACompletar.Text = unaPublic.Usuario.Username;
-            lblVisibilidadACompletar.Text = unaPublic.Visibilidad.Descripcion;
             lblTipoACompletar.Text = unaPublic.Tipo_Publicacion.Nombre;
             lblPrecioACompletar.Text = unaPublic.Precio.ToString();
             if (puedeComprarUOfertar())

@@ -14,7 +14,6 @@ DROP PROCEDURE ATJ.insertUsuario;
 DROP PROCEDURE ATJ.insertUsuario_RetornarID;
 DROP PROCEDURE ATJ.traerListadoPublicacionesConCodigo;
 DROP PROCEDURE ATJ.traerVendedorPorId_Usuario;
-DROP PROCEDURE ATJ.traerListadoPublicacionesConFiltros;
 DROP PROCEDURE ATJ.traerPreguntasNoRespondidasPorUsuario;
 DROP PROCEDURE ATJ.updatePregunta;
 DROP PROCEDURE ATJ.traerPreguntasRespondidasPorUsuario;
