@@ -867,4 +867,32 @@ FROM gd_esquema.Maestra M
 INNER JOIN ATJ.Facturas F ON F.nro_Factura = M.Factura_Nro
 INNER JOIN ATJ.Publicaciones P ON P.Codigo = M.Publicacion_Cod 
 
+--Seteo la Reputacion en la Tabla Clientes con los datos ya migrados
+UPDATE ATJ.Clientes	
+SET Reputacion = CAST(
+				(SELECT SUM(C.Cant_Estrellas) 
+				FROM ATJ.Usuarios U
+				INNER JOIN ATJ.Publicaciones P ON U.id_Usuario = P.id_Usuario 
+				INNER JOIN ATJ.Calificaciones C ON P.Codigo = C.cod_Publicacion
+				WHERE u.id_Usuario = Clientes.id_Usuario)/
+				(SELECT COUNT(*)
+				FROM ATJ.Calificaciones C
+				INNER JOIN ATJ.Publicaciones P ON C.cod_Publicacion = p.Codigo
+				WHERE p.id_Usuario = Clientes.id_Usuario) 
+				AS NUMERIC(18,2))
+	
+--Seteo la Reputacion en la Tabla Empresas con los datos ya migrados
+UPDATE ATJ.Empresas 
+SET Reputacion = CAST(
+				(SELECT SUM(C.Cant_Estrellas) 
+				FROM ATJ.Usuarios U
+				INNER JOIN ATJ.Publicaciones P ON U.id_Usuario = P.id_Usuario 
+				INNER JOIN ATJ.Calificaciones C ON P.Codigo = C.cod_Publicacion
+				WHERE u.id_Usuario = Empresas.id_Usuario)/
+				(SELECT COUNT(*)
+				FROM ATJ.Calificaciones C
+				INNER JOIN ATJ.Publicaciones P ON C.cod_Publicacion = p.Codigo
+				WHERE p.id_Usuario = Empresas.id_Usuario) 
+				AS NUMERIC(18,2))
+				
 COMMIT

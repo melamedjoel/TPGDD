@@ -19,7 +19,7 @@ BEGIN
 	SET @CantidadDeCalificaciones = (SELECT COUNT(*)
 									FROM ATJ.Calificaciones C
 									INNER JOIN ATJ.Publicaciones P ON C.cod_Publicacion = p.Codigo
-									WHERE p.id_Usuario = 12 )										 
+									WHERE p.id_Usuario = @id_usuario)										 
 	IF EXISTS (SELECT id_usuario FROM ATJ.Clientes WHERE id_Usuario = @id_usuario)
     UPDATE ATJ.Clientes	SET Reputacion = CAST((@cantidadDeEstrellasObtenidas)/(@CantidadDeCalificaciones) AS NUMERIC(18,2))
 						WHERE id_Usuario = @id_usuario
