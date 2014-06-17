@@ -307,9 +307,6 @@ namespace FrbaCommerce.Abm_Empresa
             {
                 throw new Exception(strErrores);
             }
-
-            
-            //FALTA VALIDAR QUE NO EXISTE EMPRESA CON ESTA RAZON SOCIAL Y CUIT
         }
         
     }

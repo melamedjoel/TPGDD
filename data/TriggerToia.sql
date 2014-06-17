@@ -5,7 +5,8 @@ AS
 
 BEGIN
 	DECLARE @id_usuario int;
-	SET @id_usuario = (SELECT P.id_Usuario FROM inserted I INNER JOIN atj.Publicaciones P ON P.Codigo = I.cod_Publicacion)
+	SET @id_usuario = (SELECT P.id_Usuario FROM inserted I 
+						INNER JOIN atj.Publicaciones P ON P.Codigo = I.cod_Publicacion)
 	----DECLARE @CantEstrellas numeric(18,0);
 	----SET @CantEstrellas = (SELECT Cant_Estrellas FROM inserted)
 	--- NOTA: SI YA LO INSERTE, ENTONCES NO LO NECESITO.
