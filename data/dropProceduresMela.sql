@@ -47,3 +47,4 @@ DROP PROCEDURE ATJ.deleteRubros_PublicacionPorCod_Publicacion;
 DROP PROCEDURE [ATJ].[insertRubros_Publicacion];
 DROP PROCEDURE [ATJ].[traerListadoEstados_PublicacionEditablesConPublicada];
 DROP PROCEDURE ATJ.insertPublicacion_RetornarID;
+DROP PROCEDURE ATJ.traerListadoUsuarios;

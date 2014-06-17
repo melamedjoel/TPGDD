@@ -237,7 +237,7 @@ GO
 
 
 --Procedure updateVisibilidad
-ALTER PROCEDURE ATJ.updateVisibilidad
+CREATE PROCEDURE ATJ.updateVisibilidad
 	@cod_Visibilidad int,
 	@Descripcion nvarchar(255),
 	@Precio numeric(18,2),
@@ -286,7 +286,7 @@ AS
 GO
 
 --Procedure insertPublicacion_RetornarID
-CREATE PROCEDURE ATJ.updatePublicacion
+CREATE PROCEDURE ATJ.insertPublicacion_RetornarID
 	@id_Usuario numeric(18,0),
 	@Descripcion nvarchar(255),
 	@Stock numeric(18,0),
@@ -510,4 +510,11 @@ CREATE PROCEDURE [ATJ].[traerListadoEstados_PublicacionEditablesConPublicada]
 AS 
     SELECT * FROM ATJ.Estados_Publicacion
 	WHERE Nombre IN ('Pausada', 'Finalizada', 'Publicada')
+GO
+
+--Procedure traerListadoUsuarios
+CREATE PROCEDURE ATJ.traerListadoUsuarios
+AS
+	SELECT * FROM ATJ.Usuarios
+	WHERE Activo = 1
 GO

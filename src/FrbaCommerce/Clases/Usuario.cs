@@ -278,6 +278,12 @@ namespace Clases
             return ds;
         }
 
+        public static DataSet obtenerTodos()
+        {
+            Usuario user = new Usuario();
+            return user.TraerListado(user.parameterList, "");
+
+        }
         public int cantPublicacionesPendientesDeCalificacion()
         {
             return obtenerVendedoresSinCalificar().Tables[0].Rows.Count;

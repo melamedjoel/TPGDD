@@ -62,6 +62,24 @@ namespace Clases
             return ds;
         }
 
+        public Funcionalidades? obtenerPorNombre()
+        {
+            if (Nombre == "ABM_Clientes") return Funcionalidades.ABM_Clientes;
+            if (Nombre == "ABM_Empresas") return Funcionalidades.ABM_Empresas;
+            if (Nombre == "Eliminar_Usuarios") return Funcionalidades.Eliminar_Usuarios;
+            if (Nombre == "Cambiar_Clave") return Funcionalidades.Cambiar_Clave;
+            if (Nombre == "ABM_Rol") return Funcionalidades.ABM_Rol;
+            if (Nombre == "ABM_Visibilidad") return Funcionalidades.ABM_Visibilidad;
+            if (Nombre == "Generar_Publicaciones") return Funcionalidades.Generar_Publicaciones;
+            if (Nombre == "Mis_Publicaciones") return Funcionalidades.Mis_Publicaciones;
+            if (Nombre == "Comprar_Ofertar") return Funcionalidades.Comprar_Ofertar;
+            if (Nombre == "Calificar") return Funcionalidades.Calificar;
+            if (Nombre == "Facturar") return Funcionalidades.Facturar;
+            if (Nombre == "Historial_clientes") return Funcionalidades.Historial_clientes;
+            if (Nombre == "Estadisticas") return Funcionalidades.Estadisticas;
+            return null;
+        }
+
         #endregion
 
         #region metodos privados
@@ -70,5 +88,23 @@ namespace Clases
             parameterList.Add(new SqlParameter("@id_Rol", id_Rol));
         }
         #endregion 
+    
+    }
+    
+    public enum Funcionalidades
+    {
+        ABM_Clientes,
+        ABM_Empresas,
+        Eliminar_Usuarios,
+        Cambiar_Clave,
+        ABM_Rol,
+        ABM_Visibilidad,
+        Generar_Publicaciones,
+        Mis_Publicaciones,
+        Comprar_Ofertar,
+        Historial_clientes,
+        Calificar,
+        Facturar,
+        Estadisticas
     }
 }

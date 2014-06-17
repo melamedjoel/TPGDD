@@ -155,39 +155,42 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void dtgListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //11 es la columna que contiene el boton de modificar
-            if (e.ColumnIndex == 11)
+            if (e.RowIndex != -1) //esto lo pongo por si me hace click en un header, para que no ejecute ninguna accion
             {
-                Publicacion unaPub = listaDePubs.Find(pub => pub.Codigo == (int)dtgListado.Rows[e.RowIndex].Cells[0].Value);
-                frmDetallePublic _frmDetalle = new frmDetallePublic();
-                switch (unaPub.Estado_Publicacion.Nombre)
+                //11 es la columna que contiene el boton de modificar
+                if (e.ColumnIndex == 11)
                 {
-                    case "Borrador":
-                        _frmDetalle.AbrirParaModificarBorrador(unaPub, this);
-                        break;
-                    case "Publicada":
-                        if(unaPub.Tipo_Publicacion.Nombre == "Subasta")
-                            MessageBox.Show("No se puede editar una subasta publicada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        else
-                            _frmDetalle.AbrirParaModificarPublicada(unaPub, this);
+                    Publicacion unaPub = listaDePubs.Find(pub => pub.Codigo == (int)dtgListado.Rows[e.RowIndex].Cells[0].Value);
+                    frmDetallePublic _frmDetalle = new frmDetallePublic();
+                    switch (unaPub.Estado_Publicacion.Nombre)
+                    {
+                        case "Borrador":
+                            _frmDetalle.AbrirParaModificarBorrador(unaPub, this);
+                            break;
+                        case "Publicada":
+                            if (unaPub.Tipo_Publicacion.Nombre == "Subasta")
+                                MessageBox.Show("No se puede editar una subasta publicada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            else
+                                _frmDetalle.AbrirParaModificarPublicada(unaPub, this);
 
-                        break;
-                    case "Pausada":
-                        MessageBox.Show("No se puede editar una publicación pausada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                    case "Finalizada":
-                        MessageBox.Show("No se puede editar una publicación finalizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
+                            break;
+                        case "Pausada":
+                            MessageBox.Show("No se puede editar una publicación pausada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        case "Finalizada":
+                            MessageBox.Show("No se puede editar una publicación finalizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                    }
+
+
+
 
                 }
-               
-
-
-
-            }
-            else
-            {
-                cod_Publicacion = (int)dtgListado.Rows[e.RowIndex].Cells[0].Value;
+                else
+                {
+                    cod_Publicacion = (int)dtgListado.Rows[e.RowIndex].Cells[0].Value;
+                }
             }
                 
 

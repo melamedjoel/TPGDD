@@ -20,6 +20,7 @@ using FrbaCommerce.Editar_Publicacion;
 using FrbaCommerce.Comprar_Ofertar;
 using FrbaCommerce.Facturar_Publicaciones;
 using FrbaCommerce.Calificar_Vendedor;
+using FrbaCommerce.Registro_de_Usuario;
 	
 namespace FrbaCommerce
 {
@@ -34,6 +35,76 @@ namespace FrbaCommerce
 
         private void Principal_Load(object sender, EventArgs e)
         {
+            unUsuario.Rol.setearFuncionalidadesAlRol();
+            bool permisosAdmin = false;
+            bool permisosPublicacion = false;
+            bool permisosUsuario = false;
+            foreach (Funcionalidad unaFunc in unUsuario.Rol.Funcionalidades)
+            {
+                switch (unaFunc.obtenerPorNombre())
+                {
+                    case Funcionalidades.ABM_Clientes:
+                        aBMClientesToolStripMenuItem.Visible = true;
+                        permisosAdmin = true;
+                        break;
+                    case Funcionalidades.ABM_Empresas:
+                        AbmEmpresasToolStripMenuItem.Visible = true;
+                        permisosAdmin = true;
+                        break;
+                    case Funcionalidades.ABM_Rol:
+                        ABMRolesToolStripMenuItem.Visible = true;
+                        permisosAdmin = true;
+                        break;
+                    case Funcionalidades.Eliminar_Usuarios:
+                        administrarUsuariosToolStripMenuItem.Visible = true;
+                        permisosAdmin = true;
+                        break;
+                    case Funcionalidades.Cambiar_Clave:
+                        cambiarClaveToolStripMenuItem.Visible = true;
+                        permisosAdmin = true;
+                        break;
+                    case Funcionalidades.ABM_Visibilidad:
+                        AbmVisiblidadToolStripMenuItem.Visible = true;
+                        permisosPublicacion = true;
+                        break;
+                    case Funcionalidades.Calificar:
+                        calificarVendedoresToolStripMenuItem.Visible = true;
+                        permisosUsuario = true;
+                        break;
+                    case Funcionalidades.Comprar_Ofertar:
+                        comprarOfertarToolStripMenuItem.Visible = true;
+                        permisosPublicacion = true;
+                        break;
+                    case Funcionalidades.Estadisticas:
+                        listadoEstadísticoToolStripMenuItem.Visible = true;
+                        permisosUsuario = true;
+                        break;
+                    case Funcionalidades.Facturar:
+                        facturarPublicacionesToolStripMenuItem.Visible = true;
+                        permisosPublicacion = true;
+                        break;
+                    case Funcionalidades.Generar_Publicaciones:
+                        generarPublicacionToolStripMenuItem.Visible = true;
+                        permisosPublicacion = true;
+                        break;
+                    case Funcionalidades.Historial_clientes:
+                        historialToolStripMenuItem.Visible = true;
+                        permisosUsuario = true;
+                        break;
+                    case Funcionalidades.Mis_Publicaciones:
+                        misPublicacionesToolStripMenuItem.Visible = true;
+                        permisosPublicacion = true;
+                        break;
+                    
+                }
+            }
+
+            if (!permisosAdmin)
+                menu.Items.Remove(pestanaAdmin);
+            if (!permisosPublicacion)
+                menu.Items.Remove(pestanaPublicacion);
+            if (!permisosUsuario)
+                menu.Items.Remove(pestanaUsuario);
 
         }
 
@@ -88,11 +159,6 @@ namespace FrbaCommerce
             misPublic.abrirConUsuario(unUsuario);
         }
 
-        private void verPublicacionesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmVerPublicaciones lasPublic = new frmVerPublicaciones();
-            lasPublic.abrirConUsuario(unUsuario);
-        }
 
         private void facturarPublicacionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -118,6 +184,33 @@ namespace FrbaCommerce
             frmInicial.Show();
             this.Close();
         }
+
+        private void comprarOfertarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmVerPublicaciones lasPublic = new frmVerPublicaciones();
+            lasPublic.abrirConUsuario(unUsuario);
+        }
+
+        private void administrarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listadoUsuarios lstUsers = new listadoUsuarios();
+            lstUsers.Show();
+
+        }
+
+        private void cambiarClaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string claveNuevaIngresada = DialogManager.ShowDialogWithPassword("Ingrese nueva clave", "Cambio de clave");
+
+            if (string.IsNullOrEmpty(claveNuevaIngresada))
+            {
+                return;
+            }
+
+            string claveNueva = Encryptor.GetSHA256(claveNuevaIngresada);
+            unUsuario.CambiarClave(claveNueva);   
+        }
+
 
     }
 }

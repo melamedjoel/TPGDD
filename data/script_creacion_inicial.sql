@@ -728,13 +728,13 @@ INSERT INTO ATJ.Funcionalidades
 VALUES
 ('ABM_Clientes'),
 ('ABM_Empresas'),
-('ABM_Usuarios'),
+('Eliminar_Usuarios'),
+('Cambiar_Clave'),
 ('ABM_Rol'),
-('ABM_Visiblidad'),
-('Publicar'),
-('Preguntar'),
-('Comprar'),
-('Ofertar'),
+('ABM_Visibilidad'),
+('Generar_Publicaciones'),
+('Mis_Publicaciones'),
+('Comprar_Ofertar'),
 ('Calificar'),
 ('Facturar'),
 ('Historial_clientes'),
@@ -825,7 +825,8 @@ SELECT 1, id_Funcionalidad FROM ATJ.Funcionalidades
 INSERT INTO ATJ.Rol_Funcionalidad (id_Rol, id_Funcionalidad)
 SELECT R.id_Rol, F.id_Funcionalidad  
 FROM ATJ.Roles R
-LEFT JOIN ATJ.Funcionalidades F ON F.Nombre In ('ABM_Clientes','ABM_Usuarios', 'ABM_Publicacion','Preguntar','Comprar', 'Ofertar', 'Calificar','Facturar','Historial_clientes', 'Estadisticas')
+LEFT JOIN ATJ.Funcionalidades F ON F.Nombre 
+In ('ABM_Clientes','ABM_Empresas','Eliminar_Usuarios','Cambiar_Clave','ABM_Rol','ABM_Visibilidad','Generar_Publicaciones','Mis_Publicaciones','Comprar_Ofertar','Calificar','Facturar','Historial_clientes','Estadisticas')
 WHERE R.Nombre = 'Cliente'
 
 INSERT INTO ATJ.Rol_Funcionalidad (id_Rol, id_Funcionalidad)
