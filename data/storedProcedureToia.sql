@@ -211,9 +211,9 @@ CREATE PROCEDURE ATJ.traerListadoClientesConFiltros
 AS 
     SELECT *
     FROM ATJ.Clientes
-    WHERE	Nombre LIKE (CASE WHEN 'Deo' <> '' THEN '%' + 'Deo' + '%' ELSE Nombre END) 
+    WHERE	Nombre LIKE (CASE WHEN @Nombre <> '' THEN '%' + @Nombre + '%' ELSE Nombre END) 
     AND		Apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE Apellido END) 
-    AND		Tipo_Dni LIKE (CASE WHEN @Tipo_Dni <> '' THEN @Tipo_Dni ELSE Tipo_Dni END) 
+    AND		Tipo_Dni = (CASE WHEN @Tipo_Dni <> '' THEN @Tipo_Dni ELSE Tipo_Dni END) 
     AND		Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END) 
     AND		(@Dni is null OR @Dni = 0 OR CONVERT(VARCHAR(10), Dni) LIKE '%' + CONVERT(VARCHAR(10), @Dni) + '%')
     AND		Eliminado = 0
@@ -420,8 +420,7 @@ CREATE PROCEDURE ATJ.validarTelefonoEnCliente
 	@Dom_cod_postal nvarchar(50) =null,
 	@Dom_ciudad nvarchar(255) =null,
 	@Activo bit,
-	@id_Rol int,
-	@id_Usuario int
+	@id_Rol int
 	
 AS
 	SELECT * FROM ATJ.Clientes WHERE Telefono = @Telefono
