@@ -77,6 +77,7 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void ValidarCampos()
         {
+            //se valida que el año ingresado esté entre 1900 y 2014, que sea un número y que no sea nulo
             string strErrores = "";
             strErrores += Validator.ValidarNulo(txtAño.Text, "Año");
             strErrores += Validator.SoloNumeros(txtAño.Text, "Año");

@@ -70,15 +70,6 @@ namespace Clases
             this.Cantidad = Convert.ToInt32(dr["Cantidad"]);
         }
 
-        public DataSet obtenerItemsPorPublicacion(int cod_Publicacion)
-        {
-            this.setearListaDeParametrosConCodPublicacion(cod_Publicacion);
-            DataSet ds = this.TraerListado(this.parameterList, "PorPublicacion");
-            this.parameterList.Clear();
-
-            return ds;
-        }
-
         public void cargarNuevoItemFactura()
         {
             setearListaDeParametros();

@@ -279,16 +279,6 @@ VALUES
 (@nro_Factura,@cod_Publicacion,@Monto,@Cantidad)
 GO
 
---Procedure traerListadoItems_FacturaPorPublicacion
-CREATE PROCEDURE ATJ.traerListadoItem_FacturaPorPublicacion
-	@cod_Publicacion numeric(18,0)
-AS
-
-SELECT *
-FROM ATJ.Compras
-WHERE cod_Publicacion = @cod_Publicacion
-GO
-
 --Procedure traerListadoComprasPorCodigoPubli
 CREATE PROCEDURE ATJ.traerListadoPorCodigoPubli
 	@cod_Publicacion numeric(18,0)
