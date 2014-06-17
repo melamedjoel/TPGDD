@@ -91,18 +91,6 @@
     <Compile Include="Abm Rol\ListadoRoles.designer.cs">
       <DependentUpon>ListadoRoles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rubro\ListadoRubros.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rubro\ListadoRubros.Designer.cs">
-      <DependentUpon>ListadoRubros.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Rubro\Rubro.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rubro\Rubro.Designer.cs">
-      <DependentUpon>Rubro.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Visibilidad\frmVisibilidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,10 +181,10 @@
     <Compile Include="Generar Publicacion\frmDetallePublic.Designer.cs">
       <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\frmMisPublicaciones.cs">
+    <Compile Include="Comprar-Ofertar\Editar Publicacion\frmMisPublicaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\frmMisPublicaciones.Designer.cs">
+    <Compile Include="Comprar-Ofertar\Editar Publicacion\frmMisPublicaciones.Designer.cs">
       <DependentUpon>frmMisPublicaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\Registro de Usuario\ListadoUsuarios.cs">
@@ -230,12 +218,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\ListadoRoles.resx">
       <DependentUpon>ListadoRoles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rubro\ListadoRubros.resx">
-      <DependentUpon>ListadoRubros.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rubro\Rubro.resx">
-      <DependentUpon>Rubro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Visibilidad\frmVisibilidad.resx">
       <DependentUpon>frmVisibilidad.cs</DependentUpon>
@@ -282,7 +264,7 @@
     <EmbeddedResource Include="Generar Publicacion\frmDetallePublic.resx">
       <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\frmMisPublicaciones.resx">
+    <EmbeddedResource Include="Comprar-Ofertar\Editar Publicacion\frmMisPublicaciones.resx">
       <DependentUpon>frmMisPublicaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Registro de Usuario\ListadoUsuarios.resx">
@@ -337,6 +319,9 @@
       <Project>{E0B42931-2ACC-413F-8CCB-6583D68C95E9}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Abm Rubro\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

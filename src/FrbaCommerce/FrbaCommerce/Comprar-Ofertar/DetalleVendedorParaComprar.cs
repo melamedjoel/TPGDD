@@ -117,11 +117,6 @@ namespace FrbaCommerce.Comprar_Ofertar
             this.Show();
         }
 
-        private void DetalleVendedorParaComprar_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
             try

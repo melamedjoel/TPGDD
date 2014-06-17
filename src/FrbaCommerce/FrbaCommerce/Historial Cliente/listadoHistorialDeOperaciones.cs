@@ -33,35 +33,35 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.AutoGenerateColumns = false;
                        
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
-            clmID.Width = 50;
+            clmID.Width = 65;
             clmID.ReadOnly = true;
             clmID.DataPropertyName = "id_Compra";
             clmID.HeaderText = "ID Compra";
             dtgHistorial.Columns.Add(clmID);
 
             DataGridViewTextBoxColumn clmCodPublicacion = new DataGridViewTextBoxColumn();
-            clmCodPublicacion.Width = 65;
+            clmCodPublicacion.Width = 75;
             clmCodPublicacion.ReadOnly = true;
             clmCodPublicacion.DataPropertyName = "cod_Publicacion";
             clmCodPublicacion.HeaderText = "Código Publiación";
             dtgHistorial.Columns.Add(clmCodPublicacion);
 
             DataGridViewTextBoxColumn clmVendedor = new DataGridViewTextBoxColumn();
-            clmVendedor.Width = 120;
+            clmVendedor.Width = 170;
             clmVendedor.ReadOnly = true;
             clmVendedor.DataPropertyName = "Vendedor";
             clmVendedor.HeaderText = "Vendedor";
             dtgHistorial.Columns.Add(clmVendedor);
 
             DataGridViewTextBoxColumn clmFecha = new DataGridViewTextBoxColumn();
-            clmFecha.Width = 70;
+            clmFecha.Width = 100;
             clmFecha.ReadOnly = true;
             clmFecha.DataPropertyName = "Fecha";
             clmFecha.HeaderText = "Fecha";
             dtgHistorial.Columns.Add(clmFecha);
 
             DataGridViewTextBoxColumn clmCantidad = new DataGridViewTextBoxColumn();
-            clmCantidad.Width = 60;
+            clmCantidad.Width = 80;
             clmCantidad.ReadOnly = true;
             clmCantidad.DataPropertyName = "Cantidad";
             clmCantidad.HeaderText = "Cantidad";
@@ -77,21 +77,21 @@ namespace FrbaCommerce.Historial_Cliente
             
 
             DataGridViewTextBoxColumn clmID = new DataGridViewTextBoxColumn();
-            clmID.Width = 50;
+            clmID.Width = 65;
             clmID.ReadOnly = true;
             clmID.DataPropertyName = "id_Oferta";
             clmID.HeaderText = "ID Oferta";
             dtgHistorial.Columns.Add(clmID);
 
             DataGridViewTextBoxColumn clmCodPublicacion = new DataGridViewTextBoxColumn();
-            clmCodPublicacion.Width = 65;
+            clmCodPublicacion.Width = 75;
             clmCodPublicacion.ReadOnly = true;
             clmCodPublicacion.DataPropertyName = "cod_Publicacion";
             clmCodPublicacion.HeaderText = "Código Publiación";
             dtgHistorial.Columns.Add(clmCodPublicacion);
 
             DataGridViewTextBoxColumn clmVendedor = new DataGridViewTextBoxColumn();
-            clmVendedor.Width = 120;
+            clmVendedor.Width = 170;
             clmVendedor.ReadOnly = true;
             clmVendedor.DataPropertyName = "Vendedor";
             clmVendedor.HeaderText = "Vendedor";
@@ -105,14 +105,14 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.Columns.Add(clmGanoSubasta);
 
             DataGridViewTextBoxColumn clmFecha = new DataGridViewTextBoxColumn();
-            clmFecha.Width = 70;
+            clmFecha.Width = 100;
             clmFecha.ReadOnly = true;
             clmFecha.DataPropertyName = "Fecha";
             clmFecha.HeaderText = "Fecha";
             dtgHistorial.Columns.Add(clmFecha);
 
             DataGridViewTextBoxColumn clmMonto = new DataGridViewTextBoxColumn();
-            clmMonto.Width = 55;
+            clmMonto.Width = 65;
             clmMonto.ReadOnly = true;
             clmMonto.DataPropertyName = "Monto";
             clmMonto.HeaderText = "Monto";
@@ -127,7 +127,7 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn clmCodCalificacion = new DataGridViewTextBoxColumn();
-            clmCodCalificacion.Width = 65;
+            clmCodCalificacion.Width = 90;
             clmCodCalificacion.ReadOnly = true;
             clmCodCalificacion.DataPropertyName = "cod_Calificacion";
             clmCodCalificacion.HeaderText = "Código Calificación";
@@ -141,14 +141,14 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.Columns.Add(clmCalificado);
 
             DataGridViewTextBoxColumn clmCantEstrellas = new DataGridViewTextBoxColumn();
-            clmCantEstrellas.Width = 60;
+            clmCantEstrellas.Width = 90;
             clmCantEstrellas.ReadOnly = true;
             clmCantEstrellas.DataPropertyName = "cant_Estrellas";
             clmCantEstrellas.HeaderText = "Cantidad Estrellas";
             dtgHistorial.Columns.Add(clmCantEstrellas);
 
             DataGridViewTextBoxColumn clmDescripcion = new DataGridViewTextBoxColumn();
-            clmDescripcion.Width = 200;
+            clmDescripcion.Width = 250;
             clmDescripcion.ReadOnly = true;
             clmDescripcion.DataPropertyName = "Descripcion";
             clmDescripcion.HeaderText = "Descripcion";
@@ -163,7 +163,7 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn clmCodCalificacion = new DataGridViewTextBoxColumn();
-            clmCodCalificacion.Width = 65;
+            clmCodCalificacion.Width = 90;
             clmCodCalificacion.ReadOnly = true;
             clmCodCalificacion.DataPropertyName = "cod_Calificacion";
             clmCodCalificacion.HeaderText = "Código Calificación";
@@ -177,14 +177,14 @@ namespace FrbaCommerce.Historial_Cliente
             dtgHistorial.Columns.Add(clmCalificador);
 
             DataGridViewTextBoxColumn clmCantEstrellas = new DataGridViewTextBoxColumn();
-            clmCantEstrellas.Width = 60;
+            clmCantEstrellas.Width = 90;
             clmCantEstrellas.ReadOnly = true;
             clmCantEstrellas.DataPropertyName = "cant_Estrellas";
             clmCantEstrellas.HeaderText = "Cantidad Estrellas";
             dtgHistorial.Columns.Add(clmCantEstrellas);
 
             DataGridViewTextBoxColumn clmDescripcion = new DataGridViewTextBoxColumn();
-            clmDescripcion.Width = 200;
+            clmDescripcion.Width = 250;
             clmDescripcion.ReadOnly = true;
             clmDescripcion.DataPropertyName = "Descripcion";
             clmDescripcion.HeaderText = "Descripcion";

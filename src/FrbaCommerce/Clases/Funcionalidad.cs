@@ -66,7 +66,7 @@ namespace Clases
         {
             if (Nombre == "ABM_Clientes") return Funcionalidades.ABM_Clientes;
             if (Nombre == "ABM_Empresas") return Funcionalidades.ABM_Empresas;
-            if (Nombre == "Eliminar_Usuarios") return Funcionalidades.Eliminar_Usuarios;
+            if (Nombre == "Administrar_Usuarios") return Funcionalidades.Administrar_Usuarios;
             if (Nombre == "Cambiar_Clave") return Funcionalidades.Cambiar_Clave;
             if (Nombre == "ABM_Rol") return Funcionalidades.ABM_Rol;
             if (Nombre == "ABM_Visibilidad") return Funcionalidades.ABM_Visibilidad;
@@ -95,7 +95,7 @@ namespace Clases
     {
         ABM_Clientes,
         ABM_Empresas,
-        Eliminar_Usuarios,
+        Administrar_Usuarios,
         Cambiar_Clave,
         ABM_Rol,
         ABM_Visibilidad,

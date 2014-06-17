@@ -50,119 +50,140 @@
             this.btnRestarStock = new System.Windows.Forms.Button();
             this.dtFechaCreacion = new System.Windows.Forms.DateTimePicker();
             this.btnGenerar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(478, 230);
+            this.btnVolver.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnVolver.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVolver.Location = new System.Drawing.Point(489, 413);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.Size = new System.Drawing.Size(80, 46);
             this.btnVolver.TabIndex = 62;
             this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.UseVisualStyleBackColor = false;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // txtStock
             // 
             this.txtStock.Enabled = false;
-            this.txtStock.Location = new System.Drawing.Point(142, 58);
+            this.txtStock.Location = new System.Drawing.Point(166, 60);
+            this.txtStock.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtStock.Name = "txtStock";
-            this.txtStock.Size = new System.Drawing.Size(108, 20);
+            this.txtStock.Size = new System.Drawing.Size(125, 23);
             this.txtStock.TabIndex = 60;
             // 
             // lblStock
             // 
             this.lblStock.AutoSize = true;
-            this.lblStock.Location = new System.Drawing.Point(42, 58);
+            this.lblStock.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStock.Location = new System.Drawing.Point(50, 63);
             this.lblStock.Name = "lblStock";
-            this.lblStock.Size = new System.Drawing.Size(35, 13);
+            this.lblStock.Size = new System.Drawing.Size(112, 15);
             this.lblStock.TabIndex = 58;
-            this.lblStock.Text = "Stock";
+            this.lblStock.Text = "Stock                      *";
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(143, 28);
+            this.txtDescripcion.Location = new System.Drawing.Point(167, 29);
+            this.txtDescripcion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(171, 20);
+            this.txtDescripcion.Size = new System.Drawing.Size(199, 23);
             this.txtDescripcion.TabIndex = 56;
             // 
             // lblDescripcion
             // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(41, 28);
+            this.lblDescripcion.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescripcion.Location = new System.Drawing.Point(48, 32);
             this.lblDescripcion.Name = "lblDescripcion";
-            this.lblDescripcion.Size = new System.Drawing.Size(63, 13);
+            this.lblDescripcion.Size = new System.Drawing.Size(114, 15);
             this.lblDescripcion.TabIndex = 55;
-            this.lblDescripcion.Text = "Descripción";
+            this.lblDescripcion.Text = "Descripción          *";
             // 
             // lblCreacion
             // 
             this.lblCreacion.AutoSize = true;
-            this.lblCreacion.Location = new System.Drawing.Point(40, 111);
+            this.lblCreacion.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCreacion.Location = new System.Drawing.Point(48, 128);
             this.lblCreacion.Name = "lblCreacion";
-            this.lblCreacion.Size = new System.Drawing.Size(81, 13);
+            this.lblCreacion.Size = new System.Drawing.Size(95, 15);
             this.lblCreacion.TabIndex = 63;
-            this.lblCreacion.Text = "Fecha creacion";
+            this.lblCreacion.Text = "Fecha creación";
             // 
             // lblTipo
             // 
             this.lblTipo.AutoSize = true;
-            this.lblTipo.Location = new System.Drawing.Point(39, 142);
+            this.lblTipo.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipo.Location = new System.Drawing.Point(50, 161);
             this.lblTipo.Name = "lblTipo";
-            this.lblTipo.Size = new System.Drawing.Size(28, 13);
+            this.lblTipo.Size = new System.Drawing.Size(34, 15);
             this.lblTipo.TabIndex = 67;
             this.lblTipo.Text = "Tipo";
             // 
             // lblVisibilidad
             // 
             this.lblVisibilidad.AutoSize = true;
-            this.lblVisibilidad.Location = new System.Drawing.Point(39, 168);
+            this.lblVisibilidad.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVisibilidad.Location = new System.Drawing.Point(48, 192);
             this.lblVisibilidad.Name = "lblVisibilidad";
-            this.lblVisibilidad.Size = new System.Drawing.Size(53, 13);
+            this.lblVisibilidad.Size = new System.Drawing.Size(72, 15);
             this.lblVisibilidad.TabIndex = 69;
             this.lblVisibilidad.Text = "Visibilidad";
             // 
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(39, 194);
+            this.lblEstado.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstado.Location = new System.Drawing.Point(48, 224);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(40, 13);
+            this.lblEstado.Size = new System.Drawing.Size(48, 15);
             this.lblEstado.TabIndex = 71;
             this.lblEstado.Text = "Estado";
             // 
             // txtPrecio
             // 
-            this.txtPrecio.Location = new System.Drawing.Point(144, 84);
+            this.txtPrecio.Location = new System.Drawing.Point(167, 91);
+            this.txtPrecio.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.Size = new System.Drawing.Size(108, 20);
+            this.txtPrecio.Size = new System.Drawing.Size(125, 23);
             this.txtPrecio.TabIndex = 77;
             // 
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
-            this.lblPrecio.Location = new System.Drawing.Point(40, 84);
+            this.lblPrecio.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecio.Location = new System.Drawing.Point(48, 99);
             this.lblPrecio.Name = "lblPrecio";
-            this.lblPrecio.Size = new System.Drawing.Size(37, 13);
+            this.lblPrecio.Size = new System.Drawing.Size(111, 15);
             this.lblPrecio.TabIndex = 76;
-            this.lblPrecio.Text = "Precio";
+            this.lblPrecio.Text = "Precio                    *";
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(478, 201);
+            this.btnGuardar.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnGuardar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.Location = new System.Drawing.Point(396, 413);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.Size = new System.Drawing.Size(87, 46);
             this.btnGuardar.TabIndex = 78;
             this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // chkPregs
             // 
             this.chkPregs.AutoSize = true;
-            this.chkPregs.Location = new System.Drawing.Point(42, 338);
+            this.chkPregs.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkPregs.Location = new System.Drawing.Point(51, 389);
+            this.chkPregs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkPregs.Name = "chkPregs";
-            this.chkPregs.Size = new System.Drawing.Size(74, 17);
+            this.chkPregs.Size = new System.Drawing.Size(88, 19);
             this.chkPregs.TabIndex = 75;
             this.chkPregs.Text = "Preguntas";
             this.chkPregs.UseVisualStyleBackColor = true;
@@ -170,92 +191,122 @@
             // cmbEstado
             // 
             this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Location = new System.Drawing.Point(142, 194);
+            this.cmbEstado.Location = new System.Drawing.Point(166, 224);
+            this.cmbEstado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(121, 21);
+            this.cmbEstado.Size = new System.Drawing.Size(140, 23);
             this.cmbEstado.TabIndex = 80;
             // 
             // cmbVisibilidad
             // 
             this.cmbVisibilidad.FormattingEnabled = true;
-            this.cmbVisibilidad.Location = new System.Drawing.Point(143, 167);
+            this.cmbVisibilidad.Location = new System.Drawing.Point(167, 192);
+            this.cmbVisibilidad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbVisibilidad.Name = "cmbVisibilidad";
-            this.cmbVisibilidad.Size = new System.Drawing.Size(121, 21);
+            this.cmbVisibilidad.Size = new System.Drawing.Size(140, 23);
             this.cmbVisibilidad.TabIndex = 81;
             // 
             // cmbTipo
             // 
             this.cmbTipo.FormattingEnabled = true;
-            this.cmbTipo.Location = new System.Drawing.Point(142, 140);
+            this.cmbTipo.Location = new System.Drawing.Point(166, 161);
+            this.cmbTipo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbTipo.Name = "cmbTipo";
-            this.cmbTipo.Size = new System.Drawing.Size(121, 21);
+            this.cmbTipo.Size = new System.Drawing.Size(140, 23);
             this.cmbTipo.TabIndex = 82;
             // 
             // lblRubro
             // 
             this.lblRubro.AutoSize = true;
-            this.lblRubro.Location = new System.Drawing.Point(39, 220);
+            this.lblRubro.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRubro.Location = new System.Drawing.Point(48, 254);
             this.lblRubro.Name = "lblRubro";
-            this.lblRubro.Size = new System.Drawing.Size(36, 13);
+            this.lblRubro.Size = new System.Drawing.Size(45, 15);
             this.lblRubro.TabIndex = 73;
             this.lblRubro.Text = "Rubro";
             // 
             // lstRubros
             // 
+            this.lstRubros.BackColor = System.Drawing.Color.Lavender;
             this.lstRubros.FormattingEnabled = true;
-            this.lstRubros.Location = new System.Drawing.Point(143, 220);
+            this.lstRubros.Location = new System.Drawing.Point(166, 255);
+            this.lstRubros.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstRubros.Name = "lstRubros";
-            this.lstRubros.Size = new System.Drawing.Size(199, 109);
+            this.lstRubros.Size = new System.Drawing.Size(231, 112);
             this.lstRubros.TabIndex = 79;
             // 
             // btnAumentarStock
             // 
             this.btnAumentarStock.AutoSize = true;
-            this.btnAumentarStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAumentarStock.Location = new System.Drawing.Point(259, 58);
+            this.btnAumentarStock.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnAumentarStock.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnAumentarStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAumentarStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAumentarStock.Location = new System.Drawing.Point(297, 60);
+            this.btnAumentarStock.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAumentarStock.Name = "btnAumentarStock";
-            this.btnAumentarStock.Size = new System.Drawing.Size(26, 26);
+            this.btnAumentarStock.Size = new System.Drawing.Size(30, 27);
             this.btnAumentarStock.TabIndex = 84;
             this.btnAumentarStock.Text = "+";
-            this.btnAumentarStock.UseVisualStyleBackColor = true;
+            this.btnAumentarStock.UseVisualStyleBackColor = false;
             this.btnAumentarStock.Click += new System.EventHandler(this.btnAumentarStock_Click);
             // 
             // btnRestarStock
             // 
             this.btnRestarStock.AutoSize = true;
-            this.btnRestarStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRestarStock.Location = new System.Drawing.Point(289, 58);
+            this.btnRestarStock.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnRestarStock.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnRestarStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestarStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestarStock.Location = new System.Drawing.Point(333, 60);
+            this.btnRestarStock.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRestarStock.Name = "btnRestarStock";
-            this.btnRestarStock.Size = new System.Drawing.Size(26, 26);
+            this.btnRestarStock.Size = new System.Drawing.Size(30, 27);
             this.btnRestarStock.TabIndex = 85;
             this.btnRestarStock.Text = "-";
-            this.btnRestarStock.UseVisualStyleBackColor = true;
+            this.btnRestarStock.UseVisualStyleBackColor = false;
             this.btnRestarStock.Click += new System.EventHandler(this.btnRestarStock_Click);
             // 
             // dtFechaCreacion
             // 
             this.dtFechaCreacion.Enabled = false;
-            this.dtFechaCreacion.Location = new System.Drawing.Point(143, 110);
+            this.dtFechaCreacion.Location = new System.Drawing.Point(167, 128);
+            this.dtFechaCreacion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtFechaCreacion.Name = "dtFechaCreacion";
-            this.dtFechaCreacion.Size = new System.Drawing.Size(200, 20);
+            this.dtFechaCreacion.Size = new System.Drawing.Size(233, 23);
             this.dtFechaCreacion.TabIndex = 86;
             // 
             // btnGenerar
             // 
-            this.btnGenerar.Location = new System.Drawing.Point(478, 175);
+            this.btnGenerar.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnGenerar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerar.Location = new System.Drawing.Point(396, 413);
+            this.btnGenerar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(75, 40);
+            this.btnGenerar.Size = new System.Drawing.Size(87, 46);
             this.btnGenerar.TabIndex = 87;
             this.btnGenerar.Text = "Generar publicación";
-            this.btnGenerar.UseVisualStyleBackColor = true;
+            this.btnGenerar.UseVisualStyleBackColor = false;
             this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(48, 445);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(137, 14);
+            this.label1.TabIndex = 88;
+            this.label1.Text = "*   Campos Obligatorios";
             // 
             // frmDetallePublic
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(597, 410);
+            this.BackColor = System.Drawing.Color.GhostWhite;
+            this.ClientSize = new System.Drawing.Size(598, 472);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnGenerar);
             this.Controls.Add(this.dtFechaCreacion);
             this.Controls.Add(this.btnRestarStock);
@@ -278,7 +329,10 @@
             this.Controls.Add(this.lblStock);
             this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.lblDescripcion);
+            this.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmDetallePublic";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detalle Publicacion";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -309,5 +363,6 @@
         private System.Windows.Forms.Button btnRestarStock;
         private System.Windows.Forms.DateTimePicker dtFechaCreacion;
         private System.Windows.Forms.Button btnGenerar;
+        private System.Windows.Forms.Label label1;
     }
 }

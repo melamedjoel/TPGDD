@@ -41,7 +41,7 @@ namespace FrbaCommerce.Abm_Cliente
             dtgListado.Columns.Add(clmIdCliente);
 
             DataGridViewTextBoxColumn clmTipoDni = new DataGridViewTextBoxColumn();
-            clmTipoDni.Width = 30;
+            clmTipoDni.Width = 35;
             clmTipoDni.ReadOnly = true;
             clmTipoDni.DataPropertyName = "Tipo_Dni";
             clmTipoDni.HeaderText = "Tipo de Documento";
@@ -74,6 +74,7 @@ namespace FrbaCommerce.Abm_Cliente
             dtgListado.Columns.Add(clmNombre);
 
             DataGridViewTextBoxColumn clmFechaNac = new DataGridViewTextBoxColumn();
+            clmFechaNac.Width = 80;
             clmFechaNac.ReadOnly = true;
             clmFechaNac.DataPropertyName = "Fecha_nac";
             clmFechaNac.HeaderText = "Fecha de Nacimiento";
@@ -88,13 +89,14 @@ namespace FrbaCommerce.Abm_Cliente
             DataGridViewTextBoxColumn clmTelefono = new DataGridViewTextBoxColumn();
             clmTelefono.ReadOnly = true;
             clmTelefono.DataPropertyName = "Telefono";
-            clmTelefono.HeaderText = "Telefono";
+            clmTelefono.HeaderText = "Teléfono";
             dtgListado.Columns.Add(clmTelefono);
 
             DataGridViewTextBoxColumn clmDireccion = new DataGridViewTextBoxColumn();
+            clmDireccion.Width = 80;
             clmDireccion.ReadOnly = true;
             clmDireccion.DataPropertyName = "Direccion";
-            clmDireccion.HeaderText = "Direccion";
+            clmDireccion.HeaderText = "Dirección";
             dtgListado.Columns.Add(clmDireccion);
 
             DataGridViewTextBoxColumn clmCiudad = new DataGridViewTextBoxColumn();
@@ -106,7 +108,7 @@ namespace FrbaCommerce.Abm_Cliente
             DataGridViewTextBoxColumn clmCodigoPostal = new DataGridViewTextBoxColumn();
             clmCodigoPostal.ReadOnly = true;
             clmCodigoPostal.DataPropertyName = "Dom_cod_postal";
-            clmCodigoPostal.HeaderText = "Codigo Postal";
+            clmCodigoPostal.HeaderText = "Código Postal";
             dtgListado.Columns.Add(clmCodigoPostal);
 
             DataGridViewCheckBoxColumn clmActivo = new DataGridViewCheckBoxColumn();
@@ -221,6 +223,11 @@ namespace FrbaCommerce.Abm_Cliente
         {
             if (txtDni.Text != "") { Validator.EsNumero(txtDni.Text); }
              
+        }
+
+        private void dtgListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
     }

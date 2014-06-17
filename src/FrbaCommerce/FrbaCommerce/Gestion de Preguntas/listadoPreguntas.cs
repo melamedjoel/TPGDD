@@ -43,6 +43,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         {
             frmPadre = frmEnviador;
             cod_Publicacion = codigo;
+            btnResponder.Visible = false;
             cargarListadoRespuestas(cod_Publicacion);
         }
 

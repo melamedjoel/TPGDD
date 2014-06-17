@@ -36,11 +36,11 @@
             // 
             this.lblIniciarSesion.AutoSize = true;
             this.lblIniciarSesion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblIniciarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIniciarSesion.ForeColor = System.Drawing.Color.Blue;
+            this.lblIniciarSesion.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIniciarSesion.ForeColor = System.Drawing.Color.SteelBlue;
             this.lblIniciarSesion.Location = new System.Drawing.Point(88, 30);
             this.lblIniciarSesion.Name = "lblIniciarSesion";
-            this.lblIniciarSesion.Size = new System.Drawing.Size(122, 24);
+            this.lblIniciarSesion.Size = new System.Drawing.Size(118, 22);
             this.lblIniciarSesion.TabIndex = 3;
             this.lblIniciarSesion.Text = "Iniciar Sesión";
             this.lblIniciarSesion.Click += new System.EventHandler(this.lblIniciarSesion_Click);
@@ -49,11 +49,11 @@
             // 
             this.lblRegistrarUsuario.AutoSize = true;
             this.lblRegistrarUsuario.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblRegistrarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRegistrarUsuario.ForeColor = System.Drawing.Color.Blue;
-            this.lblRegistrarUsuario.Location = new System.Drawing.Point(75, 71);
+            this.lblRegistrarUsuario.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegistrarUsuario.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblRegistrarUsuario.Location = new System.Drawing.Point(70, 72);
             this.lblRegistrarUsuario.Name = "lblRegistrarUsuario";
-            this.lblRegistrarUsuario.Size = new System.Drawing.Size(153, 24);
+            this.lblRegistrarUsuario.Size = new System.Drawing.Size(151, 22);
             this.lblRegistrarUsuario.TabIndex = 4;
             this.lblRegistrarUsuario.Text = "Registrar Usuario";
             this.lblRegistrarUsuario.Click += new System.EventHandler(this.lblRegistrarUsuario_Click);
@@ -62,8 +62,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(294, 147);
+            this.BackColor = System.Drawing.Color.GhostWhite;
+            this.ClientSize = new System.Drawing.Size(290, 141);
             this.Controls.Add(this.lblRegistrarUsuario);
             this.Controls.Add(this.lblIniciarSesion);
             this.Name = "Inicial";

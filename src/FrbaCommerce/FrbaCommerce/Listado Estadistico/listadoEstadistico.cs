@@ -199,7 +199,7 @@ namespace FrbaCommerce.Listado_Estadistico
             dtgTop5.AutoGenerateColumns = false;
 
             DataGridViewTextBoxColumn clmVendedor = new DataGridViewTextBoxColumn();
-            clmVendedor.Width = 120;
+            clmVendedor.Width = 150;
             clmVendedor.ReadOnly = true;
             clmVendedor.DataPropertyName = "Vendedor";
             clmVendedor.HeaderText = "Vendedor";

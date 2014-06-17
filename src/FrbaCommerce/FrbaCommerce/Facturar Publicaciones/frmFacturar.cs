@@ -146,7 +146,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
             if (listaDePublicacionesAFacturar.Count == 0)
             {
-                MessageBox.Show("No tiene ninguna publicación pendiente para facturar", "Atención!");
+                MessageBox.Show("No tiene ninguna publicación pendiente para facturar", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }                   
         }

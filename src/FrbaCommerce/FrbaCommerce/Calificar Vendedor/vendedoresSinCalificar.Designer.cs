@@ -35,33 +35,39 @@
             // 
             // dtgVendedoresSinCalificar
             // 
-            this.dtgVendedoresSinCalificar.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            this.dtgVendedoresSinCalificar.BackgroundColor = System.Drawing.Color.Lavender;
+            this.dtgVendedoresSinCalificar.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgVendedoresSinCalificar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgVendedoresSinCalificar.Location = new System.Drawing.Point(12, 42);
+            this.dtgVendedoresSinCalificar.Location = new System.Drawing.Point(14, 49);
+            this.dtgVendedoresSinCalificar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtgVendedoresSinCalificar.Name = "dtgVendedoresSinCalificar";
-            this.dtgVendedoresSinCalificar.Size = new System.Drawing.Size(720, 284);
+            this.dtgVendedoresSinCalificar.Size = new System.Drawing.Size(840, 328);
             this.dtgVendedoresSinCalificar.TabIndex = 44;
             this.dtgVendedoresSinCalificar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgVendedoresSinCalificar_CellContentClick);
             // 
             // lbl
             // 
             this.lbl.AutoSize = true;
-            this.lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lbl.Location = new System.Drawing.Point(12, 9);
+            this.lbl.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.lbl.Location = new System.Drawing.Point(14, 10);
             this.lbl.Name = "lbl";
-            this.lbl.Size = new System.Drawing.Size(272, 20);
+            this.lbl.Size = new System.Drawing.Size(261, 17);
             this.lbl.TabIndex = 45;
             this.lbl.Text = "Vendedores que no ha calificado aún";
             // 
             // vendedoresSinCalificar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(744, 338);
+            this.BackColor = System.Drawing.Color.GhostWhite;
+            this.ClientSize = new System.Drawing.Size(868, 390);
             this.Controls.Add(this.lbl);
             this.Controls.Add(this.dtgVendedoresSinCalificar);
+            this.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "vendedoresSinCalificar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Calificar Vendedores";
             this.Load += new System.EventHandler(this.calificar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgVendedoresSinCalificar)).EndInit();

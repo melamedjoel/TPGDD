@@ -55,7 +55,7 @@ namespace FrbaCommerce
                         ABMRolesToolStripMenuItem.Visible = true;
                         permisosAdmin = true;
                         break;
-                    case Funcionalidades.Eliminar_Usuarios:
+                    case Funcionalidades.Administrar_Usuarios:
                         administrarUsuariosToolStripMenuItem.Visible = true;
                         permisosAdmin = true;
                         break;
@@ -88,7 +88,7 @@ namespace FrbaCommerce
                         permisosPublicacion = true;
                         break;
                     case Funcionalidades.Historial_clientes:
-                        historialToolStripMenuItem.Visible = true;
+                        historialToolStripMenuItem1.Visible = true;
                         permisosUsuario = true;
                         break;
                     case Funcionalidades.Mis_Publicaciones:

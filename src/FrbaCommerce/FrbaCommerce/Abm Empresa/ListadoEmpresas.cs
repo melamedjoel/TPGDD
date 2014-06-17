@@ -60,13 +60,13 @@ namespace FrbaCommerce.Abm_Empresa
             DataGridViewTextBoxColumn clmTelefono = new DataGridViewTextBoxColumn();
             clmTelefono.ReadOnly = true;
             clmTelefono.DataPropertyName = "Telefono";
-            clmTelefono.HeaderText = "Telefono";
+            clmTelefono.HeaderText = "Teléfono";
             dtgListado.Columns.Add(clmTelefono);
 
             DataGridViewTextBoxColumn clmDireccion = new DataGridViewTextBoxColumn();
             clmDireccion.ReadOnly = true;
             clmDireccion.DataPropertyName = "Direccion";
-            clmDireccion.HeaderText = "Direccion";
+            clmDireccion.HeaderText = "Dirección";
             dtgListado.Columns.Add(clmDireccion);
 
             DataGridViewTextBoxColumn clmCiudad = new DataGridViewTextBoxColumn();
@@ -78,7 +78,7 @@ namespace FrbaCommerce.Abm_Empresa
             DataGridViewTextBoxColumn clmCodigoPostal = new DataGridViewTextBoxColumn();
             clmCodigoPostal.ReadOnly = true;
             clmCodigoPostal.DataPropertyName = "Dom_cod_postal";
-            clmCodigoPostal.HeaderText = "Codigo Postal";
+            clmCodigoPostal.HeaderText = "Código Postal";
             dtgListado.Columns.Add(clmCodigoPostal);
 
             DataGridViewTextBoxColumn clmNombreDeContacto = new DataGridViewTextBoxColumn();
@@ -90,7 +90,7 @@ namespace FrbaCommerce.Abm_Empresa
             DataGridViewTextBoxColumn clmFechaDeCreacion = new DataGridViewTextBoxColumn();
             clmFechaDeCreacion.ReadOnly = true;
             clmFechaDeCreacion.DataPropertyName = "Fecha_creacion";
-            clmFechaDeCreacion.HeaderText = "Fecha de Creacion";
+            clmFechaDeCreacion.HeaderText = "Fecha de Creación";
             dtgListado.Columns.Add(clmFechaDeCreacion);
 
             DataGridViewCheckBoxColumn clmActivo = new DataGridViewCheckBoxColumn();

@@ -79,13 +79,13 @@ namespace FrbaCommerce.Abm_Visibilidad
             clmCod.Width = 60;
             clmCod.ReadOnly = true;
             clmCod.DataPropertyName = "cod_Visibilidad";
-            clmCod.HeaderText = "Codigo";
+            clmCod.HeaderText = "Código";
             dtgListado.Columns.Add(clmCod);
 
             DataGridViewTextBoxColumn clmDescripcion = new DataGridViewTextBoxColumn();
             clmDescripcion.ReadOnly = true;
             clmDescripcion.DataPropertyName = "Descripcion";
-            clmDescripcion.HeaderText = "Descripcion";
+            clmDescripcion.HeaderText = "Descripción";
             dtgListado.Columns.Add(clmDescripcion);
 
             DataGridViewTextBoxColumn clmPrecio = new DataGridViewTextBoxColumn();
@@ -103,7 +103,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             DataGridViewTextBoxColumn clmDuracion = new DataGridViewTextBoxColumn();
             clmDuracion.ReadOnly = true;
             clmDuracion.DataPropertyName = "Duracion";
-            clmDuracion.HeaderText = "Duracion";
+            clmDuracion.HeaderText = "Duración";
             dtgListado.Columns.Add(clmDuracion);
 
             DataGridViewCheckBoxColumn clmActivo = new DataGridViewCheckBoxColumn();

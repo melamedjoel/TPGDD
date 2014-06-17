@@ -59,14 +59,17 @@
             this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtgListado.BackgroundColor = System.Drawing.Color.Lavender;
+            this.dtgListado.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgListado.Location = new System.Drawing.Point(27, 145);
+            this.dtgListado.Location = new System.Drawing.Point(31, 165);
             this.dtgListado.MultiSelect = false;
             this.dtgListado.Name = "dtgListado";
             this.dtgListado.ReadOnly = true;
             this.dtgListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgListado.Size = new System.Drawing.Size(708, 198);
+            this.dtgListado.Size = new System.Drawing.Size(794, 248);
             this.dtgListado.TabIndex = 33;
+            this.dtgListado.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgListado_CellContentClick);
             // 
             // grpFiltros
             // 
@@ -82,180 +85,207 @@
             this.grpFiltros.Controls.Add(this.lblNombre);
             this.grpFiltros.Controls.Add(this.btnLimpiar);
             this.grpFiltros.Controls.Add(this.button2);
-            this.grpFiltros.Location = new System.Drawing.Point(119, 4);
+            this.grpFiltros.Location = new System.Drawing.Point(122, 5);
             this.grpFiltros.Name = "grpFiltros";
-            this.grpFiltros.Size = new System.Drawing.Size(528, 105);
+            this.grpFiltros.Size = new System.Drawing.Size(616, 121);
             this.grpFiltros.TabIndex = 42;
             this.grpFiltros.TabStop = false;
             this.grpFiltros.Text = "Filtros";
             // 
             // cmbTipoDni
             // 
+            this.cmbTipoDni.BackColor = System.Drawing.SystemColors.HotTrack;
             this.cmbTipoDni.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDni.FormattingEnabled = true;
             this.cmbTipoDni.Items.AddRange(new object[] {
             "Dni",
             "Otro"});
-            this.cmbTipoDni.Location = new System.Drawing.Point(284, 20);
+            this.cmbTipoDni.Location = new System.Drawing.Point(376, 22);
             this.cmbTipoDni.Name = "cmbTipoDni";
-            this.cmbTipoDni.Size = new System.Drawing.Size(57, 21);
+            this.cmbTipoDni.Size = new System.Drawing.Size(66, 23);
             this.cmbTipoDni.TabIndex = 61;
             this.cmbTipoDni.SelectedIndexChanged += new System.EventHandler(this.cmbTipoDni_SelectedIndexChanged);
             // 
             // lblTipoDoc
             // 
             this.lblTipoDoc.AutoSize = true;
-            this.lblTipoDoc.Location = new System.Drawing.Point(179, 24);
+            this.lblTipoDoc.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipoDoc.Location = new System.Drawing.Point(253, 24);
             this.lblTipoDoc.Name = "lblTipoDoc";
-            this.lblTipoDoc.Size = new System.Drawing.Size(99, 13);
+            this.lblTipoDoc.Size = new System.Drawing.Size(123, 15);
             this.lblTipoDoc.TabIndex = 60;
             this.lblTipoDoc.Text = "Tipo de documento";
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(67, 45);
+            this.txtApellido.Location = new System.Drawing.Point(78, 52);
             this.txtApellido.MaxLength = 255;
             this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(100, 20);
+            this.txtApellido.Size = new System.Drawing.Size(116, 23);
             this.txtApellido.TabIndex = 36;
             // 
             // lblApellido
             // 
             this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(16, 48);
+            this.lblApellido.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApellido.Location = new System.Drawing.Point(19, 55);
             this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(44, 13);
+            this.lblApellido.Size = new System.Drawing.Size(57, 15);
             this.lblApellido.TabIndex = 35;
             this.lblApellido.Text = "Apellido";
             // 
             // txtMail
             // 
-            this.txtMail.Location = new System.Drawing.Point(229, 45);
+            this.txtMail.Location = new System.Drawing.Point(314, 55);
             this.txtMail.MaxLength = 255;
             this.txtMail.Name = "txtMail";
-            this.txtMail.Size = new System.Drawing.Size(253, 20);
+            this.txtMail.Size = new System.Drawing.Size(294, 23);
             this.txtMail.TabIndex = 34;
             // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(179, 48);
+            this.lblEmail.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Location = new System.Drawing.Point(253, 55);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(32, 13);
+            this.lblEmail.Size = new System.Drawing.Size(42, 15);
             this.lblEmail.TabIndex = 33;
             this.lblEmail.Text = "Email";
             // 
             // txtDni
             // 
-            this.txtDni.Location = new System.Drawing.Point(382, 19);
+            this.txtDni.Location = new System.Drawing.Point(492, 24);
             this.txtDni.MaxLength = 255;
             this.txtDni.Name = "txtDni";
-            this.txtDni.Size = new System.Drawing.Size(100, 20);
+            this.txtDni.Size = new System.Drawing.Size(116, 23);
             this.txtDni.TabIndex = 32;
             // 
             // lblDni
             // 
             this.lblDni.AutoSize = true;
-            this.lblDni.Location = new System.Drawing.Point(353, 24);
+            this.lblDni.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDni.Location = new System.Drawing.Point(455, 27);
             this.lblDni.Name = "lblDni";
-            this.lblDni.Size = new System.Drawing.Size(23, 13);
+            this.lblDni.Size = new System.Drawing.Size(28, 15);
             this.lblDni.TabIndex = 31;
             this.lblDni.Text = "Dni";
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(67, 21);
+            this.txtNombre.Location = new System.Drawing.Point(78, 24);
             this.txtNombre.MaxLength = 255;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(100, 20);
+            this.txtNombre.Size = new System.Drawing.Size(116, 23);
             this.txtNombre.TabIndex = 30;
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(16, 24);
+            this.lblNombre.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Location = new System.Drawing.Point(19, 28);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(44, 13);
+            this.lblNombre.Size = new System.Drawing.Size(56, 15);
             this.lblNombre.TabIndex = 29;
             this.lblNombre.Text = "Nombre";
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(67, 74);
+            this.btnLimpiar.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnLimpiar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiar.Location = new System.Drawing.Point(78, 85);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(78, 23);
+            this.btnLimpiar.Size = new System.Drawing.Size(103, 27);
             this.btnLimpiar.TabIndex = 26;
             this.btnLimpiar.Text = "Limpiar Filtros";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(10, 74);
+            this.button2.BackColor = System.Drawing.Color.PowderBlue;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(12, 85);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(51, 23);
+            this.button2.Size = new System.Drawing.Size(59, 27);
             this.button2.TabIndex = 25;
             this.button2.Text = "Buscar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnVer
             // 
             this.btnVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVer.Location = new System.Drawing.Point(672, 115);
+            this.btnVer.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnVer.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVer.Location = new System.Drawing.Point(782, 133);
             this.btnVer.Name = "btnVer";
-            this.btnVer.Size = new System.Drawing.Size(63, 24);
+            this.btnVer.Size = new System.Drawing.Size(43, 28);
             this.btnVer.TabIndex = 49;
             this.btnVer.Text = "Ver";
-            this.btnVer.UseVisualStyleBackColor = true;
+            this.btnVer.UseVisualStyleBackColor = false;
             this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
             // btnEliminar
             // 
             this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.Location = new System.Drawing.Point(545, 115);
+            this.btnEliminar.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnEliminar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminar.Location = new System.Drawing.Point(631, 133);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(56, 24);
+            this.btnEliminar.Size = new System.Drawing.Size(65, 28);
             this.btnEliminar.TabIndex = 48;
             this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.UseVisualStyleBackColor = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnModificar
             // 
             this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnModificar.Location = new System.Drawing.Point(606, 115);
+            this.btnModificar.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnModificar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModificar.Location = new System.Drawing.Point(702, 133);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(60, 24);
+            this.btnModificar.Size = new System.Drawing.Size(74, 28);
             this.btnModificar.TabIndex = 47;
             this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnAlta
             // 
             this.btnAlta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlta.Location = new System.Drawing.Point(482, 115);
+            this.btnAlta.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnAlta.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnAlta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlta.Location = new System.Drawing.Point(559, 133);
             this.btnAlta.Name = "btnAlta";
-            this.btnAlta.Size = new System.Drawing.Size(57, 24);
+            this.btnAlta.Size = new System.Drawing.Size(66, 28);
             this.btnAlta.TabIndex = 46;
             this.btnAlta.Text = "Agregar";
-            this.btnAlta.UseVisualStyleBackColor = true;
+            this.btnAlta.UseVisualStyleBackColor = false;
             this.btnAlta.Click += new System.EventHandler(this.btnAlta_Click);
             // 
             // listadoCliente
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(762, 346);
+            this.BackColor = System.Drawing.Color.GhostWhite;
+            this.ClientSize = new System.Drawing.Size(857, 419);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAlta);
             this.Controls.Add(this.grpFiltros);
             this.Controls.Add(this.dtgListado);
+            this.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "listadoCliente";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listado de Clientes";
             this.Load += new System.EventHandler(this.listadoCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).EndInit();

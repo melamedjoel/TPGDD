@@ -28,59 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.txtRespuesta = new System.Windows.Forms.TextBox();
             this.lblRespuesta = new System.Windows.Forms.Label();
+            this.txtRespuesta = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(465, 98);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 7;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(384, 98);
+            this.btnAceptar.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnAceptar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptar.Location = new System.Drawing.Point(547, 132);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.Size = new System.Drawing.Size(73, 26);
             this.btnAceptar.TabIndex = 6;
             this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            // 
-            // txtRespuesta
-            // 
-            this.txtRespuesta.Location = new System.Drawing.Point(107, 25);
-            this.txtRespuesta.Name = "txtRespuesta";
-            this.txtRespuesta.Size = new System.Drawing.Size(431, 20);
-            this.txtRespuesta.TabIndex = 5;
             // 
             // lblRespuesta
             // 
             this.lblRespuesta.AutoSize = true;
-            this.lblRespuesta.Location = new System.Drawing.Point(22, 25);
+            this.lblRespuesta.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRespuesta.Location = new System.Drawing.Point(26, 29);
             this.lblRespuesta.Name = "lblRespuesta";
-            this.lblRespuesta.Size = new System.Drawing.Size(58, 26);
+            this.lblRespuesta.Size = new System.Drawing.Size(70, 30);
             this.lblRespuesta.TabIndex = 4;
             this.lblRespuesta.Text = "Ingrese \r\nRespuesta";
             // 
+            // txtRespuesta
+            // 
+            this.txtRespuesta.Location = new System.Drawing.Point(100, 29);
+            this.txtRespuesta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtRespuesta.MaxLength = 255;
+            this.txtRespuesta.Multiline = true;
+            this.txtRespuesta.Name = "txtRespuesta";
+            this.txtRespuesta.Size = new System.Drawing.Size(520, 76);
+            this.txtRespuesta.TabIndex = 77;
+            // 
             // ResponderPregunta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(559, 148);
-            this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.btnAceptar);
+            this.BackColor = System.Drawing.Color.GhostWhite;
+            this.ClientSize = new System.Drawing.Size(652, 171);
             this.Controls.Add(this.txtRespuesta);
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.lblRespuesta);
+            this.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ResponderPregunta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Responder Pregunta";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -89,9 +88,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.TextBox txtRespuesta;
         private System.Windows.Forms.Label lblRespuesta;
+        private System.Windows.Forms.TextBox txtRespuesta;
     }
 }
