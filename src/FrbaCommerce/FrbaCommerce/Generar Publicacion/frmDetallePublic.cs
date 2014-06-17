@@ -256,6 +256,7 @@ namespace FrbaCommerce.Generar_Publicacion
             strErrores += Validator.ValidarNulo(txtDescripcion.Text, "Descripcion");
             strErrores += Validator.SoloNumerosODecimales(txtPrecio.Text, "Precio");
             strErrores += Validator.MayorACero(txtStock.Text, "Stock");
+            strErrores += Validator.validarNuloEnListaDeCheckbox(lstRubros, "Listado de rubros");
             if (strErrores.Length > 0)
             {
                 throw new Exception(strErrores);

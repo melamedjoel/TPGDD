@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Windows.Forms;
 namespace Utilities
 {
     public class Validator
@@ -96,6 +96,17 @@ namespace Utilities
             }
             return strError;
             
+        }
+
+        public static string validarNuloEnListaDeCheckbox(CheckedListBox lstRubros, string nombreListado)
+        {
+            string strError = "";
+            if (lstRubros.CheckedItems.Count == 0)
+            {
+                strError += "El " + nombreListado + " debe tener seleccionado al menos un elemento. \n";
+            }
+            return strError;
+
         }
     }
         
