@@ -32,7 +32,8 @@ namespace FrbaCommerce.Facturar_Publicaciones
         private void frmFacturar_Load(object sender, EventArgs e)
         {
             DataSet ds = formaPago.obtengoTodas(); 
-            DropDownListManager.CargarCombo(cmbFormaDePago, ds.Tables[0], "Descripcion", "Descripción", false, "");
+            DropDownListManager.CargarCombo(cmbFormaDePago, ds.Tables[0], "id_Forma_Pago", "Descripcion", false, "");
+            cargarListadoDePublicacionesAFacturar();
         }
 
         public frmFacturar()
@@ -42,21 +43,79 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         private void cargarListadoDePublicacionesAFacturar()
         {
-            lstPublicacionesARendir.Items.Clear();
-            DataSet ds = unaPublicacion.obtenerPublisARendir(unUsuario);
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            try
             {
-                unaPublicacion.DataRowToObject(dr);
-                lstPublicacionesARendir.Items.Add(unaPublicacion);
+                DataSet ds = unaPublicacion.obtenerPublisARendir(unUsuario);
+                configurarGrillaPublicacionesAFacturar(ds);
+            }          
+
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            lstPublicacionesARendir.DisplayMember = "Codigo";
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void configurarGrillaPublicacionesAFacturar(DataSet ds)
+        {
+            dtgPublicacionesARendir.Columns.Clear();
+            dtgPublicacionesARendir.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn clmCod = new DataGridViewTextBoxColumn();
+            clmCod.Width = 65;
+            clmCod.ReadOnly = true;
+            clmCod.DataPropertyName = "Codigo";
+            clmCod.HeaderText = "Código";
+            dtgPublicacionesARendir.Columns.Add(clmCod);
+
+            DataGridViewTextBoxColumn clmDescripcion = new DataGridViewTextBoxColumn();
+            clmDescripcion.Width = 130;
+            clmDescripcion.ReadOnly = true;
+            clmDescripcion.DataPropertyName = "Descripcion";
+            clmDescripcion.HeaderText = "Descripción";
+            dtgPublicacionesARendir.Columns.Add(clmDescripcion);
+
+            DataGridViewTextBoxColumn clmStock = new DataGridViewTextBoxColumn();
+            clmStock.Width = 60;
+            clmStock.ReadOnly = true;
+            clmStock.DataPropertyName = "Stock";
+            clmStock.HeaderText = "Stock";
+            dtgPublicacionesARendir.Columns.Add(clmStock);
+
+            DataGridViewTextBoxColumn clmFechaCreacion = new DataGridViewTextBoxColumn();
+            clmFechaCreacion.Width = 80;
+            clmFechaCreacion.ReadOnly = true;
+            clmFechaCreacion.DataPropertyName = "Fecha_Creacion";
+            clmFechaCreacion.HeaderText = "Fecha Creación";
+            dtgPublicacionesARendir.Columns.Add(clmFechaCreacion);
+
+            DataGridViewTextBoxColumn clmFechaVencimiento = new DataGridViewTextBoxColumn();
+            clmFechaVencimiento.Width = 80;
+            clmFechaVencimiento.ReadOnly = true;
+            clmFechaVencimiento.DataPropertyName = "Fecha_Creacion";
+            clmFechaVencimiento.HeaderText = "Fecha Creación";
+            dtgPublicacionesARendir.Columns.Add(clmFechaVencimiento);
+
+            DataGridViewTextBoxColumn clmPrecio = new DataGridViewTextBoxColumn();
+            clmPrecio.Width = 60;
+            clmPrecio.ReadOnly = true;
+            clmPrecio.DataPropertyName = "Precio";
+            clmPrecio.HeaderText = "Precio";
+            dtgPublicacionesARendir.Columns.Add(clmPrecio);
+
+            dtgPublicacionesARendir.DataSource = ds.Tables[0];
         }
 
         private void btnFacturar_Click(object sender, EventArgs e)
         {
-            if (lstPublicacionesARendir.CheckedItems.Equals(null))
+            Validator.SoloNumeros(txtCantidad.Text, txtCantidad.Name);
+            
+            if (txtCantidad.Text == "")
             {
-                MessageBox.Show("Seleccione una cantidad correcta de publicaciones a facturar", "Error!");
+                MessageBox.Show("Ingrese una cantidad publicaciones a facturar", "Error!");
             }
             else
             {
@@ -67,9 +126,15 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         private void facturarPublicaciones()
         {
-            foreach (Publicacion unaPubli in lstPublicacionesARendir.CheckedItems)
+            for (var a = 0; a <= Convert.ToInt16(txtCantidad.Text) - 1; a++)
             {
+                Publicacion unaPubli = new Publicacion();
                 listaDePublicacionesARendir.Add(unaPubli);
+            }
+
+
+            foreach (Publicacion unaPubli in listaDePublicacionesARendir)
+            {
                 var ds = unItemFactura.obtenerItemsPorPublicacion(unaPubli.Codigo);
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -97,7 +162,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
   
         private void armarFactura()
         {
-            DialogResult dr = MessageBox.Show("¿Confirma que desea facturar " + lstPublicacionesARendir.CheckedItems.Count + " publicación/es?", "Atención", MessageBoxButtons.YesNo);
+            DialogResult dr = MessageBox.Show("¿Confirma que desea facturar " + txtCantidad.Text + " publicación/es?", "Atención", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
             {            
                 Factura factura = new Factura();

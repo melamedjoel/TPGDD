@@ -221,7 +221,8 @@ CREATE PROCEDURE ATJ.traerListadoPublicacionesMasAntiguasARendirPorUsuario
 	
 AS
 
-SELECT P.*
+SELECT P.Codigo AS Codigo, P.Descripcion AS Descripcion, P.Stock AS Stock, P.Fecha_creacion AS Fecha_Creacion,
+P.Fecha_vencimiento AS Fecha_Vencimiento, P.Precio AS Precio
 FROM ATJ.Publicaciones P
 INNER JOIN ATJ.Compras C ON C.cod_Publicacion = P.Codigo
 WHERE (P.Fecha_vencimiento <= GETDATE()
