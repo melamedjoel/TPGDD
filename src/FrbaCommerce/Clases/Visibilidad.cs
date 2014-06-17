@@ -20,6 +20,7 @@ namespace Clases
         private string _descripcion;
         private decimal _precio;
         private decimal _porcentaje;
+        private int _duracion;
         private bool _activo;
 
         #endregion
@@ -51,6 +52,12 @@ namespace Clases
             get { return _porcentaje; }
             set { _porcentaje = value; }
         }
+
+        public int Duracion
+        {
+            get { return _duracion; }
+            set { _duracion = value; }
+        }
         #endregion
 
         #region constructor
@@ -60,24 +67,27 @@ namespace Clases
             this.Descripcion = "";
             this.Precio = 0;
             this.Porcentaje = 0;
+            this.Duracion = 0;
             this.Activo = false;
 
         }
-        public Visibilidad(int unCodigo, string unaDescripcion, decimal unPrecio, decimal unPorcentaje, bool unValorDeActivo){
+        public Visibilidad(int unCodigo, string unaDescripcion, decimal unPrecio, decimal unPorcentaje, int unaDuracion, bool unValorDeActivo){
             this.cod_Visibilidad = unCodigo;
             this.Descripcion = unaDescripcion;
             this.Precio = unPrecio;
             this.Porcentaje = unPorcentaje;
+            this.Duracion = unaDuracion;
             this.Activo = unValorDeActivo;
 
         }
 
-        public Visibilidad(string unaDescripcion, decimal unPrecio, decimal unPorcentaje, bool unValorDeActivo)
+        public Visibilidad(string unaDescripcion, decimal unPrecio, decimal unPorcentaje, int unaDuracion, bool unValorDeActivo)
         {
             this.cod_Visibilidad = -1;
             this.Descripcion = unaDescripcion;
             this.Precio = unPrecio;
             this.Porcentaje = unPorcentaje;
+            this.Duracion = unaDuracion;
             this.Activo= unValorDeActivo;
         }
 
@@ -111,6 +121,7 @@ namespace Clases
             this.Descripcion = dr["Descripcion"].ToString();
             this.Precio = Convert.ToDecimal(dr["Precio"]);
             this.Porcentaje = Convert.ToDecimal(dr["Porcentaje"]);
+            this.Duracion = Convert.ToInt32(dr["Duracion"]);
             this.Activo = Convert.ToBoolean(dr["Activo"]);
         }
 
@@ -149,10 +160,10 @@ namespace Clases
             return unaVisibilidad.TraerListado(unaVisibilidad.parameterList, "");
         }
 
-        public static DataSet obtenerTodasLasVisibilidadesConFiltros(string unaDescripcion, string unPrecio, string unPorcentaje, bool unValorDeActivo)
+        public static DataSet obtenerTodasLasVisibilidadesConFiltros(string unaDescripcion, string unPrecio, string unPorcentaje, string unaDuracion, bool unValorDeActivo)
         {
             Visibilidad unaVisibilidad = new Visibilidad();
-            unaVisibilidad.setearListaDeParametrosConDescripcionPrecioPorcentajeYActivo(unaDescripcion, unPrecio, unPorcentaje, unValorDeActivo);            
+            unaVisibilidad.setearListaDeParametrosConDescripcionPrecioDuracionPorcentajeYActivo(unaDescripcion, unPrecio, unPorcentaje, unaDuracion, unValorDeActivo);            
             DataSet ds = unaVisibilidad.TraerListado(unaVisibilidad.parameterList, "ConFiltros");
             unaVisibilidad.parameterList.Clear();
             return ds;
@@ -212,7 +223,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Descripcion", unaDescripcion));
         }
 
-        private void setearListaDeParametrosConDescripcionPrecioPorcentajeYActivo(string unaDescripcion, string unPrecio, string unPorcentaje, bool unValorDeActivo)
+        private void setearListaDeParametrosConDescripcionPrecioDuracionPorcentajeYActivo(string unaDescripcion, string unPrecio, string unPorcentaje, string unaDuracion, bool unValorDeActivo)
         {
             if(!(String.IsNullOrEmpty(unaDescripcion)))
                 parameterList.Add(new SqlParameter("@Descripcion", unaDescripcion));
@@ -220,6 +231,8 @@ namespace Clases
                 parameterList.Add(new SqlParameter("@Precio", unPrecio));
             if (!(String.IsNullOrEmpty(unPorcentaje)))
                 parameterList.Add(new SqlParameter("@Porcentaje", unPorcentaje));
+            if (!(String.IsNullOrEmpty(unaDuracion)))
+                parameterList.Add(new SqlParameter("@Duracion", unaDuracion));
             
             parameterList.Add(new SqlParameter("@Activo", unValorDeActivo));
         }
@@ -231,6 +244,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Descripcion", this.Descripcion));
             parameterList.Add(new SqlParameter("@Precio", this.Precio));
             parameterList.Add(new SqlParameter("@Porcentaje", this.Porcentaje));
+            parameterList.Add(new SqlParameter("@Duracion", this.Duracion));
             parameterList.Add(new SqlParameter("@Activo", this.Activo));
             
         }
@@ -240,6 +254,7 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Descripcion", this.Descripcion));
             parameterList.Add(new SqlParameter("@Precio", this.Precio));
             parameterList.Add(new SqlParameter("@Porcentaje", this.Porcentaje));
+            parameterList.Add(new SqlParameter("@Duracion", this.Duracion));
             parameterList.Add(new SqlParameter("@Activo", this.Activo));
 
         }

@@ -35,7 +35,6 @@
             this.lblUsuario = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblDescripcion = new System.Windows.Forms.Label();
-            this.txtFechaCreacion = new System.Windows.Forms.TextBox();
             this.lblCreacion = new System.Windows.Forms.Label();
             this.lblFechaVencimiento = new System.Windows.Forms.Label();
             this.lblTipo = new System.Windows.Forms.Label();
@@ -53,6 +52,7 @@
             this.dtVencimiento = new System.Windows.Forms.DateTimePicker();
             this.btnAumentarStock = new System.Windows.Forms.Button();
             this.btnRestarStock = new System.Windows.Forms.Button();
+            this.dtFechaCreacion = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btnVolver
@@ -114,14 +114,6 @@
             this.lblDescripcion.Size = new System.Drawing.Size(63, 13);
             this.lblDescripcion.TabIndex = 55;
             this.lblDescripcion.Text = "Descripción";
-            // 
-            // txtFechaCreacion
-            // 
-            this.txtFechaCreacion.Enabled = false;
-            this.txtFechaCreacion.Location = new System.Drawing.Point(143, 133);
-            this.txtFechaCreacion.Name = "txtFechaCreacion";
-            this.txtFechaCreacion.Size = new System.Drawing.Size(108, 20);
-            this.txtFechaCreacion.TabIndex = 64;
             // 
             // lblCreacion
             // 
@@ -247,6 +239,7 @@
             // 
             // dtVencimiento
             // 
+            this.dtVencimiento.Enabled = false;
             this.dtVencimiento.Location = new System.Drawing.Point(142, 158);
             this.dtVencimiento.Name = "dtVencimiento";
             this.dtVencimiento.Size = new System.Drawing.Size(200, 20);
@@ -276,12 +269,21 @@
             this.btnRestarStock.UseVisualStyleBackColor = true;
             this.btnRestarStock.Click += new System.EventHandler(this.btnRestarStock_Click);
             // 
+            // dtFechaCreacion
+            // 
+            this.dtFechaCreacion.Enabled = false;
+            this.dtFechaCreacion.Location = new System.Drawing.Point(142, 132);
+            this.dtFechaCreacion.Name = "dtFechaCreacion";
+            this.dtFechaCreacion.Size = new System.Drawing.Size(200, 20);
+            this.dtFechaCreacion.TabIndex = 86;
+            // 
             // frmDetallePublic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(597, 410);
+            this.Controls.Add(this.dtFechaCreacion);
             this.Controls.Add(this.btnRestarStock);
             this.Controls.Add(this.btnAumentarStock);
             this.Controls.Add(this.dtVencimiento);
@@ -298,7 +300,6 @@
             this.Controls.Add(this.lblVisibilidad);
             this.Controls.Add(this.lblTipo);
             this.Controls.Add(this.lblFechaVencimiento);
-            this.Controls.Add(this.txtFechaCreacion);
             this.Controls.Add(this.lblCreacion);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.txtStock);
@@ -324,7 +325,6 @@
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label lblDescripcion;
-        private System.Windows.Forms.TextBox txtFechaCreacion;
         private System.Windows.Forms.Label lblCreacion;
         private System.Windows.Forms.Label lblFechaVencimiento;
         private System.Windows.Forms.Label lblTipo;
@@ -342,5 +342,6 @@
         private System.Windows.Forms.DateTimePicker dtVencimiento;
         private System.Windows.Forms.Button btnAumentarStock;
         private System.Windows.Forms.Button btnRestarStock;
+        private System.Windows.Forms.DateTimePicker dtFechaCreacion;
     }
 }

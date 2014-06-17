@@ -39,7 +39,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
             txtDescripcion.Text = unaPublic.Descripcion;
             cmbEstado.SelectedValue = unaPublic.Estado_Publicacion.id_Estado;
-            txtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
+            dtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
             dtVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
             txtStock.Text = unaPublic.Stock.ToString();
             txtUsuario.Text = unaPublic.Usuario.Username;
@@ -70,7 +70,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
             txtDescripcion.Text = unaPublic.Descripcion;
             cmbEstado.SelectedValue = unaPublic.Estado_Publicacion.id_Estado;
-            txtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
+            dtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
             dtVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
             txtStock.Text = unaPublic.Stock.ToString();
             txtUsuario.Text = unaPublic.Usuario.Username;
@@ -101,7 +101,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
             txtDescripcion.Text = unaPublic.Descripcion;
             cmbEstado.SelectedValue = unaPublic.Estado_Publicacion.id_Estado;
-            txtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
+            dtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
             dtVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
             txtStock.Text = unaPublic.Stock.ToString();
             txtUsuario.Text = unaPublic.Usuario.Username;

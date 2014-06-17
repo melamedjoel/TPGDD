@@ -41,6 +41,9 @@ namespace FrbaCommerce.Abm_Visibilidad
             
             txtPorcentaje.Text = unaVisibilidad.Porcentaje.ToString();
             txtPorcentaje.Enabled = false;
+
+            txtDuracion.Text = unaVisibilidad.Duracion.ToString();
+            txtDuracion.Enabled = false;
             
             btnCrear.Visible = false;
             btnGuardar.Visible = false;
@@ -66,6 +69,9 @@ namespace FrbaCommerce.Abm_Visibilidad
             txtPorcentaje.Text = unaVisibilidad.Porcentaje.ToString();
             txtPorcentaje.Enabled = true;
 
+            txtDuracion.Text = unaVisibilidad.Duracion.ToString();
+            txtDuracion.Enabled = true;
+
             btnCrear.Visible = false;
             btnGuardar.Visible = true;
             
@@ -83,6 +89,9 @@ namespace FrbaCommerce.Abm_Visibilidad
 
             txtPorcentaje.Text = "";
             txtPorcentaje.Enabled = true;
+
+            txtDuracion.Text = "";
+            txtDuracion.Enabled = true;
 
             chkActivo.Checked = false;
             chkActivo.Visible = true;
@@ -112,11 +121,13 @@ namespace FrbaCommerce.Abm_Visibilidad
                 string descripcion = txtDescripcion.Text;
                 var precio = Convert.ToDecimal(txtPrecioPorPublicar.Text.Replace(".", ","));
                 var porcentaje = Convert.ToDecimal(txtPorcentaje.Text.Replace(".", ","));
+                int duracion = Convert.ToInt32(txtDuracion.Text);
                 bool activo = chkActivo.Checked;
 
                 visibilidadDelForm.Descripcion= descripcion;
                 visibilidadDelForm.Precio = precio;
                 visibilidadDelForm.Porcentaje = porcentaje;
+                visibilidadDelForm.Duracion = duracion;
                 visibilidadDelForm.Activo = activo;
 
 
@@ -152,6 +163,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             strErrores += Validator.ValidarNulo(txtDescripcion.Text, "Descripcion");
             strErrores += Validator.SoloNumerosODecimales(txtPrecioPorPublicar.Text, "Precio");
             strErrores += Validator.SoloNumerosODecimales(txtPorcentaje.Text, "Porcentaje");
+            strErrores += Validator.SoloNumeros(txtDuracion.Text, "Duracion");
             if (strErrores.Length > 0)
             {
                 throw new Exception(strErrores);
@@ -167,9 +179,10 @@ namespace FrbaCommerce.Abm_Visibilidad
                 var precio = Convert.ToDecimal(txtPrecioPorPublicar.Text.Replace(".", ","));
                 var porcentaje = Convert.ToDecimal(txtPorcentaje.Text.Replace(".", ","));
                 string descripcion = txtDescripcion.Text;
+                int duracion = Convert.ToInt32(txtDuracion.Text);
                 bool activo = chkActivo.Checked;
 
-                Visibilidad unaVisibNueva = new Visibilidad(descripcion, precio, porcentaje, activo);
+                Visibilidad unaVisibNueva = new Visibilidad(descripcion, precio, porcentaje, duracion, activo);
                 unaVisibNueva.guardarDatosDeVisibilidadNueva();
                 DialogResult dr = MessageBox.Show("La visibilidad ha sido creada", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)

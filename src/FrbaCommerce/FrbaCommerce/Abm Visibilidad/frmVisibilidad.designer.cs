@@ -38,6 +38,8 @@
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnCrear = new System.Windows.Forms.Button();
             this.chkActivo = new System.Windows.Forms.CheckBox();
+            this.txtDuracion = new System.Windows.Forms.TextBox();
+            this.lblDuracion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtDescripcion
@@ -58,7 +60,7 @@
             // 
             // txtPorcentaje
             // 
-            this.txtPorcentaje.Location = new System.Drawing.Point(156, 68);
+            this.txtPorcentaje.Location = new System.Drawing.Point(156, 62);
             this.txtPorcentaje.Name = "txtPorcentaje";
             this.txtPorcentaje.Size = new System.Drawing.Size(53, 20);
             this.txtPorcentaje.TabIndex = 49;
@@ -73,7 +75,7 @@
             // lblPorcentaje
             // 
             this.lblPorcentaje.AutoSize = true;
-            this.lblPorcentaje.Location = new System.Drawing.Point(30, 71);
+            this.lblPorcentaje.Location = new System.Drawing.Point(30, 65);
             this.lblPorcentaje.Name = "lblPorcentaje";
             this.lblPorcentaje.Size = new System.Drawing.Size(114, 13);
             this.lblPorcentaje.TabIndex = 47;
@@ -90,7 +92,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(232, 92);
+            this.btnGuardar.Location = new System.Drawing.Point(232, 86);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 53;
@@ -110,7 +112,7 @@
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(232, 92);
+            this.btnCrear.Location = new System.Drawing.Point(232, 86);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(75, 23);
             this.btnCrear.TabIndex = 51;
@@ -121,12 +123,28 @@
             // chkActivo
             // 
             this.chkActivo.AutoSize = true;
-            this.chkActivo.Location = new System.Drawing.Point(33, 96);
+            this.chkActivo.Location = new System.Drawing.Point(33, 120);
             this.chkActivo.Name = "chkActivo";
             this.chkActivo.Size = new System.Drawing.Size(56, 17);
             this.chkActivo.TabIndex = 54;
             this.chkActivo.Text = "Activo";
             this.chkActivo.UseVisualStyleBackColor = true;
+            // 
+            // txtDuracion
+            // 
+            this.txtDuracion.Location = new System.Drawing.Point(156, 88);
+            this.txtDuracion.Name = "txtDuracion";
+            this.txtDuracion.Size = new System.Drawing.Size(53, 20);
+            this.txtDuracion.TabIndex = 56;
+            // 
+            // lblDuracion
+            // 
+            this.lblDuracion.AutoSize = true;
+            this.lblDuracion.Location = new System.Drawing.Point(30, 91);
+            this.lblDuracion.Name = "lblDuracion";
+            this.lblDuracion.Size = new System.Drawing.Size(50, 13);
+            this.lblDuracion.TabIndex = 55;
+            this.lblDuracion.Text = "Duracion";
             // 
             // frmVisibilidad
             // 
@@ -134,6 +152,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(339, 151);
+            this.Controls.Add(this.txtDuracion);
+            this.Controls.Add(this.lblDuracion);
             this.Controls.Add(this.chkActivo);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnVolver);
@@ -163,5 +183,7 @@
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.CheckBox chkActivo;
+        private System.Windows.Forms.TextBox txtDuracion;
+        private System.Windows.Forms.Label lblDuracion;
     }
 }

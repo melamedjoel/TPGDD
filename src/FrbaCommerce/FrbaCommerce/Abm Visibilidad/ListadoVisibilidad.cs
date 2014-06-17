@@ -46,6 +46,12 @@ namespace FrbaCommerce.Abm_Visibilidad
             return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["cod_Visibilidad"]);
         }
 
+        private int valorDuracionSeleccionado()
+        {
+            return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["Duracion"]);
+        }
+
+
         public void CargarListadoDeVisibilidades()
         {
             try
@@ -94,6 +100,12 @@ namespace FrbaCommerce.Abm_Visibilidad
             clmPorcentaje.HeaderText = "Porcentaje";
             dtgListado.Columns.Add(clmPorcentaje);
 
+            DataGridViewTextBoxColumn clmDuracion = new DataGridViewTextBoxColumn();
+            clmDuracion.ReadOnly = true;
+            clmDuracion.DataPropertyName = "Duracion";
+            clmDuracion.HeaderText = "Duracion";
+            dtgListado.Columns.Add(clmDuracion);
+
             DataGridViewCheckBoxColumn clmActivo = new DataGridViewCheckBoxColumn();
             clmActivo.Width = 60;
             clmActivo.ReadOnly = true;
@@ -115,6 +127,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             txtDescripcion.Text = "";
             txtPorcentaje.Text = "";
             txtPrecio.Text = "";
+            txtDuracion.Text = "";
             chkActivo.Checked = false;
             CargarListadoDeVisibilidades();
         }
@@ -128,7 +141,7 @@ namespace FrbaCommerce.Abm_Visibilidad
         {
             try
             {
-                DataSet ds = Visibilidad.obtenerTodasLasVisibilidadesConFiltros(txtDescripcion.Text, txtPrecio.Text, txtPorcentaje.Text,chkActivo.Checked);
+                DataSet ds = Visibilidad.obtenerTodasLasVisibilidadesConFiltros(txtDescripcion.Text, txtPrecio.Text, txtPorcentaje.Text,txtDuracion.Text,chkActivo.Checked);
                 configurarGrilla(ds);
             }
             catch (ErrorConsultaException ex)
@@ -144,14 +157,14 @@ namespace FrbaCommerce.Abm_Visibilidad
         private void btnVer_Click(object sender, EventArgs e)
         {
             frmVisibilidad _frmVisibilidad = new frmVisibilidad();
-            Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorActivoSeleccionado());
+            Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorDuracionSeleccionado(), valorActivoSeleccionado());
             _frmVisibilidad.AbrirParaVer(unaVisibilidad, this);
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
             frmVisibilidad _frmVisibilidad = new frmVisibilidad();
-            Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorActivoSeleccionado());
+            Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorDuracionSeleccionado(), valorActivoSeleccionado());
             _frmVisibilidad.AbrirParaModificar(unaVisibilidad, this);
         }
 
@@ -160,7 +173,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             DialogResult dr = MessageBox.Show("¿Está seguro que desea desactivar la visibilidad?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
-                Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorActivoSeleccionado());
+                Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorDuracionSeleccionado(), valorActivoSeleccionado());
                 unaVisibilidad.Deshabilitar();
                 MessageBox.Show("La visibilidad ha quedado desactivada", "Desactivada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarListadoDeVisibilidades();
@@ -180,7 +193,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             {
                 try
                 {
-                    Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorActivoSeleccionado());
+                    Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(),valorDuracionSeleccionado(), valorActivoSeleccionado());
                     unaVisibilidad.Eliminar();
                     MessageBox.Show("La visibilidad ha quedado eliminada", "Desactivada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarListadoDeVisibilidades();
@@ -191,5 +204,6 @@ namespace FrbaCommerce.Abm_Visibilidad
                 }
             }
         }
+
     }
 }

@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grpFiltros = new System.Windows.Forms.GroupBox();
+            this.txtDuracion = new System.Windows.Forms.TextBox();
+            this.lblDuracion = new System.Windows.Forms.Label();
             this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.lblPorcentaje = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
@@ -51,6 +53,8 @@
             // 
             // grpFiltros
             // 
+            this.grpFiltros.Controls.Add(this.txtDuracion);
+            this.grpFiltros.Controls.Add(this.lblDuracion);
             this.grpFiltros.Controls.Add(this.txtPorcentaje);
             this.grpFiltros.Controls.Add(this.lblPorcentaje);
             this.grpFiltros.Controls.Add(this.txtPrecio);
@@ -66,6 +70,23 @@
             this.grpFiltros.TabIndex = 38;
             this.grpFiltros.TabStop = false;
             this.grpFiltros.Text = "Filtros";
+            // 
+            // txtDuracion
+            // 
+            this.txtDuracion.Location = new System.Drawing.Point(532, 27);
+            this.txtDuracion.MaxLength = 255;
+            this.txtDuracion.Name = "txtDuracion";
+            this.txtDuracion.Size = new System.Drawing.Size(60, 20);
+            this.txtDuracion.TabIndex = 40;
+            // 
+            // lblDuracion
+            // 
+            this.lblDuracion.AutoSize = true;
+            this.lblDuracion.Location = new System.Drawing.Point(476, 30);
+            this.lblDuracion.Name = "lblDuracion";
+            this.lblDuracion.Size = new System.Drawing.Size(50, 13);
+            this.lblDuracion.TabIndex = 39;
+            this.lblDuracion.Text = "Duracion";
             // 
             // txtPorcentaje
             // 
@@ -162,8 +183,8 @@
             // dtgListado
             // 
             this.dtgListado.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -261,5 +282,7 @@
         public System.Windows.Forms.Button btnModificar;
         public System.Windows.Forms.Button btnAgregar;
         public System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.TextBox txtDuracion;
+        private System.Windows.Forms.Label lblDuracion;
     }
 }
