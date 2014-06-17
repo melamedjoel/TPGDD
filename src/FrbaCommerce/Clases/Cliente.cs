@@ -250,10 +250,13 @@ namespace Clases
         {
             setearListaDeParametros();
             setearListaDeParametrosConIdRol();
-            setearListaDeParametrosConIdUsuario(id_usuario);
+            
             DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             if (ds.Tables[0].Rows.Count == 0)
+            {
+                setearListaDeParametrosConIdUsuario(id_usuario);
                 this.Guardar(parameterList);
+            }
             else
                 throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
             parameterList.Clear();
