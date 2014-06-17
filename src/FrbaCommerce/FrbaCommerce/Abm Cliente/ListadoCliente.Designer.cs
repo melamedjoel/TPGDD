@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.grpFiltros = new System.Windows.Forms.GroupBox();
             this.cmbTipoDni = new System.Windows.Forms.ComboBox();
@@ -54,18 +54,18 @@
             // dtgListado
             // 
             this.dtgListado.AllowUserToAddRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dtgListado.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgListado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dtgListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgListado.Location = new System.Drawing.Point(118, 145);
+            this.dtgListado.Location = new System.Drawing.Point(27, 145);
             this.dtgListado.MultiSelect = false;
             this.dtgListado.Name = "dtgListado";
             this.dtgListado.ReadOnly = true;
             this.dtgListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgListado.Size = new System.Drawing.Size(499, 163);
+            this.dtgListado.Size = new System.Drawing.Size(708, 198);
             this.dtgListado.TabIndex = 33;
             // 
             // grpFiltros
@@ -84,7 +84,7 @@
             this.grpFiltros.Controls.Add(this.button2);
             this.grpFiltros.Location = new System.Drawing.Point(119, 4);
             this.grpFiltros.Name = "grpFiltros";
-            this.grpFiltros.Size = new System.Drawing.Size(501, 105);
+            this.grpFiltros.Size = new System.Drawing.Size(528, 105);
             this.grpFiltros.TabIndex = 42;
             this.grpFiltros.TabStop = false;
             this.grpFiltros.Text = "Filtros";
@@ -202,9 +202,9 @@
             // btnVer
             // 
             this.btnVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVer.Location = new System.Drawing.Point(588, 115);
+            this.btnVer.Location = new System.Drawing.Point(672, 115);
             this.btnVer.Name = "btnVer";
-            this.btnVer.Size = new System.Drawing.Size(32, 24);
+            this.btnVer.Size = new System.Drawing.Size(63, 24);
             this.btnVer.TabIndex = 49;
             this.btnVer.Text = "Ver";
             this.btnVer.UseVisualStyleBackColor = true;
@@ -213,7 +213,7 @@
             // btnEliminar
             // 
             this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.Location = new System.Drawing.Point(462, 115);
+            this.btnEliminar.Location = new System.Drawing.Point(545, 115);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(56, 24);
             this.btnEliminar.TabIndex = 48;
@@ -224,7 +224,7 @@
             // btnModificar
             // 
             this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnModificar.Location = new System.Drawing.Point(523, 115);
+            this.btnModificar.Location = new System.Drawing.Point(606, 115);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(60, 24);
             this.btnModificar.TabIndex = 47;
@@ -235,7 +235,7 @@
             // btnAlta
             // 
             this.btnAlta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlta.Location = new System.Drawing.Point(399, 115);
+            this.btnAlta.Location = new System.Drawing.Point(482, 115);
             this.btnAlta.Name = "btnAlta";
             this.btnAlta.Size = new System.Drawing.Size(57, 24);
             this.btnAlta.TabIndex = 46;
@@ -248,7 +248,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(732, 311);
+            this.ClientSize = new System.Drawing.Size(762, 346);
             this.Controls.Add(this.btnVer);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);

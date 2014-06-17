@@ -402,3 +402,28 @@ AS
 	VALUES
 	(@id_Usuario, @cod_Publicacion, (@CantEstrellas * 2), @Descripcion)
 GO
+
+--Procedure validarTelefonoEnCliente
+CREATE PROCEDURE ATJ.validarTelefonoEnCliente
+	@Tipo_Dni nvarchar(50) =null,
+	@Dni numeric(18,0) =null,
+	@Cuil nvarchar(50) =null,
+	@Apellido nvarchar(255) =null,
+	@Nombre nvarchar(255) =null,
+	@Fecha_nac datetime =null,
+	@Mail nvarchar(50) =null,
+	@Telefono nvarchar(255) =null,
+	@Dom_calle nvarchar(100) =null,
+	@Dom_nro_calle numeric(18,0) =null,
+	@Dom_piso numeric(18,0) =null,
+	@Dom_depto nvarchar(50) =null,
+	@Dom_cod_postal nvarchar(50) =null,
+	@Dom_ciudad nvarchar(255) =null,
+	@Activo bit,
+	@id_Rol int,
+	@id_Usuario int
+	
+AS
+	SELECT * FROM ATJ.Clientes WHERE Telefono = @Telefono
+GO
+

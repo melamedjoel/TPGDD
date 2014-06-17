@@ -97,11 +97,11 @@ namespace FrbaCommerce.Abm_Cliente
             clmDireccion.HeaderText = "Direccion";
             dtgListado.Columns.Add(clmDireccion);
 
-            //DataGridViewTextBoxColumn clmCiudad = new DataGridViewTextBoxColumn();
-            //clmCiudad.ReadOnly = true;
-            //clmCiudad.DataPropertyName = "Dom_ciudad";
-            //clmCiudad.HeaderText = "Ciudad";
-            //dtgListado.Columns.Add(clmCiudad);
+            DataGridViewTextBoxColumn clmCiudad = new DataGridViewTextBoxColumn();
+            clmCiudad.ReadOnly = true;
+            clmCiudad.DataPropertyName = "Dom_ciudad";
+            clmCiudad.HeaderText = "Ciudad";
+            dtgListado.Columns.Add(clmCiudad);
 
             DataGridViewTextBoxColumn clmCodigoPostal = new DataGridViewTextBoxColumn();
             clmCodigoPostal.ReadOnly = true;
@@ -117,6 +117,7 @@ namespace FrbaCommerce.Abm_Cliente
             dtgListado.Columns.Add(clmActivo);
 
             dtgListado.DataSource = ds.Tables[0];
+            dtgListado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         public void CargarListadoDeClientes()
         {
@@ -140,7 +141,7 @@ namespace FrbaCommerce.Abm_Cliente
 
             try
             {
-                if (txtDni.Text == "") { txtDni.Text = null; }
+                if (string.IsNullOrEmpty(txtDni.Text)) { txtDni.Text = "0"; }
                 DataSet ds = Cliente.obtenerTodosLosClientesConFiltros(txtNombre.Text, txtApellido.Text, cmbTipoDni.Text, Convert.ToInt32(txtDni.Text), txtMail.Text);
                 configurarGrilla(ds);
             }
@@ -209,15 +210,18 @@ namespace FrbaCommerce.Abm_Cliente
         private void cmbTipoDni_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbTipoDni.Text == "Dni") { txtDni.Enabled = true; }
+            if (cmbTipoDni.Text == "Otro")
+            {
+                txtDni.Text = "";
+                txtDni.Enabled = false;
+            }
         }
         
         private void ValidarFiltros()
         {
             if (txtDni.Text != "") { Validator.EsNumero(txtDni.Text); }
+             
         }
-
-
-        
 
     }
 }

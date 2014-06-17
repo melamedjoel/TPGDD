@@ -232,20 +232,18 @@ namespace Clases
        
         public void guardarDatosDeClienteNuevo()
         {
-            this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
             setearListaDeParametros();
-            setearListaDeParametrosConIdRol();
-            setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);            
-            this.Guardar(parameterList);            
+            setearListaDeParametrosConIdRol();            
+            DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
+                setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);
+                this.Guardar(parameterList);
+            }
+            else
+                throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
             parameterList.Clear();
-            
-            //if (dsNuevaEmpresa.Tables[0].Rows.Count > 0)
-            //{
-            //    this.id_Empresa = Convert.ToInt32(dsNuevaEmpresa.Tables[0].Rows[0]["id_Empresa"]);
-            //} CREO QUE NO LO NECESITO
-            //{
-            //    throw new BadInsertException();
-            //}
         }
 
         public void guardarDatosDeClienteNuevoRegistrado(int id_usuario)
@@ -253,7 +251,11 @@ namespace Clases
             setearListaDeParametros();
             setearListaDeParametrosConIdRol();
             setearListaDeParametrosConIdUsuario(id_usuario);
-            this.Guardar(parameterList);
+            DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
+            if (ds.Tables[0].Rows.Count == 0)
+                this.Guardar(parameterList);
+            else
+                throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
             parameterList.Clear();
         }
         
@@ -261,22 +263,18 @@ namespace Clases
         {
             parameterList.Clear();
             setearListaDeParametrosConIdCliente();
-            setearListaDeParametros();            
-            if (this.Modificar(parameterList))
-            {
-                parameterList.Clear();
-            }
+            setearListaDeParametros();
+            DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
+            if (ds.Tables[0].Rows.Count == 0)
+                if (this.Modificar(parameterList))
+                {
+                    parameterList.Clear();
+                }
+            else
+                throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
+            parameterList.Clear();           
            
         }
-
-        ////public void Desactivar()
-        ////{
-        ////    setearListaDeParametrosConIdCliente();
-        ////    this.Deshabilitar(parameterList);
-        ////    parameterList.Clear();
-            
-        ////}
-
         #endregion
 
         #region metodos privados
@@ -297,15 +295,7 @@ namespace Clases
         {
             parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
         }
-        //private void setearListaDeParametrosConIdYFiltros(string Nombre, string Apellido, string TipoDni, int Dni, string Mail)
-        //{
-        //    parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
-        //    parameterList.Add(new SqlParameter("@Nombre", Nombre));
-        //    parameterList.Add(new SqlParameter("@Apellido", Apellido));
-        //    parameterList.Add(new SqlParameter("@Tipo_Dni", TipoDni));
-        //    parameterList.Add(new SqlParameter("@Dni", Dni));
-        //    parameterList.Add(new SqlParameter("@Mail", Mail)); 
-        //}
+       
         private void setearListaDeParametros()
         {
             //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));

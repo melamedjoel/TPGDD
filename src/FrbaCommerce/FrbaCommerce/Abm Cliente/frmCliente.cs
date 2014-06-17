@@ -167,7 +167,7 @@ namespace FrbaCommerce.Abm_Cliente
                 clienteDelForm.Apellido = txtApellido.Text;
                 clienteDelForm.Nombre = txtNombre.Text;
                 clienteDelForm.Dni = Int32.Parse(txtDni.Text);
-                clienteDelForm.Tipo_Doc = cmbTipoDni.SelectedValue.ToString();
+                clienteDelForm.Tipo_Doc = cmbTipoDni.Text;
                 clienteDelForm.Cuil = txtCuil.Text;
                 clienteDelForm.Dom_calle = txtCalle.Text;
                 clienteDelForm.Dom_ciudad = txtLocalidad.Text;
@@ -188,7 +188,7 @@ namespace FrbaCommerce.Abm_Cliente
                     frmPadre.BringToFront();
                 }
 
-                ////frmPadre.CargarListadoDeClientes();
+                frmPadre.CargarListadoDeClientes();
             }
             catch (ErrorConsultaException ex)
             {
@@ -307,7 +307,7 @@ namespace FrbaCommerce.Abm_Cliente
         private void ValidarCampos()
         {
             string strErrores = "";
-            strErrores += Validator.SoloNumeros(txtDni.Text, "Dni");
+            strErrores += Validator.SoloNumerosPeroOpcional(txtDni.Text, "Dni");
             strErrores += Validator.ValidarNulo(txtCuil.Text, "Cuil");
             strErrores += Validator.SoloNumerosPeroOpcional(txtNroPiso.Text, "Numero de Piso"); 
             strErrores += Validator.SoloNumerosPeroOpcional(txtNumeroCalle.Text, "Numero de Calle"); 
@@ -315,14 +315,16 @@ namespace FrbaCommerce.Abm_Cliente
             {
                 throw new Exception(strErrores);
             }
-            
-            //FALTA VALIDAR QUE NO EXISTA CLIENTE CON ESE TIPO Y NRODEDOC
-            //NO PUEDE HABER TMP MISMO TELEFONO Y ¿CUIL?
         }
 
         private void cmbTipoDni_SelectedValueChanged(object sender, EventArgs e)
         {
             if (cmbTipoDni.Text == "Dni") { txtDni.Enabled = true; }
+            if (cmbTipoDni.Text == "Otro")
+            {
+                txtDni.Text = "";
+                txtDni.Enabled = false;
+            }
 
         }
 

@@ -101,6 +101,7 @@ namespace FrbaCommerce.Abm_Empresa
             dtgListado.Columns.Add(clmActivo);
 
             dtgListado.DataSource = ds.Tables[0];
+            dtgListado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         public void CargarListadoDeEmpresas()
         {
