@@ -94,8 +94,8 @@ namespace FrbaCommerce.Facturar_Publicaciones
             DataGridViewTextBoxColumn clmFechaVencimiento = new DataGridViewTextBoxColumn();
             clmFechaVencimiento.Width = 80;
             clmFechaVencimiento.ReadOnly = true;
-            clmFechaVencimiento.DataPropertyName = "Fecha_Creacion";
-            clmFechaVencimiento.HeaderText = "Fecha Creación";
+            clmFechaVencimiento.DataPropertyName = "Fecha_vencimiento";
+            clmFechaVencimiento.HeaderText = "Fecha Vencimiento";
             dtgPublicacionesARendir.Columns.Add(clmFechaVencimiento);
 
             DataGridViewTextBoxColumn clmPrecio = new DataGridViewTextBoxColumn();
@@ -209,5 +209,6 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         }
 
+        
     }
 }

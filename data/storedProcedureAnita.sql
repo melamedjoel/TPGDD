@@ -207,6 +207,14 @@ AS
 	
 GO
 
+--Procedure traerListadoFormas_Pago
+CREATE PROCEDURE ATJ.traerFormas_Pago
+	
+AS
+	SELECT *
+	FROM ATJ.Formas_Pago
+GO
+
 --Procedure traerListadoFormas_PagoPorId
 CREATE PROCEDURE ATJ.traerListadoFormas_PagoPorId
 	@id_Forma_Pago int
