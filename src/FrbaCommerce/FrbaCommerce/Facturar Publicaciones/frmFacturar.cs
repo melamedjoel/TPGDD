@@ -21,6 +21,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
         Publicacion unaPublicacion = new Publicacion();
         Forma_Pago formaPago = new Forma_Pago();
         List<Publicacion> listaDePublicacionesARendir = new List<Publicacion>();
+        List<Publicacion> listaDePublicacionesAFacturar = new List<Publicacion>();
         List<Item_Factura> listaDeItemsPorFactura = new List<Item_Factura>();
 
         public void abrirConUsuario(Usuario user)
@@ -47,6 +48,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
             {
                 DataSet ds = unaPublicacion.obtenerPublisARendir(unUsuario);
                 configurarGrillaPublicacionesAFacturar(ds);
+                llenarListadoDePublicaciones(ds);
             }          
 
             catch (ErrorConsultaException ex)
@@ -111,28 +113,60 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         private void btnFacturar_Click(object sender, EventArgs e)
         {
-            Validator.SoloNumeros(txtCantidad.Text, txtCantidad.Name);
-            
-            if (txtCantidad.Text == "")
+            try
             {
-                MessageBox.Show("Ingrese una cantidad publicaciones a facturar", "Error!");
-            }
-            else
-            {
+                ValidarCampos();
                 facturarPublicaciones();
             }
 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
+
+        private void ValidarCampos()
+        {
+            string strErrores = "";
+            strErrores += Validator.SoloNumeros(txtCantidad.Text, "Cantidad");
+            strErrores += Validator.ValidarNulo(txtCantidad.Text, "Cantidad");
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            }
+        }
+
+        private int valorIdSeleccionado()
+        {
+            return Convert.ToInt32(((DataRowView)dtgPublicacionesARendir.CurrentRow.DataBoundItem)["Codigo"]);
+        }
+
+        private void llenarListadoDePublicaciones(DataSet ds)
+        {
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                Publicacion unaPub = new Publicacion();
+                unaPub.DataRowToObject(dr);
+                listaDePublicacionesAFacturar.Add(unaPub);
+            }
+
+            if (listaDePublicacionesAFacturar.Count > 10) unUsuario.Deshabilitar();
+
+            if (listaDePublicacionesAFacturar.Count == 0)
+            {
+                MessageBox.Show("No tiene ninguna publicación pendiente para facturar", "Atención!");
+                this.Close();
+            }                   
+        }
+
 
         private void facturarPublicaciones()
         {
             for (var a = 0; a <= Convert.ToInt16(txtCantidad.Text) - 1; a++)
             {
-                Publicacion unaPubli = new Publicacion();
-                listaDePublicacionesARendir.Add(unaPubli);
+                listaDePublicacionesARendir.Add(listaDePublicacionesAFacturar[a]);
             }
-
-
+            
             foreach (Publicacion unaPubli in listaDePublicacionesARendir)
             {
                 var ds = unItemFactura.obtenerItemsPorPublicacion(unaPubli.Codigo);
