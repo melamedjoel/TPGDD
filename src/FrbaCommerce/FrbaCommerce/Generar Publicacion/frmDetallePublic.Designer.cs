@@ -158,9 +158,9 @@
             this.lblPrecio.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPrecio.Location = new System.Drawing.Point(48, 99);
             this.lblPrecio.Name = "lblPrecio";
-            this.lblPrecio.Size = new System.Drawing.Size(111, 15);
+            this.lblPrecio.Size = new System.Drawing.Size(114, 15);
             this.lblPrecio.TabIndex = 76;
-            this.lblPrecio.Text = "Precio                    *";
+            this.lblPrecio.Text = "Precio                     *";
             // 
             // btnGuardar
             // 
@@ -221,9 +221,9 @@
             this.lblRubro.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRubro.Location = new System.Drawing.Point(48, 254);
             this.lblRubro.Name = "lblRubro";
-            this.lblRubro.Size = new System.Drawing.Size(45, 15);
+            this.lblRubro.Size = new System.Drawing.Size(114, 15);
             this.lblRubro.TabIndex = 73;
-            this.lblRubro.Text = "Rubro";
+            this.lblRubro.Text = "Rubro                     *";
             // 
             // lstRubros
             // 

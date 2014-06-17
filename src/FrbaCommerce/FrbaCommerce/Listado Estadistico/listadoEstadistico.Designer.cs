@@ -93,10 +93,10 @@
             // 
             this.cmbTrimestre.FormattingEnabled = true;
             this.cmbTrimestre.Items.AddRange(new object[] {
-            "Ene - Mar",
-            "Abr - Jun",
-            "Jul - Sep",
-            "Oct - Dic"});
+            "Enero - Marzo",
+            "Abril - Junio",
+            "Julio - Septiembre",
+            "Octubre - Diciembre"});
             this.cmbTrimestre.Location = new System.Drawing.Point(149, 50);
             this.cmbTrimestre.Name = "cmbTrimestre";
             this.cmbTrimestre.Size = new System.Drawing.Size(140, 23);
