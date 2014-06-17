@@ -270,13 +270,17 @@ namespace Clases
 
             return ds;
         }
-
         public DataSet obtenerVendedoresSinCalificar()
         {
             this.setearListaDeParametrosSoloConIdUsuario();
             DataSet ds = this.TraerListado(this.parameterList, "VendedoresSinCalificar");
             this.parameterList.Clear();
             return ds;
+        }
+
+        public int cantPublicacionesPendientesDeCalificacion()
+        {
+            return obtenerVendedoresSinCalificar().Tables[0].Rows.Count;
         }
 
         #endregion
@@ -330,6 +334,5 @@ namespace Clases
         }
         #endregion
 
-        
     }
 }

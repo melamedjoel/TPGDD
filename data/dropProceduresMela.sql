@@ -45,4 +45,4 @@ DROP PROCEDURE [ATJ].[traerListadoTipos_Publicacion];
 DROP PROCEDURE ATJ.traerListadoRubrosPorCodPublicacion;
 DROP PROCEDURE ATJ.deleteRubros_PublicacionPorCod_Publicacion;
 DROP PROCEDURE [ATJ].[insertRubros_Publicacion];
-
+DROP PROCEDURE [ATJ].[traerListadoEstados_PublicacionEditablesConPublicada];

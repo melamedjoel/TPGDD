@@ -166,10 +166,14 @@ namespace FrbaCommerce.Editar_Publicacion
                         _frmDetalle.AbrirParaModificarBorrador(unaPub, this);
                         break;
                     case "Publicada":
-                        _frmDetalle.AbrirParaModificarPublicada(unaPub, this);
+                        if(unaPub.Tipo_Publicacion.Nombre == "Subasta")
+                            MessageBox.Show("No se puede editar una subasta publicada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else
+                            _frmDetalle.AbrirParaModificarPublicada(unaPub, this);
+
                         break;
                     case "Pausada":
-                        _frmDetalle.AbrirParaModificarPausada(unaPub, this);
+                        MessageBox.Show("No se puede editar una publicación pausada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case "Finalizada":
                         MessageBox.Show("No se puede editar una publicación finalizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

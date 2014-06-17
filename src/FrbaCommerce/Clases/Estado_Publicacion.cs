@@ -88,6 +88,14 @@ namespace Clases
             return ds;
         }
 
+        public static DataSet obtenerTodosLosEditablesConPublicada()
+        {
+            Estado_Publicacion unEstado = new Estado_Publicacion();
+            DataSet ds = unEstado.TraerListado(unEstado.parameterList, "EditablesConPublicada");
+
+            return ds;
+        }
+
         #endregion
 
         #region metodos privados

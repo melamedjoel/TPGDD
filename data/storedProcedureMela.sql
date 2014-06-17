@@ -237,7 +237,7 @@ GO
 
 
 --Procedure updateVisibilidad
-CREATE PROCEDURE ATJ.updateVisibilidad
+ALTER PROCEDURE ATJ.updateVisibilidad
 	@cod_Visibilidad int,
 	@Descripcion nvarchar(255),
 	@Precio numeric(18,2),
@@ -274,12 +274,13 @@ CREATE PROCEDURE ATJ.insertVisibilidad_RetornarID
 	@Descripcion nvarchar(255),
 	@Precio numeric(18,2),
 	@Porcentaje numeric(18,2),
+	@Duracion int,
 	@Activo bit
 AS
 	INSERT INTO ATJ.Visibilidades
-	(Descripcion, Precio, Porcentaje, Activo)
+	(Descripcion, Precio, Porcentaje,Duracion, Activo)
 	VALUES 
-	(@Descripcion, @Precio, @Porcentaje, @Activo)
+	(@Descripcion, @Precio, @Porcentaje, @Duracion, @Activo)
 	
 	SELECT @@IDENTITY AS cod_Visibilidad;
 GO
@@ -478,4 +479,13 @@ AS
     SELECT P.*
     FROM ATJ.Publicaciones P
 	WHERE P.id_Usuario = @id_Usuario AND P.Descripcion LIKE '%' + @Descripcion + '%'
+GO
+
+
+
+--Procedure traerListadoEstados_PublicacionEditablesConPublicada
+CREATE PROCEDURE [ATJ].[traerListadoEstados_PublicacionEditablesConPublicada] 
+AS 
+    SELECT * FROM ATJ.Estados_Publicacion
+	WHERE Nombre IN ('Pausada', 'Finalizada', 'Publicada')
 GO

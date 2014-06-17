@@ -234,7 +234,7 @@
             this.lstRubros.FormattingEnabled = true;
             this.lstRubros.Location = new System.Drawing.Point(143, 263);
             this.lstRubros.Name = "lstRubros";
-            this.lstRubros.Size = new System.Drawing.Size(120, 94);
+            this.lstRubros.Size = new System.Drawing.Size(199, 109);
             this.lstRubros.TabIndex = 79;
             // 
             // dtVencimiento

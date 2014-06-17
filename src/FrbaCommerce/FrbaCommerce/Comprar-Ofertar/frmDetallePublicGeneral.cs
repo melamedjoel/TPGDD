@@ -50,12 +50,22 @@ namespace FrbaCommerce.Comprar_Ofertar
                     btnOfertar.Visible = false;
                 }
             }
+            else
+            {
+                MessageBox.Show("No se pueden realizar acciones de compra/oferta. O bien usted no tiene los permisos para ello o bien cuenta con publicaciones pendientes de calificación", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnComprar.Visible = false;
+                btnOfertar.Visible = false;
+                grpPreguntas.Visible = false;
+            }
 
         }
 
         private bool puedeComprarUOfertar()
         {
-            return (unUsuario.Rol.Nombre == "Cliente");
+            bool puede = false;
+            if (unUsuario.Rol.Nombre == "Cliente" && unUsuario.cantPublicacionesPendientesDeCalificacion() < 5)
+                puede = true;
+            return puede;
         }
 
         public void abrirConUsuario(Usuario user)

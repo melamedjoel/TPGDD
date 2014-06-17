@@ -10,6 +10,7 @@ using Clases;
 using Excepciones;
 using Utilities;
 using FrbaCommerce.Editar_Publicacion;
+using System.Configuration;
 namespace FrbaCommerce.Generar_Publicacion
 {
     public partial class frmDetallePublic : Form
@@ -23,7 +24,6 @@ namespace FrbaCommerce.Generar_Publicacion
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            frmPadre.CargarListadoDePublicaciones();
             frmPadre.BringToFront();
             this.Close();
         }
@@ -34,29 +34,43 @@ namespace FrbaCommerce.Generar_Publicacion
             publicDelForm = unaPublic;
 
             this.Show();
-
             cargarListados();
 
             txtDescripcion.Text = unaPublic.Descripcion;
+            txtDescripcion.Enabled = true;
+
             cmbEstado.SelectedValue = unaPublic.Estado_Publicacion.id_Estado;
+
             dtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
             dtVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
+
             txtStock.Text = unaPublic.Stock.ToString();
+            btnAumentarStock.Enabled = true;
+            btnRestarStock.Enabled = true;
+
             txtUsuario.Text = unaPublic.Usuario.Username;
+
             cmbVisibilidad.SelectedValue = unaPublic.Visibilidad.cod_Visibilidad;
+            cmbVisibilidad.Enabled = true;
+
             cmbTipo.SelectedValue = unaPublic.Tipo_Publicacion.id_Tipo;
+            cmbTipo.Enabled = true;
+
             txtPrecio.Text = unaPublic.Precio.ToString();
+            txtPrecio.Enabled = true;
+
             chkPregs.Checked = unaPublic.Permiso_Preguntas;
-            int index = 0;
-            foreach (Rubro item in lstRubros.Items)
+            chkPregs.Enabled = true;
+
+            for (int index = 0; index < lstRubros.Items.Count; index++)
             {
+                Rubro item = (Rubro)lstRubros.Items[index];
                 if (publicDelForm.Rubros.Any(unRubro => unRubro.Descripcion == item.Descripcion))
                     lstRubros.SetItemChecked(index, true);
                 else
                     lstRubros.SetItemChecked(index, false);
-
-                index++;
             }
+            lstRubros.Enabled = true;
         }
 
         public void AbrirParaModificarPublicada(Publicacion unaPublic, frmMisPublicaciones frmEnviador)
@@ -65,19 +79,37 @@ namespace FrbaCommerce.Generar_Publicacion
             publicDelForm = unaPublic;
 
             this.Show();
-
             cargarListados();
 
             txtDescripcion.Text = unaPublic.Descripcion;
+            txtDescripcion.Enabled = false;
+
+            cargarEstadosParaEdicionPublicada();
             cmbEstado.SelectedValue = unaPublic.Estado_Publicacion.id_Estado;
+
             dtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
             dtVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
+            
             txtStock.Text = unaPublic.Stock.ToString();
+            if (unaPublic.Tipo_Publicacion.Nombre == "Subasta")
+            {
+                btnAumentarStock.Enabled = false;
+                btnRestarStock.Enabled = false;
+            }
+
             txtUsuario.Text = unaPublic.Usuario.Username;
+
             cmbVisibilidad.SelectedValue = unaPublic.Visibilidad.cod_Visibilidad;
+            cmbVisibilidad.Enabled = false;
+
             cmbTipo.SelectedValue = unaPublic.Tipo_Publicacion.id_Tipo;
+            cmbTipo.Enabled = false;
+            
             txtPrecio.Text = unaPublic.Precio.ToString();
+            txtPrecio.Enabled = false;
+            
             chkPregs.Checked = unaPublic.Permiso_Preguntas;
+            chkPregs.Enabled = false;
 
             for (int index=0; index < lstRubros.Items.Count; index++ )
             {
@@ -86,43 +118,16 @@ namespace FrbaCommerce.Generar_Publicacion
                     lstRubros.SetItemChecked(index, true);
                 else
                     lstRubros.SetItemChecked(index, false);
-
             }
+            lstRubros.Enabled = false;
         }
 
-        public void AbrirParaModificarPausada(Publicacion unaPublic, frmMisPublicaciones frmEnviador)
+        private void cargarEstadosParaEdicionPublicada()
         {
-            frmPadre = frmEnviador;
-            publicDelForm = unaPublic;
-
-            this.Show();
-
-            cargarListados();
-
-            txtDescripcion.Text = unaPublic.Descripcion;
-            cmbEstado.SelectedValue = unaPublic.Estado_Publicacion.id_Estado;
-            dtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
-            dtVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
-            txtStock.Text = unaPublic.Stock.ToString();
-            txtUsuario.Text = unaPublic.Usuario.Username;
-            cmbVisibilidad.SelectedValue = unaPublic.Visibilidad.cod_Visibilidad;
-            cmbTipo.SelectedValue = unaPublic.Tipo_Publicacion.id_Tipo;
-            txtPrecio.Text = unaPublic.Precio.ToString();
-            chkPregs.Checked = unaPublic.Permiso_Preguntas;
-
-            int index = 0;
-            foreach (Rubro item in lstRubros.Items)
-            {
-                if (publicDelForm.Rubros.Any(unRubro => unRubro.Descripcion == item.Descripcion))
-                    lstRubros.SetItemChecked(index, true);
-                else
-                    lstRubros.SetItemChecked(index, false);
-
-                index++;
-            }
-
+            DataSet ds = Estado_Publicacion.obtenerTodosLosEditablesConPublicada();
+            DropDownListManager.CargarCombo(cmbEstado, ds.Tables[0], "id_Estado", "Nombre", false, "");
+            
         }
-
 
         private void frmDetallePublic_Load(object sender, EventArgs e)
         {
@@ -135,6 +140,7 @@ namespace FrbaCommerce.Generar_Publicacion
             cmbEstado.Items.Clear();
             cmbTipo.Items.Clear();
             cmbVisibilidad.Items.Clear();
+            lstRubros.Items.Clear();
             cargarTipos();
             cargarEstados();
             cargarVisibilidades();
@@ -179,9 +185,10 @@ namespace FrbaCommerce.Generar_Publicacion
                 publicDelForm.Descripcion = txtDescripcion.Text;
                 publicDelForm.Stock = Convert.ToInt32(txtStock.Text);
                 publicDelForm.Precio = Convert.ToDecimal(txtPrecio.Text);
-                publicDelForm.Tipo_Publicacion = new Tipo_Publicacion(Convert.ToInt32(cmbTipo.SelectedValue));
                 publicDelForm.Visibilidad = new Visibilidad(Convert.ToInt32(cmbVisibilidad.SelectedValue));
-                publicDelForm.Fecha_vencimiento = Convert.ToDateTime(dtVencimiento.Text);
+                publicDelForm.Fecha_vencimiento = (publicDelForm.Estado_Publicacion.Nombre != "Publicada") ? Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]).AddDays(publicDelForm.Visibilidad.Duracion) : publicDelForm.Fecha_vencimiento;
+                publicDelForm.Tipo_Publicacion = new Tipo_Publicacion(Convert.ToInt32(cmbTipo.SelectedValue));
+                publicDelForm.Estado_Publicacion = new Estado_Publicacion(Convert.ToInt32(cmbEstado.SelectedValue));
                 publicDelForm.Rubros.Clear();
                 foreach (Rubro unRubro in lstRubros.CheckedItems)
                 {
