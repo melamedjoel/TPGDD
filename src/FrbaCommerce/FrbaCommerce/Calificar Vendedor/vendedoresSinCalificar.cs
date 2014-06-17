@@ -98,6 +98,11 @@ namespace FrbaCommerce.Calificar_Vendedor
             try
             {
                 DataSet ds = unUsuario.obtenerVendedoresSinCalificar();
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    MessageBox.Show("No hay ningún vendedor sin calificar", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                }
                 configurarGrilla(ds);
             }
 

@@ -206,7 +206,7 @@ CREATE PROCEDURE ATJ.traerListadoClientesConFiltros
     @Nombre nvarchar(255)=null, 
     @Apellido nvarchar(255)=null,
     @Tipo_Dni nvarchar(50)=null,
-    @Dni nvarchar(50)=null,
+    @Dni numeric(18,0)=null,
     @Mail nvarchar(255)=null
 AS 
     SELECT *
@@ -215,7 +215,7 @@ AS
     AND		Apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE Apellido END) 
     AND		Tipo_Dni LIKE (CASE WHEN @Tipo_Dni <> '' THEN @Tipo_Dni ELSE Tipo_Dni END) 
     AND		Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END) 
-    AND		Dni LIKE CAST(@Dni AS NUMERIC(18,0)) 
+    --AND		Dni LIKE (CASE WHEN @Dni <> '' THEN '%' + @Dni + '%' ELSE Dni END)
     AND		Eliminado = 0
 			--Dni LIKE '%42%' --(CASE WHEN ('42' = '') THEN Dni ELSE '%42%' END)
 			--CONVERT(varchar(20), Dni) LIKE (CASE WHEN (42 <> 0) THEN '%42%' ELSE Dni END)

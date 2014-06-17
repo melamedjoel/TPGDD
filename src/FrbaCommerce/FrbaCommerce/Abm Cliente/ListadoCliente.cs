@@ -140,7 +140,8 @@ namespace FrbaCommerce.Abm_Cliente
 
             try
             {
-                DataSet ds = Cliente.obtenerTodosLosClientesConFiltros(txtNombre.Text, txtApellido.Text, cmbTipoDni.Text, Int32.Parse(txtDni.Text), txtMail.Text);
+                if (txtDni.Text == "") { txtDni.Text = null; }
+                DataSet ds = Cliente.obtenerTodosLosClientesConFiltros(txtNombre.Text, txtApellido.Text, cmbTipoDni.Text, Convert.ToInt32(txtDni.Text), txtMail.Text);
                 configurarGrilla(ds);
             }
             catch (ErrorConsultaException ex)
