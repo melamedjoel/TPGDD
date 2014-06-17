@@ -366,9 +366,9 @@ GO
 CREATE PROCEDURE ATJ.traerListadoUsuariosVendedoresSinCalificar
 	@id_Usuario int
 AS
-	SELECT	TOP 10	o.cod_Publicacion,
-					Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
-					T.Nombre, P.Descripcion, O.Fecha
+	SELECT	o.cod_Publicacion,
+			Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
+			T.Nombre, P.Descripcion, O.Fecha
 	FROM ATJ.Ofertas O
 	INNER JOIN ATJ.Publicaciones P ON P.Codigo = O.cod_Publicacion
 	INNER JOIN ATJ.Tipos_Publicacion T ON T.id_Tipo = P.id_Tipo
@@ -380,9 +380,9 @@ AS
 	
 	UNION
 	
-	SELECT	TOP 10  c.cod_Publicacion,
-					Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
-					T.Nombre, P.Descripcion, C.Fecha
+	SELECT	c.cod_Publicacion,
+			Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
+			T.Nombre, P.Descripcion, C.Fecha
 	FROM ATJ.Compras C
 	INNER JOIN ATJ.Publicaciones P ON P.Codigo = C.cod_Publicacion
 	INNER JOIN ATJ.Tipos_Publicacion T ON T.id_Tipo = P.id_Tipo
