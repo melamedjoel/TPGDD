@@ -211,14 +211,12 @@ CREATE PROCEDURE ATJ.traerListadoClientesConFiltros
 AS 
     SELECT *
     FROM ATJ.Clientes
-    WHERE	Nombre LIKE (CASE WHEN @Nombre <> '' THEN '%' + @Nombre + '%' ELSE Nombre END) 
+    WHERE	Nombre LIKE (CASE WHEN 'Deo' <> '' THEN '%' + 'Deo' + '%' ELSE Nombre END) 
     AND		Apellido LIKE (CASE WHEN @Apellido <> '' THEN '%' + @Apellido + '%' ELSE Apellido END) 
     AND		Tipo_Dni LIKE (CASE WHEN @Tipo_Dni <> '' THEN @Tipo_Dni ELSE Tipo_Dni END) 
     AND		Mail LIKE (CASE WHEN @Mail <> '' THEN '%' + @Mail + '%' ELSE Mail END) 
-    --AND		Dni LIKE (CASE WHEN @Dni <> '' THEN '%' + @Dni + '%' ELSE Dni END)
+    AND		(@Dni is null OR @Dni = 0 OR CONVERT(VARCHAR(10), Dni) LIKE '%' + CONVERT(VARCHAR(10), @Dni) + '%')
     AND		Eliminado = 0
-			--Dni LIKE '%42%' --(CASE WHEN ('42' = '') THEN Dni ELSE '%42%' END)
-			--CONVERT(varchar(20), Dni) LIKE (CASE WHEN (42 <> 0) THEN '%42%' ELSE Dni END)
 GO
 
 --Procedure deshabilitarEmpresa
