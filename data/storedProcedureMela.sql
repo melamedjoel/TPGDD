@@ -285,6 +285,28 @@ AS
 	SELECT @@IDENTITY AS cod_Visibilidad;
 GO
 
+--Procedure insertPublicacion_RetornarID
+CREATE PROCEDURE ATJ.updatePublicacion
+	@id_Usuario numeric(18,0),
+	@Descripcion nvarchar(255),
+	@Stock numeric(18,0),
+	@Fecha_creacion datetime,
+	@Fecha_vencimiento datetime,
+	@Precio numeric(18,2),
+	@id_Tipo numeric(18,0),
+	@cod_Visibilidad numeric(18,0),
+	@id_Estado numeric(18,0),
+	@permiso_Preguntas bit
+AS
+	INSERT INTO ATJ.Publicaciones
+	(id_Usuario, Descripcion, Stock, Fecha_creacion, Fecha_vencimiento, Precio, id_Tipo, cod_Visibilidad, id_Estado, permiso_Preguntas)
+	VALUES 
+	(@id_Usuario, @Descripcion, @Stock, @Fecha_creacion, @Fecha_vencimiento, @Precio, @id_Tipo, @cod_Visibilidad, @id_Estado, @permiso_Preguntas)
+	
+	SELECT @@IDENTITY AS Codigo;
+GO
+
+
 --Procedure insertOferta_RetornarID
 CREATE PROCEDURE ATJ.insertOferta_RetornarID
 	@cod_Publicacion numeric (18,0),

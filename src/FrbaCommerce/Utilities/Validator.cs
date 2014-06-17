@@ -86,6 +86,17 @@ namespace Utilities
             return strError;
         }
 
+
+        public static string MayorACero(string textoAValidar, string nombreCampo)
+        {
+            string strError = "";
+            if (Convert.ToInt32(textoAValidar) == 0)
+            {
+                strError += "El campo " + nombreCampo + " debe ser mayor que cero\n";
+            }
+            return strError;
+            
+        }
     }
         
 }

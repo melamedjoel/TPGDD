@@ -106,5 +106,18 @@ namespace FrbaCommerce
             frmListadoVendedores.abrirConUsuario(unUsuario);
         }
 
+        private void generarPublicacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDetallePublic frmDetalle = new frmDetallePublic();
+            frmDetalle.abrirConUsuario(unUsuario);
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Inicial frmInicial = new Inicial();
+            frmInicial.Show();
+            this.Close();
+        }
+
     }
 }

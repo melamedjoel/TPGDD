@@ -42,8 +42,9 @@
             this.historialToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listadoEstadísticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.misPublicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calificarVendedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ABMToolStripMenuItem,
             this.publicacionToolStripMenuItem,
-            this.usuarioToolStripMenuItem});
+            this.usuarioToolStripMenuItem,
+            this.cerrarSesionToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(948, 24);
@@ -114,6 +116,7 @@
             this.generarPublicacionToolStripMenuItem.Name = "generarPublicacionToolStripMenuItem";
             this.generarPublicacionToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.generarPublicacionToolStripMenuItem.Text = "Generar Publicacion";
+            this.generarPublicacionToolStripMenuItem.Click += new System.EventHandler(this.generarPublicacionToolStripMenuItem_Click);
             // 
             // verPublicacionesToolStripMenuItem
             // 
@@ -143,28 +146,23 @@
             // historialToolStripMenuItem1
             // 
             this.historialToolStripMenuItem1.Name = "historialToolStripMenuItem1";
-            this.historialToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
+            this.historialToolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
             this.historialToolStripMenuItem1.Text = "Historial";
             this.historialToolStripMenuItem1.Click += new System.EventHandler(this.historialToolStripMenuItem1_Click);
             // 
             // listadoEstadísticoToolStripMenuItem
             // 
             this.listadoEstadísticoToolStripMenuItem.Name = "listadoEstadísticoToolStripMenuItem";
-            this.listadoEstadísticoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.listadoEstadísticoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.listadoEstadísticoToolStripMenuItem.Text = "Listado Estadístico";
             this.listadoEstadísticoToolStripMenuItem.Click += new System.EventHandler(this.listadoEstadísticoToolStripMenuItem_Click);
             // 
             // misPublicacionesToolStripMenuItem
             // 
             this.misPublicacionesToolStripMenuItem.Name = "misPublicacionesToolStripMenuItem";
-            this.misPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.misPublicacionesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.misPublicacionesToolStripMenuItem.Text = "Mis Publicaciones";
             this.misPublicacionesToolStripMenuItem.Click += new System.EventHandler(this.misPublicacionesToolStripMenuItem_Click);
-            // 
-            // historialToolStripMenuItem
-            // 
-            this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
-            this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // calificarVendedoresToolStripMenuItem
             // 
@@ -172,6 +170,18 @@
             this.calificarVendedoresToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.calificarVendedoresToolStripMenuItem.Text = "Calificar Vendedores";
             this.calificarVendedoresToolStripMenuItem.Click += new System.EventHandler(this.calificarVendedoresToolStripMenuItem_Click);
+            // 
+            // historialToolStripMenuItem
+            // 
+            this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
+            this.historialToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // cerrarSesionToolStripMenuItem
+            // 
+            this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesion";
+            this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -211,6 +221,7 @@
         private System.Windows.Forms.ToolStripMenuItem verPublicacionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturarPublicacionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calificarVendedoresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
 
     }
 }

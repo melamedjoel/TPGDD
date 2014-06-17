@@ -20,6 +20,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         Usuario unUsuario = new Usuario();
         Dictionary<int, Publicacion> publicaciones = new Dictionary<int, Publicacion>();
         List<Publicacion> listaDePubs = new List<Publicacion>();
+        private int paginado =0;
         public frmVerPublicaciones()
         {
             InitializeComponent();
@@ -38,6 +39,8 @@ namespace FrbaCommerce.Comprar_Ofertar
                 DataSet ds = Publicacion.obtenerTodas(Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]));
                 llenarPublicaciones(ds);
                 configurarGrilla();
+                btnAnterior.Visible = false;
+                btnPrimero.Visible = false;
             }
             catch (ErrorConsultaException ex)
             {
@@ -59,7 +62,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                 unaPub.DataRowToObject(dr);
                 listaDePubs.Add(unaPub);
             }
-
+            
             publicaciones = listaDePubs.ToDictionary(unaPub => unaPub.Codigo, unaPub => unaPub);
         }
 
@@ -67,7 +70,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         {
             dtgListado.Columns.Clear();
 
-            var listadoABindear = publicaciones.Values.Select(unaPub => new
+            var bindeo = publicaciones.Values.Select(unaPub => new
             {
                 Codigo = unaPub.Codigo,
                 Descripcion = unaPub.Descripcion,
@@ -81,7 +84,13 @@ namespace FrbaCommerce.Comprar_Ofertar
                 Rubros = unaPub.obtenerRubrosEnTexto()
             });
 
-            dtgListado.DataSource = listadoABindear.ToList();
+            var listadoABindear = bindeo.ToList();
+
+            if (listadoABindear.Count - paginado > 10)
+                dtgListado.DataSource = listadoABindear.GetRange(paginado, Convert.ToInt32(ConfigurationManager.AppSettings["Paginado"])); 
+            else
+                dtgListado.DataSource = listadoABindear.GetRange(paginado, listadoABindear.Count - paginado);
+            
             dtgListado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             agregarBotonVer();
 
@@ -106,13 +115,17 @@ namespace FrbaCommerce.Comprar_Ofertar
             try
             {
                 string filtroDeRubros = "";
-                foreach (Rubro unRubro in lstRubros.CheckedItems)
+                for (int index = 0; index < lstRubros.CheckedItems.Count; index++)
                 {
-                    filtroDeRubros += unRubro.Descripcion;
+                    Rubro item = (Rubro)lstRubros.CheckedItems[index];
+                    filtroDeRubros += item.Descripcion;
                 }
+                
                 DataSet ds = Publicacion.obtenerTodasConFiltros(Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]),txtDescripcion.Text, filtroDeRubros);
                 llenarPublicaciones(ds);
                 configurarGrilla();
+                btnAnterior.Visible = false;
+                btnPrimero.Visible = false;
             }
             catch (ErrorConsultaException ex)
             {
@@ -168,6 +181,42 @@ namespace FrbaCommerce.Comprar_Ofertar
             Publicacion unaPub = listaDePubs.Find(pub => pub.Codigo == (int)dtgListado.Rows[e.RowIndex].Cells[0].Value);
             frmDetallePublicGeneral _frmDetalle = new frmDetallePublicGeneral();
             _frmDetalle.AbrirParaVer(unaPub, this, unUsuario);
+        }
+
+        private void btnPrimero_Click(object sender, EventArgs e)
+        {
+            paginado = 0;
+            configurarGrilla();
+            btnAnterior.Visible = false;
+            btnSiguiente.Visible = true;
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            paginado -= 10;
+            configurarGrilla();
+            btnSiguiente.Visible = true;
+            if (paginado == 0)
+                btnAnterior.Visible = false;
+        }
+
+        private void btnUltimo_Click(object sender, EventArgs e)
+        {
+            paginado = listaDePubs.Count - (listaDePubs.Count % 10);
+            configurarGrilla();
+            btnAnterior.Visible = true;
+            btnPrimero.Visible = true;
+            btnSiguiente.Visible = false;
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            paginado += 10;
+            configurarGrilla();
+            btnAnterior.Visible = true;
+            btnPrimero.Visible = true;
+            if (listaDePubs.Count - paginado < 10)
+                btnSiguiente.Visible = false;
         }
     }
 }

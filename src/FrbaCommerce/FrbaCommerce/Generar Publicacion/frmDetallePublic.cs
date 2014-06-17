@@ -16,6 +16,7 @@ namespace FrbaCommerce.Generar_Publicacion
     public partial class frmDetallePublic : Form
     {
         frmMisPublicaciones frmPadre = new frmMisPublicaciones();
+        Usuario unUsuario = new Usuario();
         Publicacion publicDelForm = new Publicacion();
         public frmDetallePublic()
         {
@@ -30,6 +31,9 @@ namespace FrbaCommerce.Generar_Publicacion
 
         public void AbrirParaModificarBorrador(Publicacion unaPublic, frmMisPublicaciones frmEnviador)
         {
+            btnGuardar.Visible = true;
+            btnGenerar.Visible = false;
+
             frmPadre = frmEnviador;
             publicDelForm = unaPublic;
 
@@ -42,13 +46,11 @@ namespace FrbaCommerce.Generar_Publicacion
             cmbEstado.SelectedValue = unaPublic.Estado_Publicacion.id_Estado;
 
             dtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
-            dtVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
 
             txtStock.Text = unaPublic.Stock.ToString();
             btnAumentarStock.Enabled = true;
             btnRestarStock.Enabled = true;
 
-            txtUsuario.Text = unaPublic.Usuario.Username;
 
             cmbVisibilidad.SelectedValue = unaPublic.Visibilidad.cod_Visibilidad;
             cmbVisibilidad.Enabled = true;
@@ -75,6 +77,9 @@ namespace FrbaCommerce.Generar_Publicacion
 
         public void AbrirParaModificarPublicada(Publicacion unaPublic, frmMisPublicaciones frmEnviador)
         {
+            btnGuardar.Visible = true;
+            btnGenerar.Visible = false;
+
             frmPadre = frmEnviador;
             publicDelForm = unaPublic;
 
@@ -88,7 +93,6 @@ namespace FrbaCommerce.Generar_Publicacion
             cmbEstado.SelectedValue = unaPublic.Estado_Publicacion.id_Estado;
 
             dtFechaCreacion.Text = unaPublic.Fecha_creacion.ToString();
-            dtVencimiento.Text = unaPublic.Fecha_vencimiento.ToString();
             
             txtStock.Text = unaPublic.Stock.ToString();
             if (unaPublic.Tipo_Publicacion.Nombre == "Subasta")
@@ -97,7 +101,6 @@ namespace FrbaCommerce.Generar_Publicacion
                 btnRestarStock.Enabled = false;
             }
 
-            txtUsuario.Text = unaPublic.Usuario.Username;
 
             cmbVisibilidad.SelectedValue = unaPublic.Visibilidad.cod_Visibilidad;
             cmbVisibilidad.Enabled = false;
@@ -122,6 +125,37 @@ namespace FrbaCommerce.Generar_Publicacion
             lstRubros.Enabled = false;
         }
 
+        public void AbrirParaGenerar()
+        {
+            btnGuardar.Visible = false;
+            btnGenerar.Visible = true;
+
+            cargarListados();
+
+            txtDescripcion.Text = "";
+            txtDescripcion.Enabled = true;
+
+            txtStock.Text = "0";
+
+            dtFechaCreacion.Text = ConfigurationManager.AppSettings["Fecha"];
+
+            btnAumentarStock.Enabled = true;
+            btnRestarStock.Enabled = true;
+
+            cmbVisibilidad.Enabled = true;
+
+            cmbTipo.Enabled = true;
+
+            txtPrecio.Text = "";
+            txtPrecio.Enabled = true;
+
+            chkPregs.Enabled = true;
+
+            lstRubros.Enabled = true;
+        }
+
+
+
         private void cargarEstadosParaEdicionPublicada()
         {
             DataSet ds = Estado_Publicacion.obtenerTodosLosEditablesConPublicada();
@@ -129,18 +163,15 @@ namespace FrbaCommerce.Generar_Publicacion
             
         }
 
-        private void frmDetallePublic_Load(object sender, EventArgs e)
+        public void abrirConUsuario(Usuario user)
         {
-
+            unUsuario = user;
+            this.Show();
+            AbrirParaGenerar();
         }
-
 
         public void cargarListados()
         {
-            cmbEstado.Items.Clear();
-            cmbTipo.Items.Clear();
-            cmbVisibilidad.Items.Clear();
-            lstRubros.Items.Clear();
             cargarTipos();
             cargarEstados();
             cargarVisibilidades();
@@ -181,7 +212,7 @@ namespace FrbaCommerce.Generar_Publicacion
         {
             try
             {
-                //ValidarCampos();
+                ValidarCampos();
                 publicDelForm.Descripcion = txtDescripcion.Text;
                 publicDelForm.Stock = Convert.ToInt32(txtStock.Text);
                 publicDelForm.Precio = Convert.ToDecimal(txtPrecio.Text);
@@ -221,7 +252,14 @@ namespace FrbaCommerce.Generar_Publicacion
 
         private void ValidarCampos()
         {
-            throw new NotImplementedException();
+            string strErrores = "";
+            strErrores += Validator.ValidarNulo(txtDescripcion.Text, "Descripcion");
+            strErrores += Validator.SoloNumerosODecimales(txtPrecio.Text, "Precio");
+            strErrores += Validator.MayorACero(txtStock.Text, "Stock");
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            }
         }
 
         private void btnAumentarStock_Click(object sender, EventArgs e)
@@ -232,6 +270,47 @@ namespace FrbaCommerce.Generar_Publicacion
         private void btnRestarStock_Click(object sender, EventArgs e)
         {
             txtStock.Text = (Convert.ToInt32(txtStock.Text) - 1).ToString();
+        }
+
+        private void btnGenerar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidarCampos();
+                publicDelForm.Usuario = unUsuario;
+                publicDelForm.Descripcion = txtDescripcion.Text;
+                publicDelForm.Stock = Convert.ToInt32(txtStock.Text);
+                publicDelForm.Precio = Convert.ToDecimal(txtPrecio.Text);
+                publicDelForm.Visibilidad = new Visibilidad(Convert.ToInt32(cmbVisibilidad.SelectedValue));
+                publicDelForm.Fecha_vencimiento = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]).AddDays(publicDelForm.Visibilidad.Duracion);
+                publicDelForm.Tipo_Publicacion = new Tipo_Publicacion(Convert.ToInt32(cmbTipo.SelectedValue));
+                publicDelForm.Estado_Publicacion = new Estado_Publicacion(Convert.ToInt32(cmbEstado.SelectedValue));
+                foreach (Rubro unRubro in lstRubros.CheckedItems)
+                {
+                    publicDelForm.Rubros.Add(unRubro);
+                }
+
+                publicDelForm.GenerarDatosYRubros();
+                DialogResult dr = MessageBox.Show("La publicacion ha sido generada", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dr == DialogResult.OK)
+                {
+                    this.AbrirParaGenerar();
+                }
+
+            }
+            catch (ErrorConsultaException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (BadInsertException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
     }

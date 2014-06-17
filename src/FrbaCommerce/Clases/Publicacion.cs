@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using Conexion;
+using Excepciones;
 
 namespace Clases
 {
@@ -24,7 +25,7 @@ namespace Clases
         private Tipo_Publicacion _tipo_publicacion;
         private Visibilidad _visibilidad;
         private Estado_Publicacion _estado_Publicacion;
-        private List<Rubro> _rubros;
+        private List<Rubro> _rubros = new List<Rubro>();
         
         #endregion
 
@@ -212,6 +213,23 @@ namespace Clases
 
         }
 
+        public void GenerarDatosYRubros()
+        {
+            setearListaDeParametrosEntidadEnteraSinCodigo();
+            DataSet dsNuevaPub = this.GuardarYObtenerID(parameterList);
+            parameterList.Clear();
+
+            if (dsNuevaPub.Tables[0].Rows.Count > 0)
+            {
+                this.Codigo = Convert.ToInt32(dsNuevaPub.Tables[0].Rows[0]["Codigo"]);
+            }
+            else
+            {
+                throw new BadInsertException();
+            }
+            modificarRubros();
+        }
+
         public void ModificarDatosYRubros()
         {
             setearListaDeParametrosEntidadEntera();
@@ -221,7 +239,7 @@ namespace Clases
                 parameterList.Clear();
             }
 
-            modificarRubros();
+            guardarRubros();
 
         }
 
@@ -303,6 +321,20 @@ namespace Clases
         private void setearListaDeParametrosEntidadEntera()
         {
             parameterList.Add(new SqlParameter("@Codigo", Codigo));
+            parameterList.Add(new SqlParameter("@id_Usuario", Usuario.Id_Usuario));
+            parameterList.Add(new SqlParameter("@Descripcion", Descripcion));
+            parameterList.Add(new SqlParameter("@Stock", Stock));
+            parameterList.Add(new SqlParameter("@Fecha_creacion", Fecha_creacion));
+            parameterList.Add(new SqlParameter("@Fecha_vencimiento", Fecha_vencimiento));
+            parameterList.Add(new SqlParameter("@Precio", Precio));
+            parameterList.Add(new SqlParameter("@id_Tipo", Tipo_Publicacion.id_Tipo));
+            parameterList.Add(new SqlParameter("@cod_Visibilidad", Visibilidad.cod_Visibilidad));
+            parameterList.Add(new SqlParameter("@id_Estado", Estado_Publicacion.id_Estado));
+            parameterList.Add(new SqlParameter("@permiso_Preguntas", Permiso_Preguntas));
+        }
+
+        private void setearListaDeParametrosEntidadEnteraSinCodigo()
+        {
             parameterList.Add(new SqlParameter("@id_Usuario", Usuario.Id_Usuario));
             parameterList.Add(new SqlParameter("@Descripcion", Descripcion));
             parameterList.Add(new SqlParameter("@Stock", Stock));
