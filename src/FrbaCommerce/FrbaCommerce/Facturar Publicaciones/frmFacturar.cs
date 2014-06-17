@@ -153,7 +153,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         private void facturarPublicaciones()
         {
-            for (var a = 0; a <= Convert.ToInt16(txtCantidad.Text) - 1; a++)
+            for (var a = 0; a <= (Convert.ToInt32(txtCantidad.Text) - 1); a++)
             {
                 listaDePublicacionesARendir.Add(listaDePublicacionesAFacturar[a]);
             }

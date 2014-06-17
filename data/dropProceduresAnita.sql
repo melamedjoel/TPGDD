@@ -10,6 +10,7 @@ DROP PROCEDURE ATJ.traerListadoUsuariosConMayorCantidadDeProductosSinVenderConFi
 DROP PROCEDURE ATJ.traerListadoPreguntasConRespuestasPorUsuarioYPublicacion;
 DROP PROCEDURE ATJ.traerListadoPreguntasSinRespuestasPorUsuarioYPublicacion;
 DROP PROCEDURE ATJ.updatePreguntaConRespuesta;
+DROP PROCEDURE ATJ.traerListadoFormas_Pago;
 DROP PROCEDURE ATJ.traerListadoFormas_PagoPorId;
 DROP PROCEDURE ATJ.traerListadoPublicacionesMasAntiguasARendirPorUsuario;
 DROP PROCEDURE ATJ.insertFactura_RetornarID;

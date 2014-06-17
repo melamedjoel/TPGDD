@@ -230,15 +230,14 @@ CREATE PROCEDURE ATJ.traerListadoPublicacionesMasAntiguasARendirPorUsuario
 	
 AS
 
-SELECT P.Codigo AS Codigo, P.Descripcion AS Descripcion, P.Stock AS Stock, P.Fecha_creacion AS Fecha_Creacion,
-P.Fecha_vencimiento AS Fecha_Vencimiento, P.Precio AS Precio
+SELECT P.*
 FROM ATJ.Publicaciones P
 INNER JOIN ATJ.Compras C ON C.cod_Publicacion = P.Codigo
 WHERE (P.Fecha_vencimiento <= GETDATE()
 OR P.Stock <=	(SELECT SUM(C.Cantidad) FROM ATJ.Compras C
 				 WHERE C.cod_Publicacion = P.Codigo
 				 GROUP BY C.cod_Publicacion))
-AND P.id_Usuario = 3
+AND P.id_Usuario = @Id_Usuario
 AND P.Codigo NOT IN (SELECT I.cod_Publicacion FROM ATJ.Item_Factura I)
 ORDER BY C.Fecha ASC
 GO
