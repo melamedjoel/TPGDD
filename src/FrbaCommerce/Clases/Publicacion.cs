@@ -281,6 +281,15 @@ namespace Clases
             return ds;
         }
 
+        public static DataSet obtenerCantidadDePubsGratuitas(Usuario unUsuario)
+        {
+            Publicacion unaPublic = new Publicacion();
+            unaPublic.setearListaDeParametrosConIdUsuario(unUsuario.Id_Usuario);
+            DataSet ds = unaPublic.TraerListado(unaPublic.parameterList, "GratuitasPorId_Usuario");
+            unaPublic.parameterList.Clear();
+            return ds;
+        }
+
 
         #endregion
 
@@ -349,6 +358,5 @@ namespace Clases
         }
 
         #endregion
-
     }
 }

@@ -518,3 +518,12 @@ AS
 	SELECT * FROM ATJ.Usuarios
 	WHERE Activo = 1
 GO
+
+--Procedure traerListadoPublicacionesGratuitasPorId_Usuario
+CREATE PROCEDURE ATJ.traerListadoPublicacionesGratuitasPorId_Usuario
+	@id_Usuario numeric(18,0)
+AS
+	SELECT * FROM ATJ.Publicaciones P
+	INNER JOIN ATJ.Visibilidades V ON V.cod_Visibilidad = P.cod_Visibilidad
+	WHERE V.Descripcion = 'Gratis' AND P.id_Usuario = @id_Usuario
+GO

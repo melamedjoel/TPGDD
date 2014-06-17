@@ -48,3 +48,4 @@ DROP PROCEDURE [ATJ].[insertRubros_Publicacion];
 DROP PROCEDURE [ATJ].[traerListadoEstados_PublicacionEditablesConPublicada];
 DROP PROCEDURE ATJ.insertPublicacion_RetornarID;
 DROP PROCEDURE ATJ.traerListadoUsuarios;
+DROP PROCEDURE ATJ.traerListadoPublicacionesGratuitasPorId_Usuario;

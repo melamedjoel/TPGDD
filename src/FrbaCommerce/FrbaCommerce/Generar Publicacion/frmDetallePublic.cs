@@ -250,6 +250,13 @@ namespace FrbaCommerce.Generar_Publicacion
             }
         }
 
+        private void ValidarCantidadGratuitas()
+        {
+            DataSet dsCantGratuitas = Publicacion.obtenerCantidadDePubsGratuitas(unUsuario);
+            if (!(dsCantGratuitas.Tables[0].Rows.Count < Convert.ToInt32(ConfigurationManager.AppSettings["maxPubGratuitas"])))
+                throw new Exception("No se puede realizar esta acción. Ya se ha generado el máximo de publicaciones gratuitas.");
+        }
+
         private void ValidarCampos()
         {
             string strErrores = "";
@@ -278,6 +285,8 @@ namespace FrbaCommerce.Generar_Publicacion
             try
             {
                 ValidarCampos();
+                if (cmbVisibilidad.Text == "Gratis")
+                    ValidarCantidadGratuitas();
                 publicDelForm.Usuario = unUsuario;
                 publicDelForm.Descripcion = txtDescripcion.Text;
                 publicDelForm.Stock = Convert.ToInt32(txtStock.Text);
