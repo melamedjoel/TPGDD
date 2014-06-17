@@ -116,9 +116,15 @@ namespace Clases
 
         }
 
-      
-
-
+        public static int obtenerCantidadPorUsuario(int codigo)
+        {
+            Compra unaCompra = new Compra();
+            unaCompra.setearListaDeParametrosConCodPublicacion(codigo);
+            DataSet ds = unaCompra.TraerListado(unaCompra.parameterList,"CantidadPorUsuario");
+            unaCompra.parameterList.Clear();
+            int cantidadCompras = Convert.ToInt32((ds.Tables[0].Rows[0].ItemArray[0]));
+            return cantidadCompras;
+        }
         #endregion
 
         #region metodos privados
@@ -133,6 +139,12 @@ namespace Clases
 
         }
 
+        private void setearListaDeParametrosConCodPublicacion(int codigo)
+        {
+            parameterList.Add(new SqlParameter("@cod_Publicacion", codigo)); 
+        }
+
         #endregion
+
     }
 }

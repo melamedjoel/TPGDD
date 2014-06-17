@@ -15,8 +15,7 @@ namespace Clases
         private int _id_Item_Factura;
         private decimal _Monto;
         private int _Cantidad;
-
-        private Factura _Factura;
+        private int _nro_Factura;
         private Publicacion _Publicacion;
 
         #endregion
@@ -37,10 +36,10 @@ namespace Clases
             get { return _Cantidad; }
             set { _Cantidad = value; }
         }
-        public Factura Factura
+        public int nro_Factura
         {
-            get { return _Factura; }
-            set { _Factura = value; }
+            get { return _nro_Factura; }
+            set { _nro_Factura = value; }
         }
         public Publicacion Publicacion
         {
@@ -65,10 +64,8 @@ namespace Clases
         {
             // Esto es tal cual lo devuelve el stored de la DB
             this.id_Item_Factura = Convert.ToInt32(dr["id_Item_Factura"]);
-            this.Factura = new Factura();
-            //this.Factura.nro_Factura = Convert.ToInt32(dr["nro_Factura"]);
-            this.Publicacion = new Publicacion();
-            //this.Publicacion.Codigo = Convert.ToInt32(dr["cod_Publicacion"]);
+            this.nro_Factura = Convert.ToInt32(dr["nro_Factura"]);
+            this.Publicacion = new Publicacion(Convert.ToInt32(dr["cod_Publicacion"]));
             this.Monto = Convert.ToDecimal(dr["Monto"]);
             this.Cantidad = Convert.ToInt32(dr["Cantidad"]);
         }
@@ -100,8 +97,8 @@ namespace Clases
 
         private void setearListaDeParametros()
         {
-            parameterList.Add(new SqlParameter("@nro_Factura", this.Factura));
-            parameterList.Add(new SqlParameter("@cod_Publicacion", this.Publicacion));
+            parameterList.Add(new SqlParameter("@nro_Factura", this.nro_Factura));
+            parameterList.Add(new SqlParameter("@cod_Publicacion", this.Publicacion.Codigo));
             parameterList.Add(new SqlParameter("@Monto", this.Monto));
             parameterList.Add(new SqlParameter("@Cantidad", this.Cantidad));
         }

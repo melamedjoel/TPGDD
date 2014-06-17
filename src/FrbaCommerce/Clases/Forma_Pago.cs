@@ -49,21 +49,21 @@ namespace Clases
             this.Descripcion = dr["Descripcion"].ToString();
         }
 
-        public DataSet obtengoTodas()
+        public static DataSet obtengoTodas()
         {
-            DataSet ds = this.TraerListado(this.parameterList, "");
+            Forma_Pago unaFP = new Forma_Pago();
+            DataSet ds = unaFP.TraerListado(unaFP.parameterList, "");
             return ds;
         }
 
-        public Forma_Pago obtenerPorId(int id_FormaPago)
+        public static Forma_Pago obtenerPorId(int id_FormaPago)
         {
-            setearListaDeParametros(id_FormaPago);
-            DataSet ds = this.TraerListado(this.parameterList, "PorID");
-            parameterList.Clear();
-            Forma_Pago formaPago = new Forma_Pago();
-            formaPago.id_Forma_Pago = Convert.ToInt32(ds.Tables[0].Rows[0]);
-            formaPago.Descripcion = Convert.ToString(ds.Tables[1].Rows[0]);
-            return formaPago;
+            Forma_Pago unaFormaPago = new Forma_Pago();
+            unaFormaPago.setearListaDeParametros(id_FormaPago);
+            DataSet ds = unaFormaPago.TraerListado(unaFormaPago.parameterList, "PorID");
+            unaFormaPago.parameterList.Clear();
+            unaFormaPago.DataRowToObject(ds.Tables[0].Rows[0]);
+            return unaFormaPago;
         }
 
         #endregion

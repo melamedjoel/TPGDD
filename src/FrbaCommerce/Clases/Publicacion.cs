@@ -272,11 +272,12 @@ namespace Clases
             return textoRubros.Remove(textoRubros.Length - 2);
         }
 
-        public DataSet obtenerPublisARendir(Usuario unUsuario)
+        public static DataSet obtenerPublisARendir(Usuario unUsuario)
         {
-            this.setearListaDeParametrosConIdUsuario(unUsuario.Id_Usuario);
-            DataSet ds = this.TraerListado(this.parameterList, "MasAntiguasARendirPorUsuario");
-            this.parameterList.Clear();
+            Publicacion unaPubli = new Publicacion();
+            unaPubli.setearListaDeParametrosConIdUsuario(unUsuario.Id_Usuario);
+            DataSet ds = unaPubli.TraerListado(unaPubli.parameterList, "MasAntiguasARendirPorUsuario");
+            unaPubli.parameterList.Clear();
             return ds;
         }
 

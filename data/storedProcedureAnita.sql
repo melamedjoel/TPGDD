@@ -207,12 +207,13 @@ AS
 	
 GO
 
---Procedure traerListadoFormas_Pago
-CREATE PROCEDURE ATJ.traerListadoFormas_Pago
-
+--Procedure traerListadoFormas_PagoPorId
+CREATE PROCEDURE ATJ.traerListadoFormas_PagoPorId
+	@id_Forma_Pago int
 AS
 	SELECT *
 	FROM ATJ.Formas_Pago
+	WHERE id_Forma_Pago = @id_Forma_Pago
 GO
 
 --Procedure traerListadoPublicacionesMasAntiguasARendirPorUsuario
@@ -229,18 +230,10 @@ WHERE (P.Fecha_vencimiento <= GETDATE()
 OR P.Stock <=	(SELECT SUM(C.Cantidad) FROM ATJ.Compras C
 				 WHERE C.cod_Publicacion = P.Codigo
 				 GROUP BY C.cod_Publicacion))
-AND P.id_Usuario = @Id_Usuario
+AND P.id_Usuario = 3
 AND P.Codigo NOT IN (SELECT I.cod_Publicacion FROM ATJ.Item_Factura I)
 ORDER BY C.Fecha ASC
 GO
-
---Procedure traerFacturasUltimoNumero
-CREATE PROCEDURE ATJ.traerFacturasUltimoNumero
-AS
-SELECT MAX(nro_Factura)
-FROM ATJ.Facturas
-GO
-
 
 --Procedure traerListadoItems_FacturaPorNroFactura
 CREATE PROCEDURE ATJ.traerListadoItems_FacturaPorNroFactura
@@ -251,18 +244,19 @@ FROM ATJ.Item_Factura
 WHERE nro_Factura = @nro_Factura
 GO
 
---Procedure insertFactura
-CREATE PROCEDURE ATJ.insertFactura
-	@Nro_Factura numeric(18,0),
+--Procedure insertFactura_RetornarID
+CREATE PROCEDURE ATJ.insertFactura_RetornarID
     @Fecha datetime,
     @Precio_Total numeric(18,2),
     @id_Forma_Pago int,
     @id_Usuario int
 AS
 INSERT INTO ATJ.Facturas
-(nro_Factura,Fecha,Precio_Total,id_Forma_Pago, id_Usuario)
+(Fecha,Precio_Total,id_Forma_Pago, id_Usuario)
 VALUES
-(@Nro_Factura,@Fecha,@Precio_Total,@id_Forma_Pago,@id_Usuario)
+(@Fecha,@Precio_Total,@id_Forma_Pago,@id_Usuario)
+
+SELECT @@IDENTITY AS nro_Factura;
 GO
 
 --Procedure insertItem_Factura
@@ -279,12 +273,21 @@ VALUES
 GO
 
 --Procedure traerListadoItems_FacturaPorPublicacion
-CREATE PROCEDURE ATJ.traerListadoItems_FacturaPorPublicacion
+CREATE PROCEDURE ATJ.traerListadoItem_FacturaPorPublicacion
 	@cod_Publicacion numeric(18,0)
 AS
 
 SELECT *
-FROM ATJ.Item_Factura 
+FROM ATJ.Compras
 WHERE cod_Publicacion = @cod_Publicacion
 GO
+
+--Procedure traerListadoComprasCantidadPorUsuario
+CREATE PROCEDURE ATJ.traerListadoComprasCantidadPorUsuario
+	@cod_Publicacion numeric(18,0)
+AS
+
+SELECT COUNT(C.Cantidad)
+FROM ATJ.Compras C
+WHERE cod_Publicacion = @cod_Publicacion
 

@@ -17,9 +17,6 @@ namespace FrbaCommerce.Facturar_Publicaciones
     public partial class frmFacturar : Form
     {
         public Usuario unUsuario = new Usuario();
-        Item_Factura unItemFactura = new Item_Factura();
-        Publicacion unaPublicacion = new Publicacion();
-        Forma_Pago formaPago = new Forma_Pago();
         List<Publicacion> listaDePublicacionesARendir = new List<Publicacion>();
         List<Publicacion> listaDePublicacionesAFacturar = new List<Publicacion>();
         List<Item_Factura> listaDeItemsPorFactura = new List<Item_Factura>();
@@ -32,7 +29,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         private void frmFacturar_Load(object sender, EventArgs e)
         {
-            DataSet ds = formaPago.obtengoTodas(); 
+            DataSet ds = Forma_Pago.obtengoTodas(); 
             DropDownListManager.CargarCombo(cmbFormaDePago, ds.Tables[0], "id_Forma_Pago", "Descripcion", false, "");
             cargarListadoDePublicacionesAFacturar();
         }
@@ -46,7 +43,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
         {
             try
             {
-                DataSet ds = unaPublicacion.obtenerPublisARendir(unUsuario);
+                DataSet ds = Publicacion.obtenerPublisARendir(unUsuario);
                 configurarGrillaPublicacionesAFacturar(ds);
                 llenarListadoDePublicaciones(ds);
             }          
@@ -136,11 +133,6 @@ namespace FrbaCommerce.Facturar_Publicaciones
             }
         }
 
-        private int valorIdSeleccionado()
-        {
-            return Convert.ToInt32(((DataRowView)dtgPublicacionesARendir.CurrentRow.DataBoundItem)["Codigo"]);
-        }
-
         private void llenarListadoDePublicaciones(DataSet ds)
         {
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -159,7 +151,6 @@ namespace FrbaCommerce.Facturar_Publicaciones
             }                   
         }
 
-
         private void facturarPublicaciones()
         {
             for (var a = 0; a <= Convert.ToInt16(txtCantidad.Text) - 1; a++)
@@ -169,20 +160,18 @@ namespace FrbaCommerce.Facturar_Publicaciones
             
             foreach (Publicacion unaPubli in listaDePublicacionesARendir)
             {
-                var ds = unItemFactura.obtenerItemsPorPublicacion(unaPubli.Codigo);
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                int cantidadCompras = Compra.obtenerCantidadPorUsuario(unaPubli.Codigo);
+               
+                for (int a = 0; a <= cantidadCompras; a++)
                 {
-                    Item_Factura  itFact = new Item_Factura();
-                    itFact.DataRowToObject(dr);
+                    Item_Factura itFact = new Item_Factura();
+                    itFact.Publicacion = unaPubli;
+                    itFact.Cantidad = cantidadCompras;
+                    itFact.Monto = (unaPubli.Precio * unaPubli.Visibilidad.Porcentaje) ;
+
                     listaDeItemsPorFactura.Add(itFact);
                 }
                                  
-                foreach(Item_Factura itemFactura in listaDeItemsPorFactura)
-                {
-                    itemFactura.Monto = (unaPubli.Precio * unaPubli.Visibilidad.Porcentaje) + itemFactura.Monto;
-                }
-
                 Item_Factura itemPublicacion = new Item_Factura();
                 itemPublicacion.Publicacion = unaPubli;
                 itemPublicacion.Monto = unaPubli.Visibilidad.Precio;
@@ -200,20 +189,22 @@ namespace FrbaCommerce.Facturar_Publicaciones
             if (dr == DialogResult.Yes)
             {            
                 Factura factura = new Factura();
-                factura.nro_Factura = (factura.obtenerUltimoNumFactura() + 1);
                 factura.Fecha = DateTime.Now;
-                factura.Forma_Pago = formaPago.obtenerPorId(cmbFormaDePago.SelectedIndex + 1);
+                factura.Forma_Pago = Forma_Pago.obtenerPorId(cmbFormaDePago.SelectedIndex + 1);
                 factura.id_Usuario = unUsuario;   
                 factura.Precio_Total = listaDeItemsPorFactura.Sum(item => item.Cantidad* item.Monto);
 
-                factura.cargarNuevaFactura();
+                int nroFact = factura.GuardarYObtenerID();
 
                 foreach(Item_Factura itemF in listaDeItemsPorFactura)
                 {
+                    itemF.nro_Factura = nroFact;
                     itemF.cargarNuevoItemFactura();
                 }
 
                 MessageBox.Show("Las publicaciones a rendir han sido facturadas correctamente", "Atencion");
+                cargarListadoDePublicacionesAFacturar();
+                txtCantidad.Clear();
             }
 
         }

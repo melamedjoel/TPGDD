@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
+using Excepciones;
+using Conexion;
 
 namespace Clases
 {
@@ -71,22 +73,19 @@ namespace Clases
             this.Forma_Pago.id_Forma_Pago = Convert.ToInt32(dr["id_Forma_Pago"]);
         }
 
-        
-    
-        public int obtenerUltimoNumFactura()
-        {
-            DataSet ds = this.TraerListado(this.parameterList, "UltimoNumero");
-            this.parameterList.Clear();
-            int ultimoNum = Convert.ToInt32(ds.Tables[0].Rows[0]);
-            return ultimoNum;
-        }
-
-
         public void cargarNuevaFactura()
         {
-            setearListaDeParametros();
-            this.Guardar(parameterList);
+            this.setearListaDeParametros();
+            this.Guardar(this.parameterList);
             parameterList.Clear();
+        }
+
+        public int GuardarYObtenerID()
+        {
+            this.setearListaDeParametros();
+            DataSet dsNuevaFactura = this.GuardarYObtenerID(this.parameterList);
+            this.nro_Factura = Convert.ToInt32(dsNuevaFactura.Tables[0].Rows[0]["nro_Factura"]);
+            return this.nro_Factura;
         }
         
         #endregion
@@ -95,11 +94,10 @@ namespace Clases
         
         private void setearListaDeParametros()
         {
-            parameterList.Add(new SqlParameter("@nro_Factura", this.nro_Factura));
             parameterList.Add(new SqlParameter("@Fecha", this.Fecha));
             parameterList.Add(new SqlParameter("@Precio_Total", this.Precio_Total));
-            parameterList.Add(new SqlParameter("@id_Forma_Pago", this.Forma_Pago));
-            parameterList.Add(new SqlParameter("@id_Usuario", this.id_Usuario));
+            parameterList.Add(new SqlParameter("@id_Forma_Pago", this.Forma_Pago.id_Forma_Pago));
+            parameterList.Add(new SqlParameter("@id_Usuario", this.id_Usuario.Id_Usuario));
         }
 
         #endregion
