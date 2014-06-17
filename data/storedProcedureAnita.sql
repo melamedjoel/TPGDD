@@ -208,7 +208,7 @@ AS
 GO
 
 --Procedure traerListadoFormas_Pago
-CREATE PROCEDURE ATJ.traerFormas_Pago
+CREATE PROCEDURE ATJ.traerListadoFormas_Pago
 	
 AS
 	SELECT *

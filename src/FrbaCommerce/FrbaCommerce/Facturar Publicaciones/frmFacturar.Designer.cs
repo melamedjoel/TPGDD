@@ -81,7 +81,7 @@
             this.dtgPublicacionesARendir.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgPublicacionesARendir.Location = new System.Drawing.Point(25, 72);
             this.dtgPublicacionesARendir.Name = "dtgPublicacionesARendir";
-            this.dtgPublicacionesARendir.Size = new System.Drawing.Size(536, 245);
+            this.dtgPublicacionesARendir.Size = new System.Drawing.Size(516, 245);
             this.dtgPublicacionesARendir.TabIndex = 37;
             // 
             // txtCantidad

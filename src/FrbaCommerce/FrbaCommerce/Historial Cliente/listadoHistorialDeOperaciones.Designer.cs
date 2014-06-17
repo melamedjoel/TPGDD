@@ -52,14 +52,14 @@
             "Ofertas",
             "Calificaciones Recibidas",
             "Calificaciones Otorgadas"});
-            this.cmbHistorial.Location = new System.Drawing.Point(176, 33);
+            this.cmbHistorial.Location = new System.Drawing.Point(35, 49);
             this.cmbHistorial.Name = "cmbHistorial";
             this.cmbHistorial.Size = new System.Drawing.Size(149, 21);
             this.cmbHistorial.TabIndex = 2;
             // 
             // btnVer
             // 
-            this.btnVer.Location = new System.Drawing.Point(352, 33);
+            this.btnVer.Location = new System.Drawing.Point(210, 49);
             this.btnVer.Name = "btnVer";
             this.btnVer.Size = new System.Drawing.Size(49, 23);
             this.btnVer.TabIndex = 3;
@@ -70,9 +70,10 @@
             // lblSeleccionar
             // 
             this.lblSeleccionar.AutoSize = true;
-            this.lblSeleccionar.Location = new System.Drawing.Point(32, 36);
+            this.lblSeleccionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionar.Location = new System.Drawing.Point(32, 17);
             this.lblSeleccionar.Name = "lblSeleccionar";
-            this.lblSeleccionar.Size = new System.Drawing.Size(121, 13);
+            this.lblSeleccionar.Size = new System.Drawing.Size(154, 16);
             this.lblSeleccionar.TabIndex = 4;
             this.lblSeleccionar.Text = "Seleccione la operación";
             // 
