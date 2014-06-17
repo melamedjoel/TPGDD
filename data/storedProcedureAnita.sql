@@ -289,12 +289,12 @@ FROM ATJ.Compras
 WHERE cod_Publicacion = @cod_Publicacion
 GO
 
---Procedure traerListadoComprasCantidadPorUsuario
-CREATE PROCEDURE ATJ.traerListadoComprasCantidadPorUsuario
+--Procedure traerListadoComprasPorCodigoPubli
+CREATE PROCEDURE ATJ.traerListadoPorCodigoPubli
 	@cod_Publicacion numeric(18,0)
 AS
 
-SELECT COUNT(C.Cantidad)
+SELECT *
 FROM ATJ.Compras C
 WHERE cod_Publicacion = @cod_Publicacion
 

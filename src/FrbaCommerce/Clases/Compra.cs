@@ -116,14 +116,13 @@ namespace Clases
 
         }
 
-        public static int obtenerCantidadPorUsuario(int codigo)
+        public static DataSet obtenerComprasPorCodPubli(int codigo)
         {
             Compra unaCompra = new Compra();
             unaCompra.setearListaDeParametrosConCodPublicacion(codigo);
-            DataSet ds = unaCompra.TraerListado(unaCompra.parameterList,"CantidadPorUsuario");
+            DataSet ds = unaCompra.TraerListado(unaCompra.parameterList, "PorCodigoPubli");
             unaCompra.parameterList.Clear();
-            int cantidadCompras = Convert.ToInt32((ds.Tables[0].Rows[0].ItemArray[0]));
-            return cantidadCompras;
+            return ds;
         }
         #endregion
 

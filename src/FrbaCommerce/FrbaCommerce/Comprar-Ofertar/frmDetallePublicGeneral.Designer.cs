@@ -137,12 +137,15 @@
             // 
             // btnComprar
             // 
+            this.btnComprar.BackColor = System.Drawing.Color.PowderBlue;
+            this.btnComprar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
+            this.btnComprar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnComprar.Location = new System.Drawing.Point(530, 122);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(87, 27);
             this.btnComprar.TabIndex = 78;
             this.btnComprar.Text = "Comprar";
-            this.btnComprar.UseVisualStyleBackColor = true;
+            this.btnComprar.UseVisualStyleBackColor = false;
             this.btnComprar.Click += new System.EventHandler(this.btnComprar_Click);
             // 
             // btnOfertar
@@ -150,7 +153,7 @@
             this.btnOfertar.BackColor = System.Drawing.Color.PowderBlue;
             this.btnOfertar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
             this.btnOfertar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOfertar.Location = new System.Drawing.Point(530, 122);
+            this.btnOfertar.Location = new System.Drawing.Point(530, 123);
             this.btnOfertar.Name = "btnOfertar";
             this.btnOfertar.Size = new System.Drawing.Size(87, 27);
             this.btnOfertar.TabIndex = 79;

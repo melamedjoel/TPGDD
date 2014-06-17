@@ -148,9 +148,23 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void btnResponderPregs_Click(object sender, EventArgs e)
         {
-            listadoPreguntas _frmVerRespuestas = new listadoPreguntas();
-            _frmVerRespuestas.abrirConUsuario(unUsuario);
-            _frmVerRespuestas.AbrirParaResponder(cod_Publicacion, this);
+            if (ValidarSiTienePreguntasPendientes() == 1)
+            {
+                listadoPreguntas _frmVerRespuestas = new listadoPreguntas();
+                _frmVerRespuestas.abrirConUsuario(unUsuario);
+                _frmVerRespuestas.AbrirParaResponder(cod_Publicacion, this);
+            }
+        }
+
+        private int ValidarSiTienePreguntasPendientes()
+        {
+            DataSet ds = Pregunta.obtenerPreguntasSinRespuestas(cod_Publicacion, unUsuario);
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                MessageBox.Show("No tiene ninguna pregunta pendiente a responder", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+            return 1;
         }
 
         private void dtgListado_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -18,7 +18,6 @@ namespace FrbaCommerce.Gestion_de_Preguntas
     public partial class listadoPreguntas : Form
     {
         Usuario unUsuario = new Usuario();
-        Pregunta unaPregunta = new Pregunta();
         frmMisPublicaciones frmPadre = new frmMisPublicaciones();
         private int id_Pregunta;
         private int cod_Publicacion;
@@ -51,7 +50,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         {
             try
             {
-                DataSet ds = unaPregunta.obtenerPreguntasConRespuestas(cod_P, unUsuario);
+                DataSet ds = Pregunta.obtenerPreguntasConRespuestas(cod_P, unUsuario);
                 configurarGrillaPreguntasYRespuestas(ds);
             }
 
@@ -162,7 +161,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         {
             try
             {
-                DataSet ds = unaPregunta.obtenerPreguntasSinRespuestas(codP, unUsuario);
+                DataSet ds = Pregunta.obtenerPreguntasSinRespuestas(codP, unUsuario);
                 configurarGrillaPreguntasYRespuestas(ds);
             }
 
@@ -178,9 +177,20 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         private void btnResponder_Click(object sender, EventArgs e)
         {
+            ValidarSiTienePreguntasPendientes();
             ResponderPregunta _frmResponderPregunta = new ResponderPregunta();
             id_Pregunta = valorIdSeleccionado();
             _frmResponderPregunta.AbrirParaResponder(id_Pregunta, this, cod_Publicacion);
+        }
+
+        private void ValidarSiTienePreguntasPendientes()
+        {
+            DataSet ds = Pregunta.obtenerPreguntasSinRespuestas(cod_Publicacion, unUsuario);
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                MessageBox.Show("No tiene ninguna pregunta pendiente a responder", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
 
     }

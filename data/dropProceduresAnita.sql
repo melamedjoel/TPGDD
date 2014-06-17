@@ -17,7 +17,7 @@ DROP PROCEDURE ATJ.insertFactura_RetornarID;
 DROP PROCEDURE ATJ.insertItem_Factura;
 DROP PROCEDURE ATJ.traerListadoItem_FacturaPorPublicacion;
 DROP PROCEDURE ATJ.traerListadoItems_FacturaPorNroFactura;
-DROP PROCEDURE ATJ.traerListadoComprasCantidadPorUsuario;
+DROP PROCEDURE ATJ.traerListadoComprasPorCodigoPubli;
 
 
 

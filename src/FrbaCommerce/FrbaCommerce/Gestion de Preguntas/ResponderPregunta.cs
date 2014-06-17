@@ -18,7 +18,6 @@ namespace FrbaCommerce.Gestion_de_Preguntas
     {
         listadoPreguntas frmPadre = new listadoPreguntas();
         private int id_Pregunta;
-        Pregunta unaPregunta = new Pregunta();
         int cod_Publicacion;
         
         public ResponderPregunta()
@@ -41,7 +40,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
                 ValidarCampos();
                 string respuesta = txtRespuesta.Text;
                 
-                unaPregunta.GuardarRespuesta(id_Pregunta,respuesta);
+                Pregunta.GuardarRespuesta(id_Pregunta,respuesta);
                 DialogResult dr = MessageBox.Show("La respuesta ha sido realizada", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
                 if (dr == DialogResult.OK)

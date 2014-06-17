@@ -117,27 +117,30 @@ namespace Clases
 
         }
 
-        public void GuardarRespuesta(int id_Pregunta,string respuesta)
+        public static void GuardarRespuesta(int id_Pregunta,string respuesta)
         {
-            setearListaDeParametrosConPreguntaYRespuesta(id_Pregunta,respuesta);
-            this.Modificar(parameterList);
-            parameterList.Clear();
+            Pregunta unaPreg = new Pregunta();
+            unaPreg.setearListaDeParametrosConPreguntaYRespuesta(id_Pregunta, respuesta);
+            unaPreg.Modificar(unaPreg.parameterList);
+            unaPreg.parameterList.Clear();
         }
 
-        public DataSet obtenerPreguntasConRespuestas(int cod_Publicacion, Usuario unUsuario)
+        public static DataSet obtenerPreguntasConRespuestas(int cod_Publicacion, Usuario unUsuario)
         {
-            this.setearListaDeParametrosConUsuarioYPublicacion(cod_Publicacion, unUsuario.Id_Usuario);
-            DataSet ds = this.TraerListado(this.parameterList, "ConRespuestasPorUsuarioYPublicacion");
-            this.parameterList.Clear();
+            Pregunta unaPregunta = new Pregunta();
+            unaPregunta.setearListaDeParametrosConUsuarioYPublicacion(cod_Publicacion, unUsuario.Id_Usuario);
+            DataSet ds = unaPregunta.TraerListado(unaPregunta.parameterList, "ConRespuestasPorUsuarioYPublicacion");
+            unaPregunta.parameterList.Clear();
 
             return ds;
         }
 
-        public DataSet obtenerPreguntasSinRespuestas(int cod_Publicacion, Usuario unUsuario)
+        public static DataSet obtenerPreguntasSinRespuestas(int cod_Publicacion, Usuario unUsuario)
         {
-            this.setearListaDeParametrosConUsuarioYPublicacion(unUsuario.Id_Usuario, cod_Publicacion);
-            DataSet ds = this.TraerListado(this.parameterList, "SinRespuestasPorUsuarioYPublicacion");
-            this.parameterList.Clear();
+            Pregunta unaPregunta = new Pregunta();
+            unaPregunta.setearListaDeParametrosConUsuarioYPublicacion(unUsuario.Id_Usuario, cod_Publicacion);
+            DataSet ds = unaPregunta.TraerListado(unaPregunta.parameterList, "SinRespuestasPorUsuarioYPublicacion");
+            unaPregunta.parameterList.Clear();
 
             return ds;
         }

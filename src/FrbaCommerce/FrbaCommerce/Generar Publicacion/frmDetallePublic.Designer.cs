@@ -120,9 +120,9 @@
             this.lblTipo.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTipo.Location = new System.Drawing.Point(50, 161);
             this.lblTipo.Name = "lblTipo";
-            this.lblTipo.Size = new System.Drawing.Size(34, 15);
+            this.lblTipo.Size = new System.Drawing.Size(112, 15);
             this.lblTipo.TabIndex = 67;
-            this.lblTipo.Text = "Tipo";
+            this.lblTipo.Text = "Tipo                        *";
             // 
             // lblVisibilidad
             // 
@@ -130,9 +130,9 @@
             this.lblVisibilidad.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVisibilidad.Location = new System.Drawing.Point(48, 192);
             this.lblVisibilidad.Name = "lblVisibilidad";
-            this.lblVisibilidad.Size = new System.Drawing.Size(72, 15);
+            this.lblVisibilidad.Size = new System.Drawing.Size(114, 15);
             this.lblVisibilidad.TabIndex = 69;
-            this.lblVisibilidad.Text = "Visibilidad";
+            this.lblVisibilidad.Text = "Visibilidad            *";
             // 
             // lblEstado
             // 
@@ -140,9 +140,9 @@
             this.lblEstado.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstado.Location = new System.Drawing.Point(48, 224);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(48, 15);
+            this.lblEstado.Size = new System.Drawing.Size(114, 15);
             this.lblEstado.TabIndex = 71;
-            this.lblEstado.Text = "Estado";
+            this.lblEstado.Text = "Estado                    *";
             // 
             // txtPrecio
             // 
