@@ -4,7 +4,6 @@ drop table ATJ.Compras
 drop table ATJ.Empresas  
 drop table ATJ.Item_Factura 
 drop table ATJ.Ofertas 
-drop table ATJ.Pregunta_Publicacion 
 drop table ATJ.Preguntas 
 drop table ATJ.Publicaciones 
 drop table ATJ.Rol_Funcionalidad 

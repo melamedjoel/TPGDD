@@ -69,6 +69,10 @@ namespace FrbaCommerce.Comprar_Ofertar
         private void configurarGrilla()
         {
             dtgListado.Columns.Clear();
+            btnAnterior.Visible = true;
+            btnSiguiente.Visible = true;
+            btnUltimo.Visible = true;
+            btnPrimero.Visible = true;
 
             var bindeo = publicaciones.Values.Select(unaPub => new
             {
@@ -93,6 +97,14 @@ namespace FrbaCommerce.Comprar_Ofertar
             
             dtgListado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             agregarBotonVer();
+
+            if (listadoABindear.Count == 0)
+            {
+                btnAnterior.Visible = false;
+                btnSiguiente.Visible = false;
+                btnUltimo.Visible = false;
+                btnPrimero.Visible = false;
+            }
 
         }
 

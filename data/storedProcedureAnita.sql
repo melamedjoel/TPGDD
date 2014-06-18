@@ -169,8 +169,7 @@ AS
     P.Precio AS Precio
     FROM ATJ.Usuarios U 
     INNER JOIN ATJ.Publicaciones P ON U.id_Usuario = P.id_Usuario 
-    INNER JOIN ATJ.Pregunta_Publicacion PP ON PP.cod_Publicacion = P.Codigo 
-    INNER JOIN ATJ.Preguntas R ON R.id_Pregunta = PP.id_Pregunta 
+    INNER JOIN ATJ.Preguntas R ON R.cod_Publicacion = P.Codigo 
     WHERE	R.Respuesta IS NOT NULL
 	AND		U.id_Usuario = @id_Usuario
 	AND		P.Codigo = @cod_Publicacion
@@ -188,8 +187,7 @@ AS
     P.Precio AS Precio
     FROM ATJ.Usuarios U 
     INNER JOIN ATJ.Publicaciones P ON U.id_Usuario = P.id_Usuario 
-    INNER JOIN ATJ.Pregunta_Publicacion PP ON PP.cod_Publicacion = P.Codigo 
-    INNER JOIN ATJ.Preguntas R ON R.id_Pregunta = PP.id_Pregunta 
+    INNER JOIN ATJ.Preguntas R ON R.cod_Publicacion = P.Codigo 
     WHERE	R.Respuesta IS NULL
 	AND		U.id_Usuario = @id_Usuario
 	AND		P.Codigo = @cod_Publicacion
@@ -198,12 +196,13 @@ GO
 --Procedure updatePreguntaConRespuesta
 CREATE PROCEDURE ATJ.updatePreguntaConRespuesta
 	@id_Pregunta int,
-	@Respuesta nvarchar(255)
+	@Respuesta nvarchar(255),
+	@Fecha_respuesta datetime
 	
 AS
 
 	UPDATE ATJ.Preguntas SET	Respuesta = @Respuesta,
-								Fecha_respuesta = GETDATE()
+								Fecha_respuesta = @Fecha_respuesta
 	WHERE id_Pregunta = @id_Pregunta 
 	
 GO

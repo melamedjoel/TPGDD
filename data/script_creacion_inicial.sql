@@ -211,6 +211,7 @@ CREATE TABLE ATJ.Preguntas
 	id_Pregunta int NOT NULL IDENTITY (1, 1),
 	Pregunta nvarchar(255) NULL,
 	Respuesta nvarchar(255) NULL,
+	cod_Publicacion numeric(18, 0) NOT NULL,
 	Fecha_respuesta datetime NULL
 	)  ON [PRIMARY]
 GO
@@ -225,19 +226,6 @@ ALTER TABLE ATJ.Preguntas SET (LOCK_ESCALATION = TABLE)
 GO
 
 
-------------------------------------------------------------------------------------------------------------------------------
--- Creacion tabla de datos Preguntas_Publicacion
-
-CREATE TABLE ATJ.Pregunta_Publicacion
-	(
-	id_Pregunta int NOT NULL,
-	cod_Publicacion numeric(18, 0) NOT NULL,
-	PRIMARY KEY (id_Pregunta, cod_Publicacion)
-	)  ON [PRIMARY]
-GO
-
-ALTER TABLE ATJ.Pregunta_Publicacion SET (LOCK_ESCALATION = TABLE)
-GO
 ------------------------------------------------------------------------------------------------------------------------------
 -- Creacion tabla de datos Estados_Publicacion
 
@@ -433,7 +421,7 @@ CREATE TABLE ATJ.Calificaciones
 	(
 	cod_Calificacion numeric(18, 0) NOT NULL IDENTITY (1, 1),
 	id_Usuario_Calificador int NOT NULL,
-	cod_Publicacion int NOT NULL,
+	cod_Publicacion numeric(18,0) NOT NULL,
 	Cant_Estrellas numeric(18, 0) NULL,
 	Descripcion nvarchar(255) NULL
 	)  ON [PRIMARY]
@@ -453,159 +441,114 @@ COMMIT
 -------------------------------------------------------------------------------------------------------------------------------
 --- Creacion de foreign keys
 
-
 BEGIN TRANSACTION
 GO
---Creacion foreign key Cliente-Usuario
-ALTER TABLE ATJ.Clientes 
-ADD CONSTRAINT FK_Cliente_Usuario FOREIGN KEY (id_Usuario) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE ATJ.Calificaciones
+	ADD FOREIGN KEY (cod_Publicacion)
+	REFERENCES ATJ.Publicaciones (Codigo);
 
---Creacion foreign key Empresa-Usuario
-ALTER TABLE ATJ.Empresas 
-ADD CONSTRAINT FK_Empresa_Usuario FOREIGN KEY (id_Usuario) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE ATJ.Calificaciones
+	ADD FOREIGN KEY (id_Usuario_Calificador)
+	REFERENCES ATJ.Usuarios (id_Usuario);
 
---Creacion foreing key usuario calificador
-ALTER TABLE ATJ.Calificaciones
-ADD CONSTRAINT FK_Calificador_Usuario FOREIGN KEY (id_Usuario_Calificador) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-;
-GO
+	ALTER TABLE [ATJ].[Clientes]
+	ADD FOREIGN KEY ([id_Usuario])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
 
+	ALTER TABLE [ATJ].[Compras]
+	ADD FOREIGN KEY ([cod_Publicacion])
+	REFERENCES [ATJ].[Publicaciones] (Codigo);
 
---Creacion foreing key usuario vendedor compras
-ALTER TABLE ATJ.Compras
-ADD CONSTRAINT FK_Vendedor_Usuario FOREIGN KEY (id_Usuario_Vendedor) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-;
-GO
+	ALTER TABLE [ATJ].[Compras]
+	ADD FOREIGN KEY ([id_Usuario_Vendedor])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
+	
+	ALTER TABLE [ATJ].[Compras]
+	ADD FOREIGN KEY ([id_Usuario_Comprador])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
 
---Creacion foreing key usuario comprador compras
-ALTER TABLE ATJ.Compras
-ADD CONSTRAINT FK_Comprador_Usuario FOREIGN KEY (id_Usuario_Comprador) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-;
-GO
+	ALTER TABLE [ATJ].[Empresas]
+	ADD FOREIGN KEY ([id_Usuario])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
 
---Creacion foreing key forma de pago
-ALTER TABLE ATJ.Facturas
-ADD CONSTRAINT FK_Forma_Pago FOREIGN KEY (id_Forma_Pago) 
-    REFERENCES ATJ.Formas_Pago (id_Forma_Pago) 
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-;
-GO 
+	ALTER TABLE [ATJ].[Rol_Funcionalidad]
+	ADD FOREIGN KEY ([id_Funcionalidad])
+	REFERENCES [ATJ].[Funcionalidades] (id_Funcionalidad);
 
---Creacion foreing key Item Factura
-ALTER TABLE ATJ.Item_Factura
-ADD CONSTRAINT FK_Item_Factura FOREIGN KEY (nro_Factura) 
-    REFERENCES ATJ.Facturas (nro_Factura) 
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-;
-GO 
+	ALTER TABLE [ATJ].[Rol_Funcionalidad]
+	ADD FOREIGN KEY ([id_Rol])
+	REFERENCES [ATJ].[Roles] (id_Rol);
 
---Creacion foreing key usuario vendedor oferta
-ALTER TABLE ATJ.Ofertas
-ADD CONSTRAINT FK_Oferta_Vendedor_Usuario FOREIGN KEY (id_Usuario_Vendedor) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-;
-GO
+	ALTER TABLE [ATJ].[Item_Factura]
+	ADD FOREIGN KEY ([nro_Factura])
+	REFERENCES [ATJ].[Facturas] (nro_Factura);
 
---Creacion foreing key usuario comprador oferta
-ALTER TABLE ATJ.Ofertas
-ADD CONSTRAINT FK_Oferta_Comprador_Usuario FOREIGN KEY (id_Usuario_Comprador) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-;
-GO
+	ALTER TABLE [ATJ].[Item_Factura]
+	ADD FOREIGN KEY ([cod_Publicacion])
+	REFERENCES [ATJ].[Publicaciones] (Codigo);
 
---Creacion foreing key pregunta por publicacion
-ALTER TABLE ATJ.Pregunta_Publicacion
-ADD CONSTRAINT FK_Pregunta_Publicacion FOREIGN KEY (cod_Publicacion) 
-    REFERENCES ATJ.Publicaciones (Codigo) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE [ATJ].[Ofertas]
+	ADD FOREIGN KEY ([id_Usuario_Vendedor])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
+	
+	ALTER TABLE [ATJ].[Ofertas]
+	ADD FOREIGN KEY ([id_Usuario_Comprador])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
 
---Creacion foreing key publicacion usuario
-ALTER TABLE ATJ.Publicaciones
-ADD CONSTRAINT FK_Usuario_Publicacion FOREIGN KEY (id_Usuario) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE [ATJ].[Ofertas]
+	ADD FOREIGN KEY ([cod_Publicacion])
+	REFERENCES [ATJ].[Publicaciones] (Codigo);
 
+	ALTER TABLE [ATJ].[Preguntas]
+	ADD FOREIGN KEY ([cod_Publicacion])
+	REFERENCES [ATJ].[Publicaciones] (Codigo);
 
---Creacion foreing key publicacion tipos
-ALTER TABLE ATJ.Publicaciones
-ADD CONSTRAINT FK_Tipos_Publicacion FOREIGN KEY (id_Tipo) 
-    REFERENCES ATJ.Tipos_Publicacion (id_Tipo) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE [ATJ].[Publicaciones]
+	ADD FOREIGN KEY ([id_Tipo])
+	REFERENCES [ATJ].[Tipos_Publicacion] (id_Tipo);
 
---Creacion foreing key publicacion tipos
-ALTER TABLE ATJ.Publicaciones
-ADD CONSTRAINT FK_Visibilidad_Publicacion FOREIGN KEY (cod_Visibilidad) 
-    REFERENCES ATJ.Visibilidades (cod_visibilidad) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE [ATJ].[Publicaciones]
+	ADD FOREIGN KEY ([id_Usuario])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
 
---Creacion foreing key publicacion estados
-ALTER TABLE ATJ.Publicaciones
-ADD CONSTRAINT FK_Estados_Publicacion FOREIGN KEY (id_Estado) 
-    REFERENCES ATJ.Estados_Publicacion (id_Estado) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE [ATJ].[Publicaciones]
+	ADD FOREIGN KEY ([cod_Visibilidad])
+	REFERENCES [ATJ].[Visibilidades] (cod_Visibilidad);
 
+	ALTER TABLE [ATJ].[Publicaciones]
+	ADD FOREIGN KEY ([id_Estado])
+	REFERENCES [ATJ].[Estados_Publicacion] (id_Estado);
 
---Creacion foreing key rol por funcionalidad
-ALTER TABLE ATJ.Rol_Funcionalidad
-ADD CONSTRAINT FK_Rol_Funcionalidad FOREIGN KEY (id_Funcionalidad) 
-    REFERENCES ATJ.Funcionalidades (id_Funcionalidad) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE [ATJ].[Rubros_Publicacion]
+	ADD FOREIGN KEY ([id_Rubro])
+	REFERENCES [ATJ].[Rubros] (id_Rubro);
 
---Creacion foreing key rol por usuario
-ALTER TABLE ATJ.Rol_Usuario
-ADD CONSTRAINT FK_Rol_Usuario FOREIGN KEY (id_Usuario) 
-    REFERENCES ATJ.Usuarios (id_Usuario) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
+	ALTER TABLE [ATJ].[Rubros_Publicacion]
+	ADD FOREIGN KEY ([cod_Publicacion])
+	REFERENCES [ATJ].[Publicaciones] (Codigo);
 
+	ALTER TABLE [ATJ].[Rol_Usuario]
+	ADD FOREIGN KEY ([id_Usuario])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
+
+	ALTER TABLE [ATJ].[Rol_Usuario]
+	ADD FOREIGN KEY ([id_Rol])
+	REFERENCES [ATJ].[Roles] (id_Rol);
+
+	ALTER TABLE [ATJ].[Facturas]
+	ADD FOREIGN KEY ([id_Forma_Pago])
+	REFERENCES [ATJ].[Formas_Pago] (id_Forma_Pago);
+	
+	ALTER TABLE [ATJ].[Facturas]
+	ADD FOREIGN KEY ([id_Usuario])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
+COMMIT
 
 -- Migracion de datos
 --------------------------------------------------------------------------------------------------------------------
+
+BEGIN TRANSACTION
+GO
 
 DECLARE @number AS INT
 

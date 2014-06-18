@@ -346,18 +346,11 @@ CREATE PROCEDURE ATJ.insertPregunta_RetornarID
 	@cod_Publicacion numeric(18,0)
 AS
 	INSERT INTO ATJ.Preguntas
-	(Pregunta)
+	(Pregunta, cod_Publicacion)
 	VALUES 
-	(@txtPregunta)
+	(@txtPregunta, @cod_Publicacion)
 	
-	DECLARE @idNuevo int;
-	SELECT @idNuevo = @@IDENTITY;
-	
-	INSERT INTO ATJ.Pregunta_Publicacion
-	(id_Pregunta, cod_Publicacion) VALUES
-	(@idNuevo, @cod_Publicacion)
-	
-	select @idNuevo as id_Pregunta;
+	SELECT @@IDENTITY AS id_Pregunta;
 GO
 
 

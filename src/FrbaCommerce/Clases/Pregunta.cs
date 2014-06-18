@@ -117,10 +117,10 @@ namespace Clases
 
         }
 
-        public static void GuardarRespuesta(int id_Pregunta,string respuesta)
+        public static void GuardarRespuesta(int id_Pregunta,string respuesta, DateTime unaFecha)
         {
             Pregunta unaPreg = new Pregunta();
-            unaPreg.setearListaDeParametrosConPreguntaYRespuesta(id_Pregunta, respuesta);
+            unaPreg.setearListaDeParametrosConFechaPreguntaYRespuesta(id_Pregunta, respuesta, unaFecha);
             unaPreg.Modificar(unaPreg.parameterList);
             unaPreg.parameterList.Clear();
         }
@@ -160,10 +160,11 @@ namespace Clases
             parameterList.Add(new SqlParameter("@cod_Publicacion", publicacion));
         }
 
-        private void setearListaDeParametrosConPreguntaYRespuesta(int id_pregunta, string respuesta)
+        private void setearListaDeParametrosConFechaPreguntaYRespuesta(int id_pregunta, string respuesta, DateTime unaFecha)
         {
             parameterList.Add(new SqlParameter("@id_Pregunta", id_pregunta));
             parameterList.Add(new SqlParameter("@Respuesta", respuesta));
+            parameterList.Add(new SqlParameter("@Fecha_respuesta", unaFecha));
         }
 
         #endregion

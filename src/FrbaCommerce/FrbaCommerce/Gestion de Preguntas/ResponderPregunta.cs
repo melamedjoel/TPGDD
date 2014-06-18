@@ -11,6 +11,7 @@ using Conexion;
 using Utilities;
 using Excepciones;
 using FrbaCommerce.Gestion_de_Preguntas;
+using System.Configuration;
 
 namespace FrbaCommerce.Gestion_de_Preguntas
 {
@@ -40,7 +41,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
                 ValidarCampos();
                 string respuesta = txtRespuesta.Text;
                 
-                Pregunta.GuardarRespuesta(id_Pregunta,respuesta);
+                Pregunta.GuardarRespuesta(id_Pregunta,respuesta, Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]));
                 DialogResult dr = MessageBox.Show("La respuesta ha sido realizada", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
                 if (dr == DialogResult.OK)
