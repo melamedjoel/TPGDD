@@ -177,10 +177,8 @@ namespace FrbaCommerce.Abm_Empresa
                 empresaDelForm.Dom_ciudad = txtLocalidad.Text;
                 empresaDelForm.Dom_cod_postal = txtCodPostal.Text;
                 empresaDelForm.Dom_depto = txtDepto.Text;
-                if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) txtNumeroCalle.Text = "-1";
                 empresaDelForm.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
-                if (!String.IsNullOrEmpty(txtNroPiso.Text)) txtNroPiso.Text = "-1";
-                empresaDelForm.Dom_piso = Int32.Parse(txtNroPiso.Text);
+                if (!String.IsNullOrEmpty(txtNroPiso.Text)) empresaDelForm.Dom_piso = -1;
                 empresaDelForm.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
                 empresaDelForm.Mail = txtMail.Text;
                 empresaDelForm.Nombre_contacto = txtNombreContacto.Text;
@@ -222,11 +220,9 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Dom_calle = txtCalle.Text;
                 unaEmpresaNueva.Dom_ciudad = txtLocalidad.Text;
                 unaEmpresaNueva.Dom_cod_postal = txtCodPostal.Text;
-                unaEmpresaNueva.Dom_depto = txtDepto.Text;
-                if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) txtNumeroCalle.Text = "-1";
+                unaEmpresaNueva.Dom_depto = txtDepto.Text;              
                 unaEmpresaNueva.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
-                if (!String.IsNullOrEmpty(txtNroPiso.Text)) txtNroPiso.Text = "-1";
-                unaEmpresaNueva.Dom_piso = Int32.Parse(txtNroPiso.Text);
+                if (!String.IsNullOrEmpty(txtNroPiso.Text)) unaEmpresaNueva.Dom_piso = -1;
                 unaEmpresaNueva.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;
@@ -272,10 +268,8 @@ namespace FrbaCommerce.Abm_Empresa
                 unaEmpresaNueva.Dom_ciudad = txtLocalidad.Text;
                 unaEmpresaNueva.Dom_cod_postal = txtCodPostal.Text;
                 unaEmpresaNueva.Dom_depto = txtDepto.Text;
-                if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) txtNumeroCalle.Text = "-1";
                 unaEmpresaNueva.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
-                if (!String.IsNullOrEmpty(txtNroPiso.Text)) txtNroPiso.Text = "-1";
-                unaEmpresaNueva.Dom_piso = Int32.Parse(txtNroPiso.Text);
+                if (!String.IsNullOrEmpty(txtNroPiso.Text)) unaEmpresaNueva.Dom_piso = -1;
                 unaEmpresaNueva.Fecha_creacion = DateTime.Parse(txtFechaCreacion.Text);
                 unaEmpresaNueva.Mail = txtMail.Text;
                 unaEmpresaNueva.Nombre_contacto = txtNombreContacto.Text;

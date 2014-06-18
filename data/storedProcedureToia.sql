@@ -81,6 +81,7 @@ GO
 --Procedure updateCliente
 CREATE PROCEDURE ATJ.updateCliente
 	@id_Cliente int,
+	@id_Rol int,
 	@Tipo_Dni nvarchar(50) =null,
 	@Dni numeric(18,0) =null,
 	@Cuil nvarchar(50) =null,
@@ -411,9 +412,51 @@ CREATE PROCEDURE ATJ.validarTelefonoEnCliente
 	@Dom_cod_postal nvarchar(50) =null,
 	@Dom_ciudad nvarchar(255) =null,
 	@Activo bit,
-	@id_Rol int
+	@id_Rol int,
+	@id_Cliente int =null,
+	@id_Usuario int=null
 	
 AS
-	SELECT * FROM ATJ.Clientes WHERE Telefono = @Telefono
+	SELECT * FROM ATJ.Clientes 
+	WHERE Telefono = @Telefono
+	AND (id_Cliente <> @id_Cliente OR @id_Cliente is null)
+	AND (id_Usuario <> @id_Cliente OR @id_Usuario is null)
+GO
+
+--Procedure validarDniEnCliente
+CREATE PROCEDURE ATJ.validarDniEnCliente
+	@Tipo_Dni nvarchar(50) =null,
+	@Dni numeric(18,0) =null,
+	@Cuil nvarchar(50) =null,
+	@Apellido nvarchar(255) =null,
+	@Nombre nvarchar(255) =null,
+	@Fecha_nac datetime =null,
+	@Mail nvarchar(50) =null,
+	@Telefono nvarchar(255) =null,
+	@Dom_calle nvarchar(100) =null,
+	@Dom_nro_calle numeric(18,0) =null,
+	@Dom_piso numeric(18,0) =null,
+	@Dom_depto nvarchar(50) =null,
+	@Dom_cod_postal nvarchar(50) =null,
+	@Dom_ciudad nvarchar(255) =null,
+	@Activo bit,
+	@id_Rol int,
+	@id_Cliente int =null,
+	@id_Usuario int=null
+	
+AS
+	SELECT * FROM ATJ.Clientes 
+	WHERE Dni = @Dni
+	AND (id_Cliente <> @id_Cliente OR @id_Cliente is null)
+	AND (id_Usuario <> @id_Cliente OR @id_Usuario is null)
+	
+GO
+
+--Procedure validarUsernameEnUsuario
+CREATE PROCEDURE ATJ.validarUsernameEnUsuario
+	@Username nvarchar(255)
+	
+AS
+	SELECT * FROM ATJ.Usuarios WHERE Username = @Username 
 GO
 

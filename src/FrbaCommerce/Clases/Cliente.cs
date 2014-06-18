@@ -235,10 +235,10 @@ namespace Clases
             setearListaDeParametros();
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
-            setearListaDeParametrosConIdRol();            
+            setearListaDeParametrosConIdRol();
             DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds1.Tables[0].Rows.Count == 0) & (ds2.Tables[0].Rows.Count == 0))
+            if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
             {
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
                 // y otro que me trae los clientes where dni = DniIngresado
@@ -260,14 +260,14 @@ namespace Clases
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             setearListaDeParametrosConIdRol();
+            setearListaDeParametrosConIdUsuario(id_usuario);
             DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
             {
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
                 // y otro que me trae los clientes where dni = DniIngresado
-                // solo si los dos ds estan vacios se inserta el cliente en la BD
-                setearListaDeParametrosConIdUsuario(id_usuario);
+                // solo si los dos ds estan vacios se inserta el cliente en la BD                
                 this.Guardar(parameterList);
             }
             else
@@ -283,6 +283,7 @@ namespace Clases
             parameterList.Clear();
             setearListaDeParametros();
             setearListaDeParametrosConIdRol();
+            setearListaDeParametrosConIdCliente();
             DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
             if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
@@ -290,7 +291,6 @@ namespace Clases
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
                 // solo si el ds esta vacio se inserta el usuarioDefault y el cliente en la BD
 
-                setearListaDeParametrosConIdCliente();
                 if (this.Modificar(parameterList))
                 {
                     parameterList.Clear();

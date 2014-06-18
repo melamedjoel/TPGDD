@@ -181,9 +181,7 @@ namespace FrbaCommerce.Abm_Cliente
                 clienteDelForm.Dom_ciudad = txtLocalidad.Text;
                 clienteDelForm.Dom_cod_postal = txtCodPostal.Text;
                 clienteDelForm.Dom_depto = txtDepto.Text;
-                if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) txtNumeroCalle.Text = "-1";
-                clienteDelForm.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
-                if (!String.IsNullOrEmpty(txtNroPiso.Text)) txtNroPiso.Text = "-1";
+                if (!String.IsNullOrEmpty(txtNroPiso.Text)) clienteDelForm.Dom_piso = -1;
                 clienteDelForm.Dom_piso = Int32.Parse(txtNroPiso.Text);
                 clienteDelForm.Fecha_nac = DateTime.Parse(txtFechaNac.Text);
                 clienteDelForm.Mail = txtMail.Text;
@@ -233,10 +231,8 @@ namespace FrbaCommerce.Abm_Cliente
                 unClienteNuevo.Dom_ciudad = txtLocalidad.Text;
                 unClienteNuevo.Dom_cod_postal = txtCodPostal.Text;
                 unClienteNuevo.Dom_depto = txtDepto.Text;
-                if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) txtNumeroCalle.Text = "-1";
                 unClienteNuevo.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
-                if (!String.IsNullOrEmpty(txtNroPiso.Text)) txtNroPiso.Text = "-1";
-                unClienteNuevo.Dom_piso = Int32.Parse(txtNroPiso.Text);
+                if (!String.IsNullOrEmpty(txtNroPiso.Text)) unClienteNuevo.Dom_piso = -1;
                 unClienteNuevo.Fecha_nac = DateTime.Parse(txtFechaNac.Text);
                 unClienteNuevo.Mail = txtMail.Text;
                 unClienteNuevo.Telefono = txtTelefono.Text;
@@ -288,9 +284,7 @@ namespace FrbaCommerce.Abm_Cliente
                 unClienteNuevo.Dom_ciudad = txtLocalidad.Text;
                 unClienteNuevo.Dom_cod_postal = txtCodPostal.Text;
                 unClienteNuevo.Dom_depto = txtDepto.Text;
-                if (!String.IsNullOrEmpty(txtNumeroCalle.Text)) txtNumeroCalle.Text = "-1";
-                unClienteNuevo.Dom_nro_calle = Int32.Parse(txtNumeroCalle.Text);
-                if (!String.IsNullOrEmpty(txtNroPiso.Text)) txtNroPiso.Text = "-1";
+                if (!String.IsNullOrEmpty(txtNroPiso.Text)) unClienteNuevo.Dom_piso = -1;
                 unClienteNuevo.Dom_piso = Int32.Parse(txtNroPiso.Text);
                 unClienteNuevo.Fecha_nac = DateTime.Parse(txtFechaNac.Text);
                 unClienteNuevo.Mail = txtMail.Text;
