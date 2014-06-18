@@ -109,6 +109,17 @@ namespace Utilities
 
         }
 
+
+        public static string validarCuitCuil(string valor, string campoADevolver)
+        {
+            string strError = "";
+            if (!validarCuitCuil(valor))
+            {
+                strError += "El " + campoADevolver + " no es válido. \n";
+            }
+            return strError;
+        }
+
         //Validar  CUIT/CUIL valido
         public static bool validarCuitCuil(string valor)
         {

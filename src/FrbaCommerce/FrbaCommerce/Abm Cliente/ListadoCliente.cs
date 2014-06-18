@@ -24,8 +24,7 @@ namespace FrbaCommerce.Abm_Cliente
         private void listadoCliente_Load(object sender, EventArgs e)
         {
             CargarListadoDeClientes();
-            cmbTipoDni.SelectedIndex = 1;
-            txtDni.Enabled = false;
+            cmbTipoDni.SelectedIndex = 0;
         }
         private void configurarGrilla(DataSet ds)
         {
@@ -143,7 +142,6 @@ namespace FrbaCommerce.Abm_Cliente
 
             try
             {
-                if (string.IsNullOrEmpty(txtDni.Text)) { txtDni.Text = "0"; }
                 DataSet ds = Cliente.obtenerTodosLosClientesConFiltros(txtNombre.Text, txtApellido.Text, cmbTipoDni.Text, Convert.ToInt32(txtDni.Text), txtMail.Text);
                 configurarGrilla(ds);
             }
@@ -212,16 +210,6 @@ namespace FrbaCommerce.Abm_Cliente
             frmCliente _frmCliente = new frmCliente();
             _frmCliente.AbrirParaAgregar(this);
         }
-
-        private void cmbTipoDni_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbTipoDni.Text == "Dni") { txtDni.Enabled = true; }
-            if (cmbTipoDni.Text == "Otro")
-            {
-                txtDni.Text = "";
-                txtDni.Enabled = false;
-            }
-        }        
         private void ValidarFiltros()
         {
             if (txtDni.Text != "") { Validator.EsNumero(txtDni.Text); }

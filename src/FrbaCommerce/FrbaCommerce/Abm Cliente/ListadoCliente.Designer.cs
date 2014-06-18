@@ -98,12 +98,12 @@
             this.cmbTipoDni.FormattingEnabled = true;
             this.cmbTipoDni.Items.AddRange(new object[] {
             "Dni",
-            "Otro"});
+            "CI",
+            "LC"});
             this.cmbTipoDni.Location = new System.Drawing.Point(376, 22);
             this.cmbTipoDni.Name = "cmbTipoDni";
             this.cmbTipoDni.Size = new System.Drawing.Size(66, 23);
             this.cmbTipoDni.TabIndex = 61;
-            this.cmbTipoDni.SelectedIndexChanged += new System.EventHandler(this.cmbTipoDni_SelectedIndexChanged);
             // 
             // lblTipoDoc
             // 

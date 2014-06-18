@@ -50,7 +50,6 @@
             this.txtDepto = new System.Windows.Forms.TextBox();
             this.txtNroPiso = new System.Windows.Forms.TextBox();
             this.txtCuil = new System.Windows.Forms.TextBox();
-            this.txtFechaNac = new System.Windows.Forms.MaskedTextBox();
             this.chkActivo = new System.Windows.Forms.CheckBox();
             this.txtCalle = new System.Windows.Forms.TextBox();
             this.lblCalle = new System.Windows.Forms.Label();
@@ -62,6 +61,7 @@
             this.btnAceptarACliente = new System.Windows.Forms.Button();
             this.btnAceptarRCliente = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtFechaNac = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -211,21 +211,21 @@
             // 
             this.txtCodPostal.Location = new System.Drawing.Point(494, 136);
             this.txtCodPostal.Name = "txtCodPostal";
-            this.txtCodPostal.Size = new System.Drawing.Size(143, 23);
+            this.txtCodPostal.Size = new System.Drawing.Size(213, 23);
             this.txtCodPostal.TabIndex = 22;
             // 
             // txtLocalidad
             // 
             this.txtLocalidad.Location = new System.Drawing.Point(467, 106);
             this.txtLocalidad.Name = "txtLocalidad";
-            this.txtLocalidad.Size = new System.Drawing.Size(170, 23);
+            this.txtLocalidad.Size = new System.Drawing.Size(240, 23);
             this.txtLocalidad.TabIndex = 21;
             // 
             // txtDepto
             // 
             this.txtDepto.Location = new System.Drawing.Point(585, 76);
             this.txtDepto.Name = "txtDepto";
-            this.txtDepto.Size = new System.Drawing.Size(52, 23);
+            this.txtDepto.Size = new System.Drawing.Size(122, 23);
             this.txtDepto.TabIndex = 20;
             // 
             // txtNroPiso
@@ -242,14 +242,6 @@
             this.txtCuil.Size = new System.Drawing.Size(170, 23);
             this.txtCuil.TabIndex = 18;
             // 
-            // txtFechaNac
-            // 
-            this.txtFechaNac.Location = new System.Drawing.Point(544, 166);
-            this.txtFechaNac.Mask = "99/99/9999";
-            this.txtFechaNac.Name = "txtFechaNac";
-            this.txtFechaNac.Size = new System.Drawing.Size(93, 23);
-            this.txtFechaNac.TabIndex = 23;
-            // 
             // chkActivo
             // 
             this.chkActivo.AutoSize = true;
@@ -264,7 +256,7 @@
             // 
             this.txtCalle.Location = new System.Drawing.Point(465, 16);
             this.txtCalle.Name = "txtCalle";
-            this.txtCalle.Size = new System.Drawing.Size(172, 23);
+            this.txtCalle.Size = new System.Drawing.Size(242, 23);
             this.txtCalle.TabIndex = 58;
             // 
             // lblCalle
@@ -280,7 +272,7 @@
             // 
             this.txtNumeroCalle.Location = new System.Drawing.Point(465, 46);
             this.txtNumeroCalle.Name = "txtNumeroCalle";
-            this.txtNumeroCalle.Size = new System.Drawing.Size(172, 23);
+            this.txtNumeroCalle.Size = new System.Drawing.Size(242, 23);
             this.txtNumeroCalle.TabIndex = 56;
             // 
             // lblNumeroCalle
@@ -301,12 +293,12 @@
             this.cmbTipoDni.FormattingEnabled = true;
             this.cmbTipoDni.Items.AddRange(new object[] {
             "Dni",
-            "Otro"});
+            "CI",
+            "LC"});
             this.cmbTipoDni.Location = new System.Drawing.Point(232, 76);
             this.cmbTipoDni.Name = "cmbTipoDni";
             this.cmbTipoDni.Size = new System.Drawing.Size(75, 23);
             this.cmbTipoDni.TabIndex = 59;
-            this.cmbTipoDni.SelectedValueChanged += new System.EventHandler(this.cmbTipoDni_SelectedValueChanged);
             // 
             // btnVolver
             // 
@@ -370,12 +362,20 @@
             this.label1.TabIndex = 64;
             this.label1.Text = "*   Campos Obligatorios";
             // 
+            // txtFechaNac
+            // 
+            this.txtFechaNac.Location = new System.Drawing.Point(512, 170);
+            this.txtFechaNac.Name = "txtFechaNac";
+            this.txtFechaNac.Size = new System.Drawing.Size(195, 23);
+            this.txtFechaNac.TabIndex = 65;
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.GhostWhite;
-            this.ClientSize = new System.Drawing.Size(658, 314);
+            this.ClientSize = new System.Drawing.Size(719, 314);
+            this.Controls.Add(this.txtFechaNac);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAceptarRCliente);
             this.Controls.Add(this.btnVolver);
@@ -387,7 +387,6 @@
             this.Controls.Add(this.txtNumeroCalle);
             this.Controls.Add(this.lblNumeroCalle);
             this.Controls.Add(this.chkActivo);
-            this.Controls.Add(this.txtFechaNac);
             this.Controls.Add(this.txtCodPostal);
             this.Controls.Add(this.txtLocalidad);
             this.Controls.Add(this.txtDepto);
@@ -443,7 +442,6 @@
         private System.Windows.Forms.TextBox txtDepto;
         private System.Windows.Forms.TextBox txtNroPiso;
         private System.Windows.Forms.TextBox txtCuil;
-        private System.Windows.Forms.MaskedTextBox txtFechaNac;
         private System.Windows.Forms.CheckBox chkActivo;
         private System.Windows.Forms.TextBox txtCalle;
         private System.Windows.Forms.Label lblCalle;
@@ -455,5 +453,6 @@
         private System.Windows.Forms.Button btnAceptarACliente;
         private System.Windows.Forms.Button btnAceptarRCliente;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker txtFechaNac;
     }
 }

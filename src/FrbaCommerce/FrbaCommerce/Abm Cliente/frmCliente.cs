@@ -52,8 +52,8 @@ namespace FrbaCommerce.Abm_Cliente
             txtLocalidad.Text = unCliente.Dom_ciudad;
             txtMail.Text = unCliente.Mail;
             txtNombre.Text = unCliente.Nombre;
-            txtNroPiso.Text = Convert.ToString(unCliente.Dom_piso);
-            txtNumeroCalle.Text = Convert.ToString(unCliente.Dom_nro_calle);
+            txtNroPiso.Text = unCliente.Dom_piso.ToString();
+            txtNumeroCalle.Text = unCliente.Dom_nro_calle.ToString();
             txtTelefono.Text = unCliente.Telefono;
             chkActivo.Checked = unCliente.Activo;
 
@@ -108,8 +108,8 @@ namespace FrbaCommerce.Abm_Cliente
             frmPadre = frmEnviador;
             this.Show();
 
-            cmbTipoDni.SelectedIndex = 1;
-            txtDni.Enabled = false;
+            cmbTipoDni.SelectedIndex = 0;
+            txtDni.Enabled = true;
 
             txtApellido.Text = "";
             txtCalle.Text = "";
@@ -133,7 +133,7 @@ namespace FrbaCommerce.Abm_Cliente
         {
             this.Show();
 
-            cmbTipoDni.SelectedIndex = 1;
+            cmbTipoDni.SelectedIndex = 0;
             txtDni.Enabled = false;
 
             txtApellido.Text = "";
@@ -327,30 +327,23 @@ namespace FrbaCommerce.Abm_Cliente
             // lo primero que se hace Luego de ejecutarse el evento Click en los botones "Aceptar"
             // ya sea para alta o modificacion es la validacion de datos
             string strErrores = "";
-            strErrores += Validator.SoloNumerosPeroOpcional(txtDni.Text, "Dni");
+            strErrores += Validator.ValidarNulo(txtNombre.Text, "Nombre");
+            strErrores += Validator.ValidarNulo(txtApellido.Text, "Apellido");
+            strErrores += Validator.SoloNumeros(txtDni.Text, "Dni");
+            strErrores += Validator.ValidarNulo(txtMail.Text, "Mail");
+            strErrores += Validator.ValidarNulo(txtTelefono.Text, "Telefono");
             strErrores += Validator.ValidarNulo(txtCuil.Text, "Cuil");
+            strErrores += Validator.validarCuitCuil(txtCuil.Text, "Cuil");
+            strErrores += Validator.ValidarNulo(txtCalle.Text, "Calle");
+            strErrores += Validator.ValidarNulo(txtNumeroCalle.Text, "Numero de calle");
             strErrores += Validator.SoloNumerosPeroOpcional(txtNroPiso.Text, "Numero de Piso"); 
-            strErrores += Validator.SoloNumerosPeroOpcional(txtNumeroCalle.Text, "Numero de Calle"); 
+            strErrores += Validator.ValidarNulo(txtLocalidad.Text, "Localidad");
+            strErrores += Validator.ValidarNulo(txtCodPostal.Text, "Código postal");
+            strErrores += Validator.ValidarNulo(txtFechaNac.Text, "Fecha de nacimiento"); 
             if (strErrores.Length > 0)
             {
                 throw new Exception(strErrores);
             }
-        }
-
-        private void cmbTipoDni_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (cmbTipoDni.Text == "Dni") { txtDni.Enabled = true; }
-            if (cmbTipoDni.Text == "Otro")
-            {
-                txtDni.Text = "";
-                txtDni.Enabled = false;
-            }
-
-        }
-
-        
-
-      
-
+        }     
     }
 }
