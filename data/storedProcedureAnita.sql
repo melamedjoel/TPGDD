@@ -110,8 +110,8 @@ GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_
 ORDER BY PromedioCalificaciones DESC
 GO
 
--- Procedure traerListadoUsuariosConMayorCantDePublicacionesSinClasificar
-CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantDePublicacionesSinClasificar]
+-- Procedure traerListadoUsuariosConMayorCantDePublicacionesSinCalificar
+CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantDePublicacionesSinCalificar]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
 	@Año nvarchar(4)

@@ -72,6 +72,7 @@ namespace Clases
 
         public void cargarNuevoItemFactura()
         {
+            //se carga un nuevo item en la tabla item_factura
             setearListaDeParametros();
             this.Guardar(parameterList);
             parameterList.Clear();

@@ -119,6 +119,8 @@ namespace Clases
 
         public static void GuardarRespuesta(int id_Pregunta,string respuesta, DateTime unaFecha)
         {
+            //se guarda una nueva respuesta para una determinada pregunta, por lo tanto recibe el id de la pregunta
+            //que va aser actualizada con la respuesta, la respuesta que se insertará, y la fecha de la respuesta
             Pregunta unaPreg = new Pregunta();
             unaPreg.setearListaDeParametrosConFechaPreguntaYRespuesta(id_Pregunta, respuesta, unaFecha);
             unaPreg.Modificar(unaPreg.parameterList);
@@ -127,6 +129,7 @@ namespace Clases
 
         public static DataSet obtenerPreguntasConRespuestas(int cod_Publicacion, Usuario unUsuario)
         {
+            //se obtiene un data set con un listado de preguntas que ya tienen respuesta para una determinada publicación
             Pregunta unaPregunta = new Pregunta();
             unaPregunta.setearListaDeParametrosConUsuarioYPublicacion(cod_Publicacion, unUsuario.Id_Usuario);
             DataSet ds = unaPregunta.TraerListado(unaPregunta.parameterList, "ConRespuestasPorUsuarioYPublicacion");
@@ -137,6 +140,7 @@ namespace Clases
 
         public static DataSet obtenerPreguntasSinRespuestas(int cod_Publicacion, Usuario unUsuario)
         {
+            //se obtiene un listado de preguntas sin respuestas para una publicación
             Pregunta unaPregunta = new Pregunta();
             unaPregunta.setearListaDeParametrosConUsuarioYPublicacion(unUsuario.Id_Usuario, cod_Publicacion);
             DataSet ds = unaPregunta.TraerListado(unaPregunta.parameterList, "SinRespuestasPorUsuarioYPublicacion");

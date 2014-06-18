@@ -193,6 +193,7 @@ namespace Clases
 
         public DataSet obtenerTodasLasCompras()
         {
+            //obtengo un listado de todas las compras por un usuario
             this.setearListaDeParametrosSoloConIdUsuario();
             DataSet ds = this.TraerListado(this.parameterList, "Compras");
             this.parameterList.Clear();
@@ -202,6 +203,7 @@ namespace Clases
 
         public DataSet obtenerTodasLasOfertas()
         {
+            //obtengo el listado de todas las ofertas por un usuario
             this.setearListaDeParametrosSoloConIdUsuario();
             DataSet ds = this.TraerListado(this.parameterList, "Ofertas");
             this.parameterList.Clear();
@@ -211,6 +213,7 @@ namespace Clases
 
         public DataSet obtenerTodasLasCalificacionesRecibidas()
         {
+            //obtengo un dataset con un listado de todas las calificaciones que recibió un usuario
             this.setearListaDeParametrosSoloConIdUsuario();
             DataSet ds = this.TraerListado(this.parameterList, "CalificacionesRecibidas");
             this.parameterList.Clear();
@@ -220,6 +223,7 @@ namespace Clases
 
         public DataSet obtenerTodasLasCalificacionesOtorgadas()
         {
+            //obtengo un dataset con todas las calificaciones que otorgó un usuario
             this.setearListaDeParametrosSoloConIdUsuario();
             DataSet ds = this.TraerListado(this.parameterList, "CalificacionesOtorgadas");
             this.parameterList.Clear();
@@ -229,6 +233,7 @@ namespace Clases
 
         public DataSet obtenerVendedoresConMayorCantProdNoVendidos(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
+            //obtengo un dataset con un listado de los 5 vendedores con mayor cantidad de productos no vendidos
             this.setearListaDeParametrosConTrimestreAño(Fecha_Hasta, Fecha_Desde, Año);
             DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantidadDeProductosSinVender");
             this.parameterList.Clear();
@@ -238,6 +243,8 @@ namespace Clases
 
         public DataSet obtenerVendedoresConMayorCantProdNoVendidosConFiltros(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año, string Mes, string GradoVisibilidad)
         {
+            //me devuelve un dataset con los 5 vendedores con mayor cantidad de productos no vendidos de acuerdo
+            //a los filtros que le envie de grado de vidibilidad y mes
             this.setearListaDeParametrosConTrimestreAñoMesVisibilidad(Fecha_Hasta, Fecha_Desde, Año,Mes,GradoVisibilidad);
             DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantidadDeProductosSinVenderConFiltros");
             this.parameterList.Clear();
@@ -247,6 +254,7 @@ namespace Clases
 
         public DataSet obtenerVendedoresConMayorFacturacion(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
+            //me devuelve un dataset con los 5 vendedores con mayor facturación
             this.setearListaDeParametrosConTrimestreAño(Fecha_Hasta,Fecha_Desde,Año);
             DataSet ds = this.TraerListado(this.parameterList, "ConMayorFacturacion");
             this.parameterList.Clear();
@@ -256,6 +264,7 @@ namespace Clases
 
         public DataSet obtenerVendedoresMayorCalificacion(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
+            //obtengo los 5 vendedores de mayor calificación (promedio de cantidad de estrellas que tienen)
             this.setearListaDeParametrosConTrimestreAño(Fecha_Hasta, Fecha_Desde, Año);
             DataSet ds = this.TraerListado(this.parameterList, "ConMayorCalificacion");
             this.parameterList.Clear();
@@ -263,10 +272,11 @@ namespace Clases
             return ds;
         }
 
-        public DataSet obtenerClientesMayorCantPubliSinClasificar(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
+        public DataSet obtenerClientesMayorCantPubliSinCalificar(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año)
         {
+            //obtengo un dataset con los 5 vendedores con mayor cantidad de publicaciones sin calificar
             this.setearListaDeParametrosConTrimestreAño(Fecha_Hasta, Fecha_Desde, Año);
-            DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantDePublicacionesSinClasificar");
+            DataSet ds = this.TraerListado(this.parameterList, "ConMayorCantDePublicacionesSinCalificar");
             this.parameterList.Clear();
 
             return ds;

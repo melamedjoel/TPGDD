@@ -58,6 +58,7 @@ namespace Clases
 
         public static Forma_Pago obtenerPorId(int id_FormaPago)
         {
+            //se obtiene la forma de pago correspondiente a un id, y luego se convierte la misma a tipo Forma_Pago
             Forma_Pago unaFormaPago = new Forma_Pago();
             unaFormaPago.setearListaDeParametros(id_FormaPago);
             DataSet ds = unaFormaPago.TraerListado(unaFormaPago.parameterList, "PorID");

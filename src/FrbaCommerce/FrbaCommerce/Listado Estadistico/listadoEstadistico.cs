@@ -190,7 +190,7 @@ namespace FrbaCommerce.Listado_Estadistico
          {
              try
              {
-                 DataSet ds = unUsuario.obtenerClientesMayorCantPubliSinClasificar(Fecha_Hasta, Fecha_Desde, Año);
+                 DataSet ds = unUsuario.obtenerClientesMayorCantPubliSinCalificar(Fecha_Hasta, Fecha_Desde, Año);
                  configurarGrillaVendedoresMayorPubliSinClasificar(ds);
              }
 

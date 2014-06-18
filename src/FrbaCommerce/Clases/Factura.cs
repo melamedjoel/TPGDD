@@ -73,15 +73,9 @@ namespace Clases
             this.Forma_Pago.id_Forma_Pago = Convert.ToInt32(dr["id_Forma_Pago"]);
         }
 
-        public void cargarNuevaFactura()
-        {
-            this.setearListaDeParametros();
-            this.Guardar(this.parameterList);
-            parameterList.Clear();
-        }
-
         public int GuardarYObtenerID()
         {
+            //se guarda una nueva factura y devuelve el numero de factura que se le asignó
             this.setearListaDeParametros();
             DataSet dsNuevaFactura = this.GuardarYObtenerID(this.parameterList);
             this.nro_Factura = Convert.ToInt32(dsNuevaFactura.Tables[0].Rows[0]["nro_Factura"]);
