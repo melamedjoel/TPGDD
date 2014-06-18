@@ -198,13 +198,11 @@ CREATE PROCEDURE ATJ.updatePreguntaConRespuesta
 	@id_Pregunta int,
 	@Respuesta nvarchar(255),
 	@Fecha_respuesta datetime
-	@Fecha datetime
 	
 AS
 
 UPDATE ATJ.Preguntas SET	Respuesta = @Respuesta,
-								Fecha_respuesta = @Fecha_respuesta,
-								Fecha_respuesta = @Fecha
+							Fecha_respuesta = @Fecha_respuesta
 WHERE id_Pregunta = @id_Pregunta 
 	
 GO
