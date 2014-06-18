@@ -262,7 +262,7 @@ namespace Clases
             setearListaDeParametrosConIdRol();
             DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
-            if ((ds1.Tables[0].Rows.Count == 0) & (ds2.Tables[0].Rows.Count == 0))
+            if ((ds1.Tables[0].Rows.Count == 0) && (ds2.Tables[0].Rows.Count == 0))
             {
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
                 // y otro que me trae los clientes where dni = DniIngresado
