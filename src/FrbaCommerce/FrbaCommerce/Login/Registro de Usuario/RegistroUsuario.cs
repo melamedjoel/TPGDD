@@ -31,7 +31,10 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
             try
             {
+                // se ingresaron en pantalla username y password del nuevo cliente
                 ValidarCampos();
+                
+                // se instancia un nuevo usuario y se setean sus atributos
                 Usuario unUsuarioNuevo = new Usuario();
 
                 unUsuarioNuevo.Username = txtUsername.Text;
@@ -40,6 +43,11 @@ namespace FrbaCommerce.Registro_de_Usuario
                 unUsuarioNuevo.Activo = true;
 
                 unUsuarioNuevo.guardarDatosDeUsuarioNuevo();
+
+                // ya se inserto el nuevo usuario en la base de datos
+                // segun si el rol seleccionado fue empresa o cliente muestro el formulario
+                // correspondiente para el insert de los datos. Para esto necesito traerme el id
+                // del nuevo usuario insertado.
 
                 if (cmdRol.Text == "Empresa")
                 {
@@ -82,6 +90,7 @@ namespace FrbaCommerce.Registro_de_Usuario
             {
                 throw new Exception(strErrores);
             }
+            
             
         }
 

@@ -178,11 +178,25 @@ namespace Clases
         }
         public void guardarDatosDeUsuarioNuevo()
         {
-            // se inserta este usuario en la BD y seteo en el atributo id_usuario
-            // el id que le puso la base al nuevo registro.
-            this.Id_Usuario = this.GuardarYObtenerID();
+            setearListaDeParametrosConUsuario();
+            // se ejecuto un procedure que me trae los Usuarios where Username = UsernameIngresado
+            // solo si el ds esta vacio se inserta el usuario en la BD
+            DataSet ds = SQLHelper.ExecuteDataSet("validarUsernameEnUsuario", CommandType.StoredProcedure, parameterList);
+            parameterList.Clear();
+            if (ds.Tables[0].Rows.Count == 0)
+            {                
+                this.Id_Usuario = this.GuardarYObtenerID();
+                // se inserta este usuario en la BD y seteo en el atributo id_usuario
+                // el id que le puso la base al nuevo registro.
+            }
+            else
+                throw new Exception("Ya existe un Usuario con este Username. Por favor, ingrese otro.");
+            parameterList.Clear();
+            
+            
             parameterList.Clear();
         }
+
         public int GuardarYObtenerID()
         {
             setearListaDeParametros();

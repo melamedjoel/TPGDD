@@ -283,7 +283,6 @@ namespace FrbaCommerce.Abm_Empresa
                 if (dr == DialogResult.OK)
                 {
                     this.Close(); 
-                    Application.Run(new Inicial());
                 }
             }
             catch (EntidadExistenteException ex)
@@ -310,8 +309,15 @@ namespace FrbaCommerce.Abm_Empresa
             string strErrores = "";
             strErrores = Validator.ValidarNulo(txtRazonSocial.Text, "Razon Social");
             strErrores = strErrores + Validator.ValidarNulo(txtCuit.Text, "Cuit");
+            strErrores = strErrores + Validator.ValidarNulo(txtCalle.Text, "Calle");
+            strErrores = strErrores + Validator.ValidarNulo(txtCodPostal.Text, "Codigo Postal");
+            strErrores = strErrores + Validator.ValidarNulo(txtFechaCreacion.Text, "Fecha de Creacion");
+            strErrores = strErrores + Validator.ValidarNulo(txtLocalidad.Text, "Localidad");
+            strErrores = strErrores + Validator.ValidarNulo(txtMail.Text, "Mail");
+            strErrores = strErrores + Validator.ValidarNulo(txtNombreContacto.Text, "Nombre del Contacto");
+            strErrores = strErrores + Validator.ValidarNulo(txtTelefono.Text, "Telefono");
             strErrores += Validator.SoloNumerosPeroOpcional(txtNroPiso.Text, "Numero de Piso");
-            strErrores += Validator.SoloNumerosPeroOpcional(txtNumeroCalle.Text, "Numero de Calle");             
+            strErrores += Validator.SoloNumeros(txtNumeroCalle.Text, "Numero de Calle");             
             if (strErrores.Length > 0)
             {
                 throw new Exception(strErrores);
