@@ -21,6 +21,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
         List<Publicacion> listaDePublicacionesAFacturar = new List<Publicacion>();
         List<Item_Factura> listaDeItemsPorFactura = new List<Item_Factura>();
         List<Compra> listaDeComprasPorCodPubli = new List<Compra>();
+        List<Oferta> listaDeOfertasPorCodPubli = new List<Oferta>();
 
         public void abrirConUsuario(Usuario user)
         {
@@ -193,11 +194,34 @@ namespace FrbaCommerce.Facturar_Publicaciones
                     listaDeItemsPorFactura.Add(itFact);
                 }
 
+                DataSet dsOferta = Oferta.obtenerOfertasPorCodPubli(unaPubli.Codigo);
+
+                foreach (DataRow dr in dsOferta.Tables[0].Rows)
+                {
+                    Oferta unaOferta = new Oferta();
+                    unaOferta.DataRowToObject(dr);
+                    listaDeOfertasPorCodPubli.Add(unaOferta);
+                }
+
+                foreach (Oferta unaOferta in listaDeOfertasPorCodPubli)
+                {
+                    //cada oferta que se realizó de esa publicacion y gano la subasta 
+                    //va a ser un nuevo item en la factura
+                    Item_Factura itFact = new Item_Factura();
+                    itFact.Publicacion = unaPubli;
+                    itFact.Cantidad = 1;
+                    //el monto del item (comisión) corresponde al precio de esa publicación por el porcentaje de visibilidad
+                    itFact.Monto = (unaOferta.Monto * unaPubli.Visibilidad.Porcentaje);
+
+                    listaDeItemsPorFactura.Add(itFact);
+                }
+
                 //el último item factura es el de la publicación en si misma según su costo de visibilidad  
                 Item_Factura itemPublicacion = new Item_Factura();
                 itemPublicacion.Publicacion = unaPubli;
                 itemPublicacion.Monto = unaPubli.Visibilidad.Precio;
                 itemPublicacion.Cantidad = 1;
+
                 listaDeItemsPorFactura.Add(itemPublicacion);
 
             }

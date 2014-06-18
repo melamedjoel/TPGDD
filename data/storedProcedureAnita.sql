@@ -198,12 +198,14 @@ CREATE PROCEDURE ATJ.updatePreguntaConRespuesta
 	@id_Pregunta int,
 	@Respuesta nvarchar(255),
 	@Fecha_respuesta datetime
+	@Fecha datetime
 	
 AS
 
-	UPDATE ATJ.Preguntas SET	Respuesta = @Respuesta,
-								Fecha_respuesta = @Fecha_respuesta
-	WHERE id_Pregunta = @id_Pregunta 
+UPDATE ATJ.Preguntas SET	Respuesta = @Respuesta,
+								Fecha_respuesta = @Fecha_respuesta,
+								Fecha_respuesta = @Fecha
+WHERE id_Pregunta = @id_Pregunta 
 	
 GO
 
@@ -226,14 +228,15 @@ GO
 
 --Procedure traerListadoPublicacionesMasAntiguasARendirPorUsuario
 CREATE PROCEDURE ATJ.traerListadoPublicacionesMasAntiguasARendirPorUsuario
-	@Id_Usuario int
+	@Id_Usuario int,
+	@Fecha datetime
 	
 AS
 
 SELECT P.*
 FROM ATJ.Publicaciones P
 INNER JOIN ATJ.Compras C ON C.cod_Publicacion = P.Codigo
-WHERE (P.Fecha_vencimiento <= GETDATE()
+WHERE (P.Fecha_vencimiento <= @Fecha
 OR P.Stock <=	(SELECT SUM(C.Cantidad) FROM ATJ.Compras C
 				 WHERE C.cod_Publicacion = P.Codigo
 				 GROUP BY C.cod_Publicacion))
@@ -285,7 +288,17 @@ CREATE PROCEDURE ATJ.traerListadoComprasPorCodigoPubli
 AS
 
 SELECT *
-FROM ATJ.Compras C
+FROM ATJ.Compras 
 WHERE cod_Publicacion = @cod_Publicacion
+GO
 
 
+--Procedure traerListadoOfertasPorCodigoPubli
+CREATE PROCEDURE ATJ.traerListadoOfertasPorCodigoPubli
+ @cod_Publicacion numeric(18,0)
+AS
+
+SELECT *
+FROM ATJ.Ofertas
+WHERE cod_Publicacion = @cod_Publicacion
+AND  gano_Subasta = 1

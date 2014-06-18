@@ -122,7 +122,15 @@ namespace Clases
             }
 
         }
-        
+
+        public static DataSet obtenerOfertasPorCodPubli(int codigo)
+        {
+            Oferta unaOferta = new Oferta();
+            unaOferta.setearListaDeParametrosConCodPublicacion(codigo);
+            DataSet ds = unaOferta.TraerListado(unaOferta.parameterList, "PorCodigoPubli");
+            unaOferta.parameterList.Clear();
+            return ds;
+        }
 
 
 
@@ -140,7 +148,11 @@ namespace Clases
 
         }
 
-        #endregion
+        private void setearListaDeParametrosConCodPublicacion(int codigo)
+        {
+            parameterList.Add(new SqlParameter("@cod_Publicacion", codigo));
+        }
 
+        #endregion
     }
 }
