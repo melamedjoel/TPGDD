@@ -482,7 +482,7 @@
             this.btnConfirmarCompra.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
             this.btnConfirmarCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirmarCompra.Location = new System.Drawing.Point(343, 296);
-            this.btnConfirmarCompra.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConfirmarCompra.Margin = new System.Windows.Forms.Padding(4);
             this.btnConfirmarCompra.Name = "btnConfirmarCompra";
             this.btnConfirmarCompra.Size = new System.Drawing.Size(148, 49);
             this.btnConfirmarCompra.TabIndex = 110;
@@ -558,9 +558,9 @@
             this.Controls.Add(this.lblDni);
             this.Controls.Add(this.lblApellido);
             this.Controls.Add(this.lblNombre);
-            this.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DetalleVendedorParaComprar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detalle vendedor - Compra";
