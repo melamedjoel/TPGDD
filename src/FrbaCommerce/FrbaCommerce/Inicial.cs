@@ -39,8 +39,7 @@ namespace FrbaCommerce
 
         private void lblRegistrarUsuario_Click(object sender, EventArgs e)
         {
-            registroUsuario frmRegistroUsuario = new registroUsuario();
-            this.Hide();
+            registroUsuario frmRegistroUsuario = new registroUsuario();            
             frmRegistroUsuario.Show();
         }
 

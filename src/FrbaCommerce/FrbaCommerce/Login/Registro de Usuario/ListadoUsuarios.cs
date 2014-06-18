@@ -71,11 +71,6 @@ namespace FrbaCommerce.Registro_de_Usuario
             dtgListado.DataSource = ds.Tables[0];
         }
 
-        private void btnDeshabilitar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnDesactivar_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("¿Está seguro que desea deshabilitar el usuario?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -92,5 +87,21 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
             return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["id_Usuario"]);
         }
+
+        private void btnCambiarContraseña_Click(object sender, EventArgs e)
+        {
+            string claveNuevaIngresada = DialogManager.ShowDialogWithPassword("Ingrese nueva clave", "Cambio de clave");
+
+            if (string.IsNullOrEmpty(claveNuevaIngresada))
+            {
+                return;
+            }
+
+            string claveNueva = Encryptor.GetSHA256(claveNuevaIngresada);
+            Usuario user = new Usuario(valorIdSeleccionado());
+            user.CambiarClave(claveNueva);
+        }
+
+
     }
 }

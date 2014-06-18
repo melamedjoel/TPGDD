@@ -282,7 +282,6 @@ namespace FrbaCommerce.Abm_Cliente
                 if (dr == DialogResult.OK)
                 {
                     this.Close();
-                    Application.Run(new Inicial());
                 }
 
             }
