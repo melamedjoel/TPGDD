@@ -196,6 +196,7 @@ namespace Clases
         
         public void CargarObjetoClienteConId()
         {
+            //Con el id del cliente me traigo de la BD todos los datos del Cliente
             setearListaDeParametrosConIdCliente();
             DataSet ds = SQLHelper.ExecuteDataSet("traerClienteConId", CommandType.StoredProcedure, parameterList);
             parameterList.Clear();
@@ -220,7 +221,6 @@ namespace Clases
             Cliente unCliente = new Cliente();
             return unCliente.TraerListado(unCliente.parameterList, "");
         }
-
         public static DataSet obtenerTodosLosClientesConFiltros(string unNombre, string unApellido, string unTipoDni, int unDni, string unMail)
         {
             Cliente unCliente = new Cliente(unNombre, unApellido, unTipoDni, unDni, unMail);
@@ -233,10 +233,14 @@ namespace Clases
         public void guardarDatosDeClienteNuevo()
         {
             setearListaDeParametros();
+            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
+            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             setearListaDeParametrosConIdRol();            
             DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             if (ds.Tables[0].Rows.Count == 0)
             {
+                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
+                // solo si el ds esta vacio se inserta el usuarioDefault y el cliente en la BD
                 this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
                 setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);
                 this.Guardar(parameterList);
@@ -245,15 +249,18 @@ namespace Clases
                 throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
             parameterList.Clear();
         }
-
         public void guardarDatosDeClienteNuevoRegistrado(int id_usuario)
         {
             setearListaDeParametros();
+            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
+            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             setearListaDeParametrosConIdRol();
             
             DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             if (ds.Tables[0].Rows.Count == 0)
             {
+                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
+                // solo si el ds esta vacio se inserta el cliente en la BD
                 setearListaDeParametrosConIdUsuario(id_usuario);
                 this.Guardar(parameterList);
             }
@@ -269,6 +276,8 @@ namespace Clases
             setearListaDeParametros();
             DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
             if (ds.Tables[0].Rows.Count == 0)
+                // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
+                // solo si el ds esta vacio se inserta el usuarioDefault y el cliente en la BD
                 if (this.Modificar(parameterList))
                 {
                     parameterList.Clear();
@@ -278,6 +287,13 @@ namespace Clases
             parameterList.Clear();           
            
         }
+        public void Eliminar()
+        {
+            setearListaDeParametrosConIdCliente();
+            this.Eliminar(parameterList);
+            parameterList.Clear();
+        }
+
         #endregion
 
         #region metodos privados
@@ -293,12 +309,10 @@ namespace Clases
         {
             parameterList.Add(new SqlParameter("@id_Usuario", id_Usuario));
         }
-
         private void setearListaDeParametrosConIdCliente()
         {
             parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
-        }
-       
+        }       
         private void setearListaDeParametros()
         {
             //parameterList.Add(new SqlParameter("@id_Cliente", this.id_Cliente));
@@ -317,22 +331,14 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Dom_cod_postal", this.Dom_cod_postal));
             parameterList.Add(new SqlParameter("@Dom_ciudad", this.Dom_ciudad));
             parameterList.Add(new SqlParameter("@Activo", this.Activo));
-        }
-        
+        }        
         private void setearListaDeParametrosConIdRol()
         {        
             parameterList.Add(new SqlParameter("@id_Rol", this.id_Rol));
         }
 
         #endregion
-
-
-        public void Eliminar()
-        {
-            setearListaDeParametrosConIdCliente();
-            this.Eliminar(parameterList);
-            parameterList.Clear();
-        }
+                
 
     }
 }

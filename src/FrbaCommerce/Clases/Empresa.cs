@@ -183,6 +183,7 @@ namespace Clases
 
         public void CargarObjetoEmpresaConId()
         {
+            //Con el id de la empresa me traigo de la BD todos los datos de la Empresa
             setearListaDeParametrosConIdEmpresa();
             DataSet ds = SQLHelper.ExecuteDataSet("traerEmpresaConId", CommandType.StoredProcedure, parameterList);
             parameterList.Clear();
@@ -202,13 +203,11 @@ namespace Clases
             return ds;
             
         }
-
         public static DataSet obtenerTodasLasEmpresas()
         {
             Empresa unaEmpresa = new Empresa();
             return unaEmpresa.TraerListado(unaEmpresa.parameterList, "");
         }
-
         public static DataSet obtenerTodasLasEmpresasConFiltros(string unaRazonSocial, string unCuit, string unEmail)
         {
             Empresa unaEmpresa = new Empresa(unaRazonSocial, unCuit, unEmail);
@@ -223,22 +222,20 @@ namespace Clases
             this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
             setearListaDeParametros();
             setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);
+            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
+            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             setearListaDeParametrosConIdRol();
             this.Guardar(parameterList);            
             parameterList.Clear();
-            
-            //if (dsNuevaEmpresa.Tables[0].Rows.Count > 0)
-            //{
-            //    this.id_Empresa = Convert.ToInt32(dsNuevaEmpresa.Tables[0].Rows[0]["id_Empresa"]);
-            //} CREO QUE NO LO NECESITO
-            //{
-            //    throw new BadInsertException();
-            //}
         }
         public void guardarDatosDeEmpresaNuevaRegistrada(int id_Usuario)
         {
             setearListaDeParametros();
+            //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
+            //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             setearListaDeParametrosConIdRol();
+            // el id_Usuario que estoy pasando como parametro es el id del usuario recientemente
+            // registrado.
             setearListaDeParametrosConIdUsuario(id_Usuario);
             this.Guardar(parameterList);
             parameterList.Clear();
@@ -254,22 +251,12 @@ namespace Clases
             }
            
         }
-
         public void Eliminar()
         {
             setearListaDeParametrosConIdEmpresa();
             this.Eliminar(parameterList);
             parameterList.Clear();
         }
-
-
-        ////public void Desactivar()
-        ////{
-        ////    setearListaDeParametrosConIdEmpresa();
-        ////    this.Deshabilitar(parameterList);
-        ////    parameterList.Clear();
-            
-        ////}
 
         #endregion
 
@@ -284,7 +271,6 @@ namespace Clases
         {
             parameterList.Add(new SqlParameter("@id_Usuario", id_Usuario));
         }
-
         private void setearListaDeParametrosConIdEmpresa()
         {
             parameterList.Add(new SqlParameter("@id_Empresa", this.id_Empresa));
@@ -298,7 +284,6 @@ namespace Clases
         }
         private void setearListaDeParametros()
         {
-            //parameterList.Add(new SqlParameter("@id_Empresa", this.id_Empresa));
             parameterList.Add(new SqlParameter("@Razon_social", this.Razon_social));
             parameterList.Add(new SqlParameter("@Cuit", this.Cuit));
             parameterList.Add(new SqlParameter("@Mail", this.Mail));
@@ -313,14 +298,12 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Nombre_contacto", this.Nombre_contacto));
             parameterList.Add(new SqlParameter("@Activo", this.Activo));
         }
-
         private void setearListaDeParametrosConIdRol()
         {
             parameterList.Add(new SqlParameter("@Id_Rol", this.id_Rol));
         }
                         
         #endregion
-
       
         
     }

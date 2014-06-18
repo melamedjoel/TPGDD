@@ -22,11 +22,18 @@ namespace FrbaCommerce.Abm_Cliente
         {
             InitializeComponent();
         }
+        // necesito esta variable id_usuario_registrado porque cuando abro este form despues
+        // de haber registrado un nuevo usuario, necesito guardar el id de este para el insert del 
+        // nuevo Cliente
         public int id_usuario_registrado
         {
             get { return _id_usuario_registrado; }
             set { _id_usuario_registrado = value; }
         }
+
+        // Este form se puede abrir para ver los Datos de un Cliente, para modificarlos,
+        // para crear uno nuevo(se crea tambien un usuario default) o para registrar un nuevo Cliente
+        // despues de haber reistrado un usuario. 
         public void AbrirParaVer(Cliente unCliente, listadoCliente frmEnviador)
         {
             frmPadre = frmEnviador;
@@ -144,6 +151,8 @@ namespace FrbaCommerce.Abm_Cliente
             txtTelefono.Text = "";
             chkActivo.Visible = false;
 
+            // el id del usuario nuevo que se registro y recibi como parametro lo guardo en mi
+            // atributo id_usuario_regustrado
             this.id_usuario_registrado = id_usuario;
 
             btnAceptarMCliente.Visible = false;
@@ -180,6 +189,9 @@ namespace FrbaCommerce.Abm_Cliente
                 clienteDelForm.Telefono = txtTelefono.Text;
                 clienteDelForm.Activo = chkActivo.Checked;
 
+                // despues de setear los atributos al clienteDelForm segun los datos ingresados
+                // le pido al cliente se encargue de modificar los datos.
+
                 clienteDelForm.ModificarDatos();
                 DialogResult dr = MessageBox.Show("El Cliente ha sido modificado", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
@@ -188,6 +200,7 @@ namespace FrbaCommerce.Abm_Cliente
                     frmPadre.BringToFront();
                 }
 
+                //se vuelve a actualizar la grilla
                 frmPadre.CargarListadoDeClientes();
             }
             catch (ErrorConsultaException ex)
@@ -228,6 +241,9 @@ namespace FrbaCommerce.Abm_Cliente
                 unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Dni));
                 unClienteNuevo.Activo = true;
 
+                // se instancio un nuevo Cliente y se le setearon todos los atributos segun los datos
+                // ingresados. Ahora le pido al cliente que guarde e inserte sus datos en la BD.
+
                 unClienteNuevo.guardarDatosDeClienteNuevo();
                 DialogResult dr = MessageBox.Show("El Cliente ha sido creado. Usuario y contraseña del nuevo usuario = " + Convert.ToString(unClienteNuevo.Dni), "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
@@ -236,6 +252,7 @@ namespace FrbaCommerce.Abm_Cliente
                     frmPadre.BringToFront();
                 }
 
+                //se actualiza la grilla
                 frmPadre.CargarListadoDeClientes();
 
             }
@@ -277,6 +294,9 @@ namespace FrbaCommerce.Abm_Cliente
                 unClienteNuevo.Usuario.CrearDefault(Convert.ToString(unClienteNuevo.Dni));
                 unClienteNuevo.Activo = true;
 
+                // Se crea un nuevo Cliente y se le setean los atributos con los datos ingresados.
+                // se le pide al cliente que guarden los datos en la BD. Para esto, se manda el id
+                // del nuevo usuario ingresado.
                 unClienteNuevo.guardarDatosDeClienteNuevoRegistrado(this.id_usuario_registrado);
                 DialogResult dr = MessageBox.Show("El Usuario ha sido registrado y el Cliente creado.", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
@@ -305,6 +325,8 @@ namespace FrbaCommerce.Abm_Cliente
 
         private void ValidarCampos()
         {
+            // lo primero que se hace Luego de ejecutarse el evento Click en los botones "Aceptar"
+            // ya sea para alta o modificacion es la validacion de datos
             string strErrores = "";
             strErrores += Validator.SoloNumerosPeroOpcional(txtDni.Text, "Dni");
             strErrores += Validator.ValidarNulo(txtCuil.Text, "Cuil");

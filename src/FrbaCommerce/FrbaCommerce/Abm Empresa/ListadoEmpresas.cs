@@ -142,38 +142,39 @@ namespace FrbaCommerce.Abm_Empresa
         {
             CargarListadoDeEmpresasConFiltros();
         }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            //libio los textBox y cargo la grilla Sin filtros
             txtRazonSocial.Text = "";
             txtCuit.Text = "";
             txtMail.Text = "";
             CargarListadoDeEmpresas();
         }
 
-       
-
         private int valorIdSeleccionado()
         {
+            //devuelve el Id de la Empresa seleccionada en la grilla
             return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["id_Empresa"]);
         }
 
         private void btnVer_Click(object sender, EventArgs e)
         {
             frmEmpresa _frmEmpresa = new frmEmpresa();
+            // instancio una nueva Empresa con el id_empresa seleccionado en la grilla
+            // con el cual puedo cargar todos los atributos de la Empresa
             Empresa unaEmpresa = new Empresa(valorIdSeleccionado());
             unaEmpresa.CargarObjetoEmpresaConId();
             _frmEmpresa.AbrirParaVer(unaEmpresa, this);
         }
-
         private void btnModificar_Click(object sender, EventArgs e)
         {
             frmEmpresa _frmEmpresa = new frmEmpresa();
+            // instancio una nueva Empresa con el id_empresa seleccionado en la grilla
+            // con el cual puedo cargar todos los atributos de la Empresa
             Empresa unaEmpresa = new Empresa(valorIdSeleccionado());
             unaEmpresa.CargarObjetoEmpresaConId();
             _frmEmpresa.AbrirParaModificar(unaEmpresa, this);
         }
-
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("¿Está seguro que desea dar de baja la empresa?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -182,10 +183,10 @@ namespace FrbaCommerce.Abm_Empresa
                 Empresa unaEmpresa = new Empresa(valorIdSeleccionado());
                 unaEmpresa.Eliminar();
                 MessageBox.Show("La empresa ha sido eliminada", "Eliminada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //actualizo la grilla
                 CargarListadoDeEmpresas();
             }
         }
-
         private void btnAlta_Click(object sender, EventArgs e)
         {
             frmEmpresa _frmEmpresa = new frmEmpresa();

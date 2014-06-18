@@ -22,6 +22,7 @@ namespace FrbaCommerce.Calificar_Vendedor
         }
         public void abrirConUsuario(Usuario user)
         {
+            //es necesario abrir este form e instanciar al usuario que esta usando la aplicacion
             unUsuario = user;
             this.Show();
         }
@@ -73,7 +74,6 @@ namespace FrbaCommerce.Calificar_Vendedor
             dtgVendedoresSinCalificar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             agregarBotonCalificar();
         }
-
         private void agregarBotonCalificar()
         {
             var nuevaClm = new DataGridViewButtonColumn
@@ -87,16 +87,23 @@ namespace FrbaCommerce.Calificar_Vendedor
         }
         private void dtgVendedoresSinCalificar_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            // la columna cinco es la que tiene los botones calificar. Por eso, si la celda que regiustra en el evento del Click
+            // no esta en la columna cinco, no hago nada.
             if (e.ColumnIndex != 5)
                 return;
             
             calificarVendedor _frmCalificarVendedor = new calificarVendedor();
             _frmCalificarVendedor.AbrirParaCalificar(this, unUsuario.Id_Usuario, valorCodSeleccionado());
+            // le paso como parametros al form: 1.esteForm(para que despues vuelva a cargarse la grilla actualizada
+            //                                  2. el id el usuario que esta usando la aplicacion
+            //                                  3. el codigo de la publicacion seleccionada en la grilla que va a ser calificada
         }
         public void cargarListadoVendedoresSinCalificar()
         {
             try
             {
+                // le pido al usuario que me traiga todos aquellos vendedores a los que el usuario compro
+                // o gano subasta y no los ha calificado.
                 DataSet ds = unUsuario.obtenerVendedoresSinCalificar();
                 if (ds.Tables[0].Rows.Count == 0)
                 {
@@ -119,6 +126,7 @@ namespace FrbaCommerce.Calificar_Vendedor
 
         private int valorCodSeleccionado()
         {
+            // me devuelve el codigo de la publicacion sin calificar que esta seleccionada en la grilla
             return Convert.ToInt32(((DataRowView)dtgVendedoresSinCalificar.CurrentRow.DataBoundItem)["cod_Publicacion"]);
         }
 

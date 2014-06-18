@@ -178,10 +178,11 @@ namespace Clases
         }
         public void guardarDatosDeUsuarioNuevo()
         {
+            // se inserta este usuario en la BD y seteo en el atributo id_usuario
+            // el id que le puso la base al nuevo registro.
             this.Id_Usuario = this.GuardarYObtenerID();
             parameterList.Clear();
         }
-
         public int GuardarYObtenerID()
         {
             setearListaDeParametros();

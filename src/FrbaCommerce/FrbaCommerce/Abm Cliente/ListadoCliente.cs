@@ -163,7 +163,6 @@ namespace FrbaCommerce.Abm_Cliente
             ValidarFiltros();
             CargarListadoDeClientesConFiltros();
         }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtNombre.Text = "";
@@ -175,12 +174,15 @@ namespace FrbaCommerce.Abm_Cliente
         
         private int valorIdSeleccionado()
         {
+            // devuelve el id_cliente del Cliente seleccionaod en la grilla
             return Convert.ToInt32(((DataRowView)dtgListado.CurrentRow.DataBoundItem)["id_Cliente"]);
         }
 
         private void btnVer_Click(object sender, EventArgs e)
         {
             frmCliente _frmCliente = new frmCliente();
+            // instancio un nuevo cliente con el id_cleinte del Cliente seleccionado en la grilla
+            // a traves del cual voy a cargar todos los atributos del Cliente
             Cliente unCliente = new Cliente(valorIdSeleccionado());
             unCliente.CargarObjetoClienteConId();
             _frmCliente.AbrirParaVer(unCliente, this);
@@ -188,6 +190,8 @@ namespace FrbaCommerce.Abm_Cliente
         private void btnModificar_Click(object sender, EventArgs e)
         {
             frmCliente _frmCliente = new frmCliente();
+            // instancio un nuevo cliente con el id_cleinte del Cliente seleccionado en la grilla
+            // a traves del cual voy a cargar todos los atributos del Cliente
             Cliente unCliente = new Cliente(valorIdSeleccionado());
             unCliente.CargarObjetoClienteConId();
             _frmCliente.AbrirParaModificar(unCliente, this);
@@ -217,17 +221,11 @@ namespace FrbaCommerce.Abm_Cliente
                 txtDni.Text = "";
                 txtDni.Enabled = false;
             }
-        }
-        
+        }        
         private void ValidarFiltros()
         {
             if (txtDni.Text != "") { Validator.EsNumero(txtDni.Text); }
              
-        }
-
-        private void dtgListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
     }

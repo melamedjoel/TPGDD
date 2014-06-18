@@ -22,12 +22,18 @@ namespace FrbaCommerce.Abm_Empresa
         {
             InitializeComponent();
         }
+        // necesito esta variable id_usuario_registrado porque cuando abro este form despues
+        // de haber registrado un nuevo usuario, necesito guardar el id de este para el insert de 
+        // la nueva Empresa
         public int id_usuario_registrado
         {
             get { return _id_usuario_registrado; }
             set { _id_usuario_registrado = value; }
         }
 
+        // Este form se puede abrir para ver los Datos de una Empresa, para modificarlos,
+        // para crear uno nuevo(se crea tambien un usuario default) o para registrar una nueva Empresa
+        // despues de haber reistrado un usuario. 
         public void AbrirParaVer(Empresa unaEmpresa, listadoEmpresa frmEnviador)
         {
             frmPadre = frmEnviador;
@@ -143,6 +149,8 @@ namespace FrbaCommerce.Abm_Empresa
             txtFechaCreacion.Text = Convert.ToString(DateTime.Today);
             chkActivo.Visible = false;
 
+            // el id del usuario nuevo que se registro y recibi como parametro lo guardo en mi
+            // atributo id_usuario_regustrado            
             this.id_usuario_registrado = id_Usuario;
 
             btnAceptarMEmpresa.Visible = false;
@@ -298,6 +306,8 @@ namespace FrbaCommerce.Abm_Empresa
         }
         private void ValidarCampos()
         {
+            // lo primero que se hace Luego de ejecutarse el evento Click en los botones "Aceptar"
+            // ya sea para alta o modificacion es la validacion de datos
             string strErrores = "";
             strErrores = Validator.ValidarNulo(txtRazonSocial.Text, "Razon Social");
             strErrores = strErrores + Validator.ValidarNulo(txtCuit.Text, "Cuit");
