@@ -181,10 +181,10 @@
     <Compile Include="Generar Publicacion\frmDetallePublic.Designer.cs">
       <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar-Ofertar\Editar Publicacion\frmMisPublicaciones.cs">
+    <Compile Include="Editar Publicacion\frmMisPublicaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar-Ofertar\Editar Publicacion\frmMisPublicaciones.Designer.cs">
+    <Compile Include="Editar Publicacion\frmMisPublicaciones.Designer.cs">
       <DependentUpon>frmMisPublicaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\Registro de Usuario\ListadoUsuarios.cs">
@@ -264,7 +264,7 @@
     <EmbeddedResource Include="Generar Publicacion\frmDetallePublic.resx">
       <DependentUpon>frmDetallePublic.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar-Ofertar\Editar Publicacion\frmMisPublicaciones.resx">
+    <EmbeddedResource Include="Editar Publicacion\frmMisPublicaciones.resx">
       <DependentUpon>frmMisPublicaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Registro de Usuario\ListadoUsuarios.resx">
