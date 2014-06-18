@@ -129,16 +129,19 @@ namespace Clases
 
         public void guardarDatosDeRolNuevo()
         {
+            //compruebo que no exista ya el rol creado
             DataSet dsParaComprobarExistencia = Rol.obtenerRolPorNombre(this.Nombre);
             if (dsParaComprobarExistencia.Tables[0].Rows.Count != 0)
                 throw new EntidadExistenteException("un rol");
 
+            //creo el rol nuevo y obtengo el id
             setearListaDeParametrosConNombreYHabilitado(this.Nombre, this.Habilitado);
             DataSet dsNuevoRol = this.GuardarYObtenerID(parameterList);
             parameterList.Clear();
             
             if (dsNuevoRol.Tables[0].Rows.Count > 0)
             {
+                //seteo el id al rol y guardo las funcionalidades
                 this.Id_Rol = Convert.ToInt32(dsNuevoRol.Tables[0].Rows[0]["id_Rol"]);
                 guardarFuncionalidades();
             }
@@ -182,6 +185,9 @@ namespace Clases
 
         public void modificarFuncionalidades()
         {
+            //lo que hago es eliminar todas las funcionalidades que tenia el rol y volver a crearlas
+            //al volver a crearlas, si eran las mismas, vuelvo a obtener las mismas, si son distintas, las 
+            //obtengo modificadas
             setearListaDeParametrosConIdRol();
             SQLHelper.ExecuteDataSet(_strEliminar + "Rol_Funcionalidad" + "_PorIdRol", CommandType.StoredProcedure, "Rol_Funcionalidad", parameterList);
             parameterList.Clear();

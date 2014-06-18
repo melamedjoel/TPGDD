@@ -28,6 +28,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         public void abrirConClienteComoVendedor(Usuario user, frmDetallePublicGeneral frmEnviador, Publicacion unaPublic, frmVerPublicaciones frmPrincipal)
         {
+            //llena los campos del cliente y oculta los de la empresa
             unUsuario = user;
             publicDelForm = unaPublic;
             frmPadre = frmEnviador;
@@ -56,8 +57,8 @@ namespace FrbaCommerce.Comprar_Ofertar
             //datos comunes
             lblCalleACompletar.Text = unClienteVendedor.Dom_calle;
             lblNumeroACompletar.Text = unClienteVendedor.Dom_nro_calle.ToString();
-            lblNroPisoACompletar.Text = (!string.IsNullOrEmpty(unClienteVendedor.Dom_piso.ToString())) ? unClienteVendedor.Dom_piso.ToString() : "";
-            lblDeptoACompletar.Text = (!string.IsNullOrEmpty(unClienteVendedor.Dom_depto)) ? unClienteVendedor.Dom_depto.ToString() : "";
+            lblNroPisoACompletar.Text = (!string.IsNullOrEmpty(unClienteVendedor.Dom_piso.ToString())) ? unClienteVendedor.Dom_piso.ToString() : "";//como este campo puede ser nulo, si lo es, no le asigno valor la txt
+            lblDeptoACompletar.Text = (!string.IsNullOrEmpty(unClienteVendedor.Dom_depto)) ? unClienteVendedor.Dom_depto.ToString() : ""; //como este campo puede ser nulo, si lo es, no le asigno valor la txt
             lblCodPostalACompletar.Text = unClienteVendedor.Dom_cod_postal.ToString();
             lblMailACompletar.Text = unClienteVendedor.Mail;
             lblTelefonoACompletar.Text = unClienteVendedor.Telefono;
@@ -75,6 +76,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         public void abrirConEmpresaComoVendedor(Usuario user, frmDetallePublicGeneral frmEnviador, Publicacion unaPublic, frmVerPublicaciones frmPrincipal)
         {
+            //llena los campos de la empresa y oculta los del cliente
             unUsuario = user;
             publicDelForm = unaPublic;
             frmPadre = frmEnviador;
@@ -102,8 +104,8 @@ namespace FrbaCommerce.Comprar_Ofertar
             //datos comunes
             lblCalleACompletar.Text = unaEmpresaVendedora.Dom_calle;
             lblNumeroACompletar.Text = unaEmpresaVendedora.Dom_nro_calle.ToString();
-            lblNroPisoACompletar.Text = (!string.IsNullOrEmpty(unaEmpresaVendedora.Dom_piso.ToString())) ? unaEmpresaVendedora.Dom_piso.ToString() : "";
-            lblDeptoACompletar.Text = (!string.IsNullOrEmpty(unaEmpresaVendedora.Dom_depto)) ? unaEmpresaVendedora.Dom_depto.ToString() : "";
+            lblNroPisoACompletar.Text = (!string.IsNullOrEmpty(unaEmpresaVendedora.Dom_piso.ToString())) ? unaEmpresaVendedora.Dom_piso.ToString() : "";//como este campo puede ser nulo, si lo es, no le asigno valor la txt
+            lblDeptoACompletar.Text = (!string.IsNullOrEmpty(unaEmpresaVendedora.Dom_depto)) ? unaEmpresaVendedora.Dom_depto.ToString() : "";//como este campo puede ser nulo, si lo es, no le asigno valor la txt
             lblCodPostalACompletar.Text = unaEmpresaVendedora.Dom_cod_postal.ToString();
             lblMailACompletar.Text = unaEmpresaVendedora.Mail;
             lblTelefonoACompletar.Text = unaEmpresaVendedora.Telefono;
@@ -121,8 +123,12 @@ namespace FrbaCommerce.Comprar_Ofertar
         {
             try
             {
+                //valido que no me este autocomprando
                 ValidarAutoCompra();
                 string cantidadIngresada = "";
+                //realizo el mismo procedimiento que con el ofertar, voy a crear un dialog hasta que la cantidad
+                //ingresada a comprar sea correcta, es decir, no sea nula y sea menor al stock. le ofrezo un boton
+                //cancelar, por si se arrepiente
                 while (cantidadIngresada == "")
                 {
                     cantidadIngresada = DialogManager.ShowDialogCommonText("Por favor, ingrese cantidad a comprar", "Comprar");
@@ -141,10 +147,12 @@ namespace FrbaCommerce.Comprar_Ofertar
                         }
                         else
                         {
+                            //si ingreso una cantidad correcta, se crea la nueva compra
                             Compra nuevaCompra = new Compra(Convert.ToInt32(cantidadIngresada), Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]), publicDelForm, unUsuario);
                             nuevaCompra.guardarNuevaCompra();
                             publicDelForm.descontarStock(Convert.ToInt32(cantidadIngresada));
                             MessageBox.Show("La compra ha sido realizada", "Compra realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //cierro los forms y refreso el listado de publicaciones en el listado padre
                             frmPadrePrincipal.CargarListadoDePublicaciones();
                             frmPadre.Close();
                             this.Close();

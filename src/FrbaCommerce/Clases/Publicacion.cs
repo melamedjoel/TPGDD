@@ -215,18 +215,21 @@ namespace Clases
 
         public void GenerarDatosYRubros()
         {
+            //guardo la publicacion y obtengo el id
             setearListaDeParametrosEntidadEnteraSinCodigo();
             DataSet dsNuevaPub = this.GuardarYObtenerID(parameterList);
             parameterList.Clear();
 
             if (dsNuevaPub.Tables[0].Rows.Count > 0)
             {
+                //seteo el id a la entidad
                 this.Codigo = Convert.ToInt32(dsNuevaPub.Tables[0].Rows[0]["Codigo"]);
             }
             else
             {
                 throw new BadInsertException();
             }
+            //modifico los rubros
             modificarRubros();
         }
 
@@ -245,6 +248,8 @@ namespace Clases
 
         public void modificarRubros()
         {
+            //lo que va a hacer es eliminar todos los rubros y luego volver a crearlos
+            //si son los mismos, vuelvo a tener los mismos. si cambiaron, los obtengo modificados
             setearListaDeParametrosConCodigoPublic(Codigo);
             SQLHelper.ExecuteDataSet(_strEliminar + "Rubros_Publicacion" + "PorCod_Publicacion", CommandType.StoredProcedure, "Rubros_Publicacion", parameterList);
             parameterList.Clear();

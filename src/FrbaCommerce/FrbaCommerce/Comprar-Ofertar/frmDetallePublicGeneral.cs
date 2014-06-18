@@ -24,6 +24,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         public void AbrirParaVer(Publicacion unaPublic, frmVerPublicaciones frmEnviador, Usuario user)
         {
+            //Se abre formulario para visualizar
             frmPadre = frmEnviador;
             publicDelForm = unaPublic;
 
@@ -36,9 +37,11 @@ namespace FrbaCommerce.Comprar_Ofertar
             lblUsuarioACompletar.Text = unaPublic.Usuario.Username;
             lblTipoACompletar.Text = unaPublic.Tipo_Publicacion.Nombre;
             lblPrecioACompletar.Text = unaPublic.Precio.ToString();
+            //valido que pueda comprar u ofertar
             if (puedeComprarUOfertar())
             {
                 grpPreguntas.Visible = unaPublic.Permiso_Preguntas;
+                //segun el tipo de publicacion, veo que botones mostrarle
                 if (publicDelForm.Tipo_Publicacion.Nombre == "Subasta")
                 {
                     btnComprar.Visible = false;
@@ -62,6 +65,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private bool puedeComprarUOfertar()
         {
+            //puede comprar u ofertar solo si es un cliente y tiene menos de 5 publicaciones pendientes de calificacion
             bool puede = false;
             if (unUsuario.Rol.Nombre == "Cliente" && unUsuario.cantPublicacionesPendientesDeCalificacion() < 5)
                 puede = true;
@@ -90,14 +94,18 @@ namespace FrbaCommerce.Comprar_Ofertar
         {
             try
             {
+                //primero, valido que no me este autoofertando
                 ValidarAutoCompra();
                 string montoOfertado = "";
+                //hasta que no ingrese un monto ofertado correcto, sigo mostrando el dialog
                 while (montoOfertado == "")
                 {
+                    //creo un dialog pidiendo en un textbox el monto ofertado
                     montoOfertado = DialogManager.ShowDialogCommonText("Por favor, ingrese un monto a ofertar", "Ofertar");
 
                     if (string.IsNullOrEmpty(montoOfertado))
                     {
+                        //aca entra solo si toca aceptar y no ingresa monto
                         MessageBox.Show("Debe ingresar un monto válido", "Monto inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (montoOfertado != "cancel")
@@ -105,9 +113,12 @@ namespace FrbaCommerce.Comprar_Ofertar
                         string error = ValidarMontoOfertado(montoOfertado);
                         if (error != "")
                         {
+                            //si el momnto ingresado es menor al precio de la subasta, le aviso del error
+                            //y vuelvo a setear el monto a "", para que la app le vuelva a pedir monto
                             MessageBox.Show(error, "Monto inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             montoOfertado = "";
                         }else{
+                            //si el monto es correcto, genero la nueva oferta
                             Oferta nuevaOferta = new Oferta(Convert.ToDecimal(montoOfertado), Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]) ,publicDelForm, unUsuario);
                             nuevaOferta.guardarNuevaOferta();
                             MessageBox.Show("La oferta ha sido realizada", "Oferta realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -147,6 +158,8 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
+            //Si toca boton comprar, abro formulario con detalle del vendedor, dependiendo de si es empresa
+            //o cliente lo abro de uno u otro modo
             DetalleVendedorParaComprar frmDetalleVendedor = new DetalleVendedorParaComprar();
             Cliente unCli = new Cliente(publicDelForm.Usuario);
             if (unCli.id_Cliente ==0)
@@ -158,6 +171,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnRegistrarPregunta_Click(object sender, EventArgs e)
         {
+            //Este boton registra preguntas, validando previamente el campo
             try
             {
                 ValidarCampos();
@@ -195,6 +209,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void ValidarCampos()
         {
+            //solo valida que el campo pregunta no sea nulo
             string strErrores = "";
             strErrores += Validator.ValidarNulo(txtPreguntas.Text, "Pregunta");
             if (strErrores.Length > 0)

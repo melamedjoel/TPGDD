@@ -54,6 +54,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void llenarPublicaciones(DataSet ds)
         {
+            //paso todo el dataset a una lista de publicaciones
             listaDePubs.Clear();
             publicaciones.Clear();
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -62,7 +63,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                 unaPub.DataRowToObject(dr);
                 listaDePubs.Add(unaPub);
             }
-            
+            //armo, con la lista de publicaciones, un diccionario
             publicaciones = listaDePubs.ToDictionary(unaPub => unaPub.Codigo, unaPub => unaPub);
         }
 
@@ -73,6 +74,9 @@ namespace FrbaCommerce.Comprar_Ofertar
             btnSiguiente.Visible = true;
             btnUltimo.Visible = true;
             btnPrimero.Visible = true;
+
+            //creo un bind de mi diccionario de publicaciones donde voy a poder setear todos los campos que quiero
+            //mostrar en la grilla y que valores va a tener
 
             var bindeo = publicaciones.Values.Select(unaPub => new
             {
@@ -88,8 +92,10 @@ namespace FrbaCommerce.Comprar_Ofertar
                 Rubros = unaPub.obtenerRubrosEnTexto()
             });
 
+            //le seteo el bind a la grilla
             var listadoABindear = bindeo.ToList();
 
+            //pagino, segun una config del app.config, la grilla
             if (listadoABindear.Count - paginado > 10)
                 dtgListado.DataSource = listadoABindear.GetRange(paginado, Convert.ToInt32(ConfigurationManager.AppSettings["Paginado"])); 
             else
@@ -110,6 +116,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void agregarBotonVer()
         {
+            //agrego boton de Ver
             var nuevaClm = new DataGridViewButtonColumn
             {
                 Text = "Ver",
@@ -158,6 +165,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         public void CargarListadoDeRubros()
         {
+            //cargo todos los rubros que hay en el sistema
             lstRubros.Items.Clear();
             DataSet ds = Rubro.obtenerTodas();
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -176,6 +184,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            //limpio todos los filtros a su origen y vuelvo a cargar el listado de publicaciones sin filtros
             txtDescripcion.Text = "";
             while (lstRubros.CheckedIndices.Count > 0)
             {
@@ -190,6 +199,8 @@ namespace FrbaCommerce.Comprar_Ofertar
             if (e.ColumnIndex != 10)
                 return;
 
+            //si toco boton de ver, seteo la publicacion obtenida de la grilla y abro el formulario de detalle
+            //de la publicacion
             Publicacion unaPub = listaDePubs.Find(pub => pub.Codigo == (int)dtgListado.Rows[e.RowIndex].Cells[0].Value);
             frmDetallePublicGeneral _frmDetalle = new frmDetallePublicGeneral();
             _frmDetalle.AbrirParaVer(unaPub, this, unUsuario);
