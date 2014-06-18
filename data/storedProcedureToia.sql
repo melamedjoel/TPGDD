@@ -320,46 +320,37 @@ GO
 --Procedure traerPreguntasNoRespondidasPorUsuario
 CREATE PROCEDURE ATJ.traerPreguntasNoRespondidasPorUsuario
     @id_Usuario int
-
 AS 
     SELECT *
     FROM ATJ.Usuarios U 
     INNER JOIN ATJ.Publicaciones P ON U.id_Usuario = P.id_Usuario 
-    INNER JOIN ATJ.Pregunta_Publicacion PP ON PP.cod_Publicacion = P.Codigo 
-    INNER JOIN ATJ.Preguntas R ON R.id_Pregunta = PP.id_Pregunta 
+    INNER JOIN ATJ.Preguntas R ON R.cod_Publicacion = P.Codigo 
     WHERE	R.Respuesta IS NULL
 	AND		U.id_Usuario = @id_Usuario		
 GO
-
 --Procedure updatePregunta
 CREATE PROCEDURE ATJ.updatePregunta
     
 	@id_Pregunta int,
-	@Respuesta nvarchar(255)
+	@Respuesta nvarchar(255),
+	@Fecha_respuesta datetime
 AS
 	UPDATE ATJ.Preguntas SET Respuesta = @Respuesta,
-							Fecha_respuesta = GETDATE()
+							Fecha_respuesta = @Fecha_respuesta
 							where id_Pregunta = @id_Pregunta 
 	
 GO
-
-
 --Procedure traerPreguntasRespondidasPorUsuario
 CREATE PROCEDURE ATJ.traerPreguntasRespondidasPorUsuario
     @id_Usuario int
-
 AS 
     SELECT *
     FROM ATJ.Usuarios U 
     INNER JOIN ATJ.Publicaciones P ON U.id_Usuario = P.id_Usuario 
-    INNER JOIN ATJ.Pregunta_Publicacion PP ON PP.cod_Publicacion = P.Codigo 
-    INNER JOIN ATJ.Preguntas R ON R.id_Pregunta = PP.id_Pregunta 
+    INNER JOIN ATJ.Preguntas R ON R.cod_Publicacion = P.Codigo 
     WHERE	R.Respuesta IS NOT NULL
 	AND		U.id_Usuario = @id_Usuario		
 GO
-
-
-
 --Procedure traerListadoUsuariosVendedoresSinCalificar
 CREATE PROCEDURE ATJ.traerListadoUsuariosVendedoresSinCalificar
 	@id_Usuario int
