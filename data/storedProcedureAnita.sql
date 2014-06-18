@@ -58,7 +58,8 @@ CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVender
 	@Año nvarchar(4)
 AS
 
-SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END), 
+SELECT TOP 5 Vendedor = (CASE WHEN  (E.id_Usuario IS NULL AND s.id_Usuario IS null) THEN 'Admin' ELSE
+(CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END) END),
 COUNT(P.Codigo) AS CantPublicNoVendidos
 FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
@@ -67,7 +68,7 @@ WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta
 AND YEAR(P.Fecha_creacion) = @Año
 AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
 AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
-GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
+GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario
 ORDER BY CantPublicNoVendidos DESC
 GO
 
@@ -105,7 +106,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
 AND YEAR(P.Fecha_creacion) = @Año
-GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
+GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario 
 ORDER BY PromedioCalificaciones DESC
 GO
 
@@ -122,11 +123,10 @@ COUNT(P.Codigo) AS CantPubliSinClasificar
 FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
-INNER JOIN ATJ.Calificaciones C ON P.id_Usuario = P.id_Usuario 
 WHERE 
 MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
 AND YEAR(P.Fecha_creacion) = @Año
-AND (P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Calificaciones C WHERE C.id_Usuario_Calificador = P.id_Usuario))
+and p.Codigo NOT IN (SELECT cod_Publicacion FROM ATJ.Calificaciones)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY CantPubliSinClasificar DESC
 GO
@@ -137,11 +137,12 @@ CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVender
 	@Fecha_Desde datetime,
 	@Año nvarchar(4),
 	@Mes nvarchar(2),
-	@GradoVisibilidad nvarchar
+	@GradoVisibilidad nvarchar(255)
 	
 AS
 
-SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END), 
+SELECT TOP 5 Vendedor = (CASE WHEN  (E.id_Usuario IS NULL AND s.id_Usuario IS null) THEN 'Admin' 
+ELSE(CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END) END),
 COUNT(P.Codigo) AS CantPublicNoVendidos
 FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
@@ -152,8 +153,8 @@ AND YEAR(P.Fecha_creacion) = @Año
 AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
 AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
 AND V.Descripcion = (CASE WHEN @GradoVisibilidad <> '' THEN @GradoVisibilidad ELSE V.Descripcion END) 
-AND MONTH(P.Fecha_creacion) = (CASE WHEN 2 <> '' THEN 2 ELSE MONTH(P.Fecha_creacion) END)
-GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
+AND MONTH(P.Fecha_creacion) = (CASE WHEN @Mes <> '' THEN @Mes ELSE MONTH(P.Fecha_creacion) END)
+GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario 
 ORDER BY CantPublicNoVendidos DESC
 GO
 
