@@ -4,6 +4,7 @@ CREATE SCHEMA [ATJ] AUTHORIZATION [gd]
 GO
 
 BEGIN TRANSACTION
+GO
 SET QUOTED_IDENTIFIER ON
 SET ARITHABORT ON
 SET NUMERIC_ROUNDABORT OFF
@@ -40,6 +41,7 @@ CREATE TABLE [ATJ].[Clientes]
 	Eliminado bit NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
+
 ALTER TABLE [ATJ].[Clientes] ADD CONSTRAINT
 	PK_Clientes PRIMARY KEY CLUSTERED 
 	(
@@ -84,7 +86,6 @@ ALTER TABLE [ATJ].[Empresas] SET (LOCK_ESCALATION = TABLE)
 GO
 ------------------------------------------------------------------------------------------------------------------------------
 -- Creacion tabla de datos Usuarios
-
 
 CREATE TABLE ATJ.Usuarios
 	(
@@ -204,7 +205,7 @@ CREATE TABLE [ATJ].[Rubros_Publicacion] (
 	[id_Rubro] int NOT NULL,
 	[cod_Publicacion] numeric(18,0) NOT NULL
 );
-
+GO
 ------------------------------------------------------------------------------------------------------------------------------
 -- Creacion tabla de datos Preguntas
 
@@ -448,102 +449,127 @@ GO
 	ALTER TABLE ATJ.Calificaciones
 	ADD FOREIGN KEY (cod_Publicacion)
 	REFERENCES ATJ.Publicaciones (Codigo);
+	GO
 
 	ALTER TABLE ATJ.Calificaciones
 	ADD FOREIGN KEY (id_Usuario_Calificador)
 	REFERENCES ATJ.Usuarios (id_Usuario);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Clientes]
 	ADD FOREIGN KEY ([id_Usuario])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Compras]
 	ADD FOREIGN KEY ([cod_Publicacion])
 	REFERENCES [ATJ].[Publicaciones] (Codigo);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Compras]
 	ADD FOREIGN KEY ([id_Usuario_Vendedor])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
+	GO
 	
 	ALTER TABLE [ATJ].[Compras]
 	ADD FOREIGN KEY ([id_Usuario_Comprador])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Empresas]
 	ADD FOREIGN KEY ([id_Usuario])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Rol_Funcionalidad]
 	ADD FOREIGN KEY ([id_Funcionalidad])
 	REFERENCES [ATJ].[Funcionalidades] (id_Funcionalidad);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Rol_Funcionalidad]
 	ADD FOREIGN KEY ([id_Rol])
 	REFERENCES [ATJ].[Roles] (id_Rol);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Item_Factura]
 	ADD FOREIGN KEY ([nro_Factura])
 	REFERENCES [ATJ].[Facturas] (nro_Factura);
+	GO
 
 	ALTER TABLE [ATJ].[Item_Factura]
 	ADD FOREIGN KEY ([cod_Publicacion])
 	REFERENCES [ATJ].[Publicaciones] (Codigo);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Ofertas]
 	ADD FOREIGN KEY ([id_Usuario_Vendedor])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
+	GO
 	
 	ALTER TABLE [ATJ].[Ofertas]
 	ADD FOREIGN KEY ([id_Usuario_Comprador])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Ofertas]
 	ADD FOREIGN KEY ([cod_Publicacion])
 	REFERENCES [ATJ].[Publicaciones] (Codigo);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Preguntas]
 	ADD FOREIGN KEY ([cod_Publicacion])
 	REFERENCES [ATJ].[Publicaciones] (Codigo);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Publicaciones]
 	ADD FOREIGN KEY ([id_Tipo])
 	REFERENCES [ATJ].[Tipos_Publicacion] (id_Tipo);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Publicaciones]
 	ADD FOREIGN KEY ([id_Usuario])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Publicaciones]
 	ADD FOREIGN KEY ([cod_Visibilidad])
 	REFERENCES [ATJ].[Visibilidades] (cod_Visibilidad);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Publicaciones]
 	ADD FOREIGN KEY ([id_Estado])
 	REFERENCES [ATJ].[Estados_Publicacion] (id_Estado);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Rubros_Publicacion]
 	ADD FOREIGN KEY ([id_Rubro])
 	REFERENCES [ATJ].[Rubros] (id_Rubro);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Rubros_Publicacion]
 	ADD FOREIGN KEY ([cod_Publicacion])
 	REFERENCES [ATJ].[Publicaciones] (Codigo);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Rol_Usuario]
 	ADD FOREIGN KEY ([id_Usuario])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Rol_Usuario]
 	ADD FOREIGN KEY ([id_Rol])
 	REFERENCES [ATJ].[Roles] (id_Rol);
-
+	GO
+	
 	ALTER TABLE [ATJ].[Facturas]
 	ADD FOREIGN KEY ([id_Forma_Pago])
 	REFERENCES [ATJ].[Formas_Pago] (id_Forma_Pago);
+	GO
 	
 	ALTER TABLE [ATJ].[Facturas]
 	ADD FOREIGN KEY ([id_Usuario])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
+	GO
 COMMIT
 
 -- Migracion de datos
@@ -842,7 +868,9 @@ SET Reputacion = CAST(
 				AS NUMERIC(18,2))
 				
 COMMIT
+
 BEGIN TRANSACTION
+GO
 --Procedure traerUsuarioPorUsernameYClave
 CREATE PROCEDURE ATJ.traerUsuarioPorUsernameYClave 
     @Username nvarchar(255), 
@@ -1485,6 +1513,8 @@ AS
 	UPDATE ATJ.Clientes SET eliminado = 1
 							where id_Cliente = @id_cliente 
 GO
+
+--Proceddure insertEmpresa
 CREATE PROCEDURE ATJ.insertEmpresa
 	@Razon_social nvarchar(255) =null,
 	@Cuit nvarchar(50) =null,
@@ -1880,7 +1910,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVender]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@AÃ±o nvarchar(4)
+	@Año nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  (E.id_Usuario IS NULL AND s.id_Usuario IS null) THEN 'Admin' ELSE
@@ -1890,7 +1920,7 @@ FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @AÃ±o
+AND YEAR(P.Fecha_creacion) = @Año
 AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
 AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario
@@ -1901,7 +1931,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorFacturacion]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@AÃ±o nvarchar(4)
+	@Año nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
@@ -1910,7 +1940,7 @@ FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @AÃ±o
+AND YEAR(P.Fecha_creacion) = @Año
 AND P.id_Usuario IN (SELECT F.id_Usuario FROM ATJ.Facturas F)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY Facturacion DESC
@@ -1920,7 +1950,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCalificacion]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@AÃ±o nvarchar(4)
+	@Año nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
@@ -1930,7 +1960,7 @@ INNER JOIN ATJ.Publicaciones P ON P.Codigo = C.cod_Publicacion
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @AÃ±o
+AND YEAR(P.Fecha_creacion) = @Año
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario 
 ORDER BY PromedioCalificaciones DESC
 GO
@@ -1939,7 +1969,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantDePublicacionesSinCalificar]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@AÃ±o nvarchar(4)
+	@Año nvarchar(4)
 
 AS
 
@@ -1950,7 +1980,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE 
 MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @AÃ±o
+AND YEAR(P.Fecha_creacion) = @Año
 and p.Codigo NOT IN (SELECT cod_Publicacion FROM ATJ.Calificaciones)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY CantPubliSinClasificar DESC
@@ -1960,7 +1990,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVenderConFiltros]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@AÃ±o nvarchar(4),
+	@Año nvarchar(4),
 	@Mes nvarchar(2),
 	@GradoVisibilidad nvarchar(255)
 	
@@ -1974,7 +2004,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 INNER JOIN ATJ.Visibilidades V ON P.cod_Visibilidad = V.cod_Visibilidad
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @AÃ±o
+AND YEAR(P.Fecha_creacion) = @Año
 AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
 AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
 AND V.Descripcion = (CASE WHEN @GradoVisibilidad <> '' THEN @GradoVisibilidad ELSE V.Descripcion END) 
@@ -2128,11 +2158,11 @@ AND  gano_Subasta = 1
 GO
 COMMIT
 
+
 CREATE TRIGGER UpdateReputacion
    ON  ATJ.Calificaciones
    FOR INSERT
 AS 
-
 BEGIN
 	DECLARE @id_usuario int;
 	SET @id_usuario = (SELECT P.id_Usuario FROM inserted I 
@@ -2154,7 +2184,6 @@ BEGIN
 	ELSE
 	UPDATE ATJ.Empresas SET Reputacion = CAST((@cantidadDeEstrellasObtenidas)/(@CantidadDeCalificaciones) AS NUMERIC(18,2))
 						WHERE id_Usuario = @id_usuario
-
 END
 GO
 
