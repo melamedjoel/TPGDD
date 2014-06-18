@@ -39,6 +39,10 @@ namespace FrbaCommerce
             bool permisosAdmin = false;
             bool permisosPublicacion = false;
             bool permisosUsuario = false;
+            //Segun el rol, voy a tener funcionalidades. Voy a comparar cada funcionalidad del rol
+            //contra el enum de la clase de funcionalidades que tiene definido todos los posibles tipos
+            //de funcionalidades permitidas para el usuario. Segun las funcionalidades que mi rol tenga
+            //vere mas o menos pestañas en el menu
             foreach (Funcionalidad unaFunc in unUsuario.Rol.Funcionalidades)
             {
                 switch (unaFunc.obtenerPorNombre())
@@ -200,6 +204,8 @@ namespace FrbaCommerce
 
         private void cambiarClaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //utilizo el dialogManager que me provee Utilities para crear un miniform que solo me ofrezca cambiar
+            //la clave. La clave nueva ingresada sera la nueva clave (encriptada) del usuario
             string claveNuevaIngresada = DialogManager.ShowDialogWithPassword("Ingrese nueva clave", "Cambio de clave");
 
             if (string.IsNullOrEmpty(claveNuevaIngresada))

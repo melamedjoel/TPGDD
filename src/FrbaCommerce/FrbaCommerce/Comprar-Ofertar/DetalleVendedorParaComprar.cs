@@ -56,8 +56,8 @@ namespace FrbaCommerce.Comprar_Ofertar
             //datos comunes
             lblCalleACompletar.Text = unClienteVendedor.Dom_calle;
             lblNumeroACompletar.Text = unClienteVendedor.Dom_nro_calle.ToString();
-            lblNroPisoACompletar.Text = unClienteVendedor.Dom_piso.ToString();
-            lblDeptoACompletar.Text = unClienteVendedor.Dom_depto;
+            lblNroPisoACompletar.Text = (!string.IsNullOrEmpty(unClienteVendedor.Dom_piso.ToString())) ? unClienteVendedor.Dom_piso.ToString() : "";
+            lblDeptoACompletar.Text = (!string.IsNullOrEmpty(unClienteVendedor.Dom_depto)) ? unClienteVendedor.Dom_depto.ToString() : "";
             lblCodPostalACompletar.Text = unClienteVendedor.Dom_cod_postal.ToString();
             lblMailACompletar.Text = unClienteVendedor.Mail;
             lblTelefonoACompletar.Text = unClienteVendedor.Telefono;
@@ -102,8 +102,8 @@ namespace FrbaCommerce.Comprar_Ofertar
             //datos comunes
             lblCalleACompletar.Text = unaEmpresaVendedora.Dom_calle;
             lblNumeroACompletar.Text = unaEmpresaVendedora.Dom_nro_calle.ToString();
-            lblNroPisoACompletar.Text = unaEmpresaVendedora.Dom_piso.ToString();
-            lblDeptoACompletar.Text = unaEmpresaVendedora.Dom_depto;
+            lblNroPisoACompletar.Text = (!string.IsNullOrEmpty(unaEmpresaVendedora.Dom_piso.ToString())) ? unaEmpresaVendedora.Dom_piso.ToString() : "";
+            lblDeptoACompletar.Text = (!string.IsNullOrEmpty(unaEmpresaVendedora.Dom_depto)) ? unaEmpresaVendedora.Dom_depto.ToString() : "";
             lblCodPostalACompletar.Text = unaEmpresaVendedora.Dom_cod_postal.ToString();
             lblMailACompletar.Text = unaEmpresaVendedora.Mail;
             lblTelefonoACompletar.Text = unaEmpresaVendedora.Telefono;
