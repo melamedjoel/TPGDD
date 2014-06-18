@@ -272,10 +272,10 @@ namespace Clases
             return textoRubros.Remove(textoRubros.Length - 2);
         }
 
-        public static DataSet obtenerPublisARendir(Usuario unUsuario)
+        public static DataSet obtenerPublisARendir(Usuario unUsuario, DateTime fecha)
         {
             Publicacion unaPubli = new Publicacion();
-            unaPubli.setearListaDeParametrosConIdUsuario(unUsuario.Id_Usuario);
+            unaPubli.setearListaDeParametrosConIdUsuarioYFecha(unUsuario.Id_Usuario, fecha);
             DataSet ds = unaPubli.TraerListado(unaPubli.parameterList, "MasAntiguasARendirPorUsuario");
             unaPubli.parameterList.Clear();
             return ds;
@@ -294,6 +294,12 @@ namespace Clases
         #endregion
 
         #region metodos privados
+        private void setearListaDeParametrosConIdUsuarioYFecha(int unIdUsuario, DateTime unaFecha)
+        {
+            parameterList.Add(new SqlParameter("@id_Usuario", unIdUsuario));
+            parameterList.Add(new SqlParameter("@Fecha", unaFecha));
+        }
+
         private void setearListaDeParametrosConIdUsuario(int unIdUsuario)
         {
             parameterList.Add(new SqlParameter("@id_Usuario", unIdUsuario));

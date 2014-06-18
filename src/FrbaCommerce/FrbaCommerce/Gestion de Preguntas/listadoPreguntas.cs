@@ -18,6 +18,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
     public partial class listadoPreguntas : Form
     {
         Usuario unUsuario = new Usuario();
+        //se guarda el form (frmPadre) desde el cual se lo llamó a este formulario
         frmMisPublicaciones frmPadre = new frmMisPublicaciones();
         private int id_Pregunta;
         private int cod_Publicacion;
@@ -29,17 +30,21 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         public void abrirConUsuario(Usuario user)
         {
+            //se guarda la información del usuario con el que se abrió el formulario
             unUsuario = user;
             this.Show();
         }
 
         private int valorIdSeleccionado()
         {
+            //convierto en int32 un el valor de la datarow seleccionado que está en la columna de Id Pregunta
             return Convert.ToInt32(((DataRowView)dtgPreguntas.CurrentRow.DataBoundItem)["id_Pregunta"]);
         }
 
         public void AbrirParaVer(int codigo, frmMisPublicaciones frmEnviador)
         {
+            //se guarda tanto el form padre para luego poder volver a ese form
+            //se recibe el codigo de la publicación de la cual se cargará el listado para ver de preguntas con respuestas
             frmPadre = frmEnviador;
             cod_Publicacion = codigo;
             btnResponder.Visible = false;
@@ -50,6 +55,8 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         {
             try
             {
+                //se obtiene el DataSet de las preguntas con respuestas según la publicación seleccionada (por eso se 
+                //envía el código de publicación y según el usuario)
                 DataSet ds = Pregunta.obtenerPreguntasConRespuestas(cod_P, unUsuario);
                 configurarGrillaPreguntasYRespuestas(ds);
             }
@@ -67,6 +74,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         private void configurarGrillaPreguntasYRespuestas(DataSet ds)
         {
+            //se configuran la grilla con sus respectivas columnas para el dataset de preguntas con respuestas
             dtgPreguntas.Columns.Clear();
             dtgPreguntas.AutoGenerateColumns = false;
 
@@ -145,6 +153,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            //se carga el formulario padre que había sido guardado anteriormente y se cierra esta formulario
             frmPadre.CargarListadoDePublicaciones();
             frmPadre.BringToFront();
             this.Close();
@@ -152,6 +161,8 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         public void AbrirParaResponder(int codigo, frmMisPublicaciones frmEnviador)
         {
+            //nuevamente se guarda el formulario desde el cual se abrio este form
+            //se carga el listado de las preguntas que todavía no han sido respondidas
             frmPadre = frmEnviador;
             cod_Publicacion = codigo;
             cargarListadoPreguntasNoRespondidas(cod_Publicacion);
@@ -161,6 +172,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         {
             try
             {
+                //se obtiene el data set y se configura la grilla
                 DataSet ds = Pregunta.obtenerPreguntasSinRespuestas(codP, unUsuario);
                 configurarGrillaPreguntasYRespuestas(ds);
             }
@@ -177,20 +189,14 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         private void btnResponder_Click(object sender, EventArgs e)
         {
-            ValidarSiTienePreguntasPendientes();
+            //el usuario al tocar el botón responder, se instancia un nuevo formulario de tipo ResponderPregunta
             ResponderPregunta _frmResponderPregunta = new ResponderPregunta();
+            //se guarda el id pregunta de la pregunta (fila de la grilla) seleccionada
             id_Pregunta = valorIdSeleccionado();
+            //se abre el formulario con el mismo usuario y enviándole el formulario padre y el codigo publicacion para
+            //que luego tenga la posibilidad de volver a este form y poder cargar el listado de preguntas para el mismo
+            //cod de publicación (que es el que se le está enviando)
             _frmResponderPregunta.AbrirParaResponder(id_Pregunta, this, cod_Publicacion);
-        }
-
-        private void ValidarSiTienePreguntasPendientes()
-        {
-            DataSet ds = Pregunta.obtenerPreguntasSinRespuestas(cod_Publicacion, unUsuario);
-            if (ds.Tables[0].Rows.Count == 0)
-            {
-                MessageBox.Show("No tiene ninguna pregunta pendiente a responder", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
         }
 
     }

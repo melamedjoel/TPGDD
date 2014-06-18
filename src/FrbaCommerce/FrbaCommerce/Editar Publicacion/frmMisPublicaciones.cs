@@ -141,6 +141,9 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void btnRespuestas_Click(object sender, EventArgs e)
         {
+            //se instancia un nuevo formulario de tipo listadoPreguntas y se lo abre con el mismo usuario, asique se lo
+            //envía por parámetro. además se le envia this para que guarde quien es el formulario padre en el caso que después
+            //pueda volver y el codigo publicación para poder cargar nuevamente el listado de preguntas para esa publicación
             listadoPreguntas _frmVerRespuestas = new listadoPreguntas();
             _frmVerRespuestas.abrirConUsuario(unUsuario);
             _frmVerRespuestas.AbrirParaVer(cod_Publicacion,this);
@@ -148,8 +151,11 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void btnResponderPregs_Click(object sender, EventArgs e)
         {
+            //primero se valida si tiene preguntas pendientes a responder
             if (ValidarSiTienePreguntasPendientes() == 1)
             {
+                //en el caso que tenga, se instancia un nuevo formulario de tipo listadoPreguntas, y se lo llama
+                // a abrir con el mismo usuario enviandole el codigo publicacion y el formulario que lo llama
                 listadoPreguntas _frmVerRespuestas = new listadoPreguntas();
                 _frmVerRespuestas.abrirConUsuario(unUsuario);
                 _frmVerRespuestas.AbrirParaResponder(cod_Publicacion, this);
@@ -158,9 +164,12 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private int ValidarSiTienePreguntasPendientes()
         {
+            //se obtiene el dataSet de las preguntas sin respuestas para una publicación y usuario
             DataSet ds = Pregunta.obtenerPreguntasSinRespuestas(cod_Publicacion, unUsuario);
+
             if (ds.Tables[0].Rows.Count == 0)
             {
+                //si el dataset es nulo, entonces se le notifica que no tiene ninguna pregunta para responder
                 MessageBox.Show("No tiene ninguna pregunta pendiente a responder", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }

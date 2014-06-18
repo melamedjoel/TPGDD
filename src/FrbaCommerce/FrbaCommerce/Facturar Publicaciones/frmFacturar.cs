@@ -47,7 +47,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
             try
             {
                 //obtengo todas las publicaciones a rendir segun el usuario
-                DataSet ds = Publicacion.obtenerPublisARendir(unUsuario);
+                DataSet ds = Publicacion.obtenerPublisARendir(unUsuario, Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]));
                 configurarGrillaPublicacionesAFacturar(ds);
                 llenarListadoDePublicaciones(ds);
             }          

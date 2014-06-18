@@ -24,6 +24,8 @@ namespace FrbaCommerce.Historial_Cliente
 
         private void listadoHistorialDeOperaciones_Load(object sender, EventArgs e)
         {
+            //se carga el combo box historial con un default para que siempre haya un campo seleccionado
+            // al momento de cargar el listado y configurar la grilla
             cmbHistorial.SelectedIndex = 0;
         }
 
@@ -195,7 +197,8 @@ namespace FrbaCommerce.Historial_Cliente
 
         private void btnVer_Click(object sender, EventArgs e)
         {   
-            //Según la operación que se seleccione
+            //Según la operación que se seleccione se carga el listado
+            //Se obtiene el DataSet correspondiente y se configura la grilla y las columnas para el mismo
             if (cmbHistorial.SelectedIndex == 0) cargarListadoDeCompras();
             if (cmbHistorial.SelectedIndex == 1) cargarListadoDeOfertas();
             if (cmbHistorial.SelectedIndex == 2) cargarListadoDeCalificacionesRecibidas();
@@ -276,6 +279,7 @@ namespace FrbaCommerce.Historial_Cliente
 
         public void abrirConUsuario(Usuario user)
         {
+            //se guarda la información del usuario que abrió el formulario
             unUsuario = user;
             this.Show();
         }

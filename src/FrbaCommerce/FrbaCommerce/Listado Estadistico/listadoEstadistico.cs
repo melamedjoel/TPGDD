@@ -16,6 +16,7 @@ namespace FrbaCommerce.Listado_Estadistico
     public partial class listadoEstadistico : Form
     {
         Usuario unUsuario = new Usuario();
+        //instancio variables donde se van a guardar todos los datos que van a ser enviados a los store procedures
         private DateTime Fecha_Hasta;
         private DateTime Fecha_Desde;
         private string Año;
@@ -24,6 +25,8 @@ namespace FrbaCommerce.Listado_Estadistico
        
         private void listadoEstadistico_Load(object sender, EventArgs e)
         {
+            //se inicializa el formulario con ciertas características donde el campo Año y el botón correspondiente
+            //son los unicos visibles
             configuracionInicial();
         }
 
@@ -47,6 +50,7 @@ namespace FrbaCommerce.Listado_Estadistico
 
         public void abrirConUsuario(Usuario user)
         {
+            //se guardan los datos de usuario que abrio el formulario por si se necesita la informacón en algún método
             unUsuario = user;
             this.Show();
         }
@@ -56,7 +60,9 @@ namespace FrbaCommerce.Listado_Estadistico
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 try
-                {
+                {   
+                    //se valida el año ingresado, y se guarda el mismo en la variable año que será uno de los datos
+                    //que se le enviará luego al store procedure
                     ValidarCampos();
                     Año = txtAño.Text;
                     lblTrimestre.Visible = true;
@@ -90,6 +96,8 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            //se guardan los datos ingresados en los dos campos de filtros (mes y grado de visibilidad)
+            //se obtiene el DataSet y luego se configurará la grilla
             Mes = txtMes.Text;
             GradoVisibilidad = txtVisibilidad.Text;
             cargarListadoDeVendedoresConMayorCantProdNoVendidosConFiltros();
@@ -97,6 +105,8 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            //se resetean los textos de los campos donde se ingresan los filtros
+            //se vuelve a cargar el listado de vendedores con mayor cantidad de productos no vendidos pero sin filtros
             txtVisibilidad.Text = "";
             txtMes.Text = "";
             cargarListadoDeVendedoresConMayorCantProdNoVendidos();
@@ -296,6 +306,8 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
+            //segun el trimestre elegido se guardan en las variables que van a ser enviadas al stored procedure
+            //las fechas del comienzo y fin del trimestre
             if (cmbTrimestre.SelectedIndex == 0) cargarParametrosPrimerTrimestre();
             if (cmbTrimestre.SelectedIndex == 1) cargarParametrosSegundoTrimestre();
             if (cmbTrimestre.SelectedIndex == 2) cargarParametrosTercerTrimestre();
@@ -329,6 +341,9 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void btnVer_Click_1(object sender, EventArgs e)
         {
+            //segun la operación que se haya elegido, se carga el listado de esa operación
+            //se obtiene un DataSet con los vendedores con mayor cantidad de productos no vendidos
+            //y luego se configura la grilla con las columnas correspondientes
             if (cmbListado.SelectedIndex == 0)
             {
                 grpFiltros.Visible = true;
