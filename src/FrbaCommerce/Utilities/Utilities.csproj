@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ListManager.cs" />
     <Compile Include="DialogManager.cs" />
     <Compile Include="DropDownListManager.cs" />
     <Compile Include="Encryptor.cs" />

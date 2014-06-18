@@ -28,7 +28,7 @@ namespace FrbaCommerce.ABM_Rol
 
         private void configurarGrilla(DataSet ds)
         {
-
+            //realizo la configuracion de la grilla, seteando las filas y columnas con sus nombres y valores
             dtgListado.Columns.Clear();
             dtgListado.AutoGenerateColumns = false;
 
@@ -52,6 +52,7 @@ namespace FrbaCommerce.ABM_Rol
             clmHabilitado.HeaderText = "Habilitado";
             dtgListado.Columns.Add(clmHabilitado);
 
+            //le inserto a la grilla el dataset obtenido
             dtgListado.DataSource = ds.Tables[0];
         }
 
@@ -60,6 +61,7 @@ namespace FrbaCommerce.ABM_Rol
 
             try
             {
+                //obtengo en un dataset todos los roles de la bd
                 DataSet ds = Rol.obtenerTodosLosRoles();
                 configurarGrilla(ds);
             }
@@ -79,6 +81,10 @@ namespace FrbaCommerce.ABM_Rol
 
             try
             {
+                //obtengo un dataset de roles pero, en este caso, con los campos a filtrar
+                //esto va a realizar una query donde recibira ambos filtros pero solo aplicara los que 
+                //vengan llenos como para filtrar por ellos
+                //luego, configuro la grilla
                 DataSet ds = Rol.obtenerTodosLosRolesConFiltros(txtNombre.Text, chkHabilitado.Checked);
                 configurarGrilla(ds);
             }
@@ -95,6 +101,11 @@ namespace FrbaCommerce.ABM_Rol
 
         private void btnVer_Click(object sender, EventArgs e)
         {
+            //si el boton presionado es ver, instancio un rol con sus valores seleccionados, que son funciones,
+            //ya que se obtienen de la grilla. Separamos la responsabilidad de la obtencion de ese valor en las
+            //distintas funciones
+            //luego de instanciado el rol, llamo al formulario frmRol mediante el mensaje AbrirParaVer, que recibe
+            //el rol instanciado y este form. 
             frmRol _frmRol = new frmRol();
             Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
             _frmRol.AbrirParaVer(unRol, this);
@@ -116,12 +127,16 @@ namespace FrbaCommerce.ABM_Rol
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            //si el boton tocado es agregar, abro el frmRol con el metodo abrirParaAgregar, que configurar el form
+            //de forma tal que quede todo listo para realizar el alta
             frmRol _frmRol = new frmRol();            
             _frmRol.AbrirParaAgregar(this);
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            //si el boton tocado es modificar, instancio el rol con los datos de la fila seleccionada y abro el form
+            //configurado con esos datos para editarlos
             frmRol _frmRol = new frmRol();
             Rol unRol = new Rol(valorIdSeleccionado(), valorNombreSeleccionado(), valorHabilitadoSeleccionado());
             _frmRol.AbrirParaModificar(unRol, this);
@@ -129,6 +144,8 @@ namespace FrbaCommerce.ABM_Rol
 
         private void btnDeshabilitar_Click(object sender, EventArgs e)
         {
+            //si el boton tocado es desactivar, genero un dialog donde le pregunto si esta seguro de deshabilitarlo.
+            //si toca que si, instancio el rol y lo deshabilito. sino, no hago nada
             DialogResult dr = MessageBox.Show("¿Está seguro que desea deshabilitar el rol?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
@@ -141,11 +158,13 @@ namespace FrbaCommerce.ABM_Rol
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            //Con filtros llenados o no, si toca boton buscar, me carga el listado de roles con los filtros disponibles
             CargarListadoDeRolesConFiltros();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            //limpio los filtros y recargo el listado sin filtros
             txtNombre.Text = "";
             chkHabilitado.Checked = false;
             CargarListadoDeRoles();
@@ -158,6 +177,8 @@ namespace FrbaCommerce.ABM_Rol
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            //si toca boton eliminar, genero un dialog donde le pregunto si esta seguro de eliminarlo
+            //si responde que si, ejecuto la accion (borrado logico), sino, no hago nada
             DialogResult dr = MessageBox.Show("¿Está seguro que desea eliminar el rol?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {

@@ -24,6 +24,11 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         public void AbrirParaVer(Visibilidad unaVisibilidad, listadoVisibilidad frmEnviador)
         {
+            //si se ejecuta esta funcion, significa que llaman al frm para visualizar. va a instanciar una
+            //variable global llamada visibilidadDelForm, la cual recibiremos por parametro y sera la visibilidad 
+            //que se ha elegido visualizar. Tambien existe una variable global frmPadre, }
+            //que es el form que llama a este, para poder volver al mismo
+            //Configuro todos los campos de este formulario en enabled false, es decir, no editables
             frmPadre = frmEnviador;
             visibilidadDelForm = unaVisibilidad;
             
@@ -51,6 +56,11 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         public void AbrirParaModificar(Visibilidad unaVisibilidad, listadoVisibilidad frmEnviador)
         {
+            //si se ejecuta esta funcion, significa que llaman al frm para modificar. va a instanciar una
+            //variable global llamada visibilidadDelForm, la cual recibiremos por parametro y sera la visibilidad 
+            //que se ha elegido modificar. Tambien existe una variable global frmPadre, }
+            //que es el form que llama a este, para poder volver al mismo
+            //Configuro todos los campos de este formulario en enabled true, es decir,  editables
             frmPadre = frmEnviador;
             visibilidadDelForm = unaVisibilidad;
             
@@ -79,6 +89,10 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         public void AbrirParaAgregar(listadoVisibilidad frmEnviador)
         {
+            //si se ejecuta esta funcion, significa que llaman al frm para agregar.
+            //existe una variable global frmPadre, 
+            //que es el form que llama a este, para poder volver al mismo
+            //Configuro todos los campos de este formulario en enabled true, es decir, editables
             this.Show();
 
             txtDescripcion.Text = "";
@@ -115,6 +129,8 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            //seteo los atributos de la visibilidad seleccionada con los datos ingresados por el usuario
+            //y modifico la entidad
             try
             {
                 ValidarCampos();
@@ -159,6 +175,9 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void ValidarCampos()
         {
+            //valido que la descripcion no este vacia, que el precio y el porcentaje sean decimales y la duracion numeros
+            //si lo son, lanzo una excepcion para arriba que quien me haya llamado debe controlar y avisar al usuario
+            //los errores encontrados
             string strErrores = "";
             strErrores += Validator.ValidarNulo(txtDescripcion.Text, "Descripcion");
             strErrores += Validator.SoloNumerosODecimales(txtPrecioPorPublicar.Text, "Precio");
@@ -172,6 +191,7 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
+            //creo una nueva instancia con los datos ingresados por el usuario y creo la entidad
             try
             {
                 ValidarCampos();

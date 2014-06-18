@@ -56,6 +56,7 @@ namespace FrbaCommerce.Abm_Visibilidad
         {
             try
             {
+                //recibe un dataset de todas las visibilidades que hay en la BD. Luego, configura la grilla con esos datos
                 DataSet ds = Visibilidad.obtenerTodasLasVisibilidades();
                 configurarGrilla(ds);
             }
@@ -72,6 +73,7 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void configurarGrilla(DataSet ds)
         {
+            //Se realiza la configuracion de la grilla con el dataset obtenido. Se crean las columnas con sus headers
             dtgListado.Columns.Clear();
             dtgListado.AutoGenerateColumns = false;
 
@@ -113,6 +115,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             clmActivo.HeaderText = "Activo";
             dtgListado.Columns.Add(clmActivo);
 
+            //le inserto a la grilla el dataset obtenido
             dtgListado.DataSource = ds.Tables[0];
             dtgListado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
@@ -124,6 +127,7 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            //limpio los filtros y vuelvo a cargar la grilla sin filtros
             txtDescripcion.Text = "";
             txtPorcentaje.Text = "";
             txtPrecio.Text = "";
@@ -134,6 +138,7 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            //cuando toca el boton buscar, vuelvo a cargar la grilla pero ahora con filtros
             CargarListadoDeVisibilidadesConFiltros();
         }
 
@@ -141,6 +146,7 @@ namespace FrbaCommerce.Abm_Visibilidad
         {
             try
             {
+                //obtengo el dataset con los filtros aplicados y configuro la grilla
                 DataSet ds = Visibilidad.obtenerTodasLasVisibilidadesConFiltros(txtDescripcion.Text, txtPrecio.Text, txtPorcentaje.Text,txtDuracion.Text,chkActivo.Checked);
                 configurarGrilla(ds);
             }
@@ -156,6 +162,8 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void btnVer_Click(object sender, EventArgs e)
         {
+            //instancio una visibilidad con los datos de la fila seleccionada, y abro el formulario de visibilidad
+            //en modo visualizar
             frmVisibilidad _frmVisibilidad = new frmVisibilidad();
             Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorDuracionSeleccionado(), valorActivoSeleccionado());
             _frmVisibilidad.AbrirParaVer(unaVisibilidad, this);
@@ -163,6 +171,8 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            //instancio una visibilidad con los datos de la fila seleccionada, y abro el formulario de visibilidad
+            //en modo modificar
             frmVisibilidad _frmVisibilidad = new frmVisibilidad();
             Visibilidad unaVisibilidad = new Visibilidad(valorCodigoSeleccionado(), valorDescripcionSeleccionado(), valorPrecioSeleccionado(), valorPorcentajeSeleccionado(), valorDuracionSeleccionado(), valorActivoSeleccionado());
             _frmVisibilidad.AbrirParaModificar(unaVisibilidad, this);
@@ -170,6 +180,8 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void btnDesactivar_Click(object sender, EventArgs e)
         {
+            //creo un dialog donde le pregunto si esta seguro de la accion a realizar. en caso de que 
+            //conteste que si, se desactiva la visibilidad seleccionada
             DialogResult dr = MessageBox.Show("¿Está seguro que desea desactivar la visibilidad?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
@@ -182,12 +194,15 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            //abro el frm de visibilidad en modo agregar
             frmVisibilidad _frmVisib = new frmVisibilidad();
             _frmVisib.AbrirParaAgregar(this);
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            //creo un dialog donde le pregunto si esta seguro de la accion a realizar. si contesta que si, 
+            //elimino (borrado logico) la visibilidad
             DialogResult dr = MessageBox.Show("¿Está seguro que desea eliminar la visibilidad?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
