@@ -126,7 +126,7 @@ INNER JOIN ATJ.Calificaciones C ON P.id_Usuario = P.id_Usuario
 WHERE 
 MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
 AND YEAR(P.Fecha_creacion) = @Año
-AND (P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Calificaciones C))
+AND (P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Calificaciones C WHERE C.id_Usuario_Calificador = P.id_Usuario))
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY CantPubliSinClasificar DESC
 GO
@@ -280,11 +280,12 @@ VALUES
 GO
 
 --Procedure traerListadoComprasPorCodigoPubli
-CREATE PROCEDURE ATJ.traerListadoPorCodigoPubli
+CREATE PROCEDURE ATJ.traerListadoComprasPorCodigoPubli
 	@cod_Publicacion numeric(18,0)
 AS
 
 SELECT *
 FROM ATJ.Compras C
 WHERE cod_Publicacion = @cod_Publicacion
+
 

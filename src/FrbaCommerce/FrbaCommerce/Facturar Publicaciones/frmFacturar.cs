@@ -200,8 +200,9 @@ namespace FrbaCommerce.Facturar_Publicaciones
                 itemPublicacion.Cantidad = 1;
                 listaDeItemsPorFactura.Add(itemPublicacion);
 
-                armarFactura();
             }
+
+            armarFactura();
         }
   
         private void armarFactura()

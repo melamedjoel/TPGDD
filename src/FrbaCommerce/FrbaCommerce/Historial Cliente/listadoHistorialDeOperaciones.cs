@@ -194,7 +194,8 @@ namespace FrbaCommerce.Historial_Cliente
         }
 
         private void btnVer_Click(object sender, EventArgs e)
-        {
+        {   
+            //Según la operación que se seleccione
             if (cmbHistorial.SelectedIndex == 0) cargarListadoDeCompras();
             if (cmbHistorial.SelectedIndex == 1) cargarListadoDeOfertas();
             if (cmbHistorial.SelectedIndex == 2) cargarListadoDeCalificacionesRecibidas();
