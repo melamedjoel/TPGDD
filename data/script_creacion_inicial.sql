@@ -575,13 +575,12 @@ COMMIT
 -- Migracion de datos
 --------------------------------------------------------------------------------------------------------------------
 
-BEGIN TRANSACTION
-GO
 
-DECLARE @number AS INT
 
 
 -- Migracion de datos tabla Clientes
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Clientes (Apellido, Dom_cod_postal, Dom_depto, Dni, Dom_calle, Fecha_nac, Mail,
  Nombre, Dom_nro_calle, Dom_piso )
 (SELECT DISTINCT Publ_Cli_Apeliido, Publ_Cli_Cod_Postal, Publ_Cli_Depto, Publ_Cli_Dni, Publ_Cli_Dom_Calle, 
@@ -592,49 +591,71 @@ Publ_Cli_Fecha_Nac, Publ_Cli_Mail, Publ_Cli_Nombre, Publ_Cli_Nro_Calle, Publ_Cli
   (
   SELECT DISTINCT Cli_Apeliido, Cli_Cod_Postal, Cli_Depto, Cli_Dni, Cli_Dom_Calle, 
   Cli_Fecha_Nac, Cli_Mail, Cli_Nombre, Cli_Nro_Calle, Cli_Piso
-  FROM [gd_esquema].[Maestra] where Cli_Dni is not null)
+  FROM [gd_esquema].[Maestra] where Cli_Dni is not null);
+ COMMIT
 --------------------------------------------------------------------------------------------------------------------  
  --Migracion de datos tabla Empresas
+ BEGIN TRANSACTION
+ GO
  INSERT INTO ATJ.Empresas 
 (Dom_cod_postal, Cuit, Dom_depto, Dom_calle, Fecha_creacion, Mail, Dom_nro_calle, Dom_piso, Razon_social)
 (
 SELECT DISTINCT Publ_Empresa_Cod_Postal, Publ_Empresa_Cuit, Publ_Empresa_Depto, Publ_Empresa_Dom_Calle, 
 Publ_Empresa_Fecha_Creacion, Publ_Empresa_Mail, Publ_Empresa_Nro_Calle, Publ_Empresa_Piso, 
 Publ_Empresa_Razon_Social 
-from gd_esquema.Maestra where Publ_Empresa_Cuit is not null)
+from gd_esquema.Maestra where Publ_Empresa_Cuit is not null);
+COMMIT
 
 --------------------------------------------------------------------------------------------------------------------
 
 --Creacion Usuario DEFAULT
 --Password del admin: w23e
-INSERT INTO ATJ.Usuarios (Username, Clave, ClaveAutoGenerada, Activo) VALUES ('Admin', '52D77462B24987175C8D7DAB901A5967E927FFC8D0B6E4A234E07A4AEC5E3724', 0, 1)
+BEGIN TRANSACTION
+GO
+INSERT INTO ATJ.Usuarios (Username, Clave, ClaveAutoGenerada, Activo) VALUES ('Admin', '52D77462B24987175C8D7DAB901A5967E927FFC8D0B6E4A234E07A4AEC5E3724', 0, 1);
+COMMIT
 
 --migracion de datos Usuarios de clientes
 --Password general: admin
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.USUARIOS (Username, Clave, ClaveAutoGenerada, Activo)
  (
  SELECT DISTINCT DNI AS USERNAME, '7523C62ABDB7628C5A9DAD8F97D8D8C5C040EDE36535E531A8A3748B6CAE7E00' AS Clave, 1 as ClaveAutoGenerada, 1 as Activo
- from ATJ.Clientes)
+ from ATJ.Clientes);
+COMMIT
 --------------------------------------------------------------------------------------------------------------------
 -- Migracion de datos Usuarios de Empresas
 --Password general: admin
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.USUARIOS (Username, Clave, ClaveAutoGenerada, Activo)
  (
  SELECT DISTINCT Cuit AS USERNAME, '7523C62ABDB7628C5A9DAD8F97D8D8C5C040EDE36535E531A8A3748B6CAE7E00' AS Clave, 1 as ClaveAutoGenerada, 1 as Activo
- from ATJ.Empresas) 
+ from ATJ.Empresas);
+COMMIT 
 -------------------------------------------------------------------------------------------------------------------- 
  -- Agrego los id_Usuario a las tablas Clientes y Empresas
+ BEGIN TRANSACTION
+GO
  UPDATE ATJ.Clientes
-SET id_Usuario = (SELECT id_Usuario FROM ATJ.Usuarios AS "U" WHERE U.Username = CAST(Clientes.Dni AS NVARCHAR(50)))
+SET id_Usuario = (SELECT id_Usuario FROM ATJ.Usuarios AS "U" WHERE U.Username = CAST(Clientes.Dni AS NVARCHAR(50)));
 
 UPDATE ATJ.Empresas 
-SET id_Usuario = (SELECT id_Usuario FROM ATJ.Usuarios AS "U" WHERE U.Username = CAST(Empresas.Cuit AS NVARCHAR(50)))
+SET id_Usuario = (SELECT id_Usuario FROM ATJ.Usuarios AS "U" WHERE U.Username = CAST(Empresas.Cuit AS NVARCHAR(50)));
+commit
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos de tabla Rubros
-INSERT INTO ATJ.Rubros (Descripcion, Activo) (SELECT DISTINCT Publicacion_Rubro_Descripcion, 1 as ACTIVO FROM [gd_esquema].[Maestra] where Publicacion_Rubro_Descripcion is not null)
+BEGIN TRANSACTION
+GO
+INSERT INTO ATJ.Rubros (Descripcion, Activo) (SELECT DISTINCT Publicacion_Rubro_Descripcion, 1 as ACTIVO FROM [gd_esquema].[Maestra] where Publicacion_Rubro_Descripcion is not null);
+COMMIT
  --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos tabla Visibilidades
-SET IDENTITY_INSERT ATJ.Visibilidades ON
+BEGIN TRANSACTION
+GO
+DECLARE @number AS INT;
+SET IDENTITY_INSERT ATJ.Visibilidades ON;
 
 INSERT INTO ATJ.Visibilidades (cod_Visibilidad, Descripcion, Porcentaje, Precio, Duracion)
 (SELECT DISTINCT [Publicacion_Visibilidad_Cod]
@@ -645,35 +666,41 @@ INSERT INTO ATJ.Visibilidades (cod_Visibilidad, Descripcion, Porcentaje, Precio,
 				  FROM gd_esquema.Maestra
 				  WHERE Publicacion_Visibilidad_Cod = [Publicacion_Visibilidad_Cod])
 FROM gd_esquema.Maestra 
-WHERE Publicacion_Visibilidad_Cod is not null)
+WHERE Publicacion_Visibilidad_Cod is not null);
 
-SET IDENTITY_INSERT ATJ.Visibilidades OFF
+SET IDENTITY_INSERT ATJ.Visibilidades OFF;
 
 SELECT @number = MAX(Publicacion_Visibilidad_Cod) FROM gd_esquema.Maestra
 DBCC CHECKIDENT ('ATJ.Visibilidades', RESEED, @number);
-
+COMMIT
  --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos tabla Tipos_Publicacion
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Tipos_Publicacion(Nombre)
-(SELECT DISTINCT Publicacion_tipo FROM [gd_esquema].[Maestra] where Publicacion_Cod is not null)
-
+(SELECT DISTINCT Publicacion_tipo FROM [gd_esquema].[Maestra] where Publicacion_Cod is not null);
+COMMIT
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de Estados_Publicacion
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Estados_Publicacion (Nombre)
 SELECT DISTINCT Publicacion_Estado
-FROM gd_esquema.Maestra where Publicacion_Estado is not null
+FROM gd_esquema.Maestra where Publicacion_Estado is not null;
   
 INSERT INTO ATJ.Estados_Publicacion
 (Nombre)
 VALUES
 ('Borrador'),
 ('Pausada'),
-('Finalizada')
-
+('Finalizada');
+COMMIT
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos tabla Publicaciones
-
-SET IDENTITY_INSERT ATJ.Publicaciones ON
+BEGIN TRANSACTION
+GO
+DECLARE @number AS INT;
+SET IDENTITY_INSERT ATJ.Publicaciones ON;
 
 INSERT INTO ATJ.Publicaciones(Codigo,Descripcion, Fecha_creacion, Fecha_vencimiento, Precio, Stock,id_Tipo, 
 cod_Visibilidad, id_Usuario, id_Estado)
@@ -685,15 +712,18 @@ INNER JOIN ATJ.Tipos_Publicacion as "TP" ON TP.Nombre = M.Publicacion_tipo
 INNER JOIN ATJ.Estados_Publicacion AS "E" ON E.Nombre = 'Finalizada'
 LEFT JOIN ATJ.Usuarios AS "Uempresa" ON Uempresa.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))
 LEFT JOIN ATJ.Usuarios AS "Ucliente" ON Ucliente.Username = CAST(M.Publ_Cli_Dni AS NVARCHAR(50))
-WHERE M.Publicacion_Cod is not null)
+WHERE M.Publicacion_Cod is not null);
 
-SET IDENTITY_INSERT ATJ.Publicaciones OFF
+SET IDENTITY_INSERT ATJ.Publicaciones OFF;
 
 SELECT @number = MAX(Publicacion_Cod) FROM gd_esquema.Maestra
-DBCC CHECKIDENT ('ATJ.Publicaciones', RESEED, @number);
+DBCC CHECKIDENT ('ATJ.Publicaciones', RESEED, @number);;
+commit
 
 --------------------------------------------------------
 --Migracion de Funcionalidades
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Funcionalidades
 (Nombre)
 VALUES
@@ -709,11 +739,13 @@ VALUES
 ('Calificar'),
 ('Facturar'),
 ('Historial_clientes'),
-('Estadisticas')
+('Estadisticas');
+commit
 ---------------------------------------------------
 --Migracion de datos Calificaciones
-
-SET IDENTITY_INSERT ATJ.Calificaciones ON
+BEGIN TRANSACTION
+GO
+SET IDENTITY_INSERT ATJ.Calificaciones ON;
 
 	INSERT INTO ATJ.Calificaciones (cod_Calificacion, cod_Publicacion, id_Usuario_Calificador, Cant_Estrellas, Descripcion) (
 		SELECT [Calificacion_Codigo],
@@ -722,27 +754,36 @@ SET IDENTITY_INSERT ATJ.Calificaciones ON
 		       CAST(ROUND([Calificacion_Cant_Estrellas]/2,0) AS INT),
 		       [Calificacion_Descripcion]
 		FROM gd_esquema.Maestra
-		WHERE [Calificacion_Codigo] IS NOT NULL)
+		WHERE [Calificacion_Codigo] IS NOT NULL);
 		
-	SET IDENTITY_INSERT ATJ.Calificaciones OFF
+	SET IDENTITY_INSERT ATJ.Calificaciones OFF;
 
 	DECLARE @maxIdCalificacion numeric(18,0);
 	SELECT @maxIdCalificacion = MAX(Calificacion_Codigo) FROM gd_esquema.Maestra DBCC CHECKIDENT ('ATJ.Calificaciones', RESEED, @maxIdCalificacion);
+COMMIT
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos de tabla Roles
-INSERT INTO ATJ.Roles(Nombre) VALUES ('Administrativo'),('Cliente'),('Empresa')
+BEGIN TRANSACTION
+GO
+INSERT INTO ATJ.Roles(Nombre) VALUES ('Administrativo'),('Cliente'),('Empresa');
+COMMIT
 
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos de tabla Rubros_Publicacion
+BEGIN TRANSACTION
+GO
 INSERT INTO [ATJ].[Rubros_Publicacion] (id_Rubro, cod_Publicacion) (
 	SELECT DISTINCT
 	(SELECT id_Rubro FROM ATJ.Rubros R WHERE R.Descripcion = Publicacion_Rubro_Descripcion),
 	(SELECT P.Codigo FROM ATJ.Publicaciones P WHERE P.Codigo = Publicacion_Cod)
 	FROM gd_esquema.Maestra
-	WHERE Publicacion_Cod IS NOT NULL)
+	WHERE Publicacion_Cod IS NOT NULL);
+COMMIT
 
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos de tabla Compras
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Compras(cod_Publicacion, id_Usuario_Vendedor, id_Usuario_Comprador, Fecha, Cantidad)
 (select distinct M.Publicacion_Cod, usuario_vende = (CASE WHEN M.Publ_Cli_Dni IS null THEN Uempresa.id_Usuario ELSE Ucliente.id_Usuario END),
 Ucomprador.id_Usuario, M.Compra_Fecha, M.Compra_Cantidad 
@@ -750,9 +791,12 @@ from gd_esquema.Maestra as "M"
 LEFT JOIN ATJ.Usuarios AS "Uempresa" ON Uempresa.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))
 LEFT JOIN ATJ.Usuarios AS "Ucliente" ON Ucliente.Username = CAST(M.Publ_Cli_Dni AS NVARCHAR(50))
 LEFT JOIN ATJ.Usuarios AS "Ucomprador" ON Ucomprador.Username = CAST(M.Cli_Dni AS NVARCHAR(50))
-where Publicacion_Tipo = 'Compra Inmediata' AND Cli_Dni is not null AND Compra_Fecha IS NOT NULL)
+where Publicacion_Tipo = 'Compra Inmediata' AND Cli_Dni is not null AND Compra_Fecha IS NOT NULL);
+COMMIT
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos de tabla Ofertas
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Ofertas(cod_Publicacion, id_Usuario_Vendedor, id_Usuario_Comprador, Fecha, Monto)
 (select distinct M.Publicacion_Cod, usuario_vende = (CASE WHEN M.Publ_Cli_Dni IS null THEN Uempresa.id_Usuario ELSE Ucliente.id_Usuario END),
 Ucomprador.id_Usuario, M.Oferta_Fecha, M.Oferta_Monto
@@ -760,61 +804,68 @@ from gd_esquema.Maestra as "M"
 LEFT JOIN ATJ.Usuarios AS "Uempresa" ON Uempresa.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))
 LEFT JOIN ATJ.Usuarios AS "Ucliente" ON Ucliente.Username = CAST(M.Publ_Cli_Dni AS NVARCHAR(50))
 LEFT JOIN ATJ.Usuarios AS "Ucomprador" ON Ucomprador.Username = CAST(M.Cli_Dni AS NVARCHAR(50))
-where Publicacion_Tipo = 'Subasta' AND Cli_Dni is not nulL AND Oferta_Monto IS not NULL AND Oferta_Fecha IS NOT NULL)
+where Publicacion_Tipo = 'Subasta' AND Cli_Dni is not nulL AND Oferta_Monto IS not NULL AND Oferta_Fecha IS NOT NULL);
 
 UPDATE ATJ.Ofertas  
 SET gano_Subasta = (CASE WHEN Monto = (SELECT MAX(Oferta_Monto) FROM gd_esquema.Maestra AS "M" WHERE M.Publicacion_Cod = Ofertas.cod_Publicacion)
-THEN '1' ELSE '0' END)
+THEN '1' ELSE '0' END);
+COMMIT
 
 --------------------------------------------------------------------------------------------------------------------
 
 --Migracion de datos de tabla Rol_Usuario
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Rol_Usuario 
 (id_Rol, id_Usuario)
 VALUES
-(1, 1)
+(1, 1);
 
 INSERT INTO ATJ.Rol_Usuario
 (id_Usuario,id_Rol)
 SELECT DISTINCT id_Usuario as idU, R.id_Rol as idR 
 FROM ATJ.Usuarios U 
 INNER JOIN gd_esquema.Maestra MCli ON U.Username = CAST(MCli.Publ_Cli_Dni AS NVARCHAR(50))
-LEFT JOIN ATJ.Roles R ON R.Nombre = 'Cliente'
+LEFT JOIN ATJ.Roles R ON R.Nombre = 'Cliente';
 
 INSERT INTO ATJ.Rol_Usuario
 (id_Usuario,id_Rol)
 SELECT DISTINCT id_Usuario as idU, R.id_Rol as idR 
 FROM ATJ.Usuarios U 
 INNER JOIN gd_esquema.Maestra MEmpr ON U.Username = CAST(MEmpr.Publ_Empresa_Cuit AS NVARCHAR(50))
-LEFT JOIN ATJ.Roles R ON R.Nombre = 'Empresa'
+LEFT JOIN ATJ.Roles R ON R.Nombre = 'Empresa';
+COMMIT
 
 --------------------------------------------------------------------------------------------------------------------
 --Migracion de datos tabla rol_Funcionalidad
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Rol_Funcionalidad(id_Rol, id_Funcionalidad)
-SELECT 1, id_Funcionalidad FROM ATJ.Funcionalidades
+SELECT 1, id_Funcionalidad FROM ATJ.Funcionalidades;
 
 INSERT INTO ATJ.Rol_Funcionalidad (id_Rol, id_Funcionalidad)
 SELECT R.id_Rol, F.id_Funcionalidad  
 FROM ATJ.Roles R
 LEFT JOIN ATJ.Funcionalidades F ON F.Nombre 
 In ('Cambiar_Clave','Generar_Publicaciones','Mis_Publicaciones','Comprar_Ofertar','Calificar','Facturar','Historial_clientes','Estadisticas')
-WHERE R.Nombre = 'Cliente'
+WHERE R.Nombre = 'Cliente';
 
 INSERT INTO ATJ.Rol_Funcionalidad (id_Rol, id_Funcionalidad)
 SELECT R.id_Rol, F.id_Funcionalidad  
 FROM ATJ.Roles R
 LEFT JOIN ATJ.Funcionalidades F ON F.Nombre 
 In ('Cambiar_Clave','Mis_Publicaciones','Generar_Publicaciones','Facturar','Historial_clientes', 'Estadisticas')
-WHERE R.Nombre = 'Empresa'
-
+WHERE R.Nombre = 'Empresa';
+COMMIT
 -------------------------------------------------
 
 --Migracion de datos tabla Facturas y Formas de pago
-
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Formas_Pago
-SELECT DISTINCT M.Forma_Pago_Desc FROM gd_esquema.Maestra M where M.Factura_Nro is not null
+SELECT DISTINCT M.Forma_Pago_Desc FROM gd_esquema.Maestra M where M.Factura_Nro is not null;
 
-SET IDENTITY_INSERT ATJ.Facturas ON
+SET IDENTITY_INSERT ATJ.Facturas ON;
 
 INSERT INTO ATJ.Facturas
 (nro_Factura, Fecha, Precio_Total, id_Forma_Pago, id_Usuario)
@@ -823,23 +874,27 @@ FROM gd_esquema.Maestra M
 LEFT JOIN ATJ.Formas_Pago FP ON FP.Descripcion = M.Forma_Pago_Desc
 LEFT JOIN ATJ.Usuarios AS "Uempresa" ON Uempresa.Username = CAST(M.Publ_Empresa_Cuit AS NVARCHAR(50))
 LEFT JOIN ATJ.Usuarios AS "Ucliente" ON Ucliente.Username = CAST(M.Publ_Cli_Dni AS NVARCHAR(50))
-where M.Factura_Nro is not null
+where M.Factura_Nro is not null;
 
-SET IDENTITY_INSERT ATJ.Facturas OFF
-
+SET IDENTITY_INSERT ATJ.Facturas OFF;
+DECLARE @number AS INT;
 SELECT @number = MAX(Factura_Nro) FROM gd_esquema.Maestra
 DBCC CHECKIDENT ('ATJ.Facturas', RESEED, @number);
-
+COMMIT
 -------------------------------------------------
 
 --Migracion de datos tabla Item_Factura
+BEGIN TRANSACTION
+GO
 INSERT INTO ATJ.Item_Factura (nro_Factura, cod_Publicacion, Monto, Cantidad)
 SELECT F.nro_Factura, P.Codigo, M.Item_Factura_Monto, M.Item_Factura_Cantidad
 FROM gd_esquema.Maestra M 
 INNER JOIN ATJ.Facturas F ON F.nro_Factura = M.Factura_Nro
-INNER JOIN ATJ.Publicaciones P ON P.Codigo = M.Publicacion_Cod 
-
+INNER JOIN ATJ.Publicaciones P ON P.Codigo = M.Publicacion_Cod;
+COMMIT
 --Seteo la Reputacion en la Tabla Clientes con los datos ya migrados
+BEGIN TRANSACTION
+GO
 UPDATE ATJ.Clientes	
 SET Reputacion = CAST(
 				(SELECT SUM(C.Cant_Estrellas) 
@@ -851,7 +906,7 @@ SET Reputacion = CAST(
 				FROM ATJ.Calificaciones C
 				INNER JOIN ATJ.Publicaciones P ON C.cod_Publicacion = p.Codigo
 				WHERE p.id_Usuario = Clientes.id_Usuario) 
-				AS NUMERIC(18,2))
+				AS NUMERIC(18,2));
 	
 --Seteo la Reputacion en la Tabla Empresas con los datos ya migrados
 UPDATE ATJ.Empresas 
@@ -865,7 +920,7 @@ SET Reputacion = CAST(
 				FROM ATJ.Calificaciones C
 				INNER JOIN ATJ.Publicaciones P ON C.cod_Publicacion = p.Codigo
 				WHERE p.id_Usuario = Empresas.id_Usuario) 
-				AS NUMERIC(18,2))
+				AS NUMERIC(18,2));
 				
 COMMIT
 
@@ -1910,7 +1965,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVender]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4)
+	@Ano nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  (E.id_Usuario IS NULL AND s.id_Usuario IS null) THEN 'Admin' ELSE
@@ -1920,7 +1975,7 @@ FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @Ano
 AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
 AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario
@@ -1931,7 +1986,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorFacturacion]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4)
+	@AÃ±o nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
@@ -1940,7 +1995,7 @@ FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @AÃ±o
 AND P.id_Usuario IN (SELECT F.id_Usuario FROM ATJ.Facturas F)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY Facturacion DESC
@@ -1950,7 +2005,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCalificacion]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4)
+	@AÃ±o nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
@@ -1960,7 +2015,7 @@ INNER JOIN ATJ.Publicaciones P ON P.Codigo = C.cod_Publicacion
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @AÃ±o
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario 
 ORDER BY PromedioCalificaciones DESC
 GO
@@ -1969,7 +2024,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantDePublicacionesSinCalificar]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4)
+	@AÃ±o nvarchar(4)
 
 AS
 
@@ -1980,7 +2035,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE 
 MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @AÃ±o
 and p.Codigo NOT IN (SELECT cod_Publicacion FROM ATJ.Calificaciones)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY CantPubliSinClasificar DESC
@@ -1990,7 +2045,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVenderConFiltros]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4),
+	@AÃ±o nvarchar(4),
 	@Mes nvarchar(2),
 	@GradoVisibilidad nvarchar(255)
 	
@@ -2004,7 +2059,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 INNER JOIN ATJ.Visibilidades V ON P.cod_Visibilidad = V.cod_Visibilidad
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @AÃ±o
 AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
 AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
 AND V.Descripcion = (CASE WHEN @GradoVisibilidad <> '' THEN @GradoVisibilidad ELSE V.Descripcion END) 
@@ -2157,7 +2212,7 @@ WHERE cod_Publicacion = @cod_Publicacion
 AND  gano_Subasta = 1
 GO
 COMMIT
-
+GO
 
 CREATE TRIGGER UpdateReputacion
    ON  ATJ.Calificaciones
