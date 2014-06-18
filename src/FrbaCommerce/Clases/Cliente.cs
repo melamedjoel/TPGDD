@@ -236,17 +236,22 @@ namespace Clases
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             setearListaDeParametrosConIdRol();            
-            DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
-            if (ds.Tables[0].Rows.Count == 0)
+            DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
+            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
+            if ((ds1.Tables[0].Rows.Count == 0) & (ds2.Tables[0].Rows.Count == 0))
             {
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // solo si el ds esta vacio se inserta el usuarioDefault y el cliente en la BD
+                // y otro que me trae los clientes where dni = DniIngresado
+                // solo si los dos ds estan vacios se inserta el usuarioDefault y el cliente en la BD
                 this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
                 setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);
                 this.Guardar(parameterList);
             }
             else
-                throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
+            {
+                if (ds1.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
+                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
+            }
             parameterList.Clear();
         }
         public void guardarDatosDeClienteNuevoRegistrado(int id_usuario)
@@ -255,17 +260,21 @@ namespace Clases
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             setearListaDeParametrosConIdRol();
-            
-            DataSet ds = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
-            if (ds.Tables[0].Rows.Count == 0)
+            DataSet ds1 = SQLHelper.ExecuteDataSet("validarTelefonoEnCliente", CommandType.StoredProcedure, parameterList);
+            DataSet ds2 = SQLHelper.ExecuteDataSet("validarDniEnCliente", CommandType.StoredProcedure, parameterList);
+            if ((ds1.Tables[0].Rows.Count == 0) & (ds2.Tables[0].Rows.Count == 0))
             {
                 // se ejecuto un procedure que me traia los clientes where telefono = telfonoIngresado
-                // solo si el ds esta vacio se inserta el cliente en la BD
+                // y otro que me trae los clientes where dni = DniIngresado
+                // solo si los dos ds estan vacios se inserta el cliente en la BD
                 setearListaDeParametrosConIdUsuario(id_usuario);
                 this.Guardar(parameterList);
             }
             else
-                throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
+            {
+                if (ds1.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este telefono. Por favor, ingrese otro.");
+                if (ds2.Tables[0].Rows.Count != 0) throw new Exception("Ya existe un Cliente con este Dni. Por favor, ingrese otro.");
+            }
             parameterList.Clear();
         }
         
