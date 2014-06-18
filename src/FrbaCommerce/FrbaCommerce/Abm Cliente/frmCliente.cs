@@ -82,7 +82,6 @@ namespace FrbaCommerce.Abm_Cliente
             frmPadre = frmEnviador;
             clienteDelForm = unCliente;
             this.Show();
-            //ya se que repite mucho codigo, lo voy a arreglar!!!!!!!!
 
             txtApellido.Text = unCliente.Apellido;
             txtCalle.Text = unCliente.Dom_calle;

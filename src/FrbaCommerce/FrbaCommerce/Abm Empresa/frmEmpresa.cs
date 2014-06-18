@@ -76,7 +76,6 @@ namespace FrbaCommerce.Abm_Empresa
             frmPadre = frmEnviador;
             empresaDelForm = unaEmpresa;
             this.Show();
-            //ya se que repite mucho codigo, lo voy a arreglar!!!!!!!!
 
             txtRazonSocial.Text = unaEmpresa.Razon_social;
             txtCuit.Text = unaEmpresa.Cuit;
