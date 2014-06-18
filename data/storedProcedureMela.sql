@@ -1,6 +1,3 @@
-USE GD1C2014;
-GO
-
 --Procedure traerUsuarioPorUsernameYClave
 CREATE PROCEDURE ATJ.traerUsuarioPorUsernameYClave 
     @Username nvarchar(255), 

@@ -300,4 +300,5 @@ SELECT *
 FROM ATJ.Ofertas
 WHERE cod_Publicacion = @cod_Publicacion
 AND  gano_Subasta = 1
+GO
 

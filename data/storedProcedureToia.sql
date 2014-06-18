@@ -1,6 +1,3 @@
-USE GD1C2014;
-GO
-
 --Procedure traerListadoEmpresas 
 CREATE PROCEDURE ATJ.traerListadoEmpresas
     
