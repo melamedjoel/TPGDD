@@ -212,6 +212,7 @@ GO
 CREATE TABLE ATJ.Preguntas
 	(
 	id_Pregunta int NOT NULL IDENTITY (1, 1),
+	id_Usuario int NOT NULL,
 	Pregunta nvarchar(255) NULL,
 	Respuesta nvarchar(255) NULL,
 	cod_Publicacion numeric(18, 0) NOT NULL,
@@ -521,6 +522,11 @@ GO
 	REFERENCES [ATJ].[Publicaciones] (Codigo);
 	GO
 	
+	ALTER TABLE [ATJ].[Preguntas]
+	ADD FOREIGN KEY ([id_Usuario])
+	REFERENCES [ATJ].[Usuarios] (id_Usuario);
+	GO
+	
 	ALTER TABLE [ATJ].[Publicaciones]
 	ADD FOREIGN KEY ([id_Tipo])
 	REFERENCES [ATJ].[Tipos_Publicacion] (id_Tipo);
@@ -570,6 +576,7 @@ GO
 	ADD FOREIGN KEY ([id_Usuario])
 	REFERENCES [ATJ].[Usuarios] (id_Usuario);
 	GO
+		
 COMMIT
 
 -- Migracion de datos
@@ -1268,12 +1275,13 @@ GO
 --Procedure insertPregunta_RetornarID
 CREATE PROCEDURE ATJ.insertPregunta_RetornarID
 	@txtPregunta nvarchar(255),
+	@id_Usuario int,
 	@cod_Publicacion numeric(18,0)
 AS
 	INSERT INTO ATJ.Preguntas
-	(Pregunta, cod_Publicacion)
+	(Pregunta, id_Usuario,cod_Publicacion)
 	VALUES 
-	(@txtPregunta, @cod_Publicacion)
+	(@txtPregunta, @id_Usuario,@cod_Publicacion)
 	
 	SELECT @@IDENTITY AS id_Pregunta;
 GO
@@ -1965,7 +1973,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVender]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Ano nvarchar(4)
+	@Anio nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  (E.id_Usuario IS NULL AND s.id_Usuario IS null) THEN 'Admin' ELSE
@@ -1975,7 +1983,7 @@ FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Ano
+AND YEAR(P.Fecha_creacion) = @Anio
 AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
 AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario
@@ -1986,7 +1994,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorFacturacion]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4)
+	@Anio nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
@@ -1995,7 +2003,7 @@ FROM ATJ.Publicaciones P
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @Anio
 AND P.id_Usuario IN (SELECT F.id_Usuario FROM ATJ.Facturas F)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY Facturacion DESC
@@ -2005,7 +2013,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCalificacion]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4)
+	@Anio nvarchar(4)
 AS
 
 SELECT TOP 5 Vendedor = (CASE WHEN  E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
@@ -2015,7 +2023,7 @@ INNER JOIN ATJ.Publicaciones P ON P.Codigo = C.cod_Publicacion
 LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @Anio
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario 
 ORDER BY PromedioCalificaciones DESC
 GO
@@ -2024,7 +2032,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantDePublicacionesSinCalificar]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4)
+	@Anio nvarchar(4)
 
 AS
 
@@ -2035,7 +2043,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE 
 MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @Anio
 and p.Codigo NOT IN (SELECT cod_Publicacion FROM ATJ.Calificaciones)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social
 ORDER BY CantPubliSinClasificar DESC
@@ -2045,7 +2053,7 @@ GO
 CREATE PROCEDURE [ATJ].[traerListadoUsuariosConMayorCantidadDeProductosSinVenderConFiltros]
 	@Fecha_Hasta datetime,
 	@Fecha_Desde datetime,
-	@Año nvarchar(4),
+	@Anio nvarchar(4),
 	@Mes nvarchar(2),
 	@GradoVisibilidad nvarchar(255)
 	
@@ -2059,7 +2067,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 INNER JOIN ATJ.Visibilidades V ON P.cod_Visibilidad = V.cod_Visibilidad
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
-AND YEAR(P.Fecha_creacion) = @Año
+AND YEAR(P.Fecha_creacion) = @Anio
 AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
 AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
 AND V.Descripcion = (CASE WHEN @GradoVisibilidad <> '' THEN @GradoVisibilidad ELSE V.Descripcion END) 

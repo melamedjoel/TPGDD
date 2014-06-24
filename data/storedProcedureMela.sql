@@ -340,12 +340,13 @@ GO
 --Procedure insertPregunta_RetornarID
 CREATE PROCEDURE ATJ.insertPregunta_RetornarID
 	@txtPregunta nvarchar(255),
+	@id_Usuario int,
 	@cod_Publicacion numeric(18,0)
 AS
 	INSERT INTO ATJ.Preguntas
-	(Pregunta, cod_Publicacion)
+	(Pregunta, id_Usuario,cod_Publicacion)
 	VALUES 
-	(@txtPregunta, @cod_Publicacion)
+	(@txtPregunta, @id_Usuario,@cod_Publicacion)
 	
 	SELECT @@IDENTITY AS id_Pregunta;
 GO

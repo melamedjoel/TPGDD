@@ -179,7 +179,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
                 Pregunta unaPregunta = new Pregunta(pregunta, publicDelForm);
 
-                unaPregunta.GuardarPregunta();
+                unaPregunta.GuardarPregunta(unUsuario);
                 DialogResult dr = MessageBox.Show("La pregunta ha sido realizada", "Perfecto!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (dr == DialogResult.OK)
                 {

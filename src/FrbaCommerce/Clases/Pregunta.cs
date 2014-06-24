@@ -100,9 +100,9 @@ namespace Clases
             this.Publicacion = new Publicacion(Convert.ToInt32(dr["cod_Publicacion"]));
         }
 
-        public void GuardarPregunta()
+        public void GuardarPregunta(Usuario unUsuario)
         {
-            setearListaDeParametrosConPreguntaYPublicacion();
+            setearListaDeParametrosConPreguntaYPublicacionYUsuario(unUsuario);
             DataSet dsNuevaPreg = this.GuardarYObtenerID(parameterList);
             parameterList.Clear();
 
@@ -152,9 +152,10 @@ namespace Clases
         #endregion
 
         #region metodos privados
-        private void setearListaDeParametrosConPreguntaYPublicacion()
+        private void setearListaDeParametrosConPreguntaYPublicacionYUsuario(Usuario unUsuario)
         {
             parameterList.Add(new SqlParameter("@txtPregunta", texto_Pregunta));
+            parameterList.Add(new SqlParameter("@id_Usuario", unUsuario.Id_Usuario)); 
             parameterList.Add(new SqlParameter("@cod_Publicacion", Publicacion.Codigo));    
         }
 

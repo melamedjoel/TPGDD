@@ -58,7 +58,14 @@ namespace FrbaCommerce.Gestion_de_Preguntas
                 //se obtiene el DataSet de las preguntas con respuestas según la publicación seleccionada (por eso se 
                 //envía el código de publicación y según el usuario)
                 DataSet ds = Pregunta.obtenerPreguntasConRespuestas(cod_P, unUsuario);
-                configurarGrillaPreguntasYRespuestas(ds);
+
+                if (ds.Tables[0].Rows.Count != 0)
+                {
+                    configurarGrillaPreguntasYRespuestas(ds);
+                }
+
+                MessageBox.Show("No ha realizado ninguna respuesta para esta publicación", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
 
             catch (ErrorConsultaException ex)
@@ -174,7 +181,14 @@ namespace FrbaCommerce.Gestion_de_Preguntas
             {
                 //se obtiene el data set y se configura la grilla
                 DataSet ds = Pregunta.obtenerPreguntasSinRespuestas(codP, unUsuario);
-                configurarGrillaPreguntasYRespuestas(ds);
+
+                if (ds.Tables[0].Rows.Count != 0)
+                {
+                    configurarGrillaPreguntasYRespuestas(ds);
+                }
+
+                MessageBox.Show("No tiene ninguna pregunta pendiente a responder", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
 
             catch (ErrorConsultaException ex)

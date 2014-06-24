@@ -18,6 +18,7 @@ DROP PROCEDURE ATJ.insertItem_Factura;
 DROP PROCEDURE ATJ.traerListadoItems_FacturaPorNroFactura;
 DROP PROCEDURE ATJ.traerListadoComprasPorCodigoPubli;
 DROP PROCEDURE ATJ.traerListadoOfertasPorCodigoPubli
+DROP PROCEDURE ATJ.updatePregunta
 
 
 

@@ -321,14 +321,14 @@ namespace Clases
         {
             parameterList.Add(new SqlParameter("@Fecha_Hasta", Fecha_Hasta));
             parameterList.Add(new SqlParameter("@Fecha_Desde", Fecha_Desde));
-            parameterList.Add(new SqlParameter("@Año", Año));
+            parameterList.Add(new SqlParameter("@Anio", Año));
         }
 
         private void setearListaDeParametrosConTrimestreAñoMesVisibilidad(DateTime Fecha_Hasta, DateTime Fecha_Desde, string Año,string Mes, string GradoVisibilidad)
         {
             parameterList.Add(new SqlParameter("@Fecha_Hasta", Fecha_Hasta));
             parameterList.Add(new SqlParameter("@Fecha_Desde", Fecha_Desde));
-            parameterList.Add(new SqlParameter("@Año", Año));
+            parameterList.Add(new SqlParameter("@Anio", Año));
             parameterList.Add(new SqlParameter("@Mes", Mes));
             parameterList.Add(new SqlParameter("@GradoVisibilidad", GradoVisibilidad));
         }
