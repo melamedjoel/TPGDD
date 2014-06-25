@@ -219,13 +219,24 @@ namespace Clases
        
         public void guardarDatosDeEmpresaNueva()
         {
-            this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
-            setearListaDeParametros();
-            setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);
+            
+            setearListaDeParametros();            
             //Guardo tambien en la lista de parametros el id_rol (variable privada de la clase)
             //Para que tambien se inserte la relacio id_rol id_usuario en la BD
             setearListaDeParametrosConIdRol();
-            this.Guardar(parameterList);            
+            DataSet ds = SQLHelper.ExecuteDataSet("validarCuitEnEmpresa", CommandType.StoredProcedure, parameterList);
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                // se ejecuto un procedure que me trae las empresas where Cuit = Cuit Ingresado
+                // solo si esta vacio se inserta el usuarioDefault y la empresa en la BD
+                this.Usuario.Id_Usuario = this.Usuario.GuardarYObtenerID();
+                setearListaDeParametrosConIdUsuario(this.Usuario.Id_Usuario);
+                this.Guardar(parameterList);  
+            }
+            else
+            {
+                throw new Exception("Ya existe una Empresa con este Cuit. Por favor, ingrese otro.");         
+            }
             parameterList.Clear();
         }
         public void guardarDatosDeEmpresaNuevaRegistrada(int id_Usuario)
@@ -237,19 +248,35 @@ namespace Clases
             // el id_Usuario que estoy pasando como parametro es el id del usuario recientemente
             // registrado.
             setearListaDeParametrosConIdUsuario(id_Usuario);
-            this.Guardar(parameterList);
+            DataSet ds = SQLHelper.ExecuteDataSet("validarCuitEnEmpresa", CommandType.StoredProcedure, parameterList);
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                this.Guardar(parameterList);
+            }
+            else
+            {
+                throw new Exception("Ya existe una Empresa con este Cuit. Por favor, ingrese otro.");
+            }
             parameterList.Clear();
         }
         public void ModificarDatos()
         {
             parameterList.Clear();
             setearListaDeParametrosConIdEmpresa();
-            setearListaDeParametros();            
-            if (this.Modificar(parameterList))
+            setearListaDeParametros();
+            DataSet ds = SQLHelper.ExecuteDataSet("validarCuitEnEmpresa", CommandType.StoredProcedure, parameterList);
+            if (ds.Tables[0].Rows.Count == 0)
             {
-                parameterList.Clear();
+                if (this.Modificar(parameterList))
+                {
+                    parameterList.Clear();
+                }
             }
-           
+            else
+            {
+                throw new Exception("Ya existe una Empresa con este Cuit. Por favor, ingrese otro.");
+            }
+            parameterList.Clear();           
         }
         public void Eliminar()
         {

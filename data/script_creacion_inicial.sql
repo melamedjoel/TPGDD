@@ -1895,7 +1895,7 @@ AS
 	SELECT * FROM ATJ.Clientes 
 	WHERE Telefono = @Telefono
 	AND (id_Cliente <> @id_Cliente OR @id_Cliente is null)
-	AND (id_Usuario <> @id_Cliente OR @id_Usuario is null)
+	AND (id_Usuario <> @id_Usuario OR @id_Usuario is null)
 GO
 
 --Procedure validarDniEnCliente
@@ -1923,7 +1923,33 @@ AS
 	SELECT * FROM ATJ.Clientes 
 	WHERE Dni = @Dni
 	AND (id_Cliente <> @id_Cliente OR @id_Cliente is null)
-	AND (id_Usuario <> @id_Cliente OR @id_Usuario is null)
+	AND (id_Usuario <> @id_Usuario OR @id_Usuario is null)
+	
+GO
+
+--Procedure validarCuitEnEmpresa
+CREATE PROCEDURE ATJ.validarCuitEnEmpresa
+	@Razon_social nvarchar(255) =null,
+	@Cuit nvarchar(50) =null,
+	@Mail nvarchar(50) =null,
+	@Fecha_creacion datetime =null,
+	@Telefono nvarchar(255) =null,
+	@Dom_calle nvarchar(100) =null,
+	@Dom_nro_calle numeric(18,0) =null,
+	@Dom_piso numeric(18,0) =null,
+	@Dom_depto nvarchar(50) =null,
+	@Dom_cod_postal nvarchar(50) =null,
+	@Dom_ciudad nvarchar(255) =null,
+	@Nombre_contacto nvarchar(255) =null,
+	@Activo bit,
+	@id_Rol int =null,
+	@id_Usuario int =null,
+	@id_empresa int =null	
+AS
+	SELECT * FROM ATJ.Empresas
+	WHERE Cuit = @Cuit
+	AND (id_Empresa <> @id_empresa OR @id_empresa is null)
+	AND (id_Usuario <> @id_Usuario OR @id_Usuario is null)
 	
 GO
 

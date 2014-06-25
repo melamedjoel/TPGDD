@@ -23,3 +23,4 @@ DROP PROCEDURE ATJ.insertCalificacion;
 DROP PROCEDURE ATJ.validarTelefonoEnCliente;
 DROP PROCEDURE ATJ.validarDniEnCliente;
 DROP PROCEDURE ATJ.validarUsernameEnUsuario;
+DROP PROCEDURE ATJ.validarCuitEnEmpresa;
