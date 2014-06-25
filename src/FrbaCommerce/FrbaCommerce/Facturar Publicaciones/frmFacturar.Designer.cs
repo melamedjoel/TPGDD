@@ -65,7 +65,7 @@
             // cmbFormaDePago
             // 
             this.cmbFormaDePago.FormattingEnabled = true;
-            this.cmbFormaDePago.Location = new System.Drawing.Point(589, 139);
+            this.cmbFormaDePago.Location = new System.Drawing.Point(767, 115);
             this.cmbFormaDePago.Name = "cmbFormaDePago";
             this.cmbFormaDePago.Size = new System.Drawing.Size(140, 23);
             this.cmbFormaDePago.TabIndex = 34;
@@ -75,7 +75,7 @@
             // 
             this.lblFormaPago.AutoSize = true;
             this.lblFormaPago.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFormaPago.Location = new System.Drawing.Point(586, 121);
+            this.lblFormaPago.Location = new System.Drawing.Point(586, 118);
             this.lblFormaPago.Name = "lblFormaPago";
             this.lblFormaPago.Size = new System.Drawing.Size(175, 15);
             this.lblFormaPago.TabIndex = 35;
@@ -86,7 +86,7 @@
             this.btnFacturar.BackColor = System.Drawing.Color.PowderBlue;
             this.btnFacturar.FlatAppearance.BorderColor = System.Drawing.Color.PowderBlue;
             this.btnFacturar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFacturar.Location = new System.Drawing.Point(589, 427);
+            this.btnFacturar.Location = new System.Drawing.Point(589, 446);
             this.btnFacturar.Name = "btnFacturar";
             this.btnFacturar.Size = new System.Drawing.Size(87, 27);
             this.btnFacturar.TabIndex = 36;
@@ -101,12 +101,12 @@
             this.dtgPublicacionesARendir.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgPublicacionesARendir.Location = new System.Drawing.Point(29, 62);
             this.dtgPublicacionesARendir.Name = "dtgPublicacionesARendir";
-            this.dtgPublicacionesARendir.Size = new System.Drawing.Size(535, 392);
+            this.dtgPublicacionesARendir.Size = new System.Drawing.Size(535, 411);
             this.dtgPublicacionesARendir.TabIndex = 37;
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(589, 80);
+            this.txtCantidad.Location = new System.Drawing.Point(871, 59);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(52, 23);
             this.txtCantidad.TabIndex = 38;
@@ -136,9 +136,9 @@
             this.grpTarjeta.Controls.Add(this.lblTarjeta);
             this.grpTarjeta.Controls.Add(this.lblNroTarj);
             this.grpTarjeta.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpTarjeta.Location = new System.Drawing.Point(589, 179);
+            this.grpTarjeta.Location = new System.Drawing.Point(589, 181);
             this.grpTarjeta.Name = "grpTarjeta";
-            this.grpTarjeta.Size = new System.Drawing.Size(410, 233);
+            this.grpTarjeta.Size = new System.Drawing.Size(431, 233);
             this.grpTarjeta.TabIndex = 40;
             this.grpTarjeta.TabStop = false;
             this.grpTarjeta.Text = "Datos de la Tarjeta";
@@ -213,16 +213,16 @@
             // 
             // txtTitular
             // 
-            this.txtTitular.Location = new System.Drawing.Point(63, 92);
+            this.txtTitular.Location = new System.Drawing.Point(65, 90);
             this.txtTitular.Name = "txtTitular";
             this.txtTitular.Size = new System.Drawing.Size(100, 23);
             this.txtTitular.TabIndex = 8;
             // 
             // cmbFecha
             // 
-            this.cmbFecha.Location = new System.Drawing.Point(149, 124);
+            this.cmbFecha.Location = new System.Drawing.Point(151, 124);
             this.cmbFecha.Name = "cmbFecha";
-            this.cmbFecha.Size = new System.Drawing.Size(255, 23);
+            this.cmbFecha.Size = new System.Drawing.Size(261, 23);
             this.cmbFecha.TabIndex = 9;
             // 
             // txtDni
@@ -236,7 +236,7 @@
             // 
             this.txtCodigo.Location = new System.Drawing.Point(141, 198);
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(100, 23);
+            this.txtCodigo.Size = new System.Drawing.Size(66, 23);
             this.txtCodigo.TabIndex = 11;
             // 
             // frmFacturar
@@ -244,7 +244,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.GhostWhite;
-            this.ClientSize = new System.Drawing.Size(1011, 466);
+            this.ClientSize = new System.Drawing.Size(1032, 496);
             this.Controls.Add(this.grpTarjeta);
             this.Controls.Add(this.lblCantidad);
             this.Controls.Add(this.txtCantidad);

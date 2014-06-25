@@ -30,11 +30,13 @@ namespace FrbaCommerce.Facturar_Publicaciones
         }
 
         private void frmFacturar_Load(object sender, EventArgs e)
-        {  
+        {
+            grpTarjeta.Visible = false;
             //cargo el Combo Box correspondiente a forma de pago con todas las descripciones posibles de la tabla
             DataSet ds = Forma_Pago.obtengoTodas(); 
             DropDownListManager.CargarCombo(cmbFormaDePago, ds.Tables[0], "id_Forma_Pago", "Descripcion", false, "");
             cargarListadoDePublicacionesAFacturar();
+            grpTarjeta.Visible = false;
         }
 
         public frmFacturar()
@@ -117,6 +119,11 @@ namespace FrbaCommerce.Facturar_Publicaciones
             try
             {
                 ValidarCampos();
+                if (grpTarjeta.Visible == true) ValidarCamposTarjeta();
+                if (listaDePublicacionesARendir.Count < Convert.ToInt32(txtCantidad.Text))
+                {
+
+                }
                 facturarPublicaciones();
             }
 
@@ -132,6 +139,34 @@ namespace FrbaCommerce.Facturar_Publicaciones
             string strErrores = "";
             strErrores += Validator.SoloNumeros(txtCantidad.Text, "Cantidad");
             strErrores += Validator.ValidarNulo(txtCantidad.Text, "Cantidad");
+
+            strErrores += Validator.ValidarCantidadMenor(txtCantidad.Text, listaDePublicacionesAFacturar.Count, "Cantidad");
+           
+            if (strErrores.Length > 0)
+            {
+                throw new Exception(strErrores);
+            } 
+        }
+
+        private void ValidarCamposTarjeta()
+        {
+            string strErrores = "";
+            strErrores += Validator.SoloNumeros(txtNroTarj.Text, "Número de tarjeta");
+            strErrores += Validator.ValidarNulo(txtNroTarj.Text, "Número de tarjeta");
+
+            strErrores += Validator.ValidarNulo(txtTarjeta.Text, "Tarjeta");
+
+            strErrores += Validator.ValidarNulo(txtTarjeta.Text, "Titular");
+
+            DateTime fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
+            strErrores += Validator.ValidarFechaVencimiento(cmbFecha.Text, "Fecha de Vencimiento",fecha);
+
+            strErrores += Validator.SoloNumeros(txtDni.Text, "DNI");
+            strErrores += Validator.ValidarNulo(txtDni.Text, "DNI");
+
+            strErrores += Validator.SoloNumeros(txtCodigo.Text, "Código de Seguridad");
+            strErrores += Validator.ValidarNulo(txtCodigo.Text, "Código de Seguridad");
+
             if (strErrores.Length > 0)
             {
                 throw new Exception(strErrores);
@@ -189,7 +224,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                     itFact.Cantidad = unaCompra.Cantidad;
                     //el monto del item (comisión) corresponde al precio de esa publicación por el porcentaje
                     //visibilidad por la cantidad de compras que se hicieron
-                    itFact.Monto = (unaPubli.Precio * unaPubli.Visibilidad.Porcentaje) * unaCompra.Cantidad;
+                    itFact.Monto = (unaPubli.Precio * unaPubli.Visibilidad.Porcentaje/100) * unaCompra.Cantidad;
 
                     listaDeItemsPorFactura.Add(itFact);
                 }
@@ -211,7 +246,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                     itFact.Publicacion = unaPubli;
                     itFact.Cantidad = 1;
                     //el monto del item (comisión) corresponde al precio de esa publicación por el porcentaje de visibilidad
-                    itFact.Monto = (unaOferta.Monto * unaPubli.Visibilidad.Porcentaje);
+                    itFact.Monto = (unaOferta.Monto * unaPubli.Visibilidad.Porcentaje/100);
 
                     listaDeItemsPorFactura.Add(itFact);
                 }
@@ -236,7 +271,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
             {    
                 //se crea y arma la factura
                 Factura factura = new Factura();
-                factura.Fecha = DateTime.Now;
+                factura.Fecha = Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]);
                 //la forma de pago de la factura es de acuerdo a lo que el usuario seleccionó en el combo Box
                 factura.Forma_Pago = Forma_Pago.obtenerPorId(cmbFormaDePago.SelectedIndex + 1);
                 factura.id_Usuario = unUsuario;
@@ -268,19 +303,21 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         private void cmbFormaDePago_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbFormaDePago.SelectedIndex != 0)
+            if (cmbFormaDePago.SelectedIndex == 0)
+            {
+                grpTarjeta.Visible = false;
+                txtCodigo.Text = "";
+                txtDni.Text = "";
+                txtNroTarj.Text = "";
+                txtTarjeta.Text = "";
+                txtTitular.Text = "";
+            }
+            else
             {
                 grpTarjeta.Visible = true;
             }
-
-            grpTarjeta.Visible = false;
-            txtCodigo.Text = "";
-            txtDni.Text = "";
-            txtNroTarj.Text = "";
-            txtTarjeta.Text = "";
-            txtTitular.Text = "";
+          
         }
-
         
     }
 }

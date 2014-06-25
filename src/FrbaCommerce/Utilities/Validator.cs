@@ -13,7 +13,7 @@ namespace Utilities
 
             if (strError.Length == 0 && !EsNumero(textoAValidar))
             {
-                strError += "El campo " + nombreCampo + " tiene caracteres invalidos\n";
+                strError += "El campo " + nombreCampo + " tiene caracteres inválidos\n";
             }
             return strError;
         }
@@ -24,7 +24,7 @@ namespace Utilities
 
             if (strError.Length == 0 && !EsDecimal(textoAValidar))
             {
-                strError += "El campo " + nombreCampo + " tiene caracteres invalidos\n";
+                strError += "El campo " + nombreCampo + " tiene caracteres inválidos\n";
             }
             return strError;
         }
@@ -74,6 +74,22 @@ namespace Utilities
             
         }
 
+        public static string ValidarFechaVencimiento(string fecha, string nombreCampo, DateTime fechaHoy)
+        {
+            DateTime unaFecha = Convert.ToDateTime(fecha);
+            if (unaFecha < fechaHoy)
+                return "Tiene que ingresar una fecha válida, para el campo " + nombreCampo + "\n";
+            return string.Empty;
+        }
+
+        public static string ValidarCantidadMenor(string cant, int cantPublis, string nombreCampo)
+        {
+            int cantidad = Convert.ToInt32(cant);
+            if (cantidad > cantPublis)
+                return "No posee tantas publicaciones para rendir. Tiene que ingresar una cantidad válida, para el campo " + nombreCampo + "\n";
+            return string.Empty;
+        }
+
         public static string SoloNumerosPeroOpcional(string textoAValidar, string nombreCampo)
         {
             string strError = "";
@@ -81,7 +97,7 @@ namespace Utilities
                 return strError;
             if (!EsNumero(textoAValidar))
             {
-                strError += "El campo " + nombreCampo + " tiene caracteres invalidos\n";
+                strError += "El campo " + nombreCampo + " tiene caracteres inválidos\n";
             }
             return strError;
         }
