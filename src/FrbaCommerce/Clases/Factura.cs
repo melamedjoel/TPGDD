@@ -132,6 +132,12 @@ namespace Clases
             parameterList.Add(new SqlParameter("@Precio_Total", this.Precio_Total));
             parameterList.Add(new SqlParameter("@id_Forma_Pago", this.Forma_Pago.id_Forma_Pago));
             parameterList.Add(new SqlParameter("@id_Usuario", this.id_Usuario.Id_Usuario));
+            parameterList.Add(new SqlParameter("@Tarjeta", this.Tarjeta));
+            parameterList.Add(new SqlParameter("@Nro_Tarjeta", this.Nro_Tarjeta));
+            parameterList.Add(new SqlParameter("@Titular", this.Titular));
+            parameterList.Add(new SqlParameter("@Fecha_Vencimiento", this.Fecha_Vencimiento));
+            parameterList.Add(new SqlParameter("@Dni", this.Dni));
+            parameterList.Add(new SqlParameter("@Codigo_seg", this.Codigo_seg));
         }
 
         #endregion
