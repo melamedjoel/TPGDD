@@ -964,6 +964,13 @@ AS
     WHERE Username = @Username
 GO
 
+--Procedure traerMayorOfertaPorCodPublicacion
+CREATE PROCEDURE ATJ.traerMayorOfertaPorCodPublicacion
+	@cod_Publicacion numeric(18,0)
+AS	
+	SELECT MAX(Monto) AS maxOferta FROM ATJ.Ofertas where cod_Publicacion = @cod_Publicacion
+GO
+
 --Procedure traerListadoRolesPorId_Usuario
 CREATE PROCEDURE [ATJ].[traerListadoRolesPorId_Usuario] 
     @id_Usuario numeric(18,0) 

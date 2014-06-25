@@ -20,7 +20,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         Usuario unUsuario = new Usuario();
         Dictionary<int, Publicacion> publicaciones = new Dictionary<int, Publicacion>();
         List<Publicacion> listaDePubs = new List<Publicacion>();
-        private int paginado =0;
+        public int paginado =0;
         public frmVerPublicaciones()
         {
             InitializeComponent();
@@ -37,6 +37,7 @@ namespace FrbaCommerce.Comprar_Ofertar
             try
             {
                 DataSet ds = Publicacion.obtenerTodas(Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]));
+                paginado = 0;
                 llenarPublicaciones(ds);
                 configurarGrilla();
                 btnAnterior.Visible = false;
@@ -85,7 +86,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                 Creacion = unaPub.Fecha_creacion,
                 Vencimiento = unaPub.Fecha_vencimiento,
                 Stock = unaPub.Stock,
-                Precio = unaPub.Precio,
+                Precio = unaPub.obtenerPrecioSegunTipo(),
                 Preguntas = unaPub.Permiso_Preguntas,
                 Tipo = unaPub.Tipo_Publicacion.Nombre,
                 Visibilidad = unaPub.Visibilidad.Descripcion,

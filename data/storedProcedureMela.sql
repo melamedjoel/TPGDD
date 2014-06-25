@@ -518,3 +518,9 @@ AS
 	INNER JOIN ATJ.Visibilidades V ON V.cod_Visibilidad = P.cod_Visibilidad
 	WHERE V.Descripcion = 'Gratis' AND P.id_Usuario = @id_Usuario
 GO
+
+CREATE PROCEDURE ATJ.traerMayorOfertaPorCodPublicacion
+	@cod_Publicacion numeric(18,0)
+AS	
+	SELECT MAX(Monto) AS maxOferta FROM ATJ.Ofertas where cod_Publicacion = @cod_Publicacion
+GO

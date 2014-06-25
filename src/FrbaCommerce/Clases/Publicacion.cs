@@ -295,6 +295,30 @@ namespace Clases
             return ds;
         }
 
+        public decimal obtenerPrecioSegunTipo()
+        {
+            if (Tipo_Publicacion.Nombre == "Subasta")
+            {
+                return obtenerMayorOferta();
+            }
+
+            return Precio;
+
+        }
+
+        public decimal obtenerMayorOferta()
+        {
+            setearListaDeParametrosConCodigoPublic(Codigo);
+            DataSet ds = SQLHelper.ExecuteDataSet("traerMayorOfertaPorCodPublicacion", CommandType.StoredProcedure, parameterList);
+            parameterList.Clear();
+            if (ds.Tables[0].Rows.Count == 1)
+            {
+                return Convert.ToDecimal(ds.Tables[0].Rows[0]["maxOferta"]);
+            }
+
+            return Precio;
+        }
+
 
         #endregion
 
@@ -369,5 +393,6 @@ namespace Clases
         }
 
         #endregion
+
     }
 }

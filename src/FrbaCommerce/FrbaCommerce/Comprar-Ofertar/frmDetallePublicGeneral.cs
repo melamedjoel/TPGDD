@@ -36,7 +36,7 @@ namespace FrbaCommerce.Comprar_Ofertar
             lblStockACompletar.Text = unaPublic.Stock.ToString();
             lblUsuarioACompletar.Text = unaPublic.Usuario.Username;
             lblTipoACompletar.Text = unaPublic.Tipo_Publicacion.Nombre;
-            lblPrecioACompletar.Text = unaPublic.Precio.ToString();
+            lblPrecioACompletar.Text = unaPublic.obtenerPrecioSegunTipo().ToString();
             //valido que pueda comprar u ofertar
             if (puedeComprarUOfertar())
             {
@@ -130,6 +130,8 @@ namespace FrbaCommerce.Comprar_Ofertar
                             Oferta nuevaOferta = new Oferta(Convert.ToDecimal(montoOfertado), Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]) ,publicDelForm, unUsuario);
                             nuevaOferta.guardarNuevaOferta();
                             MessageBox.Show("La oferta ha sido realizada", "Oferta realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            frmPadre.CargarListadoDePublicaciones();
+                            this.Close();
                         }
                     }
                 }
@@ -145,7 +147,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         private string ValidarMontoOfertado(string montoOfertado)
         {
             string strErrores = "";
-            strErrores += (publicDelForm.Precio >= Convert.ToDecimal(montoOfertado)) ? "No se puede realizar esta acción dado que el precio de la subasta es mayor al ingresado" : "";
+            strErrores += (publicDelForm.obtenerMayorOferta() >= Convert.ToDecimal(montoOfertado)) ? "No se puede realizar esta acción dado que el precio de la subasta es mayor al ingresado" : "";
             if (strErrores.Length > 0)
             {
                 return strErrores;
