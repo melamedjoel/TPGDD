@@ -189,6 +189,7 @@ namespace Clases
             this.Dom_piso = Convert.ToInt32(dr["Dom_piso"]);
             this.Dom_depto = dr["Dom_depto"].ToString();
             this.Dom_cod_postal = dr["Dom_cod_postal"].ToString();
+            this.Dom_ciudad = dr["Dom_ciudad"].ToString();
             this.Activo = Convert.ToBoolean(dr["Activo"]);
             this.Usuario = new Usuario(Convert.ToInt32(dr["id_Usuario"]));
             if (!String.IsNullOrEmpty(dr["Reputacion"].ToString())) this.Reputacion = Convert.ToDecimal(dr["Reputacion"]);
