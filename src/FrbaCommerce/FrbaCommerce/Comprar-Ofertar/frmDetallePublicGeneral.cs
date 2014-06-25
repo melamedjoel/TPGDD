@@ -40,7 +40,7 @@ namespace FrbaCommerce.Comprar_Ofertar
             //valido que pueda comprar u ofertar
             if (puedeComprarUOfertar())
             {
-                grpPreguntas.Visible = unaPublic.Permiso_Preguntas;
+                grpPreguntas.Visible = puedePreguntar();
                 //segun el tipo de publicacion, veo que botones mostrarle
                 if (publicDelForm.Tipo_Publicacion.Nombre == "Subasta")
                 {
@@ -61,6 +61,14 @@ namespace FrbaCommerce.Comprar_Ofertar
                 grpPreguntas.Visible = false;
             }
 
+        }
+
+        private bool puedePreguntar()
+        {
+            if (publicDelForm.Usuario.Username == unUsuario.Username)
+                return false;
+
+            return true;
         }
 
         private bool puedeComprarUOfertar()
