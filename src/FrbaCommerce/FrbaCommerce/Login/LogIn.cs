@@ -17,6 +17,7 @@ namespace FrbaCommerce.Login
     public partial class LogIn : Form
     {
         int intentosFallidos = 0;
+        string ultimoUserIngresado = "";
         int maxIntentosFallidos = Convert.ToInt32(ConfigurationManager.AppSettings["MaxIntentosFallidosLogIn"]);
         Usuario user = new Usuario();
 
@@ -34,24 +35,39 @@ namespace FrbaCommerce.Login
 
         private void btnLogIn_Click(object sender, EventArgs e)
         {
+            string claveIngresada = Encryptor.GetSHA256(txtClave.Text);
             try
             {
                 ValidarCampos();
                 user.Username = txtUser.Text;
-                user.Clave = Encryptor.GetSHA256(txtClave.Text);
 
                 //voy a la BD a buscar el usuario con los datos ingresados. si lo encuentra, realiza las acciones
                 //correspondientes a un logueo exitoso, sino, suma un intento fallido, avisa, y verifica si ya alcanzo
                 //la maxima cantidad de intentos fallidos
-                if (user.IntentarLogIn())
+
+                if (user.obtenerUsuarioPorUsername())
                 {
-                    RealizarAccionesLogInExitoso();
+                    if (user.Clave.Trim() == claveIngresada.Trim())
+                    {
+                        RealizarAccionesLogInExitoso();
+                    }
+                    else
+                    {
+                        if (user.Username != ultimoUserIngresado)
+                        {
+                            intentosFallidos = 0;
+                            ultimoUserIngresado = txtUser.Text;
+                        }
+                        intentosFallidos++;
+                        MessageBox.Show("El usuario o clave ingresado es incorrecto. Por favor, ingrese los datos correctamente", "Log In fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        VerificarSiSeAlcanzoLaCantidadMaxima();
+                    }
                 }
                 else
                 {
-                    intentosFallidos++;
+                    intentosFallidos = 0;
                     MessageBox.Show("El usuario o clave ingresado es incorrecto. Por favor, ingrese los datos correctamente", "Log In fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    VerificarSiSeAlcanzoLaCantidadMaxima();
                 }
             }
             catch (ErrorConsultaException ex)

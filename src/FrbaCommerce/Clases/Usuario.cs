@@ -118,10 +118,10 @@ namespace Clases
             return ds;
         }
 
-        public bool IntentarLogIn()
+        public bool obtenerUsuarioPorUsername()
         {
-            setearListaDeParametrosConUsuarioYClave();
-            DataSet ds = SQLHelper.ExecuteDataSet("traerUsuarioPorUsernameYClave", CommandType.StoredProcedure, parameterList);
+            setearListaDeParametrosConUsuario();
+            DataSet ds = SQLHelper.ExecuteDataSet("traerUsuarioPorUsername", CommandType.StoredProcedure, parameterList);
             parameterList.Clear();
             if (ds.Tables[0].Rows.Count == 1)
             {
