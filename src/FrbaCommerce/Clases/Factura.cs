@@ -19,6 +19,12 @@ namespace Clases
         private decimal _Precio_Total;
         private Forma_Pago _Forma_Pago;
         private Usuario _id_Usuario;
+        private string _Tarjeta;
+        private int _Nro_Tarjeta;
+        private string _Titular;
+        private DateTime _Fecha_Vencimiento;
+        private int _Dni;
+        private int _Codigo_seg;
 
         #endregion
 
@@ -48,6 +54,40 @@ namespace Clases
         {
             get { return _id_Usuario; }
             set { _id_Usuario = value; }
+        }
+
+        public string Tarjeta
+        {
+            get { return _Tarjeta; }
+            set { _Tarjeta = value; }
+        }
+
+        public int Nro_Tarjeta
+        {
+            get { return _Nro_Tarjeta; }
+            set { _Nro_Tarjeta = value; }
+        }
+
+        public string Titular
+        {
+            get { return _Titular; }
+            set { _Titular = value; }
+        }
+
+        public DateTime Fecha_Vencimiento
+        {
+            get { return _Fecha_Vencimiento; }
+            set { _Fecha_Vencimiento = value; }
+        }
+        public int Dni
+        {
+            get { return _Dni; }
+            set { _Dni = value; }
+        }
+        public int Codigo_seg
+        {
+            get { return _Codigo_seg; }
+            set { _Codigo_seg = value; }
         }
 
         #endregion

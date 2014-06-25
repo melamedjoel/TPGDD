@@ -243,6 +243,14 @@ namespace FrbaCommerce.Facturar_Publicaciones
                 //el precio total equivale a la suma de todos los montos de los items de esa factura
                 factura.Precio_Total = listaDeItemsPorFactura.Sum(item => item.Monto);
 
+                //seteo los datos de la tarjeta
+                factura.Tarjeta = (String.IsNullOrEmpty(txtTarjeta.Text)) ? "" : (txtTarjeta.Text);
+                if(!(String.IsNullOrEmpty(txtNroTarj.Text))) factura.Nro_Tarjeta = Convert.ToInt32(txtNroTarj.Text);
+                factura.Titular = (String.IsNullOrEmpty(txtTitular.Text)) ? "" : (txtTitular.Text);
+                if(!(String.IsNullOrEmpty(txtDni.Text))) factura.Dni = Convert.ToInt32(txtDni.Text);
+                if (!(String.IsNullOrEmpty(txtCodigo.Text))) factura.Codigo_seg = Convert.ToInt32(txtCodigo.Text);
+                if (cmbFormaDePago.SelectedIndex == 1 || cmbFormaDePago.SelectedIndex == 2) factura.Fecha_Vencimiento = Convert.ToDateTime(cmbFecha.Text);
+                
                 int nroFact = factura.GuardarYObtenerID();
 
                 foreach(Item_Factura itemF in listaDeItemsPorFactura)
@@ -256,6 +264,21 @@ namespace FrbaCommerce.Facturar_Publicaciones
                 txtCantidad.Clear();
             }
 
+        }
+
+        private void cmbFormaDePago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbFormaDePago.SelectedIndex != 0)
+            {
+                grpTarjeta.Visible = true;
+            }
+
+            grpTarjeta.Visible = false;
+            txtCodigo.Text = "";
+            txtDni.Text = "";
+            txtNroTarj.Text = "";
+            txtTarjeta.Text = "";
+            txtTitular.Text = "";
         }
 
         

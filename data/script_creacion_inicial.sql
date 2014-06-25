@@ -3,6 +3,7 @@ GO
 CREATE SCHEMA [ATJ] AUTHORIZATION [gd]
 GO
 
+
 BEGIN TRANSACTION
 GO
 SET QUOTED_IDENTIFIER ON
@@ -324,9 +325,16 @@ CREATE TABLE ATJ.Facturas
 	Fecha datetime NULL DEFAULT GETDATE(),
 	Precio_Total numeric(18, 2) NULL,
 	id_Forma_Pago int NULL,
-	id_Usuario int NOT NULL
+	id_Usuario int NOT NULL,
+	Tarjeta nvarchar(255) NULL,
+	Nro_Tarjeta numeric(18,0) NULL,
+	Titular nvarchar(255) NULL,
+	Fecha_Vencimiento datetime NULL,
+	Dni numeric(18,0) NULL,
+	Codigo_seg numeric(18,0) NULL	
 	)  ON [PRIMARY]
 GO
+
 ALTER TABLE ATJ.Facturas ADD CONSTRAINT
 	PK_Facturas PRIMARY KEY CLUSTERED 
 	(
@@ -870,7 +878,11 @@ COMMIT
 BEGIN TRANSACTION
 GO
 INSERT INTO ATJ.Formas_Pago
-SELECT DISTINCT M.Forma_Pago_Desc FROM gd_esquema.Maestra M where M.Factura_Nro is not null;
+(Descripcion) 
+VALUES
+('Efectivo'),
+('Tarjeta de Crédito'),
+('Tarjeta de Débito');
 
 SET IDENTITY_INSERT ATJ.Facturas ON;
 
