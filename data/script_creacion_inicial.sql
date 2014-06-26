@@ -824,8 +824,14 @@ where Publicacion_Tipo = 'Subasta' AND Cli_Dni is not nulL AND Oferta_Monto IS n
 UPDATE ATJ.Ofertas  
 SET gano_Subasta = (CASE WHEN Monto = (SELECT MAX(Oferta_Monto) FROM gd_esquema.Maestra AS "M" WHERE M.Publicacion_Cod = Ofertas.cod_Publicacion)
 THEN '1' ELSE '0' END);
-COMMIT
 
+--Migracion de subastas ganadas a Tabla Compras
+INSERT INTO ATJ.Compras(cod_Publicacion, id_Usuario_Vendedor, id_Usuario_Comprador, Fecha, Cantidad)
+(select o.cod_Publicacion, o.id_Usuario_Vendedor, o.id_Usuario_Comprador, o.Fecha, p.Stock
+from ATJ.Ofertas AS O
+INNER JOIN ATJ.Publicaciones AS P ON P.Codigo = O.cod_Publicacion 
+where gano_Subasta = 1);
+COMMIT
 --------------------------------------------------------------------------------------------------------------------
 
 --Migracion de datos de tabla Rol_Usuario
