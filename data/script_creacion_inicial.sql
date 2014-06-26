@@ -2198,7 +2198,7 @@ SELECT P.*
 FROM ATJ.Publicaciones P
 INNER JOIN ATJ.Compras C ON C.cod_Publicacion = P.Codigo
 WHERE (P.Fecha_vencimiento <= @Fecha
-OR P.Stock = 0
+OR P.Stock = 0)
 AND P.id_Usuario = @Id_Usuario
 AND P.Codigo NOT IN (SELECT I.cod_Publicacion FROM ATJ.Item_Factura I)
 ORDER BY C.Fecha ASC
