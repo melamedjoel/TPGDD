@@ -120,10 +120,6 @@ namespace FrbaCommerce.Facturar_Publicaciones
             {
                 ValidarCampos();
                 if (grpTarjeta.Visible == true) ValidarCamposTarjeta();
-                if (listaDePublicacionesARendir.Count < Convert.ToInt32(txtCantidad.Text))
-                {
-
-                }
                 facturarPublicaciones();
             }
 
@@ -280,12 +276,12 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
                 //seteo los datos de la tarjeta
                 factura.Tarjeta = (String.IsNullOrEmpty(txtTarjeta.Text)) ? "" : (txtTarjeta.Text);
-                if(!(String.IsNullOrEmpty(txtNroTarj.Text))) factura.Nro_Tarjeta = Convert.ToInt32(txtNroTarj.Text);
+                if (!(String.IsNullOrEmpty(txtNroTarj.Text))) factura.Nro_Tarjeta = Convert.ToInt32(txtNroTarj.Text);
                 factura.Titular = (String.IsNullOrEmpty(txtTitular.Text)) ? "" : (txtTitular.Text);
-                if(!(String.IsNullOrEmpty(txtDni.Text))) factura.Dni = Convert.ToInt32(txtDni.Text);
+                if (!(String.IsNullOrEmpty(txtDni.Text))) factura.Dni = Convert.ToInt32(txtDni.Text);
                 if (!(String.IsNullOrEmpty(txtCodigo.Text))) factura.Codigo_seg = Convert.ToInt32(txtCodigo.Text);
                 if (cmbFormaDePago.SelectedIndex == 1 || cmbFormaDePago.SelectedIndex == 2) factura.Fecha_Vencimiento = Convert.ToDateTime(cmbFecha.Text);
-                
+            
                 int nroFact = factura.GuardarYObtenerID();
 
                 foreach(Item_Factura itemF in listaDeItemsPorFactura)
@@ -297,6 +293,9 @@ namespace FrbaCommerce.Facturar_Publicaciones
                 MessageBox.Show("Las publicaciones a rendir han sido facturadas correctamente", "Atencion");
                 cargarListadoDePublicacionesAFacturar();
                 txtCantidad.Clear();
+                listaDeComprasPorCodPubli.Clear();
+                listaDeItemsPorFactura.Clear();
+                listaDePublicacionesARendir.Clear();
             }
 
         }

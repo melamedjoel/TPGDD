@@ -2221,12 +2221,12 @@ CREATE PROCEDURE ATJ.insertFactura_RetornarID
     @Precio_Total numeric(18,2),
     @id_Forma_Pago int,
     @id_Usuario int,
-    @Tarjeta nvarchar(255),
-    @Nro_Tarjeta numeric(18,0),
-    @Titular nvarchar(255),
-    @Fecha_Vencimiento datetime,
-    @Dni numeric(18,0),
-    @Codigo_seg numeric(18,0)
+    @Tarjeta nvarchar(255) = null,
+    @Nro_Tarjeta numeric(18,0) = null,
+    @Titular nvarchar(255) = null,
+    @Fecha_Vencimiento datetime = null,
+    @Dni numeric(18,0) = null,
+    @Codigo_seg numeric(18,0) = null
 AS
 INSERT INTO ATJ.Facturas
 (Fecha,Precio_Total,id_Forma_Pago, id_Usuario, Tarjeta,Nro_Tarjeta,Titular,

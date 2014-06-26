@@ -115,8 +115,17 @@ namespace Clases
 
         public int GuardarYObtenerID()
         {
-            //se guarda una nueva factura y devuelve el numero de factura que se le asignó
-            this.setearListaDeParametros();
+            //se guarda una nueva factura y devuelve el numero de factura que se le asignó según la forma de pago
+            if (this.Forma_Pago.id_Forma_Pago != 1)
+            {
+                this.setearListaDeParametrosConTarjeta();
+            }
+
+            else
+            {
+                this.setearListaDeParametros();
+            }
+
             DataSet dsNuevaFactura = this.GuardarYObtenerID(this.parameterList);
             this.nro_Factura = Convert.ToInt32(dsNuevaFactura.Tables[0].Rows[0]["nro_Factura"]);
             return this.nro_Factura;
@@ -125,8 +134,16 @@ namespace Clases
         #endregion
 
         #region metodos privados
-        
+
         private void setearListaDeParametros()
+        {
+            parameterList.Add(new SqlParameter("@Fecha", this.Fecha));
+            parameterList.Add(new SqlParameter("@Precio_Total", this.Precio_Total));
+            parameterList.Add(new SqlParameter("@id_Forma_Pago", this.Forma_Pago.id_Forma_Pago));
+            parameterList.Add(new SqlParameter("@id_Usuario", this.id_Usuario.Id_Usuario));
+        }
+        
+        private void setearListaDeParametrosConTarjeta()
         {
             parameterList.Add(new SqlParameter("@Fecha", this.Fecha));
             parameterList.Add(new SqlParameter("@Precio_Total", this.Precio_Total));
