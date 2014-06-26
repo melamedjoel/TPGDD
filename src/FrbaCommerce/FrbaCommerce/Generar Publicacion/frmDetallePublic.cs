@@ -318,6 +318,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 publicDelForm.Tipo_Publicacion = new Tipo_Publicacion(Convert.ToInt32(cmbTipo.SelectedValue));
                 publicDelForm.Estado_Publicacion = new Estado_Publicacion(Convert.ToInt32(cmbEstado.SelectedValue));
                 publicDelForm.Permiso_Preguntas = chkPregs.Checked;
+                publicDelForm.Rubros.Clear();
                 foreach (Rubro unRubro in lstRubros.CheckedItems)
                 {
                     publicDelForm.Rubros.Add(unRubro);
