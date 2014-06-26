@@ -134,8 +134,6 @@ namespace FrbaCommerce.Facturar_Publicaciones
             //valido que lo ingresado en el campo cantidad no sea distinto a un número ni null
             string strErrores = "";
             strErrores += Validator.SoloNumeros(txtCantidad.Text, "Cantidad");
-            strErrores += Validator.ValidarNulo(txtCantidad.Text, "Cantidad");
-
             strErrores += Validator.ValidarCantidadMenor(txtCantidad.Text, listaDePublicacionesAFacturar.Count, "Cantidad");
            
             if (strErrores.Length > 0)
@@ -148,8 +146,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
         {
             string strErrores = "";
             strErrores += Validator.SoloNumeros(txtNroTarj.Text, "Número de tarjeta");
-            strErrores += Validator.ValidarNulo(txtNroTarj.Text, "Número de tarjeta");
-
+            
             strErrores += Validator.ValidarNulo(txtTarjeta.Text, "Tarjeta");
 
             strErrores += Validator.ValidarNulo(txtTarjeta.Text, "Titular");
@@ -158,11 +155,9 @@ namespace FrbaCommerce.Facturar_Publicaciones
             strErrores += Validator.ValidarFechaVencimiento(cmbFecha.Text, "Fecha de Vencimiento",fecha);
 
             strErrores += Validator.SoloNumeros(txtDni.Text, "DNI");
-            strErrores += Validator.ValidarNulo(txtDni.Text, "DNI");
-
+           
             strErrores += Validator.SoloNumeros(txtCodigo.Text, "Código de Seguridad");
-            strErrores += Validator.ValidarNulo(txtCodigo.Text, "Código de Seguridad");
-
+            
             if (strErrores.Length > 0)
             {
                 throw new Exception(strErrores);
