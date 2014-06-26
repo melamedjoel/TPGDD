@@ -236,7 +236,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                     Item_Factura itFact = new Item_Factura();
                     itFact.Publicacion = unaPubli;
                     itFact.Cantidad = 1;
-                    //el monto del item (comisión) corresponde al precio de esa publicación por el porcentaje de visibilidad
+                    //el monto del item (comisión) corresponde al monto de esa subasta ganada por el porcentaje de visibilidad
                     itFact.Monto = (unaOferta.Monto * unaPubli.Visibilidad.Porcentaje/100);
 
                     listaDeItemsPorFactura.Add(itFact);
