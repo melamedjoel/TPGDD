@@ -2238,8 +2238,9 @@ CREATE PROCEDURE ATJ.traerListadoComprasPorCodigoPubli
 AS
 
 SELECT *
-FROM ATJ.Compras 
-WHERE cod_Publicacion = @cod_Publicacion
+FROM ATJ.Compras C
+WHERE C.cod_Publicacion = @cod_Publicacion
+AND C.cod_Publicacion NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O)
 GO
 
 
