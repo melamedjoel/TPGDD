@@ -1831,20 +1831,6 @@ GO
 CREATE PROCEDURE ATJ.traerListadoUsuariosVendedoresSinCalificar
 	@id_Usuario int
 AS
-	SELECT	o.cod_Publicacion,
-			Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
-			T.Nombre, P.Descripcion, O.Fecha
-	FROM ATJ.Ofertas O
-	INNER JOIN ATJ.Publicaciones P ON P.Codigo = O.cod_Publicacion
-	INNER JOIN ATJ.Tipos_Publicacion T ON T.id_Tipo = P.id_Tipo
-	LEFT JOIN ATJ.Empresas E ON O.id_Usuario_Vendedor = E.id_Usuario
-	LEFT JOIN ATJ.Clientes S ON O.id_Usuario_Vendedor = S.id_Usuario
-	WHERE	O.id_Usuario_Comprador = @id_Usuario 
-	AND		O.gano_Subasta = 1
-	AND		O.cod_Publicacion NOT IN (SELECT cod_Publicacion FROM ATJ.Calificaciones)
-	
-	UNION
-	
 	SELECT	c.cod_Publicacion,
 			Vendedor = (CASE WHEN E.id_Usuario IS NULL THEN S.Nombre+' '+S.Apellido ELSE E.Razon_social END),
 			T.Nombre, P.Descripcion, C.Fecha
@@ -2029,8 +2015,7 @@ LEFT JOIN ATJ.Empresas E ON E.id_Usuario = P.id_Usuario
 LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
 AND YEAR(P.Fecha_creacion) = @Anio
-AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
-AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
+AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C))
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario
 ORDER BY CantPublicNoVendidos DESC
 GO
@@ -2113,8 +2098,7 @@ LEFT JOIN ATJ.Clientes S ON S.id_Usuario = P.id_Usuario
 INNER JOIN ATJ.Visibilidades V ON P.cod_Visibilidad = V.cod_Visibilidad
 WHERE MONTH(P.Fecha_creacion) BETWEEN MONTH(@Fecha_Desde) AND MONTH(@Fecha_Hasta)
 AND YEAR(P.Fecha_creacion) = @Anio
-AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C)
-AND P.Codigo NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O WHERE O.gano_Subasta = 1))
+AND(P.Codigo NOT IN (SELECT C.cod_Publicacion FROM ATJ.Compras C))
 AND V.Descripcion = (CASE WHEN @GradoVisibilidad <> '' THEN @GradoVisibilidad ELSE V.Descripcion END) 
 AND MONTH(P.Fecha_creacion) = (CASE WHEN @Mes <> '' THEN @Mes ELSE MONTH(P.Fecha_creacion) END)
 GROUP BY P.id_Usuario, E.id_Usuario, S.Nombre, S.Apellido, E.Razon_social, S.id_Usuario 
