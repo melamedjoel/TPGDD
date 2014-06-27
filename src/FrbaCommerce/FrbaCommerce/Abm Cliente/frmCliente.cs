@@ -134,7 +134,7 @@ namespace FrbaCommerce.Abm_Cliente
             this.Show();
 
             cmbTipoDni.SelectedIndex = 0;
-            txtDni.Enabled = false;
+            txtDni.Enabled = true;
 
             txtApellido.Text = "";
             txtCalle.Text = "";
