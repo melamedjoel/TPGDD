@@ -215,7 +215,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                     itFact.Cantidad = unaCompra.Cantidad;
                     //el monto del item (comisión) corresponde al precio de esa publicación por el porcentaje
                     //visibilidad por la cantidad de compras que se hicieron
-                    itFact.Monto = (unaPublicacion.Precio * unaPublicacion.Visibilidad.Porcentaje/100) * unaCompra.Cantidad;
+                    itFact.Monto = (unaPublicacion.Precio * unaPublicacion.Visibilidad.Porcentaje) * unaCompra.Cantidad;
 
                     listaDeItemsPorFactura.Add(itFact);
                 }
@@ -237,7 +237,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                     itFact.Publicacion = unaPublicacion;
                     itFact.Cantidad = 1;
                     //el monto del item (comisión) corresponde al monto de esa subasta ganada por el porcentaje de visibilidad
-                    itFact.Monto = (unaOferta.Monto * unaPublicacion.Visibilidad.Porcentaje/100);
+                    itFact.Monto = (unaOferta.Monto * unaPublicacion.Visibilidad.Porcentaje);
 
                     listaDeItemsPorFactura.Add(itFact);
                 }
@@ -249,6 +249,9 @@ namespace FrbaCommerce.Facturar_Publicaciones
                 itemPublicacion.Cantidad = 1;
 
                 listaDeItemsPorFactura.Add(itemPublicacion);
+
+                listaDeComprasPorCodPublicacion.Clear();
+                listaDeOfertasPorCodPublicacion.Clear();
 
             }
 
@@ -288,11 +291,10 @@ namespace FrbaCommerce.Facturar_Publicaciones
                 MessageBox.Show("Las publicaciones a rendir han sido facturadas correctamente", "Atencion");
                 cargarListadoDePublicacionesAFacturar();
                 txtCantidad.Clear();
-                listaDeComprasPorCodPublicacion.Clear();
-                listaDeItemsPorFactura.Clear();
-                listaDePublicacionesARendir.Clear();
             }
 
+            listaDeItemsPorFactura.Clear();
+            listaDePublicacionesARendir.Clear();
         }
 
         private void cmbFormaDePago_SelectedIndexChanged(object sender, EventArgs e)
