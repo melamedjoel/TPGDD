@@ -313,7 +313,10 @@ namespace Clases
             parameterList.Clear();
             if (ds.Tables[0].Rows.Count == 1)
             {
-                return Convert.ToDecimal(ds.Tables[0].Rows[0]["maxOferta"]);
+                if (String.IsNullOrEmpty(ds.Tables[0].Rows[0]["maxOferta"].ToString()))
+                    return Precio;
+                else
+                    return Convert.ToDecimal(ds.Tables[0].Rows[0]["maxOferta"]);
             }
 
             return Precio;

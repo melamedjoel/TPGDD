@@ -142,6 +142,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                 }
                 
                 DataSet ds = Publicacion.obtenerTodasConFiltros(Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]),txtDescripcion.Text, filtroDeRubros);
+                paginado = 0;
                 llenarPublicaciones(ds);
                 configurarGrilla();
                 btnAnterior.Visible = false;

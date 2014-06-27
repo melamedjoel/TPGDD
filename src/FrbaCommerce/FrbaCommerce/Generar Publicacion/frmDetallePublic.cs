@@ -299,7 +299,8 @@ namespace FrbaCommerce.Generar_Publicacion
 
         private void btnRestarStock_Click(object sender, EventArgs e)
         {
-            txtStock.Text = (Convert.ToInt32(txtStock.Text) - 1).ToString();
+            if(Convert.ToInt32(txtStock.Text) != 0)
+                txtStock.Text = (Convert.ToInt32(txtStock.Text) - 1).ToString();
         }
 
         private void btnGenerar_Click(object sender, EventArgs e)

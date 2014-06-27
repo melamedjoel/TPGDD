@@ -672,7 +672,7 @@ GO
 DECLARE @number AS INT;
 SET IDENTITY_INSERT ATJ.Visibilidades ON;
 
-INSERT INTO ATJ.Visibilidades (cod_Visibilidad, Descripcion, Porcentaje, Precio, Duracion)
+INSERT INTO ATJ.Visibilidades (cod_Visibilidad, Descripcion, Precio, Porcentaje, Duracion)
 (SELECT DISTINCT [Publicacion_Visibilidad_Cod]
 				,[Publicacion_Visibilidad_Desc]
 				,[Publicacion_Visibilidad_Precio]

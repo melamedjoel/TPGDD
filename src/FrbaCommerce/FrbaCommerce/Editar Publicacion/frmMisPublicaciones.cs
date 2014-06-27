@@ -81,7 +81,7 @@ namespace FrbaCommerce.Editar_Publicacion
                 Creacion = unaPub.Fecha_creacion,
                 Vencimiento = unaPub.Fecha_vencimiento,
                 Stock = unaPub.Stock,
-                Precio = unaPub.Precio,
+                Precio = unaPub.obtenerPrecioSegunTipo(),
                 Preguntas = unaPub.Permiso_Preguntas,
                 Tipo = unaPub.Tipo_Publicacion.Nombre,
                 Visibilidad = unaPub.Visibilidad.Descripcion,
