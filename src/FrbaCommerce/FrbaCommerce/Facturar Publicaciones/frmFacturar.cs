@@ -20,8 +20,8 @@ namespace FrbaCommerce.Facturar_Publicaciones
         List<Publicacion> listaDePublicacionesARendir = new List<Publicacion>();
         List<Publicacion> listaDePublicacionesAFacturar = new List<Publicacion>();
         List<Item_Factura> listaDeItemsPorFactura = new List<Item_Factura>();
-        List<Compra> listaDeComprasPorCodPubli = new List<Compra>();
-        List<Oferta> listaDeOfertasPorCodPubli = new List<Oferta>();
+        List<Compra> listaDeComprasPorCodPublicacion = new List<Compra>();
+        List<Oferta> listaDeOfertasPorCodPublicacion = new List<Oferta>();
 
         public void abrirConUsuario(Usuario user)
         {
@@ -49,7 +49,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
             try
             {
                 //obtengo todas las publicaciones a rendir segun el usuario
-                DataSet ds = Publicacion.obtenerPublisARendir(unUsuario, Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]));
+                DataSet ds = Publicacion.obtenerPublicacionesARendir(unUsuario, Convert.ToDateTime(ConfigurationManager.AppSettings["Fecha"]));
                 configurarGrillaPublicacionesAFacturar(ds);
                 llenarListadoDePublicaciones(ds);
             }          
@@ -193,59 +193,59 @@ namespace FrbaCommerce.Facturar_Publicaciones
                 listaDePublicacionesARendir.Add(listaDePublicacionesAFacturar[a]);
             }
 
-            foreach (Publicacion unaPubli in listaDePublicacionesARendir)
+            foreach (Publicacion unaPublicacion in listaDePublicacionesARendir)
             {
                 //por cada publicacion de la lista, se obtienen las compras que se realizaron de las mismas
                 // y se las convierte en objeto y se las guarda en una lista
-                DataSet ds = Compra.obtenerComprasPorCodPubli(unaPubli.Codigo);
+                DataSet ds = Compra.obtenerComprasPorCodPublicacion(unaPublicacion.Codigo);
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     Compra unaCompra = new Compra();
                     unaCompra.DataRowToObject(dr);
-                    listaDeComprasPorCodPubli.Add(unaCompra);
+                    listaDeComprasPorCodPublicacion.Add(unaCompra);
                 }
 
 
-                foreach (Compra unaCompra in listaDeComprasPorCodPubli)
+                foreach (Compra unaCompra in listaDeComprasPorCodPublicacion)
                 {
                     //cada compra que se realizo de esa publicacion va a ser un nuevo item en la factura
                     Item_Factura itFact = new Item_Factura();
-                    itFact.Publicacion = unaPubli;
+                    itFact.Publicacion = unaPublicacion;
                     itFact.Cantidad = unaCompra.Cantidad;
                     //el monto del item (comisión) corresponde al precio de esa publicación por el porcentaje
                     //visibilidad por la cantidad de compras que se hicieron
-                    itFact.Monto = (unaPubli.Precio * unaPubli.Visibilidad.Porcentaje/100) * unaCompra.Cantidad;
+                    itFact.Monto = (unaPublicacion.Precio * unaPublicacion.Visibilidad.Porcentaje/100) * unaCompra.Cantidad;
 
                     listaDeItemsPorFactura.Add(itFact);
                 }
 
-                DataSet dsOferta = Oferta.obtenerOfertasPorCodPubli(unaPubli.Codigo);
+                DataSet dsOferta = Oferta.obtenerOfertasPorCodPublicacion(unaPublicacion.Codigo);
 
                 foreach (DataRow dr in dsOferta.Tables[0].Rows)
                 {
                     Oferta unaOferta = new Oferta();
                     unaOferta.DataRowToObject(dr);
-                    listaDeOfertasPorCodPubli.Add(unaOferta);
+                    listaDeOfertasPorCodPublicacion.Add(unaOferta);
                 }
 
-                foreach (Oferta unaOferta in listaDeOfertasPorCodPubli)
+                foreach (Oferta unaOferta in listaDeOfertasPorCodPublicacion)
                 {
                     //cada oferta que se realizó de esa publicacion y gano la subasta 
                     //va a ser un nuevo item en la factura
                     Item_Factura itFact = new Item_Factura();
-                    itFact.Publicacion = unaPubli;
+                    itFact.Publicacion = unaPublicacion;
                     itFact.Cantidad = 1;
                     //el monto del item (comisión) corresponde al monto de esa subasta ganada por el porcentaje de visibilidad
-                    itFact.Monto = (unaOferta.Monto * unaPubli.Visibilidad.Porcentaje/100);
+                    itFact.Monto = (unaOferta.Monto * unaPublicacion.Visibilidad.Porcentaje/100);
 
                     listaDeItemsPorFactura.Add(itFact);
                 }
 
                 //el último item factura es el de la publicación en si misma según su costo de visibilidad  
                 Item_Factura itemPublicacion = new Item_Factura();
-                itemPublicacion.Publicacion = unaPubli;
-                itemPublicacion.Monto = unaPubli.Visibilidad.Precio;
+                itemPublicacion.Publicacion = unaPublicacion;
+                itemPublicacion.Monto = unaPublicacion.Visibilidad.Precio;
                 itemPublicacion.Cantidad = 1;
 
                 listaDeItemsPorFactura.Add(itemPublicacion);
@@ -288,7 +288,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                 MessageBox.Show("Las publicaciones a rendir han sido facturadas correctamente", "Atencion");
                 cargarListadoDePublicacionesAFacturar();
                 txtCantidad.Clear();
-                listaDeComprasPorCodPubli.Clear();
+                listaDeComprasPorCodPublicacion.Clear();
                 listaDeItemsPorFactura.Clear();
                 listaDePublicacionesARendir.Clear();
             }

@@ -277,7 +277,7 @@ namespace Clases
             return textoRubros.Remove(textoRubros.Length - 2);
         }
 
-        public static DataSet obtenerPublisARendir(Usuario unUsuario, DateTime fecha)
+        public static DataSet obtenerPublicacionesARendir(Usuario unUsuario, DateTime fecha)
         {
             Publicacion unaPubli = new Publicacion();
             unaPubli.setearListaDeParametrosConIdUsuarioYFecha(unUsuario.Id_Usuario, fecha);

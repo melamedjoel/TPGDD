@@ -116,11 +116,11 @@ namespace Clases
 
         }
 
-        public static DataSet obtenerComprasPorCodPubli(int codigo)
+        public static DataSet obtenerComprasPorCodPublicacion(int codigo)
         {
             Compra unaCompra = new Compra();
             unaCompra.setearListaDeParametrosConCodPublicacion(codigo);
-            DataSet ds = unaCompra.TraerListado(unaCompra.parameterList, "PorCodigoPubli");
+            DataSet ds = unaCompra.TraerListado(unaCompra.parameterList, "PorCodigoPublicacion");
             unaCompra.parameterList.Clear();
             return ds;
         }

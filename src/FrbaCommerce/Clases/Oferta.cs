@@ -123,11 +123,11 @@ namespace Clases
 
         }
 
-        public static DataSet obtenerOfertasPorCodPubli(int codigo)
+        public static DataSet obtenerOfertasPorCodPublicacion(int codigo)
         {
             Oferta unaOferta = new Oferta();
             unaOferta.setearListaDeParametrosConCodPublicacion(codigo);
-            DataSet ds = unaOferta.TraerListado(unaOferta.parameterList, "PorCodigoPubli");
+            DataSet ds = unaOferta.TraerListado(unaOferta.parameterList, "GanadasPorCodigoPublicacion");
             unaOferta.parameterList.Clear();
             return ds;
         }

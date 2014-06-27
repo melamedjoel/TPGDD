@@ -2238,8 +2238,8 @@ VALUES
 (@nro_Factura,@cod_Publicacion,@Monto,@Cantidad)
 GO
 
---Procedure traerListadoComprasPorCodigoPubli
-CREATE PROCEDURE ATJ.traerListadoComprasPorCodigoPubli
+--Procedure traerListadoComprasPorCodigoPublicacion
+CREATE PROCEDURE ATJ.traerListadoComprasPorCodigoPublicacion
 	@cod_Publicacion numeric(18,0)
 AS
 
@@ -2250,8 +2250,8 @@ AND C.cod_Publicacion NOT IN (SELECT O.cod_Publicacion FROM ATJ.Ofertas O)
 GO
 
 
---Procedure traerListadoOfertasPorCodigoPubli
-CREATE PROCEDURE ATJ.traerListadoOfertasPorCodigoPubli
+--Procedure traerListadoOfertasGanadasPorCodigoPublicacion
+CREATE PROCEDURE ATJ.traerListadoOfertasGanadasPorCodigoPublicacion
  @cod_Publicacion numeric(18,0)
 AS
 
